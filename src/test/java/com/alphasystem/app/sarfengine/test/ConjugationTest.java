@@ -5,8 +5,8 @@ package com.alphasystem.app.sarfengine.test;
 
 import com.alphasystem.app.sarfengine.conjugation.ConjugationMemberBuilder;
 import com.alphasystem.app.sarfengine.conjugation.builder.ConjugationBuilder;
+import com.alphasystem.app.sarfengine.conjugation.model.ConjugationMember;
 import com.alphasystem.arabic.model.ArabicLetterType;
-import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
 import org.testng.annotations.Test;
@@ -34,15 +34,15 @@ public class ConjugationTest extends CommonTest {
                                        ArabicLetterType firstRadical, ArabicLetterType secondRadical,
                                        ArabicLetterType thirdRadical) {
         printSarfTermType(sarfTermType);
-        ArabicWord[] conjugations = doConjugation(builder, skipRuleProcessing,
+        ConjugationMember[] conjugations = doConjugation(builder, skipRuleProcessing,
                 sarfTermType, firstRadical, secondRadical, thirdRadical);
         printTable(conjugations);
     }
 
-    private ArabicWord[] doConjugation(ConjugationBuilder builder,
-                                       boolean skipRuleProcessing, SarfTermType memberType,
-                                       ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                       ArabicLetterType thirdRadical) {
+    private ConjugationMember[] doConjugation(ConjugationBuilder builder,
+                                              boolean skipRuleProcessing, SarfTermType memberType,
+                                              ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                              ArabicLetterType thirdRadical) {
         ConjugationMemberBuilder memberBuilder = builder.getMemberBuilder(
                 skipRuleProcessing, memberType, firstRadical, secondRadical,
                 thirdRadical);
@@ -79,7 +79,7 @@ public class ConjugationTest extends CommonTest {
         log(format("<div>%s (%s)</div>", sarfTermType, label));
     }
 
-    void printTable(ArabicWord[] conjugations) {
+    void printTable(ConjugationMember[] conjugations) {
         log(TABLE_DECLERATION_START);
         log(TABLE_BODY_DECLERATION_START);
 
@@ -87,11 +87,11 @@ public class ConjugationTest extends CommonTest {
         int endIndexExclusive = NUM_OF_COLUMNS;
         int length = conjugations.length;
         while (startIndexInclusive < length) {
-            ArabicWord[] subarray = subarray(conjugations, startIndexInclusive,
+            ConjugationMember[] subarray = subarray(conjugations, startIndexInclusive,
                     endIndexExclusive);
             log(START_TABLE_ROW);
-            for (ArabicWord arabicWord : subarray) {
-                String text = format(ARABIC_TEXT_SPAN, arabicWord.toHtmlCode());
+            for (ConjugationMember arabicWord : subarray) {
+                String text = format(ARABIC_TEXT_SPAN, arabicWord.getConjugation().toHtmlCode());
                 log(format("%s%s%s", START_TABLE_COLUMN, text, END_TABLE_COLUMN));
             }
             log(END_TABLE_ROW);

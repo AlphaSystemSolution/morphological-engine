@@ -19,8 +19,6 @@ public final class ConjugationBuilderFactory {
 
     /**
      * @param template
-     * @param verbalNouns
-     * @param nounOfPlaceAndTime
      * @return
      */
     public static ConjugationBuilder getConjugationBuilder(

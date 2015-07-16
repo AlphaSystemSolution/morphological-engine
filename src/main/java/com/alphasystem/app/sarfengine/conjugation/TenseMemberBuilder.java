@@ -3,8 +3,8 @@
  */
 package com.alphasystem.app.sarfengine.conjugation;
 
+import com.alphasystem.app.sarfengine.conjugation.model.ConjugationMember;
 import com.alphasystem.arabic.model.ArabicWord;
-import com.alphasystem.arabic.model.SarfMemberType;
 
 import static com.alphasystem.arabic.model.HiddenPronounStatus.*;
 
@@ -15,28 +15,28 @@ public abstract class TenseMemberBuilder extends
         AbstractConjugationMemberBuilder {
 
     @Override
-    public ArabicWord[] doConjugation() {
-        ArabicWord[] words = new ArabicWord[15];
+    public ConjugationMember[] doConjugation() {
+        ConjugationMember[] words = new ConjugationMember[15];
 
-        words[2] = thirdPersonMasculineSingular();
-        words[1] = thirdPersonMasculineDual();
-        words[0] = thirdPersonMasculinePlural();
+        words[2] = new ConjugationMember(THIRD_PERSON_MASCULINE_SINGULAR, thirdPersonMasculineSingular());
+        words[1] = new ConjugationMember(THIRD_PERSON_MASCULINE_DUAL, thirdPersonMasculineDual());
+        words[0] = new ConjugationMember(THIRD_PERSON_MASCULINE_PLURAL, thirdPersonMasculinePlural());
 
-        words[5] = thirdPersonFeminineSingular();
-        words[4] = thirdPersonFeminineDual();
-        words[3] = thirdPersonFemininePlural();
+        words[5] = new ConjugationMember(THIRD_PERSON_FEMININE_SINGULAR, thirdPersonFeminineSingular());
+        words[4] = new ConjugationMember(THIRD_PERSON_FEMININE_DUAL, thirdPersonFeminineDual());
+        words[3] = new ConjugationMember(THIRD_PERSON_FEMININE_PLURAL, thirdPersonFemininePlural());
 
-        words[8] = secondPersonMasculineSingular();
-        words[7] = secondPersonMasculineDual();
-        words[6] = secondPersonMasculinePlural();
+        words[8] = new ConjugationMember(SECOND_PERSON_MASCULINE_SINGULAR, secondPersonMasculineSingular());
+        words[7] = new ConjugationMember(SECOND_PERSON_MASCULINE_DUAL, secondPersonMasculineDual());
+        words[6] = new ConjugationMember(SECOND_PERSON_MASCULINE_PLURAL, secondPersonMasculinePlural());
 
-        words[11] = secondPersonFeminineSingular();
-        words[10] = secondPersonFeminineDual();
-        words[9] = secondPersonFemininePlural();
+        words[11] = new ConjugationMember(SECOND_PERSON_FEMININE_SINGULAR, secondPersonFeminineSingular());
+        words[10] = new ConjugationMember(SECOND_PERSON_FEMININE_DUAL, secondPersonFeminineDual());
+        words[9] = new ConjugationMember(SECOND_PERSON_FEMININE_PLURAL, secondPersonFemininePlural());
 
-        words[14] = firstPersonSingular();
-        words[13] = new ArabicWord(LETTER_SPACE);
-        words[12] = firstPersonPlural();
+        words[14] = new ConjugationMember(FIRST_PERSON_SINGULAR, firstPersonSingular());
+        words[13] = null;
+        words[12] = new ConjugationMember(FIRST_PERSON_PLURAL, firstPersonPlural());
 
         return words;
     }
@@ -142,13 +142,8 @@ public abstract class TenseMemberBuilder extends
     }
 
     @Override
-    public ArabicWord getDefaultConjugation() {
-        return thirdPersonMasculineSingular();
-    }
-
-    @Override
-    public SarfMemberType getDefaultMember() {
-        return THIRD_PERSON_MASCULINE_SINGULAR;
+    public ConjugationMember getDefaultConjugation() {
+        return new ConjugationMember(THIRD_PERSON_MASCULINE_SINGULAR, thirdPersonMasculineSingular());
     }
 
     public ArabicWord secondPersonFeminineDual() {

@@ -4,6 +4,7 @@
 package com.alphasystem.app.sarfengine.conjugation.triliteralwords;
 
 import com.alphasystem.app.sarfengine.conjugation.AbstractConjugationMemberBuilder;
+import com.alphasystem.app.sarfengine.conjugation.model.ConjugationMember;
 import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
@@ -27,26 +28,26 @@ public abstract class AbstractTriLiteralImperativeAndForbiddingBuilder<P extends
 
     protected Class<P> presentTenseBuilderClass;
     protected P builder;
-    protected ArabicWord[] conjugations;
+    protected ConjugationMember[] conjugations;
     protected boolean forbidding;
     protected ArabicLetter imperativeLetter;
 
     @Override
-    public ArabicWord[] doConjugation() {
-        ArabicWord[] words = new ArabicWord[6];
+    public ConjugationMember[] doConjugation() {
+        ConjugationMember[] words = new ConjugationMember[6];
 
-        words[2] = secondPersonMasculineSingular();
-        words[1] = secondPersonMasculineDual();
-        words[0] = secondPersonMasculinePlural();
+        words[2] = new ConjugationMember(SECOND_PERSON_MASCULINE_SINGULAR, secondPersonMasculineSingular());
+        words[1] = new ConjugationMember(SECOND_PERSON_MASCULINE_DUAL, secondPersonMasculineDual());
+        words[0] = new ConjugationMember(SECOND_PERSON_MASCULINE_PLURAL, secondPersonMasculinePlural());
 
-        words[5] = secondPersonFeminineSingular();
-        words[4] = secondPersonFeminineDual();
-        words[3] = secondPersonFemininePlural();
+        words[5] = new ConjugationMember(SECOND_PERSON_FEMININE_SINGULAR, secondPersonFeminineSingular());
+        words[4] = new ConjugationMember(SECOND_PERSON_FEMININE_DUAL, secondPersonFeminineDual());
+        words[3] = new ConjugationMember(SECOND_PERSON_FEMININE_PLURAL, secondPersonFemininePlural());
 
         return words;
     }
 
-    protected ArabicWord doPostecondPersonMasculinePlural(ArabicWord src) {
+    protected ArabicWord doPostSecondPersonMasculinePlural(ArabicWord src) {
         return doPostProcessConjugation(SECOND_PERSON_MASCULINE_PLURAL, src);
     }
 
@@ -85,23 +86,23 @@ public abstract class AbstractTriLiteralImperativeAndForbiddingBuilder<P extends
     }
 
     protected ArabicWord doSecondPersonFemininePlural() {
-        return new ArabicWord(conjugations[9]);
+        return new ArabicWord(conjugations[9].getConjugation());
     }
 
     protected ArabicWord doSecondPersonFeminineSingular() {
-        return new ArabicWord(conjugations[11]).removeLast();
+        return new ArabicWord(conjugations[11].getConjugation()).removeLast();
     }
 
     protected ArabicWord doSecondPersonMasculineDual() {
-        return new ArabicWord(conjugations[7]).removeLast();
+        return new ArabicWord(conjugations[7].getConjugation()).removeLast();
     }
 
     protected ArabicWord doSecondPersonMasculinePlural() {
-        return new ArabicWord(conjugations[6]).removeLast().append(LETTER_ALIF);
+        return new ArabicWord(conjugations[6].getConjugation()).removeLast().append(LETTER_ALIF);
     }
 
     protected ArabicWord doSecondPersonMasculineSingular() {
-        ArabicWord arabicWord = new ArabicWord(conjugations[8]);
+        ArabicWord arabicWord = new ArabicWord(conjugations[8].getConjugation());
         int lastLetterIndex = arabicWord.getLength() - 1;
         ArabicLetter lastLetter = arabicWord.getLetter(lastLetterIndex);
         DiacriticType[] diacritics = lastLetter.getDiacritics();
@@ -114,13 +115,8 @@ public abstract class AbstractTriLiteralImperativeAndForbiddingBuilder<P extends
     }
 
     @Override
-    public ArabicWord getDefaultConjugation() {
-        return secondPersonMasculineSingular();
-    }
-
-    @Override
-    public SarfMemberType getDefaultMember() {
-        return SECOND_PERSON_MASCULINE_SINGULAR;
+    public ConjugationMember getDefaultConjugation() {
+        return new ConjugationMember(SECOND_PERSON_MASCULINE_SINGULAR, secondPersonMasculineSingular());
     }
 
     public ArabicLetter getImperativeLetter() {
@@ -243,7 +239,7 @@ public abstract class AbstractTriLiteralImperativeAndForbiddingBuilder<P extends
     }
 
     public ArabicWord secondPersonMasculinePlural() {
-        return doPostecondPersonMasculinePlural(doSecondPersonMasculinePlural());
+        return doPostSecondPersonMasculinePlural(doSecondPersonMasculinePlural());
     }
 
     public ArabicWord secondPersonMasculineSingular() {

@@ -3,8 +3,8 @@
  */
 package com.alphasystem.app.sarfengine.conjugation;
 
+import com.alphasystem.app.sarfengine.conjugation.model.ConjugationMember;
 import com.alphasystem.arabic.model.ArabicWord;
-import com.alphasystem.arabic.model.SarfMemberType;
 
 import static com.alphasystem.arabic.model.HiddenNounStatus.*;
 
@@ -33,20 +33,20 @@ public abstract class ParticipleMemberBuilder extends
     protected abstract ArabicWord doAccusativeSigular();
 
     @Override
-    public ArabicWord[] doConjugation() {
-        ArabicWord[] words = new ArabicWord[9];
+    public ConjugationMember[] doConjugation() {
+        ConjugationMember[] words = new ConjugationMember[9];
 
-        words[2] = nominativeSigular();
-        words[1] = nominativeDual();
-        words[0] = nominativePlural();
+        words[2] = new ConjugationMember(NOMINATIVE_SINGULAR, nominativeSigular());
+        words[1] = new ConjugationMember(NOMINATIVE_DUAL, nominativeDual());
+        words[0] = new ConjugationMember(NOMINATIVE_PLURAL, nominativePlural());
 
-        words[5] = accusativeSigular();
-        words[4] = accusativeDual();
-        words[3] = accusativePlural();
+        words[5] = new ConjugationMember(ACCUSATIVE_SINGULAR, accusativeSigular());
+        words[4] = new ConjugationMember(ACCUSATIVE_DUAL, accusativeDual());
+        words[3] = new ConjugationMember(ACCUSATIVE_DUAL, accusativePlural());
 
-        words[8] = genitiveSigular();
-        words[7] = genitiveDual();
-        words[6] = genitivePlural();
+        words[8] = new ConjugationMember(GENITIVE_SINGULAR, genitiveSigular());
+        words[7] = new ConjugationMember(GENITIVE_DUAL, genitiveDual());
+        words[6] = new ConjugationMember(GENITIVE_PLURAL, genitivePlural());
 
         return words;
     }
@@ -118,13 +118,8 @@ public abstract class ParticipleMemberBuilder extends
     }
 
     @Override
-    public ArabicWord getDefaultConjugation() {
-        return nominativeSigular();
-    }
-
-    @Override
-    public SarfMemberType getDefaultMember() {
-        return NOMINATIVE_SINGULAR;
+    public ConjugationMember getDefaultConjugation() {
+        return new ConjugationMember(NOMINATIVE_SINGULAR, nominativeSigular());
     }
 
     public ArabicWord nominativeDual() {

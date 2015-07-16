@@ -3,7 +3,6 @@
  */
 package com.alphasystem.app.sarfengine.conjugation.model;
 
-import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
 
 import java.util.ArrayList;
@@ -16,25 +15,25 @@ import static java.util.Collections.addAll;
  */
 public class SarfKabeerPair {
 
-    private final List<ArabicWord> rightSideTerms;
+    private final List<ConjugationMember> rightSideTerms;
 
-    private final List<ArabicWord> leftSideTerms;
+    private final List<ConjugationMember> leftSideTerms;
 
-    private final ArabicWord rightSideDefaultValue;
+    private final ConjugationMember rightSideDefaultValue;
 
-    private final ArabicWord leftSideDefaultValue;
+    private final ConjugationMember leftSideDefaultValue;
 
     private final SarfTermType rightSideLabel;
 
     private final SarfTermType leftSideLabel;
 
-    public SarfKabeerPair(ArabicWord[] leftSideTerms,
-                          ArabicWord[] rightSideTerms, ArabicWord leftSideDefaultValue,
-                          ArabicWord rightSideDefaultValue, SarfTermType leftSideLabel,
+    public SarfKabeerPair(ConjugationMember[] leftSideTerms,
+                          ConjugationMember[] rightSideTerms, ConjugationMember leftSideDefaultValue,
+                          ConjugationMember rightSideDefaultValue, SarfTermType leftSideLabel,
                           SarfTermType rightSideLabel) {
-        this.rightSideTerms = new ArrayList<ArabicWord>();
+        this.rightSideTerms = new ArrayList<>();
         addAll(this.rightSideTerms, rightSideTerms);
-        this.leftSideTerms = new ArrayList<ArabicWord>();
+        this.leftSideTerms = new ArrayList<>();
         addAll(this.leftSideTerms, leftSideTerms);
         this.rightSideLabel = rightSideLabel;
         this.leftSideLabel = leftSideLabel;
@@ -42,7 +41,7 @@ public class SarfKabeerPair {
         this.leftSideDefaultValue = leftSideDefaultValue;
     }
 
-    public ArabicWord getLeftSideDefaultValue() {
+    public ConjugationMember getLeftSideDefaultValue() {
         return leftSideDefaultValue;
     }
 
@@ -50,11 +49,11 @@ public class SarfKabeerPair {
         return leftSideLabel;
     }
 
-    public List<ArabicWord> getLeftSideTerms() {
+    public List<ConjugationMember> getLeftSideTerms() {
         return leftSideTerms;
     }
 
-    public ArabicWord getRightSideDefaultValue() {
+    public ConjugationMember getRightSideDefaultValue() {
         return rightSideDefaultValue;
     }
 
@@ -62,7 +61,7 @@ public class SarfKabeerPair {
         return rightSideLabel;
     }
 
-    public List<ArabicWord> getRightSideTerms() {
+    public List<ConjugationMember> getRightSideTerms() {
         return rightSideTerms;
     }
 }

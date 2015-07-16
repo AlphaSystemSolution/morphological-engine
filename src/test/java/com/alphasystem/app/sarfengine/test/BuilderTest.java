@@ -18,7 +18,10 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.testng.annotations.Test;
 
 import javax.xml.bind.JAXBElement;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.ArabicWord.concatenateWithSpace;
@@ -32,6 +35,7 @@ import static com.alphasystem.sarfengine.xml.model.SarfTermType.PRESENT_TENSE;
 import static com.alphasystem.util.JAXBUtil.marshall;
 import static java.lang.String.format;
 import static java.util.Collections.addAll;
+import static java.util.Collections.reverse;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 import static org.apache.commons.lang3.StringEscapeUtils.escapeXml11;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
@@ -82,27 +86,8 @@ public class BuilderTest extends CommonTest {
     }
 
     @Test
-    public void fromBuckwalter() {
-        fromBuckwalter("yasotaEowino");
-        fromBuckwalter("yasotaEino");
-        fromBuckwalter("yasotaEowino");
-        fromBuckwalter("yasotaEino");
-        fromBuckwalter("tasotaEino");
-        fromBuckwalter("tasotaEino");
-        fromBuckwalter("yasotaEowinu");
-        fromBuckwalter("yasotaEiyonu");
-        fromBuckwalter("wa<i*o qulonaA lilomala`^}ikapi {sojuduwA@ li'aAdama fasajaduw^A@ <il~aA^ <iboliysa kaAna mina {lojin~i fafasaqa Eano >amori rab~ihi.^ >afatat~axi*uwnahu, wa*ur~iy~atahu,^ >awoliyaA^'a min duwniY wahumo lakumo Eaduw~N[ bi}osa lilZ~a`limiyna badalFA");
-    }
-
-    private void fromBuckwalter(String bw) {
-        ArabicWord aw = fromBuckWalterString(bw);
-        String label = format(ARABIC_TEXT_SPAN, aw.toHtmlCode());
-        log(format("<div>%s - %s</div>", bw, label));
-    }
-
-    @Test
     public void printForms() {
-        Map<NamedTemplate, ArabicWord> formNameMap = new LinkedHashMap<NamedTemplate, ArabicWord>();
+        Map<NamedTemplate, ArabicWord> formNameMap = new LinkedHashMap<>();
         ConjugationBuilderFactory factory = ConjugationBuilderFactory
                 .getInstance();
 
@@ -160,9 +145,9 @@ public class BuilderTest extends CommonTest {
         builder = (DefaultConjugationBuilder) factory.getFormXIBuilder();
         fillMap(builder, formNameMap);
 
-        List<NamedTemplate> keySet = new ArrayList<NamedTemplate>(
+        List<NamedTemplate> keySet = new ArrayList<>(
                 formNameMap.keySet());
-        List<ArabicWord> valueSet = new ArrayList<ArabicWord>(
+        List<ArabicWord> valueSet = new ArrayList<>(
                 formNameMap.values());
         int numOfColumns = 3;
         while (keySet.size() % numOfColumns != 0) {
@@ -227,21 +212,69 @@ public class BuilderTest extends CommonTest {
         log(TABLE_DECLERATION_START);
         log(TABLE_BODY_DECLERATION_START);
         printLabelRow("SHyH", "sAlm", "mDAEf", "wzn");
-        printLabelRow("fElQvlAvyQmjrd", "fElQvlAvyQmzydQfyh", "fElQrbAEyQmjrd",
-                "fElQrbAEyQmzydQfyh");
-        printLabelRow("mhmwzQAlfA'", "mhmwzQAlEyn", "mhmwzQAlAm", "mEtlQAlfA'");
-        printLabelRow("mEtlQAlEyn", "mEtlQAlAm", "mvAlQAlwAwy", "mvAlQAlyA}y");
-        printLabelRow("OjwfQAlwAwy", "OjwfQAlyA}y", "nAqSQAlwAwy",
-                "nAqSQAlyA}y");
-        printLabelRow("lfyfQmfrwq", "lfyfQmqrwn", null, null);
+        printLabelRow("fEl vlAvy mjrd", "fEl vlAvy mzyd fyh", "fEl rbAEy mjrd",
+                "fEl rbAEy mzyd fyh");
+        printLabelRow("mhmwz AlfA'", "mhmwz AlEyn", "mhmwz AlAm", "mEtl AlfA'");
+        printLabelRow("mEtl AlEyn", "mEtl AlAm", "mvAl AlwAwy", "mvAl AlyA}y");
+        printLabelRow("Ojwf AlwAwy", "Ojwf AlyA}y", "nAqS AlwAwy",
+                "nAqS AlyA}y");
+        printLabelRow("lfyf mfrwq", "lfyf mqrwn", null, null);
+        log(TABLE_BODY_DECLERATION_END);
+        log(TABLE_DECLERATION_END);
+    }
+
+    private <M extends SarfMemberType> void printSrafMemberType(List<M> list, int numOfColumns) {
+        log(TABLE_DECLERATION_START);
+        log(TABLE_BODY_DECLERATION_START);
+
+        int fromIndex = 0;
+        int toIndex = numOfColumns;
+        while (fromIndex < list.size()) {
+            final List<M> subList = list.subList(fromIndex, toIndex);
+            reverse(subList);
+
+            log(START_TABLE_ROW);
+            subList.forEach(mt -> {
+                String code = mt == null ? "&nbsp;" : mt.getMemberTermName();
+                log(format("<td>%s</td>", code));
+            });
+            log(END_TABLE_ROW);
+
+            log(START_TABLE_ROW);
+            subList.forEach(mt -> {
+                String code = mt == null ? "&nbsp;" : mt.getMemberTermLabel().toHtmlCode();
+                code = format(ARABIC_TEXT_SPAN, code);
+                log(format("<td>%s</td>", code));
+            });
+            log(END_TABLE_ROW);
+
+            fromIndex = toIndex;
+            toIndex += numOfColumns;
+        }
+
         log(TABLE_BODY_DECLERATION_END);
         log(TABLE_DECLERATION_END);
     }
 
     @Test
+    public void printNounStatus() {
+        List<HiddenNounStatus> list = new ArrayList<>();
+        addAll(list, HiddenNounStatus.values());
+        printSrafMemberType(list, 3);
+    }
+
+    @Test
+    public void prinProtNounStatus() {
+        List<HiddenPronounStatus> list = new ArrayList<>();
+        addAll(list, HiddenPronounStatus.values());
+        list.add(list.size() - 1, null);
+        printSrafMemberType(list, 3);
+    }
+
+    @Test
     public void printNamedTemplate() {
-        List<NamedTemplate> list = new ArrayList<NamedTemplate>();
-        Collections.addAll(list, NamedTemplate.values());
+        List<NamedTemplate> list = new ArrayList<>();
+        addAll(list, NamedTemplate.values());
         int numOfColumns = 5;
         while (list.size() % numOfColumns != 0) {
             list.add(null);
@@ -314,7 +347,7 @@ public class BuilderTest extends CommonTest {
         log(format(
                 "<td>%s</td>",
                 format(ARABIC_TEXT_SPAN, sarfChart.getSarfSagheer()
-                        .getActiveLine().getPastTense().toHtmlCode())));
+                        .getActiveLine().getPastTense().getConjugation().toHtmlCode())));
         log(format(
                 "<td>%s</td>",
                 format(ARABIC_TEXT_SPAN, conjugationHeader.getTypeLabel1()
@@ -349,7 +382,7 @@ public class BuilderTest extends CommonTest {
 
     @Test
     public void printVerbalNouns() {
-        List<VerbalNoun> list = new ArrayList<VerbalNoun>();
+        List<VerbalNoun> list = new ArrayList<>();
         addAll(list, VerbalNoun.values());
         int numOfColumns = 4;
         while (list.size() % numOfColumns != 0) {
@@ -420,11 +453,11 @@ public class BuilderTest extends CommonTest {
                 false, PRESENT_TENSE, SEEN, HAMZA, LAM);
 
         memberBuilder.setSkipRuleProcessing(true);
-        ArabicWord src = memberBuilder.getDefaultConjugation();
+        ArabicWord src = memberBuilder.getDefaultConjugation().getConjugation();
         String srcText = format(ARABIC_TEXT_SPAN, src.toHtmlCode());
 
         memberBuilder.setSkipRuleProcessing(false);
-        ArabicWord result = memberBuilder.getDefaultConjugation();
+        ArabicWord result = memberBuilder.getDefaultConjugation().getConjugation();
         String resultText = format(ARABIC_TEXT_SPAN, result.toHtmlCode());
 
         log(format(

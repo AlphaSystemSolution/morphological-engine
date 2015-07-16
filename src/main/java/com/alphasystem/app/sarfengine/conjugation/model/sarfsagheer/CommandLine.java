@@ -3,7 +3,7 @@
  */
 package com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer;
 
-import com.alphasystem.arabic.model.ArabicWord;
+import com.alphasystem.app.sarfengine.conjugation.model.ConjugationMember;
 
 import static com.alphasystem.util.HashCodeUtil.hash;
 
@@ -12,20 +12,20 @@ import static com.alphasystem.util.HashCodeUtil.hash;
  */
 public class CommandLine {
 
-    private final ArabicWord commnad;
+    private final ConjugationMember commnad;
 
-    private final ArabicWord forbidding;
+    private final ConjugationMember forbidding;
 
-    public CommandLine(ArabicWord commnad, ArabicWord forbidding) {
+    public CommandLine(ConjugationMember commnad, ConjugationMember forbidding) {
         this.commnad = commnad;
         this.forbidding = forbidding;
     }
 
-    public ArabicWord getCommnad() {
+    public ConjugationMember getCommnad() {
         return commnad;
     }
 
-    public ArabicWord getForbidding() {
+    public ConjugationMember getForbidding() {
         return forbidding;
     }
 

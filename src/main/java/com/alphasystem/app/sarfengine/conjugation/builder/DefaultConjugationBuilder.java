@@ -50,15 +50,15 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
     }
 
     private ActiveLine createActiveLine(SarfKabeerPair activeTensePair,
-                                        SarfKabeerPair activeIsmPair, ArabicWord[] masdarValues) {
-        ArabicWord presentTenseDefaultValue = null;
-        ArabicWord pastTenseDefaultValue = null;
+                                        SarfKabeerPair activeIsmPair, ConjugationMember[] masdarValues) {
+        ConjugationMember presentTenseDefaultValue = null;
+        ConjugationMember pastTenseDefaultValue = null;
         if (activeTensePair != null) {
             presentTenseDefaultValue = activeTensePair
                     .getRightSideDefaultValue();
             pastTenseDefaultValue = activeTensePair.getLeftSideDefaultValue();
         }
-        ArabicWord activeIsmDefaultValue = null;
+        ConjugationMember activeIsmDefaultValue = null;
         if (activeIsmPair != null) {
             activeIsmDefaultValue = activeIsmPair.getRightSideDefaultValue();
         }
@@ -98,15 +98,15 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         return commandAndForbiddingPair;
     }
 
-    private ArabicWord[] createDefaultValues(SarfKabeerPair[] pairs) {
+    private ConjugationMember[] createDefaultValues(SarfKabeerPair[] pairs) {
         if (isEmpty(pairs)) {
             return null;
         }
-        List<ArabicWord> list = new ArrayList<ArabicWord>();
+        List<ConjugationMember> list = new ArrayList<>();
         for (SarfKabeerPair sarfKabeerPair : pairs) {
-            ArabicWord leftSideDefaultValue = sarfKabeerPair
+            ConjugationMember leftSideDefaultValue = sarfKabeerPair
                     .getLeftSideDefaultValue();
-            ArabicWord rightSideDefaultValue = sarfKabeerPair
+            ConjugationMember rightSideDefaultValue = sarfKabeerPair
                     .getRightSideDefaultValue();
             if (rightSideDefaultValue != null) {
                 list.add(rightSideDefaultValue);
@@ -115,15 +115,15 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                 list.add(leftSideDefaultValue);
             }
         }
-        return list.toArray(new ArabicWord[0]);
+        return list.toArray(new ConjugationMember[list.size()]);
     }
 
     private PassiveLine createPassiveLine(SarfKabeerPair passiveTensePair,
-                                          SarfKabeerPair passiveIsmPair, ArabicWord[] masdarValues) {
-        ArabicWord pastPassiveTense = null;
-        ArabicWord presentPassiveTense = null;
-        ArabicWord ismMafoolMasculine = null;
-        PassiveLine passiveLine = null;
+                                          SarfKabeerPair passiveIsmPair, ConjugationMember[] masdarValues) {
+        ConjugationMember pastPassiveTense = null;
+        ConjugationMember presentPassiveTense = null;
+        ConjugationMember ismMafoolMasculine = null;
+        PassiveLine passiveLine;
         if (passiveTensePair != null) {
             pastPassiveTense = passiveTensePair.getRightSideDefaultValue();
             presentPassiveTense = passiveTensePair.getLeftSideDefaultValue();
@@ -182,10 +182,10 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                                                 SarfTermType rightSideTerm,
                                                 ConjugationMemberBuilder leftSideBuilder,
                                                 ConjugationMemberBuilder rightSideBuilder) {
-        ArabicWord[] rightSideTerms = null;
-        ArabicWord[] leftSideTerms = null;
-        ArabicWord rightSideDefaultValue = null;
-        ArabicWord leftSideDefaultValue = null;
+        ConjugationMember[] rightSideTerms = null;
+        ConjugationMember[] leftSideTerms = null;
+        ConjugationMember rightSideDefaultValue = null;
+        ConjugationMember leftSideDefaultValue = null;
         if (rightSideBuilder != null) {
             rightSideTerms = rightSideBuilder.doConjugation();
             rightSideDefaultValue = rightSideBuilder.getDefaultConjugation();
@@ -195,10 +195,10 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             leftSideDefaultValue = leftSideBuilder.getDefaultConjugation();
         }
         if (rightSideTerms == null && leftSideTerms != null) {
-            rightSideTerms = new ArabicWord[leftSideTerms.length];
+            rightSideTerms = new ConjugationMember[leftSideTerms.length];
         }
         if (leftSideTerms == null && rightSideTerms != null) {
-            leftSideTerms = new ArabicWord[rightSideTerms.length];
+            leftSideTerms = new ConjugationMember[rightSideTerms.length];
         }
 
         if (rightSideTerms == null && leftSideTerms == null) {
@@ -284,7 +284,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         SarfKabeerPair commandAndForbiddingPair = createCommandAndForbiddingPair(
                 skipRuleProcessing, firstRadical, secondRadical, thirdRadical);
 
-        ArabicWord[] masdarValues = createDefaultValues(masdarPairs);
+        ConjugationMember[] masdarValues = createDefaultValues(masdarPairs);
         SarfKabeer sarfKabeer = new SarfKabeer(activeTensePair, masdarPairs,
                 activeParticiplePair, passiveTensePair, passiveParticiplePair,
                 commandAndForbiddingPair, zarfPairs);
@@ -304,7 +304,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                     commandAndForbiddingPair.getLeftSideDefaultValue());
         }
         ZarfLine zarfLine = null;
-        ArabicWord[] zarfValues = null;
+        ConjugationMember[] zarfValues;
         zarfValues = createDefaultValues(zarfPairs);
         if (zarfValues != null) {
             zarfLine = new ZarfLine(zarfValues);
@@ -316,9 +316,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         ConjugationHeader conjugationHeader = initChartTitle(translation,
                 template.getLabel(), pastTenseRoot, firstRadical,
                 secondRadical, thirdRadical);
-        SarfChart sarfChart = new SarfChart(conjugationHeader, sarfSagheer,
+        return new SarfChart(conjugationHeader, sarfSagheer,
                 sarfKabeer);
-        return sarfChart;
     }
 
     public FormTemplate getFormTemplate() {
@@ -327,17 +326,19 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
 
     private ConjugationMemberBuilder getMemberBuilder(
             boolean skipRuleProcessing, RootWord rootWord) {
+        System.out.println("RootWord: " + rootWord);
         AbstractConjugationMemberBuilder builder = null;
         if (rootWord != null) {
             String implementationClass = rootWord.getImplementationClass();
+            System.out.println("implementationClass: " + implementationClass);
             try {
                 Class<?> klass = forName(implementationClass);
-                builder = (AbstractConjugationMemberBuilder) klass
-                        .newInstance();
+                builder = (AbstractConjugationMemberBuilder) klass.newInstance();
                 builder.setTemplate(template);
                 builder.setSkipRuleProcessing(skipRuleProcessing);
                 builder.setRootWord(new RootWord(rootWord));
                 RuleProcessor ruleProcessor = initRuleProcesor(builder);
+                System.out.println("RuleProcessor: " + ruleProcessor);
                 if (TriLiteralPastTenseBuilder.class.getName().equals(
                         builder.getClass().getName())) {
                     pastTenseRuleProcessor = ruleProcessor;
@@ -368,7 +369,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             list.add(null);
         }
         int index = 0;
-        List<SarfKabeerPair> pairs = new ArrayList<SarfKabeerPair>();
+        List<SarfKabeerPair> pairs = new ArrayList<>();
         while (index < list.size()) {
             RootWord rightSideTemplate = list.get(index++);
             RootWord leftSideTemplate = list.get(index++);
@@ -383,7 +384,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             pairs.add(getSarfKabeerPair(skipRuleProcessing, leftSideTemplate,
                     rightSideTemplate));
         }
-        return pairs.toArray(new SarfKabeerPair[0]);
+        return pairs.toArray(new SarfKabeerPair[pairs.size()]);
     }
 
     public SarfKabeerPair getSarfKabeerPair(boolean skipRuleProcessing,
@@ -464,10 +465,10 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
     }
 
     private List<RootWord> mergeList(List<RootWord> list1, List<RootWord> list2) {
-        List<RootWord> mergedList = new ArrayList<RootWord>();
-        List<RootWord> srcList1 = list1 == null ? new ArrayList<RootWord>()
+        List<RootWord> mergedList = new ArrayList<>();
+        List<RootWord> srcList1 = list1 == null ? new ArrayList<>()
                 : list1;
-        List<RootWord> srcList2 = list2 == null ? new ArrayList<RootWord>()
+        List<RootWord> srcList2 = list2 == null ? new ArrayList<>()
                 : list2;
         addAll(mergedList, srcList1);
         addAll(mergedList, srcList2);

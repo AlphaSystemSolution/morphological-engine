@@ -4,7 +4,10 @@
 package com.alphasystem.app.sarfengine.conjugation.model;
 
 import com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer.ActiveLine;
-import com.alphasystem.arabic.model.*;
+import com.alphasystem.arabic.model.NamedTemplate;
+import com.alphasystem.arabic.model.RootType;
+import com.alphasystem.arabic.model.VerbType;
+import com.alphasystem.arabic.model.WeakVerbType;
 import com.alphasystem.sarfengine.xml.model.SortDirection;
 import com.alphasystem.sarfengine.xml.model.SortDirective;
 
@@ -70,12 +73,12 @@ public class SarfChartComparator implements Comparator<SarfChart> {
     }
 
     private int compareAlphabatically(SarfChart o1, SarfChart o2) {
-        ArabicWord pt1 = getPastTense(o1);
-        ArabicWord pt2 = getPastTense(o2);
+        ConjugationMember pt1 = getPastTense(o1);
+        ConjugationMember pt2 = getPastTense(o2);
         return compareArabicWords(pt1, pt2);
     }
 
-    private int compareArabicWords(ArabicWord aw1, ArabicWord aw2) {
+    private int compareArabicWords(ConjugationMember aw1, ConjugationMember aw2) {
         if (aw1 == null && aw2 == null) {
             return 0;
         } else if (aw1 == null) {
@@ -83,10 +86,10 @@ public class SarfChartComparator implements Comparator<SarfChart> {
         } else if (aw2 == null) {
             return 1;
         } else {
-            ArabicWord t1 = aw1;
-            ArabicWord t2 = aw2;
+            ConjugationMember t1 = aw1;
+            ConjugationMember t2 = aw2;
             if (sortDirection.equals(DESCENDING)) {
-                ArabicWord temp = t1;
+                ConjugationMember temp = t1;
                 t1 = t2;
                 t2 = temp;
             }
@@ -171,8 +174,8 @@ public class SarfChartComparator implements Comparator<SarfChart> {
         return t1.compareTo(t2);
     }
 
-    private ArabicWord getPastTense(SarfChart sarfChart) {
-        ArabicWord arabicWord = null;
+    private ConjugationMember getPastTense(SarfChart sarfChart) {
+        ConjugationMember arabicWord = null;
         if (sarfChart != null) {
             SarfSagheer sarfSagheer = sarfChart.getSarfSagheer();
             if (sarfSagheer != null) {

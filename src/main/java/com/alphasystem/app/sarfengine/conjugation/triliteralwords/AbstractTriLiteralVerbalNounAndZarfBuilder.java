@@ -4,10 +4,10 @@
 package com.alphasystem.app.sarfengine.conjugation.triliteralwords;
 
 import com.alphasystem.app.sarfengine.conjugation.AbstractConjugationMemberBuilder;
+import com.alphasystem.app.sarfengine.conjugation.model.ConjugationMember;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
-import com.alphasystem.arabic.model.SarfMemberType;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
 
@@ -30,8 +30,8 @@ public abstract class AbstractTriLiteralVerbalNounAndZarfBuilder<M extends TriLi
     private Class<F> feminineBuilderClass;
     private M masculineBuilder;
     private F feminineBuilder;
-    private ArabicWord[] masculineConjugations;
-    private ArabicWord[] feminineConjugations;
+    private ConjugationMember[] masculineConjugations;
+    private ConjugationMember[] feminineConjugations;
     private boolean feminineBased;
     private boolean verbalNoun;
     private int variableLetterIndex = -1;
@@ -41,7 +41,7 @@ public abstract class AbstractTriLiteralVerbalNounAndZarfBuilder<M extends TriLi
     }
 
     public ArabicWord accusativePlural() {
-        return doPostAccusativePlural(new ArabicWord(feminineConjugations[3]));
+        return doPostAccusativePlural(new ArabicWord(feminineConjugations[3].getConjugation()));
     }
 
     public ArabicWord accusativeSigular() {
@@ -49,20 +49,20 @@ public abstract class AbstractTriLiteralVerbalNounAndZarfBuilder<M extends TriLi
     }
 
     @Override
-    public ArabicWord[] doConjugation() {
-        ArabicWord[] words = new ArabicWord[9];
+    public ConjugationMember[] doConjugation() {
+        ConjugationMember[] words = new ConjugationMember[9];
 
-        words[2] = nominativeSigular();
-        words[1] = nominativeDual();
-        words[0] = nominativePlural();
+        words[2] = new ConjugationMember(NOMINATIVE_SINGULAR, nominativeSigular());
+        words[1] = new ConjugationMember(NOMINATIVE_DUAL, nominativeDual());
+        words[0] = new ConjugationMember(NOMINATIVE_PLURAL, nominativePlural());
 
-        words[5] = accusativeSigular();
-        words[4] = accusativeDual();
-        words[3] = accusativePlural();
+        words[5] = new ConjugationMember(ACCUSATIVE_SINGULAR, accusativeSigular());
+        words[4] = new ConjugationMember(ACCUSATIVE_DUAL, accusativeDual());
+        words[3] = new ConjugationMember(ACCUSATIVE_PLURAL, accusativePlural());
 
-        words[8] = genitiveSigular();
-        words[7] = genitiveDual();
-        words[6] = genitivePlural();
+        words[8] = new ConjugationMember(GENITIVE_SINGULAR, genitiveSigular());
+        words[7] = new ConjugationMember(GENITIVE_DUAL, genitiveDual());
+        words[6] = new ConjugationMember(GENITIVE_PLURAL, genitivePlural());
 
         return words;
     }
@@ -116,13 +116,9 @@ public abstract class AbstractTriLiteralVerbalNounAndZarfBuilder<M extends TriLi
     }
 
     @Override
-    public ArabicWord getDefaultConjugation() {
-        return verbalNoun ? accusativeSigular() : nominativeSigular();
-    }
-
-    @Override
-    public SarfMemberType getDefaultMember() {
-        return verbalNoun ? ACCUSATIVE_SINGULAR : NOMINATIVE_SINGULAR;
+    public ConjugationMember getDefaultConjugation() {
+        return verbalNoun ? new ConjugationMember(ACCUSATIVE_SINGULAR, accusativeSigular()) :
+                new ConjugationMember(NOMINATIVE_SINGULAR, nominativeSigular());
     }
 
     @Override
@@ -143,8 +139,8 @@ public abstract class AbstractTriLiteralVerbalNounAndZarfBuilder<M extends TriLi
     }
 
     private ArabicWord getWord(int index) {
-        return feminineBased ? feminineConjugations[index]
-                : masculineConjugations[index];
+        return feminineBased ? feminineConjugations[index].getConjugation()
+                : masculineConjugations[index].getConjugation();
     }
 
     protected void initConjugations() {
@@ -226,7 +222,7 @@ public abstract class AbstractTriLiteralVerbalNounAndZarfBuilder<M extends TriLi
     }
 
     public ArabicWord nominativePlural() {
-        return doPostNominativePlural(new ArabicWord(feminineConjugations[0]));
+        return doPostNominativePlural(new ArabicWord(feminineConjugations[0].getConjugation()));
     }
 
     public ArabicWord nominativeSigular() {

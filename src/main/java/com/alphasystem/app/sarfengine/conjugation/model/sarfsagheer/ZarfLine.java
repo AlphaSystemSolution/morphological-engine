@@ -3,7 +3,7 @@
  */
 package com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer;
 
-import com.alphasystem.arabic.model.ArabicWord;
+import com.alphasystem.app.sarfengine.conjugation.model.ConjugationMember;
 
 import static com.alphasystem.util.HashCodeUtil.hash;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
@@ -13,13 +13,13 @@ import static org.apache.commons.lang3.ArrayUtils.isEmpty;
  */
 public class ZarfLine {
 
-    private final ArabicWord[] zarfs;
+    private final ConjugationMember[] zarfs;
 
-    public ZarfLine(ArabicWord... zarfs) {
+    public ZarfLine(ConjugationMember... zarfs) {
         this.zarfs = zarfs;
     }
 
-    public ArabicWord[] getZarfs() {
+    public ConjugationMember[] getZarfs() {
         return zarfs;
     }
 
@@ -27,7 +27,7 @@ public class ZarfLine {
     public int hashCode() {
         int hc = super.hashCode();
         if (!isEmpty(zarfs)) {
-            for (ArabicWord aw : zarfs) {
+            for (ConjugationMember aw : zarfs) {
                 hc = hash(hc, aw);
             }
         }

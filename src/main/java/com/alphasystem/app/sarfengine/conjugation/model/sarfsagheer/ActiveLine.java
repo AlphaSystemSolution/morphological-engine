@@ -3,7 +3,7 @@
  */
 package com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer;
 
-import com.alphasystem.arabic.model.ArabicWord;
+import com.alphasystem.app.sarfengine.conjugation.model.ConjugationMember;
 
 import static com.alphasystem.util.HashCodeUtil.hash;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
@@ -13,35 +13,35 @@ import static org.apache.commons.lang3.ArrayUtils.isEmpty;
  */
 public class ActiveLine {
 
-    private final ArabicWord pastTense;
+    private final ConjugationMember pastTense;
 
-    private final ArabicWord presentTense;
+    private final ConjugationMember presentTense;
 
-    private final ArabicWord[] masdars;
+    private final ConjugationMember[] masdars;
 
-    private final ArabicWord ismFaailMasculine;
+    private final ConjugationMember ismFaailMasculine;
 
-    public ActiveLine(ArabicWord pastTense, ArabicWord presentTense,
-                      ArabicWord ismFaailMasculine, ArabicWord... masdars) {
+    public ActiveLine(ConjugationMember pastTense, ConjugationMember presentTense,
+                      ConjugationMember ismFaailMasculine, ConjugationMember... masdars) {
         this.pastTense = pastTense;
         this.presentTense = presentTense;
         this.masdars = masdars;
         this.ismFaailMasculine = ismFaailMasculine;
     }
 
-    public ArabicWord getIsmFaailMasculine() {
+    public ConjugationMember getIsmFaailMasculine() {
         return ismFaailMasculine;
     }
 
-    public ArabicWord[] getMasdars() {
+    public ConjugationMember[] getMasdars() {
         return masdars;
     }
 
-    public ArabicWord getPastTense() {
+    public ConjugationMember getPastTense() {
         return pastTense;
     }
 
-    public ArabicWord getPresentTense() {
+    public ConjugationMember getPresentTense() {
         return presentTense;
     }
 
@@ -51,7 +51,7 @@ public class ActiveLine {
         hc = hash(hc, presentTense);
         hc = hash(hc, ismFaailMasculine);
         if (!isEmpty(masdars)) {
-            for (ArabicWord aw : masdars) {
+            for (ConjugationMember aw : masdars) {
                 hc = hash(hc, aw);
             }
         }

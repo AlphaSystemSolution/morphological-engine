@@ -185,12 +185,13 @@ public abstract class AbstractConjugationMemberBuilder implements
     }
 
     protected void initRuleProcessor() {
+        System.out.println("initRuleProcessor Enter");
         if (ruleProcessor == null) {
-            ruleProcessor = getInstance().getRuleProcessor(
-                    template,
-                    new RootWord(this.baseRootWord)
-                            .withMemberType(getDefaultMember()));
+            final RootWord baseRootWord = new RootWord(this.baseRootWord).withMemberType(getDefaultConjugation()
+                    .getMemberType());
+            ruleProcessor = getInstance().getRuleProcessor(template, baseRootWord);
         }
+        System.out.println("initRuleProcessor Exit");
     }
 
     @Override
