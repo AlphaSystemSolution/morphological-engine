@@ -334,9 +334,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             try {
                 Class<?> klass = forName(implementationClass);
                 builder = (AbstractConjugationMemberBuilder) klass.newInstance();
-                builder.setTemplate(template);
-                builder.setSkipRuleProcessing(skipRuleProcessing);
-                builder.setRootWord(new RootWord(rootWord));
+                builder.initMemberBuilder(template, skipRuleProcessing, rootWord);
                 RuleProcessor ruleProcessor = initRuleProcesor(builder);
                 System.out.println("RuleProcessor: " + ruleProcessor);
                 if (TriLiteralPastTenseBuilder.class.getName().equals(

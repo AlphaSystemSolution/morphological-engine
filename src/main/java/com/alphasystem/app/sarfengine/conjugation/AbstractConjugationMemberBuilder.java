@@ -3,12 +3,15 @@
  */
 package com.alphasystem.app.sarfengine.conjugation;
 
+import com.alphasystem.app.sarfengine.conjugation.model.ConjugationMember;
 import com.alphasystem.app.sarfengine.conjugation.model.WordStatus;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.sarfengine.xml.model.RootWord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory.getInstance;
+import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory2.getInstance;
 import static com.alphasystem.app.sarfengine.util.PatternHelper.doApplyPatterns;
 import static java.lang.String.format;
 
@@ -17,6 +20,8 @@ import static java.lang.String.format;
  */
 public abstract class AbstractConjugationMemberBuilder implements
         ConjugationMemberBuilder {
+
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     protected ArabicWord rootWord;
 
@@ -52,7 +57,22 @@ public abstract class AbstractConjugationMemberBuilder implements
 
     protected boolean skipRuleProcessing = false;
 
+    protected ConjugationMember defaultConjugation;
+
     protected AbstractConjugationMemberBuilder() {
+    }
+
+    public void initMemberBuilder(NamedTemplate template, boolean skipRuleProcessing, RootWord rootWord) {
+        setTemplate(template);
+        setSkipRuleProcessing(skipRuleProcessing);
+        setRootWord(new RootWord(rootWord));
+    }
+
+    protected abstract void initDefaultConjugation();
+
+    @Override
+    public ConjugationMember getDefaultConjugation() {
+        return defaultConjugation;
     }
 
     /**
@@ -113,6 +133,7 @@ public abstract class AbstractConjugationMemberBuilder implements
             this.fourthRadicalIndex = rootWord.getFourthRadicalIndex();
         }
         this.rootWord = rootWord.getRootWord();
+        initDefaultConjugation();
         postInit();
     }
 
@@ -185,13 +206,18 @@ public abstract class AbstractConjugationMemberBuilder implements
     }
 
     protected void initRuleProcessor() {
-        System.out.println("initRuleProcessor Enter");
-        if (ruleProcessor == null) {
-            final RootWord baseRootWord = new RootWord(this.baseRootWord).withMemberType(getDefaultConjugation()
-                    .getMemberType());
-            ruleProcessor = getInstance().getRuleProcessor(template, baseRootWord);
+        if (logger.isDebugEnabled()) {
+            logger.debug("initRuleProcessor Enter");
         }
-        System.out.println("initRuleProcessor Exit");
+        if (ruleProcessor == null) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("initializing");
+            }
+            ruleProcessor = getInstance().getRuleProcessor(template);
+        }
+        if (logger.isDebugEnabled()) {
+            logger.debug("initRuleProcessor Exit");
+        }
     }
 
     @Override
@@ -213,6 +239,7 @@ public abstract class AbstractConjugationMemberBuilder implements
     }
 
     protected void postInit() {
+        logger.debug("Inside postInit");
         initRuleProcessor();
     }
 

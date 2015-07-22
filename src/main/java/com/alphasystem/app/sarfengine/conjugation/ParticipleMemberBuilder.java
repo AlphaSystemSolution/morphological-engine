@@ -14,6 +14,13 @@ import static com.alphasystem.arabic.model.HiddenNounStatus.*;
 public abstract class ParticipleMemberBuilder extends
         AbstractConjugationMemberBuilder {
 
+    @Override
+    protected void initDefaultConjugation() {
+        if (defaultConjugation == null) {
+            defaultConjugation = new ConjugationMember(NOMINATIVE_SINGULAR, nominativeSigular());
+        }
+    }
+
     public ArabicWord accusativeDual() {
         return doPostAccusativeDual(doAccusativeDual());
     }
@@ -115,11 +122,6 @@ public abstract class ParticipleMemberBuilder extends
 
     public ArabicWord genitiveSigular() {
         return doPostGenitiveSigular(doGenitiveSigular());
-    }
-
-    @Override
-    public ConjugationMember getDefaultConjugation() {
-        return new ConjugationMember(NOMINATIVE_SINGULAR, nominativeSigular());
     }
 
     public ArabicWord nominativeDual() {

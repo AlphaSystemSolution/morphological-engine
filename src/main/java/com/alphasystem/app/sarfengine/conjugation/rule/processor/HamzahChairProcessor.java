@@ -4,9 +4,15 @@
 package com.alphasystem.app.sarfengine.conjugation.rule.processor;
 
 import com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor;
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper;
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.sarfengine.xml.model.RootWord;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 
+import javax.annotation.Nullable;
+
+import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
 import static com.alphasystem.app.sarfengine.util.PatternHelper.removeTatweel;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.ArabicWord.fromBuckWalterString;
@@ -19,12 +25,15 @@ public class HamzahChairProcessor extends AbstractRuleProcessor {
 
     protected ArabicLetterType hamzahReplacement;
 
-    /**
-     * @param template
-     */
-    public HamzahChairProcessor(NamedTemplate template) {
-        super(template);
+    @AssistedInject
+    public HamzahChairProcessor(@Assisted NamedTemplate template,
+                                @Nullable @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
+                                @Assisted boolean pastTenseHasTransformed,
+                                @Nullable @Assisted ArabicLetterType hamzahReplacement) {
+        super(template, diacriticForWeakSecondRadicalWaw, pastTenseHasTransformed);
+        this.hamzahReplacement = hamzahReplacement;
     }
+
 
     @Override
     public RootWord applyRules(RootWord baseRootWord) {
@@ -66,7 +75,6 @@ public class HamzahChairProcessor extends AbstractRuleProcessor {
                             // last letter
                             if (isSakin(previousDiacritic)
                                     || isLongAlif(previousLetterType)) {
-                                hamzahReplacement = null;
                                 continue;
                             }
                         }
@@ -105,7 +113,7 @@ public class HamzahChairProcessor extends AbstractRuleProcessor {
                 }
             }
             if (hamzahDiacritic != null && hamzahReplacement == null) {
-                hamzahReplacement = getHamzahReplacement(hamzahDiacritic);
+                hamzahReplacement = RuleProcessorHelper.getHamzahReplacement(hamzahDiacritic);
             }
             if (hamzahReplacement != null) {
                 result.replaceLetter(hamzahIndex, hamzahReplacement);
@@ -117,14 +125,6 @@ public class HamzahChairProcessor extends AbstractRuleProcessor {
         }
         baseRootWord.setRootWord(result);
         return baseRootWord;
-    }
-
-    public ArabicLetterType getHamzahReplacement() {
-        return hamzahReplacement;
-    }
-
-    public void setHamzahReplacement(ArabicLetterType hamzahReplacement) {
-        this.hamzahReplacement = hamzahReplacement;
     }
 
 }

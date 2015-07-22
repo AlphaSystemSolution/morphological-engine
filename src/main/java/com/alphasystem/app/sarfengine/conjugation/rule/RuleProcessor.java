@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.alphasystem.app.sarfengine.conjugation.rule;
 
 import com.alphasystem.arabic.model.DiacriticType;
@@ -15,8 +12,7 @@ public interface RuleProcessor {
 
     DiacriticType getDiacriticForWeakSecondRadicalWaw();
 
-    void setDiacriticForWeakSecondRadicalWaw(
-            DiacriticType diacriticForWeakSecondRadicalWaw);
+    void setDiacriticForWeakSecondRadicalWaw(DiacriticType diacriticForWeakSecondRadicalWaw);
 
     boolean isPastTenseHasTransformed();
 

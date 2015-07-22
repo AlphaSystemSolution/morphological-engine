@@ -5,11 +5,16 @@ package com.alphasystem.app.sarfengine.conjugation.rule.processor;
 
 import com.alphasystem.app.sarfengine.conjugation.model.WordStatus;
 import com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor;
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicWord;
+import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 
+import javax.annotation.Nullable;
+
+import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.checkArgument;
 import static com.alphasystem.arabic.model.ArabicLetterType.HAMZA;
 import static com.alphasystem.sarfengine.xml.model.SarfTermType.ACTIVE_PARTICIPLE_FEMININE;
 import static com.alphasystem.sarfengine.xml.model.SarfTermType.ACTIVE_PARTICIPLE_MASCULINE;
@@ -19,14 +24,11 @@ import static com.alphasystem.sarfengine.xml.model.SarfTermType.ACTIVE_PARTICIPL
  */
 public class Rule17Processor extends AbstractRuleProcessor {
 
-    private final RuleProcessor parent;
-
-    /**
-     * @param template
-     */
-    public Rule17Processor(NamedTemplate template, RuleProcessor parent) {
-        super(template);
-        this.parent = parent;
+    @AssistedInject
+    public Rule17Processor(@Assisted NamedTemplate template,
+                           @Nullable @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
+                           @Assisted boolean pastTenseHasTransformed) {
+        super(template, diacriticForWeakSecondRadicalWaw, pastTenseHasTransformed);
     }
 
     @Override
@@ -38,7 +40,7 @@ public class Rule17Processor extends AbstractRuleProcessor {
             return baseRootWord;
         }
         WordStatus wordStatus = new WordStatus(baseRootWord);
-        if (!wordStatus.isHollow() || !parent.isPastTenseHasTransformed()) {
+        if (!wordStatus.isHollow() || !isPastTenseHasTransformed()) {
             return baseRootWord;
         }
         ArabicWord result = new ArabicWord(baseRootWord.getRootWord());

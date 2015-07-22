@@ -8,7 +8,12 @@ import com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor;
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 
+import javax.annotation.Nullable;
+
+import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
 import static com.alphasystem.arabic.model.ArabicLetterType.WAW;
 import static com.alphasystem.arabic.model.ArabicLetterType.YA;
 import static com.alphasystem.sarfengine.xml.model.SarfTermType.FORBIDDING;
@@ -19,11 +24,11 @@ import static com.alphasystem.sarfengine.xml.model.SarfTermType.IMPERATIVE;
  */
 public class Rule11And12Processor extends AbstractRuleProcessor {
 
-    /**
-     * @param template
-     */
-    public Rule11And12Processor(NamedTemplate template) {
-        super(template);
+    @AssistedInject
+    public Rule11And12Processor(@Assisted NamedTemplate template,
+                                @Nullable @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
+                                @Assisted boolean pastTenseHasTransformed) {
+        super(template, diacriticForWeakSecondRadicalWaw, pastTenseHasTransformed);
     }
 
     @Override

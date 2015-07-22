@@ -35,6 +35,7 @@ public abstract class AbstractTriLiteralVerbalNounAndZarfBuilder<M extends TriLi
     private boolean feminineBased;
     private boolean verbalNoun;
     private int variableLetterIndex = -1;
+    private boolean postInitCalled;
 
     public ArabicWord accusativeDual() {
         return doPostAccusativeDual(new ArabicWord(getWord(4)));
@@ -116,9 +117,11 @@ public abstract class AbstractTriLiteralVerbalNounAndZarfBuilder<M extends TriLi
     }
 
     @Override
-    public ConjugationMember getDefaultConjugation() {
-        return verbalNoun ? new ConjugationMember(ACCUSATIVE_SINGULAR, accusativeSigular()) :
-                new ConjugationMember(NOMINATIVE_SINGULAR, nominativeSigular());
+    protected void initDefaultConjugation() {
+        if (defaultConjugation == null) {
+            defaultConjugation = verbalNoun ? new ConjugationMember(ACCUSATIVE_SINGULAR, accusativeSigular()) :
+                    new ConjugationMember(NOMINATIVE_SINGULAR, nominativeSigular());
+        }
     }
 
     @Override
@@ -139,11 +142,17 @@ public abstract class AbstractTriLiteralVerbalNounAndZarfBuilder<M extends TriLi
     }
 
     private ArabicWord getWord(int index) {
+        if (!postInitCalled) {
+            postInit();
+        }
         return feminineBased ? feminineConjugations[index].getConjugation()
                 : masculineConjugations[index].getConjugation();
     }
 
     protected void initConjugations() {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Inside initConjugations");
+        }
         String implementationClass = feminineBased ? feminineBuilderClass
                 .getName() : masculineBuilderClass.getName();
         RootWord masculineCopy = new RootWord(baseRootWord)
@@ -231,6 +240,9 @@ public abstract class AbstractTriLiteralVerbalNounAndZarfBuilder<M extends TriLi
 
     @Override
     protected void postInit() {
+        if (logger.isDebugEnabled()) {
+            logger.debug("postInit(): Enter");
+        }
         getVariableLetterIndex();
         initGenericClass();
         feminineBased = this.rootWord.getLastLetter().getLetter()
@@ -249,6 +261,7 @@ public abstract class AbstractTriLiteralVerbalNounAndZarfBuilder<M extends TriLi
         rp = feminineBuilder.getRuleProcessor();
         rp.setPastTenseHasTransformed(pastTenseHasTransformed);
         rp.setDiacriticForWeakSecondRadicalWaw(diacriticForWeakSecondRadicalWaw);
+        postInitCalled = true;
     }
 
 }

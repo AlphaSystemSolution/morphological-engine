@@ -46,9 +46,6 @@ import static org.testng.Reporter.log;
  */
 public class BuilderTest extends CommonTest {
 
-    public static final ArabicLetterType FIRST_RADICAL = FA;
-    public static final ArabicLetterType SECOND_RADICAL = TA;
-    public static final ArabicLetterType THIRD_RADICAL = HHA;
     private ConjugationBuilderFactory factory = ConjugationBuilderFactory
             .getInstance();
 

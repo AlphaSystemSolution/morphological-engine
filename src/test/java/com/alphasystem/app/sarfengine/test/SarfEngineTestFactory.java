@@ -12,7 +12,10 @@ public class SarfEngineTestFactory {
 
     @Factory
     public Object[] createTest() {
-        return new Object[]{new RuleTester(), new BuilderTest(),
-                new PatternHelperTest(), new ConjugationTest()};
+        return new Object[]{
+                new RuleTester()
+                /*new ConjugationMemberTest(), new BuilderTest(),
+                new PatternHelperTest(), new ConjugationTest()*/
+        };
     }
 }

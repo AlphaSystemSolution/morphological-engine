@@ -11,7 +11,12 @@ import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 
+import javax.annotation.Nullable;
+
+import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
 import static com.alphasystem.arabic.model.ArabicLetters.LETTER_TATWEEL;
 import static com.alphasystem.arabic.model.DiacriticType.KASRATAN;
 import static org.apache.commons.lang3.ArrayUtils.contains;
@@ -21,11 +26,11 @@ import static org.apache.commons.lang3.ArrayUtils.contains;
  */
 public class Rule16Processor extends AbstractRuleProcessor {
 
-    /**
-     * @param template
-     */
-    public Rule16Processor(NamedTemplate template) {
-        super(template);
+    @AssistedInject
+    public Rule16Processor(@Assisted NamedTemplate template,
+                           @Nullable @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
+                           @Assisted boolean pastTenseHasTransformed) {
+        super(template, diacriticForWeakSecondRadicalWaw, pastTenseHasTransformed);
     }
 
     @Override

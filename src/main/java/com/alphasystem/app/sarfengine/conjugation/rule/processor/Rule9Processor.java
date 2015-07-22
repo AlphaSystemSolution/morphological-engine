@@ -5,11 +5,15 @@ package com.alphasystem.app.sarfengine.conjugation.rule.processor;
 
 import com.alphasystem.app.sarfengine.conjugation.model.WordStatus;
 import com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor;
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 
+import javax.annotation.Nullable;
+
+import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
 import static com.alphasystem.arabic.model.ArabicLetters.LETTER_TATWEEL;
 import static com.alphasystem.arabic.model.ArabicLetters.YA_WITH_SUKUN;
 import static com.alphasystem.arabic.model.DiacriticType.DAMMA;
@@ -22,14 +26,11 @@ import static org.apache.commons.lang3.ArrayUtils.contains;
  */
 public class Rule9Processor extends AbstractRuleProcessor {
 
-    private final RuleProcessor parent;
-
-    /**
-     * @param template
-     */
-    public Rule9Processor(NamedTemplate template, RuleProcessor parent) {
-        super(template);
-        this.parent = parent;
+    @AssistedInject
+    public Rule9Processor(@Assisted NamedTemplate template,
+                          @Nullable @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
+                          @Assisted boolean pastTenseHasTransformed) {
+        super(template, diacriticForWeakSecondRadicalWaw, pastTenseHasTransformed);
     }
 
     @Override
@@ -61,10 +62,10 @@ public class Rule9Processor extends AbstractRuleProcessor {
                 secondRadicalIndex, YA_WITH_SUKUN);
         baseRootWord.setSecondRadical(YA_WITH_SUKUN);
         if (thirdPersonFemininePluralAndSeconAndFirstPersonsType) {
-            if (isFatha(parent.getDiacriticForWeakSecondRadicalWaw())
+            if (isFatha(diacriticForWeakSecondRadicalWaw)
                     && weakWaw) {
                 firstRadicalDiacritic = DAMMA;
-            } else if ((isKasra(parent.getDiacriticForWeakSecondRadicalWaw()) && weakWaw)
+            } else if ((isKasra(diacriticForWeakSecondRadicalWaw) && weakWaw)
                     || !weakWaw) {
                 firstRadicalDiacritic = KASRA;
             }

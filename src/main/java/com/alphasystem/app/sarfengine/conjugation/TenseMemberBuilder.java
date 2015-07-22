@@ -15,6 +15,14 @@ public abstract class TenseMemberBuilder extends
         AbstractConjugationMemberBuilder {
 
     @Override
+    protected void initDefaultConjugation() {
+        if (defaultConjugation == null) {
+            defaultConjugation = new ConjugationMember(THIRD_PERSON_MASCULINE_SINGULAR,
+                    thirdPersonMasculineSingular());
+        }
+    }
+
+    @Override
     public ConjugationMember[] doConjugation() {
         ConjugationMember[] words = new ConjugationMember[15];
 
@@ -139,11 +147,6 @@ public abstract class TenseMemberBuilder extends
 
     public ArabicWord firstPersonSingular() {
         return doPostFirstPersonSingular(doFirstPersonSingular());
-    }
-
-    @Override
-    public ConjugationMember getDefaultConjugation() {
-        return new ConjugationMember(THIRD_PERSON_MASCULINE_SINGULAR, thirdPersonMasculineSingular());
     }
 
     public ArabicWord secondPersonFeminineDual() {

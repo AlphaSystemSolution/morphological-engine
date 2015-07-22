@@ -115,8 +115,11 @@ public abstract class AbstractTriLiteralImperativeAndForbiddingBuilder<P extends
     }
 
     @Override
-    public ConjugationMember getDefaultConjugation() {
-        return new ConjugationMember(SECOND_PERSON_MASCULINE_SINGULAR, secondPersonMasculineSingular());
+    protected void initDefaultConjugation() {
+        if(defaultConjugation == null){
+            defaultConjugation = new ConjugationMember(SECOND_PERSON_MASCULINE_SINGULAR,
+                    secondPersonMasculineSingular());
+        }
     }
 
     public ArabicLetter getImperativeLetter() {
