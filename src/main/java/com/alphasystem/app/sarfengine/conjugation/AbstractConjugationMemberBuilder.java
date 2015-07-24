@@ -11,7 +11,6 @@ import com.alphasystem.sarfengine.xml.model.RootWord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory2.getInstance;
 import static com.alphasystem.app.sarfengine.util.PatternHelper.doApplyPatterns;
 import static java.lang.String.format;
 
@@ -213,7 +212,7 @@ public abstract class AbstractConjugationMemberBuilder implements
             if (logger.isDebugEnabled()) {
                 logger.debug("initializing");
             }
-            ruleProcessor = getInstance().getRuleProcessor(template);
+            //ruleProcessor = getInstance().getRuleProcessor(template);
         }
         if (logger.isDebugEnabled()) {
             logger.debug("initRuleProcessor Exit");

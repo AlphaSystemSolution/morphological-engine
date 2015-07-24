@@ -12,7 +12,7 @@ import static com.google.inject.name.Names.named;
 /**
  * @author sali
  */
-public class SarfEngineModule extends AbstractModule {
+public class RuleProcessorModule extends AbstractModule {
 
     public static final String DOUBLE_LETTERED_PROCESSOR = "DoubleLetteredProcessor";
     public static final String FORM_VIII_PROCESSOR = "FormVIIIProcessor";

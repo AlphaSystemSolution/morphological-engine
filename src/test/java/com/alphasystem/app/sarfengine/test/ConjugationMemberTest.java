@@ -1,18 +1,15 @@
 package com.alphasystem.app.sarfengine.test;
 
-import com.alphasystem.app.sarfengine.conjugation.ConjugationMemberBuilder;
-import com.alphasystem.app.sarfengine.conjugation.builder.ConjugationBuilder;
-import com.alphasystem.app.sarfengine.conjugation.model.ConjugationMember;
+import com.alphasystem.app.sarfengine.conjugation.member.MemberBuilderFactory;
+import com.alphasystem.app.sarfengine.conjugation.member.TenseMemberBuilder;
+import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
-import com.alphasystem.sarfengine.xml.model.SarfTermType;
+import com.alphasystem.sarfengine.xml.model.RootWord;
 import org.testng.annotations.Test;
 
-import static com.alphasystem.app.sarfengine.conjugation.builder.ConjugationBuilderFactory.getConjugationBuilder;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
-import static com.alphasystem.arabic.model.NamedTemplate.FORM_IV_TEMPLATE;
-import static com.alphasystem.sarfengine.xml.model.SarfTermType.*;
-import static java.lang.String.format;
+import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
 import static org.testng.Reporter.log;
 
 /**
@@ -20,43 +17,93 @@ import static org.testng.Reporter.log;
  */
 public class ConjugationMemberTest extends CommonTest {
 
+    private MemberBuilderFactory factory = GuiceSupport.getInstance().getMemberBuilderFactory();
+
     @Test
     public void runConjugations() {
-        runConjugations(FORM_IV_TEMPLATE, SEEN, LAM, MEEM);
+        runConjugations(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, NOON, SAD, RA);
     }
 
     private void runConjugations(NamedTemplate namedTemplate, ArabicLetterType firstRadical,
                                  ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
-        final ConjugationBuilder builder = getConjugationBuilder(namedTemplate);
+        TenseMemberBuilder rightBuilder = factory.getTriLiteralPastTenseBuilder(namedTemplate, false,
+                firstRadical, secondRadical, thirdRadical);
+        TenseMemberBuilder leftBuilder = factory.getTriLiteralPresentTenseBuilder(namedTemplate, false,
+                firstRadical, secondRadical, thirdRadical);
+        printTenseConjugations(leftBuilder, rightBuilder);
+
+        rightBuilder = factory.getTriLiteralPastPassiveBuilder(namedTemplate, false,
+                firstRadical, secondRadical, thirdRadical);
+        leftBuilder = factory.getTriLiteralPresentPassiveBuilder(namedTemplate, false,
+                firstRadical, secondRadical, thirdRadical);
+        printTenseConjugations(leftBuilder, rightBuilder);
+    }
+
+    private void printTenseConjugations(TenseMemberBuilder leftBuilder, TenseMemberBuilder rightBuilder) {
+        RootWord[] leftSideRootWords = leftBuilder.doConjugation();
+        RootWord[] rightSideRootWords = rightBuilder.doConjugation();
 
         log(TABLE_DECLERATION_START);
-        log(TABLE_BODY_DECLERATION_START);
+        log("<col width=\"16%\"/>");
+        log("<col width=\"16%\"/>");
+        log("<col width=\"16%\"/>");
+        log("<col width=\"4%\"/>");
+        log("<col width=\"16%\"/>");
+        log("<col width=\"16%\"/>");
+        log("<col width=\"16%\"/>");
 
-        log(START_TABLE_ROW);
-        printColumn(builder, ACTIVE_PARTICIPLE_MASCULINE, firstRadical, secondRadical, thirdRadical);
-        printColumn(builder, VERBAL_NOUN, firstRadical, secondRadical, thirdRadical);
-        printColumn(builder, PRESENT_TENSE, firstRadical, secondRadical, thirdRadical);
-        printColumn(builder, PAST_TENSE, firstRadical, secondRadical, thirdRadical);
-        log(END_TABLE_ROW);
+        log(TABLE_HEADER_DECLERATION_START);
+        log(START_TABLE_TH_COLSPAN3);
+        log(printArabicText(ARABIC_TEXT_CAPTION_SPAN, leftBuilder.getTermType().getLabel()));
+        log(END_TABLE_TH);
+        log(START_TABLE_TH);
+        log(HTML_SPACE);
+        log(END_TABLE_TH);
+        log(START_TABLE_TH_COLSPAN3);
+        log(printArabicText(ARABIC_TEXT_CAPTION_SPAN, rightBuilder.getTermType().getLabel()));
+        log(END_TABLE_TH);
+        log(TABLE_HEADER_DECLERATION_END);
+
+        log(TABLE_BODY_DECLERATION_START);
+        int start = 0;
+        int end = NUM_OF_COLUMNS;
+        while (start < leftSideRootWords.length) {
+            log(START_TABLE_ROW);
+            for (int i = start; i < end; i++) {
+                RootWord rootWord = leftSideRootWords[i];
+                log(START_TABLE_COLUMN);
+                if (rootWord == null) {
+                    log(HTML_SPACE);
+                } else {
+                    log(printArabicText(ARABIC_TEXT_SUP_SPAN, rootWord.getMemberType().getLabel()));
+                    log(HTML_SPACE);
+                    log(printArabicText(rootWord));
+                }
+                log(END_TABLE_COLUMN);
+            }
+            log(START_TABLE_COLUMN);
+            log(HTML_SPACE);
+            log(END_TABLE_COLUMN);
+            for (int i = start; i < end; i++) {
+                RootWord rootWord = rightSideRootWords[i];
+                log(START_TABLE_COLUMN);
+                if (rootWord == null) {
+                    log(HTML_SPACE);
+                } else {
+                    log(printArabicText(ARABIC_TEXT_SUP_SPAN, rootWord.getMemberType().getLabel()));
+                    log(HTML_SPACE);
+                    log(printArabicText(rootWord));
+                }
+                log(END_TABLE_COLUMN);
+            }
+            log(END_TABLE_ROW);
+            start = end;
+            end += NUM_OF_COLUMNS;
+        }
 
         log(TABLE_BODY_DECLERATION_END);
+
         log(TABLE_DECLERATION_END);
     }
 
-    public void printColumn(ConjugationBuilder builder, SarfTermType sarfTermType,
-                            ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                            ArabicLetterType thirdRadical) {
-        log(format("%s%s%s", START_TABLE_COLUMN, runConjugation(builder, sarfTermType,
-                firstRadical, secondRadical, thirdRadical), END_TABLE_COLUMN));
-    }
-
-    private String runConjugation(ConjugationBuilder builder, SarfTermType sarfTermType,
-                                  ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                  ArabicLetterType thirdRadical) {
-        final ConjugationMemberBuilder memberBuilder = builder.getMemberBuilder(false, sarfTermType, firstRadical,
-                secondRadical, thirdRadical);
-        final ConjugationMember defaultConjugation = memberBuilder.getDefaultConjugation();
-        String text = format(ARABIC_TEXT_SPAN, defaultConjugation.getConjugation().toHtmlCode());
-        return format("<div>%s &mdash; %s &mdash; %s</div>", sarfTermType, defaultConjugation.getMemberType(), text);
-    }
 }

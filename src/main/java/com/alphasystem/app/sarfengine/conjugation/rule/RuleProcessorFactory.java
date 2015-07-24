@@ -1,20 +1,20 @@
 package com.alphasystem.app.sarfengine.conjugation.rule;
 
-import com.alphasystem.app.sarfengine.guice.SarfEngineModule;
+import com.alphasystem.app.sarfengine.guice.RuleProcessorModule;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
 
-import static com.alphasystem.app.sarfengine.guice.SarfEngineModule.*;
+import static com.alphasystem.app.sarfengine.guice.RuleProcessorModule.*;
 
 /**
  * @author sali
  */
 public interface RuleProcessorFactory {
 
-    @Named(SarfEngineModule.DEFAULT_RULE_PROCESSOR)
+    @Named(RuleProcessorModule.DEFAULT_RULE_PROCESSOR)
     RuleProcessor getRuleProcessor(@Assisted NamedTemplate template,
                                    @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
                                    @Assisted boolean pastTenseHasTransformed,

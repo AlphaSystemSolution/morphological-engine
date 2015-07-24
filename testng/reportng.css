@@ -18,7 +18,7 @@ td, th {
 
 .arabicTextCaption {
     font-family: Traditional Arabic, Helvetica, sans-serif;
-    color: #003300;
+    color: #489CDF;
     line-height: 2.0em;
     font-size: 28pt;
     direction: rtl;
@@ -29,4 +29,10 @@ td, th {
     color: #666666;
     line-height: 1.0em;
     font-size: 8pt;
+}
+
+sup {
+    vertical-align: super;
+    font-size: smaller;
+    color: lightgrey;
 }
