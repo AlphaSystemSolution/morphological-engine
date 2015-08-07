@@ -50,7 +50,7 @@ public enum FormTemplate implements ArabicLetters {
                     FA_WITH_SUKUN, AIN_WITH_DAMMA, WAW_WITH_SUKUN,
                     LAM_WITH_DAMMATAN),
 
-            createPassiveParticipleFaminineRootWord(1, 2, 4, MEEM_WITH_FATHA,
+            createPassiveParticipleFeminineRootWord(1, 2, 4, MEEM_WITH_FATHA,
                     FA_WITH_SUKUN, AIN_WITH_DAMMA, WAW_WITH_SUKUN,
                     LAM_WITH_FATHA, TA_MARBUTA_WITH_DAMMATAN)),
 
@@ -79,7 +79,7 @@ public enum FormTemplate implements ArabicLetters {
                     FA_WITH_SUKUN, AIN_WITH_DAMMA, WAW_WITH_SUKUN,
                     LAM_WITH_DAMMATAN),
 
-            createPassiveParticipleFaminineRootWord(1, 2, 4, MEEM_WITH_FATHA,
+            createPassiveParticipleFeminineRootWord(1, 2, 4, MEEM_WITH_FATHA,
                     FA_WITH_SUKUN, AIN_WITH_DAMMA, WAW_WITH_SUKUN,
                     LAM_WITH_FATHA, TA_MARBUTA_WITH_DAMMATAN)),
 
@@ -108,7 +108,7 @@ public enum FormTemplate implements ArabicLetters {
                     FA_WITH_SUKUN, AIN_WITH_DAMMA, WAW_WITH_SUKUN,
                     LAM_WITH_DAMMATAN),
 
-            createPassiveParticipleFaminineRootWord(1, 2, 4, MEEM_WITH_FATHA,
+            createPassiveParticipleFeminineRootWord(1, 2, 4, MEEM_WITH_FATHA,
                     FA_WITH_SUKUN, AIN_WITH_DAMMA, WAW_WITH_SUKUN,
                     LAM_WITH_FATHA, TA_MARBUTA_WITH_DAMMATAN)),
 
@@ -156,7 +156,7 @@ public enum FormTemplate implements ArabicLetters {
                     FA_WITH_SUKUN, AIN_WITH_DAMMA, WAW_WITH_SUKUN,
                     LAM_WITH_DAMMATAN),
 
-            createPassiveParticipleFaminineRootWord(1, 2, 4, MEEM_WITH_FATHA,
+            createPassiveParticipleFeminineRootWord(1, 2, 4, MEEM_WITH_FATHA,
                     FA_WITH_SUKUN, AIN_WITH_DAMMA, WAW_WITH_SUKUN,
                     LAM_WITH_FATHA, TA_MARBUTA_WITH_DAMMATAN)),
 
@@ -185,7 +185,7 @@ public enum FormTemplate implements ArabicLetters {
                     FA_WITH_SUKUN, AIN_WITH_DAMMA, WAW_WITH_SUKUN,
                     LAM_WITH_DAMMATAN),
 
-            createPassiveParticipleFaminineRootWord(1, 2, 4, MEEM_WITH_FATHA,
+            createPassiveParticipleFeminineRootWord(1, 2, 4, MEEM_WITH_FATHA,
                     FA_WITH_SUKUN, AIN_WITH_DAMMA, WAW_WITH_SUKUN,
                     LAM_WITH_FATHA, TA_MARBUTA_WITH_DAMMATAN)),
 
@@ -213,7 +213,7 @@ public enum FormTemplate implements ArabicLetters {
             createPassiveParticipleMasculineRootWord(1, 2, 3, MEEM_WITH_DAMMA,
                     FA_WITH_FATHA, AIN_WITH_SHADDA_AND_FATHA, LAM_WITH_DAMMATAN),
 
-            createPassiveParticipleFaminineRootWord(1, 2, 3, MEEM_WITH_DAMMA,
+            createPassiveParticipleFeminineRootWord(1, 2, 3, MEEM_WITH_DAMMA,
                     FA_WITH_FATHA, AIN_WITH_SHADDA_AND_FATHA, LAM_WITH_FATHA,
                     TA_MARBUTA_WITH_DAMMATAN),
 
@@ -249,7 +249,7 @@ public enum FormTemplate implements ArabicLetters {
                     FA_WITH_FATHA, LETTER_ALIF, AIN_WITH_FATHA,
                     LAM_WITH_DAMMATAN),
 
-            createPassiveParticipleFaminineRootWord(1, 3, 4, MEEM_WITH_DAMMA,
+            createPassiveParticipleFeminineRootWord(1, 3, 4, MEEM_WITH_DAMMA,
                     FA_WITH_FATHA, LETTER_ALIF, AIN_WITH_FATHA, LAM_WITH_FATHA,
                     TA_MARBUTA_WITH_DAMMATAN),
 
@@ -284,7 +284,7 @@ public enum FormTemplate implements ArabicLetters {
             createPassiveParticipleMasculineRootWord(1, 2, 3, MEEM_WITH_DAMMA,
                     FA_WITH_SUKUN, AIN_WITH_FATHA, LAM_WITH_DAMMATAN),
 
-            createPassiveParticipleFaminineRootWord(1, 2, 3, MEEM_WITH_DAMMA,
+            createPassiveParticipleFeminineRootWord(1, 2, 3, MEEM_WITH_DAMMA,
                     FA_WITH_SUKUN, AIN_WITH_FATHA, LAM_WITH_FATHA,
                     TA_MARBUTA_WITH_DAMMATAN),
 
@@ -319,7 +319,7 @@ public enum FormTemplate implements ArabicLetters {
                     TA_WITH_FATHA, FA_WITH_FATHA, AIN_WITH_SHADDA_AND_FATHA,
                     LAM_WITH_DAMMATAN),
 
-            createPassiveParticipleFaminineRootWord(2, 3, 4, MEEM_WITH_DAMMA,
+            createPassiveParticipleFeminineRootWord(2, 3, 4, MEEM_WITH_DAMMA,
                     TA_WITH_FATHA, FA_WITH_FATHA, AIN_WITH_SHADDA_AND_FATHA,
                     LAM_WITH_FATHA, TA_MARBUTA_WITH_DAMMATAN),
 
@@ -355,7 +355,7 @@ public enum FormTemplate implements ArabicLetters {
                     TA_WITH_FATHA, FA_WITH_FATHA, LETTER_ALIF, AIN_WITH_FATHA,
                     LAM_WITH_DAMMATAN),
 
-            createPassiveParticipleFaminineRootWord(2, 4, 5, MEEM_WITH_DAMMA,
+            createPassiveParticipleFeminineRootWord(2, 4, 5, MEEM_WITH_DAMMA,
                     TA_WITH_FATHA, FA_WITH_FATHA, LETTER_ALIF, AIN_WITH_FATHA,
                     LAM_WITH_FATHA, TA_MARBUTA_WITH_DAMMATAN),
 
@@ -415,7 +415,7 @@ public enum FormTemplate implements ArabicLetters {
             createPassiveParticipleMasculineRootWord(1, 3, 4, MEEM_WITH_DAMMA,
                     FA_WITH_SUKUN, TA_WITH_FATHA, AIN_WITH_FATHA, LAM_WITH_DAMMATAN),
 
-            createPassiveParticipleFaminineRootWord(1, 3, 4, MEEM_WITH_DAMMA,
+            createPassiveParticipleFeminineRootWord(1, 3, 4, MEEM_WITH_DAMMA,
                     FA_WITH_SUKUN, TA_WITH_FATHA, AIN_WITH_FATHA, LAM_WITH_FATHA,
                     TA_MARBUTA_WITH_DAMMATAN),
 
@@ -476,7 +476,7 @@ public enum FormTemplate implements ArabicLetters {
                     SEEN_WITH_SUKUN, TA_WITH_FATHA, FA_WITH_SUKUN, AIN_WITH_FATHA,
                     LAM_WITH_DAMMATAN),
 
-            createPassiveParticipleFaminineRootWord(3, 4, 5, MEEM_WITH_DAMMA,
+            createPassiveParticipleFeminineRootWord(3, 4, 5, MEEM_WITH_DAMMA,
                     SEEN_WITH_SUKUN, TA_WITH_FATHA, FA_WITH_SUKUN, AIN_WITH_FATHA,
                     LAM_WITH_FATHA, TA_MARBUTA_WITH_DAMMATAN),
 
@@ -603,7 +603,7 @@ public enum FormTemplate implements ArabicLetters {
                 activeParticipleFeminineRoot, passiveParticipleMasculineRoot,
                 passiveParticipleFeminineRoot,
                 createImperativeRootWord(presentTenseRoot),
-                createFobiddingRootWord(presentTenseRoot), verbalNounRoots,
+                createForbiddingRootWord(presentTenseRoot), verbalNounRoots,
                 zarfRoots);
     }
 
@@ -614,7 +614,7 @@ public enum FormTemplate implements ArabicLetters {
         this(template, pastTenseRoot, presentTenseRoot, null, null,
                 activeParticipleMasculineRoot, activeParticipleFeminineRoot,
                 null, null, createImperativeRootWord(presentTenseRoot),
-                createFobiddingRootWord(presentTenseRoot), verbalNounRoots,
+                createForbiddingRootWord(presentTenseRoot), verbalNounRoots,
                 zarfRoots);
     }
 

@@ -15,8 +15,9 @@ public class SarfEngineTestFactory {
         return new Object[]{
                 new GuiceTest(),
                 new RuleTester(),
-                new ConjugationMemberTest()
-                /*new BuilderTest(),
+                new ConjugationMemberTest(),
+                new BuilderTest()
+                /*,
                 new PatternHelperTest(), new ConjugationTest()*/
         };
     }

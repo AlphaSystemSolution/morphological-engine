@@ -55,13 +55,13 @@ public class TriLiteralTemplateHelper {
                 ACTIVE_PARTICIPLE_MASCULINE, arabicLetters);
     }
 
-    public static RootWord createFobiddingRootWord(RootWord presentTenseRoot) {
-        return createFobiddingRootWord(presentTenseRoot,
+    public static RootWord createForbiddingRootWord(RootWord presentTenseRoot) {
+        return createForbiddingRootWord(presentTenseRoot,
                 DefaultTriLiteralForbiddingBuilder.class.getName());
     }
 
-    public static RootWord createFobiddingRootWord(RootWord presentTenseRoot,
-                                                   String implementationClass) {
+    public static RootWord createForbiddingRootWord(RootWord presentTenseRoot,
+                                                    String implementationClass) {
         return new RootWord(presentTenseRoot).withImplementationClass(
                 implementationClass).withSarfTermType(FORBIDDING);
     }
@@ -77,16 +77,16 @@ public class TriLiteralTemplateHelper {
                 implementationClass).withSarfTermType(IMPERATIVE);
     }
 
-    public static RootWord createPassiveParticipleFaminineRootWord(
+    public static RootWord createPassiveParticipleFeminineRootWord(
             int firstRadicalIndex, int secondRadicalIndex,
             int thirdRadicalIndex, ArabicLetter... arabicLetters) {
-        return createPassiveParticipleFaminineRootWord(firstRadicalIndex,
+        return createPassiveParticipleFeminineRootWord(firstRadicalIndex,
                 secondRadicalIndex, thirdRadicalIndex,
                 TriLiteralPassiveParticipleFeminineBuilder.class.getName(),
                 arabicLetters);
     }
 
-    public static RootWord createPassiveParticipleFaminineRootWord(
+    public static RootWord createPassiveParticipleFeminineRootWord(
             int firstRadicalIndex, int secondRadicalIndex,
             int thirdRadicalIndex, String implementationClass,
             ArabicLetter... arabicLetters) {

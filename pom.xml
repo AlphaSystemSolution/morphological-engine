@@ -64,7 +64,7 @@
         </plugins>
     </build>
     <properties>
-        <maven.test.skip>true</maven.test.skip>
+        <maven.test.skip>false</maven.test.skip>
         <guice.version>4.0</guice.version>
         <mycila-guice.version>3.6.ga</mycila-guice.version>
         <sarf-xml-model.version>${project.version}</sarf-xml-model.version>
