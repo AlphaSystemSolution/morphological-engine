@@ -37,6 +37,12 @@ public class ConjugationMemberTest extends CommonTest {
         leftBuilder = factory.getTriLiteralPresentPassiveBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical);
         printTenseConjugations(leftBuilder, rightBuilder);
+
+        rightBuilder = factory.getTriLiteralImperativeBuilder(namedTemplate, false,
+                firstRadical, secondRadical, thirdRadical, null);
+        leftBuilder = factory.getTriLiteralForbiddingBuilder(namedTemplate, false,
+                firstRadical, secondRadical, thirdRadical);
+        printTenseConjugations(leftBuilder, rightBuilder);
     }
 
     private void printTenseConjugations(TenseMemberBuilder leftBuilder, TenseMemberBuilder rightBuilder) {

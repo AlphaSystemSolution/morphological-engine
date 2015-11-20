@@ -144,8 +144,7 @@ public abstract class AbstractTenseMemberBuilder extends AbstractConjugationMemb
 
     @Override
     public RootWord secondPersonFeminineSingular() {
-        return doPostProcessConjugation(doSecondPersonFeminineSingular(
-                createRootWord(SECOND_PERSON_FEMININE_SINGULAR)));
+        return doPostProcessConjugation(doSecondPersonFeminineSingular(createRootWord(SECOND_PERSON_FEMININE_SINGULAR)));
     }
 
     @Override

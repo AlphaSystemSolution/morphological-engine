@@ -2,10 +2,7 @@ package com.alphasystem.app.sarfengine.guice;
 
 import com.alphasystem.app.sarfengine.conjugation.member.MemberBuilderFactory;
 import com.alphasystem.app.sarfengine.conjugation.member.TenseMemberBuilder;
-import com.alphasystem.app.sarfengine.conjugation.member.triliteral.TriLiteralPastPassiveBuilder;
-import com.alphasystem.app.sarfengine.conjugation.member.triliteral.TriLiteralPastTenseBuilder;
-import com.alphasystem.app.sarfengine.conjugation.member.triliteral.TriLiteralPresentPassiveBuilder;
-import com.alphasystem.app.sarfengine.conjugation.member.triliteral.TriLiteralPresentTenseBuilder;
+import com.alphasystem.app.sarfengine.conjugation.member.triliteral.*;
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 
@@ -20,6 +17,8 @@ public class MemberBuilderModule extends AbstractModule {
     public static final String TRI_LITERAL_PRESENT_TENSE_BUILDER = "TriLiteralPresentTenseBuilder";
     public static final String TRI_LITERAL_PAST_PASSIVE_BUILDER = "TriLiteralPastPassiveBuilder";
     public static final String TRI_LITERAL_PRESENT_PASSIVE_BUILDER = "TriLiteralPresentPassiveBuilder";
+    public static final String TRI_LITERAL_IMPERATIVE_BUILDER = "TriLiteralImperativeBuilder";
+    public static final String TRI_LITERAL_FORBIDDING_BUILDER = "TriLiteralForbiddingBuilder";
 
     @Override
     protected void configure() {
@@ -32,6 +31,10 @@ public class MemberBuilderModule extends AbstractModule {
                         TriLiteralPastPassiveBuilder.class)
                 .implement(TenseMemberBuilder.class, named(TRI_LITERAL_PRESENT_PASSIVE_BUILDER),
                         TriLiteralPresentPassiveBuilder.class)
+                .implement(TenseMemberBuilder.class, named(TRI_LITERAL_IMPERATIVE_BUILDER),
+                        TriLiteralImperativeBuilder.class)
+                .implement(TenseMemberBuilder.class, named(TRI_LITERAL_FORBIDDING_BUILDER),
+                        TriLiteralForbiddingBuilder.class)
                 .build(MemberBuilderFactory.class));
     }
 }
