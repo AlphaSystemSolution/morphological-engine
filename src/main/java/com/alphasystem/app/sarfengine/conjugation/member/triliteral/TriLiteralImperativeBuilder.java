@@ -27,6 +27,15 @@ public class TriLiteralImperativeBuilder extends AbstractTriLiteralImperativeAnd
         super(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, imperativeLetter, false);
     }
 
+    @AssistedInject
+    public TriLiteralImperativeBuilder(@Assisted NamedTemplate template,
+                                       @Assisted boolean skipRuleProcessing,
+                                       @Assisted("firstRadical") ArabicLetterType firstRadical,
+                                       @Assisted("secondRadical") ArabicLetterType secondRadical,
+                                       @Assisted("thirdRadical") ArabicLetterType thirdRadical) {
+        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null);
+    }
+
     @Override
     public SarfTermType getTermType() {
         return IMPERATIVE;

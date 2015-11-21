@@ -57,7 +57,7 @@ public class ConjugationMemberTest extends CommonTest {
 
         // Imperative and Forbidding
         rightBuilder = factory.getTriLiteralImperativeBuilder(namedTemplate, false,
-                firstRadical, secondRadical, thirdRadical, null);
+                firstRadical, secondRadical, thirdRadical);
         leftBuilder = factory.getTriLiteralForbiddingBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical);
         printConjugations(leftBuilder, rightBuilder, true);

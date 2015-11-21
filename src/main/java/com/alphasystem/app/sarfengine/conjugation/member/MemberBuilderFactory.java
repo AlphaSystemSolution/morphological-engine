@@ -51,6 +51,20 @@ public interface MemberBuilderFactory {
                                                       @Assisted("thirdRadical") ArabicLetterType thirdRadical,
                                                       @Nullable @Assisted ArabicLetter imperativeLetter);
 
+    @Named(TRI_LITERAL_IMPERATIVE_BUILDER)
+    TenseMemberBuilder getTriLiteralImperativeBuilder(@Assisted NamedTemplate template,
+                                                      @Assisted boolean skipRuleProcessing,
+                                                      @Assisted("firstRadical") ArabicLetterType firstRadical,
+                                                      @Assisted("secondRadical") ArabicLetterType secondRadical,
+                                                      @Assisted("thirdRadical") ArabicLetterType thirdRadical);
+
+    @Named(TRI_LITERAL_IMPERATIVE_FORMIV_BUILDER)
+    TenseMemberBuilder getTriLiteralImperativeFormIVBuilder(@Assisted NamedTemplate template,
+                                                      @Assisted boolean skipRuleProcessing,
+                                                      @Assisted("firstRadical") ArabicLetterType firstRadical,
+                                                      @Assisted("secondRadical") ArabicLetterType secondRadical,
+                                                      @Assisted("thirdRadical") ArabicLetterType thirdRadical);
+
     @Named(TRI_LITERAL_FORBIDDING_BUILDER)
     TenseMemberBuilder getTriLiteralForbiddingBuilder(@Assisted NamedTemplate template,
                                                       @Assisted boolean skipRuleProcessing,
