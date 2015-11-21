@@ -48,6 +48,13 @@ public class ConjugationMemberTest extends CommonTest {
                 firstRadical, secondRadical, thirdRadical);
         printConjugations(leftBuilder, rightBuilder);
 
+        // Passive Participle Masculine and Feminine
+        rightBuilder = factory.getTriLiteralPassiveParticipleMasculineBuilder(namedTemplate, false,
+                firstRadical, secondRadical, thirdRadical);
+        leftBuilder = factory.getTriLiteralPassiveParticipleFeminineBuilder(namedTemplate, false,
+                firstRadical, secondRadical, thirdRadical);
+        printConjugations(leftBuilder, rightBuilder);
+
         // Imperative and Forbidding
         rightBuilder = factory.getTriLiteralImperativeBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical, null);

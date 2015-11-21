@@ -71,4 +71,18 @@ public interface MemberBuilderFactory {
                                                                           @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                                           @Assisted("secondRadical") ArabicLetterType secondRadical,
                                                                           @Assisted("thirdRadical") ArabicLetterType thirdRadical);
+
+    @Named(TRI_LITERAL_PASSIVE_PARTICIPLE_MASCULINE_BUILDER)
+    ParticipleMemberBuilder getTriLiteralPassiveParticipleMasculineBuilder(@Assisted NamedTemplate template,
+                                                                          @Assisted boolean skipRuleProcessing,
+                                                                          @Assisted("firstRadical") ArabicLetterType firstRadical,
+                                                                          @Assisted("secondRadical") ArabicLetterType secondRadical,
+                                                                          @Assisted("thirdRadical") ArabicLetterType thirdRadical);
+
+    @Named(TRI_LITERAL_PASSIVE_PARTICIPLE_FEMININE_BUILDER)
+    ParticipleMemberBuilder getTriLiteralPassiveParticipleFeminineBuilder(@Assisted NamedTemplate template,
+                                                                         @Assisted boolean skipRuleProcessing,
+                                                                         @Assisted("firstRadical") ArabicLetterType firstRadical,
+                                                                         @Assisted("secondRadical") ArabicLetterType secondRadical,
+                                                                         @Assisted("thirdRadical") ArabicLetterType thirdRadical);
 }
