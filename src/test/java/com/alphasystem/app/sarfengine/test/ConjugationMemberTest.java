@@ -32,45 +32,46 @@ public class ConjugationMemberTest extends CommonTest {
                 firstRadical, secondRadical, thirdRadical);
         ConjugationMemberBuilder leftBuilder = factory.getTriLiteralPresentTenseBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical);
-        printConjugations(leftBuilder, rightBuilder);
+        printConjugations(leftBuilder, rightBuilder, true);
 
         // Active Participle Masculine and Feminine
         rightBuilder = factory.getTriLiteralActiveParticipleMasculineBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical);
         leftBuilder = factory.getTriLiteralActiveParticipleFeminineBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical);
-        printConjugations(leftBuilder, rightBuilder);
+        printConjugations(leftBuilder, rightBuilder, false);
 
         // Passive Present and Past Tenses
         rightBuilder = factory.getTriLiteralPastPassiveBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical);
         leftBuilder = factory.getTriLiteralPresentPassiveBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical);
-        printConjugations(leftBuilder, rightBuilder);
+        printConjugations(leftBuilder, rightBuilder, true);
 
         // Passive Participle Masculine and Feminine
         rightBuilder = factory.getTriLiteralPassiveParticipleMasculineBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical);
         leftBuilder = factory.getTriLiteralPassiveParticipleFeminineBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical);
-        printConjugations(leftBuilder, rightBuilder);
+        printConjugations(leftBuilder, rightBuilder, false);
 
         // Imperative and Forbidding
         rightBuilder = factory.getTriLiteralImperativeBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical, null);
         leftBuilder = factory.getTriLiteralForbiddingBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical);
-        printConjugations(leftBuilder, rightBuilder);
+        printConjugations(leftBuilder, rightBuilder, true);
 
     }
 
-    private void printConjugations(ConjugationMemberBuilder leftBuilder, ConjugationMemberBuilder rightBuilder) {
+    private void printConjugations(ConjugationMemberBuilder leftBuilder, ConjugationMemberBuilder rightBuilder,
+                                   boolean displayStatus) {
         printTable(leftBuilder.doConjugation(), rightBuilder.doConjugation(), leftBuilder.getTermType(),
-                rightBuilder.getTermType());
+                rightBuilder.getTermType(), displayStatus);
     }
 
     private void printTable(RootWord[] leftSideRootWords, RootWord[] rightSideRootWords,
-                            SarfTermType leftTermType, SarfTermType rigtTermType) {
+                            SarfTermType leftTermType, SarfTermType rightTermType, boolean displayStatus) {
         log(TABLE_DECLERATION_START);
         log("<col width=\"16%\"/>");
         log("<col width=\"16%\"/>");
@@ -88,7 +89,7 @@ public class ConjugationMemberTest extends CommonTest {
         log(HTML_SPACE);
         log(END_TABLE_TH);
         log(START_TABLE_TH_COLSPAN3);
-        log(printArabicText(ARABIC_TEXT_CAPTION_SPAN, rigtTermType.getLabel()));
+        log(printArabicText(ARABIC_TEXT_CAPTION_SPAN, rightTermType.getLabel()));
         log(END_TABLE_TH);
         log(TABLE_HEADER_DECLERATION_END);
 
@@ -103,7 +104,9 @@ public class ConjugationMemberTest extends CommonTest {
                 if (rootWord == null) {
                     log(HTML_SPACE);
                 } else {
-                    log(printArabicText(ARABIC_TEXT_SUP_SPAN, rootWord.getMemberType().getLabel()));
+                    if(displayStatus) {
+                        log(printArabicText(ARABIC_TEXT_SUP_SPAN, rootWord.getMemberType().getLabel()));
+                    }
                     log(HTML_SPACE);
                     log(printArabicText(rootWord));
                 }
@@ -118,7 +121,9 @@ public class ConjugationMemberTest extends CommonTest {
                 if (rootWord == null) {
                     log(HTML_SPACE);
                 } else {
-                    log(printArabicText(ARABIC_TEXT_SUP_SPAN, rootWord.getMemberType().getLabel()));
+                    if(displayStatus) {
+                        log(printArabicText(ARABIC_TEXT_SUP_SPAN, rootWord.getMemberType().getLabel()));
+                    }
                     log(HTML_SPACE);
                     log(printArabicText(rootWord));
                 }
