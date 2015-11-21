@@ -10,6 +10,7 @@ import com.alphasystem.sarfengine.xml.model.SarfTermType;
 import org.testng.annotations.Test;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
+import static com.alphasystem.arabic.model.NamedTemplate.FORM_IV_TEMPLATE;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
 import static org.testng.Reporter.log;
 
@@ -23,6 +24,7 @@ public class ConjugationMemberTest extends CommonTest {
     @Test
     public void runConjugations() {
         runConjugations(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, NOON, SAD, RA);
+        runConjugations(FORM_IV_TEMPLATE, SEEN, LAM, MEEM);
     }
 
     private void runConjugations(NamedTemplate namedTemplate, ArabicLetterType firstRadical,
@@ -56,8 +58,9 @@ public class ConjugationMemberTest extends CommonTest {
         printConjugations(leftBuilder, rightBuilder, false);
 
         // Imperative and Forbidding
-        rightBuilder = factory.getTriLiteralImperativeBuilder(namedTemplate, false,
-                firstRadical, secondRadical, thirdRadical);
+        rightBuilder = namedTemplate.equals(FORM_IV_TEMPLATE) ?
+                factory.getTriLiteralImperativeFormIVBuilder(namedTemplate, false, firstRadical, secondRadical, thirdRadical) :
+                factory.getTriLiteralImperativeBuilder(namedTemplate, false, firstRadical, secondRadical, thirdRadical);
         leftBuilder = factory.getTriLiteralForbiddingBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical);
         printConjugations(leftBuilder, rightBuilder, true);
@@ -104,7 +107,7 @@ public class ConjugationMemberTest extends CommonTest {
                 if (rootWord == null) {
                     log(HTML_SPACE);
                 } else {
-                    if(displayStatus) {
+                    if (displayStatus) {
                         log(printArabicText(ARABIC_TEXT_SUP_SPAN, rootWord.getMemberType().getLabel()));
                     }
                     log(HTML_SPACE);
@@ -121,7 +124,7 @@ public class ConjugationMemberTest extends CommonTest {
                 if (rootWord == null) {
                     log(HTML_SPACE);
                 } else {
-                    if(displayStatus) {
+                    if (displayStatus) {
                         log(printArabicText(ARABIC_TEXT_SUP_SPAN, rootWord.getMemberType().getLabel()));
                     }
                     log(HTML_SPACE);
