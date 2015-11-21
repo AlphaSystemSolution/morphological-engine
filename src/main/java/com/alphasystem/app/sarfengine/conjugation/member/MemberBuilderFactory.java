@@ -49,12 +49,26 @@ public interface MemberBuilderFactory {
                                                       @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                       @Assisted("secondRadical") ArabicLetterType secondRadical,
                                                       @Assisted("thirdRadical") ArabicLetterType thirdRadical,
-                                                      @Assisted ArabicLetter imperativeLetter);
+                                                      @Nullable @Assisted ArabicLetter imperativeLetter);
 
     @Named(TRI_LITERAL_FORBIDDING_BUILDER)
     TenseMemberBuilder getTriLiteralForbiddingBuilder(@Assisted NamedTemplate template,
                                                       @Assisted boolean skipRuleProcessing,
                                                       @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                       @Assisted("secondRadical") ArabicLetterType secondRadical,
-                                                       @Nullable @Assisted("thirdRadical") ArabicLetterType thirdRadical);
+                                                      @Assisted("thirdRadical") ArabicLetterType thirdRadical);
+
+    @Named(TRI_LITERAL_ACTIVE_PARTICIPLE_MASCULINE_BUILDER)
+    ParticipleMemberBuilder getTriLiteralActiveParticipleMasculineBuilder(@Assisted NamedTemplate template,
+                                                                          @Assisted boolean skipRuleProcessing,
+                                                                          @Assisted("firstRadical") ArabicLetterType firstRadical,
+                                                                          @Assisted("secondRadical") ArabicLetterType secondRadical,
+                                                                          @Assisted("thirdRadical") ArabicLetterType thirdRadical);
+
+    @Named(TRI_LITERAL_ACTIVE_PARTICIPLE_FEMININE_BUILDER)
+    ParticipleMemberBuilder getTriLiteralActiveParticipleFeminineBuilder(@Assisted NamedTemplate template,
+                                                                          @Assisted boolean skipRuleProcessing,
+                                                                          @Assisted("firstRadical") ArabicLetterType firstRadical,
+                                                                          @Assisted("secondRadical") ArabicLetterType secondRadical,
+                                                                          @Assisted("thirdRadical") ArabicLetterType thirdRadical);
 }

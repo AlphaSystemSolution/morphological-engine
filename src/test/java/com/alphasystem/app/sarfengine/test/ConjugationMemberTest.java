@@ -1,11 +1,12 @@
 package com.alphasystem.app.sarfengine.test;
 
+import com.alphasystem.app.sarfengine.conjugation.member.ConjugationMemberBuilder;
 import com.alphasystem.app.sarfengine.conjugation.member.MemberBuilderFactory;
-import com.alphasystem.app.sarfengine.conjugation.member.TenseMemberBuilder;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
+import com.alphasystem.sarfengine.xml.model.SarfTermType;
 import org.testng.annotations.Test;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
@@ -26,29 +27,43 @@ public class ConjugationMemberTest extends CommonTest {
 
     private void runConjugations(NamedTemplate namedTemplate, ArabicLetterType firstRadical,
                                  ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
-        TenseMemberBuilder rightBuilder = factory.getTriLiteralPastTenseBuilder(namedTemplate, false,
+        // Active Present and Past Tenses
+        ConjugationMemberBuilder rightBuilder = factory.getTriLiteralPastTenseBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical);
-        TenseMemberBuilder leftBuilder = factory.getTriLiteralPresentTenseBuilder(namedTemplate, false,
+        ConjugationMemberBuilder leftBuilder = factory.getTriLiteralPresentTenseBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical);
-        printTenseConjugations(leftBuilder, rightBuilder);
+        printConjugations(leftBuilder, rightBuilder);
 
+        // Active Participle Masculine and Feminine
+        rightBuilder = factory.getTriLiteralActiveParticipleMasculineBuilder(namedTemplate, false,
+                firstRadical, secondRadical, thirdRadical);
+        leftBuilder = factory.getTriLiteralActiveParticipleFeminineBuilder(namedTemplate, false,
+                firstRadical, secondRadical, thirdRadical);
+        printConjugations(leftBuilder, rightBuilder);
+
+        // Passive Present and Past Tenses
         rightBuilder = factory.getTriLiteralPastPassiveBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical);
         leftBuilder = factory.getTriLiteralPresentPassiveBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical);
-        printTenseConjugations(leftBuilder, rightBuilder);
+        printConjugations(leftBuilder, rightBuilder);
 
+        // Imperative and Forbidding
         rightBuilder = factory.getTriLiteralImperativeBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical, null);
         leftBuilder = factory.getTriLiteralForbiddingBuilder(namedTemplate, false,
                 firstRadical, secondRadical, thirdRadical);
-        printTenseConjugations(leftBuilder, rightBuilder);
+        printConjugations(leftBuilder, rightBuilder);
+
     }
 
-    private void printTenseConjugations(TenseMemberBuilder leftBuilder, TenseMemberBuilder rightBuilder) {
-        RootWord[] leftSideRootWords = leftBuilder.doConjugation();
-        RootWord[] rightSideRootWords = rightBuilder.doConjugation();
+    private void printConjugations(ConjugationMemberBuilder leftBuilder, ConjugationMemberBuilder rightBuilder) {
+        printTable(leftBuilder.doConjugation(), rightBuilder.doConjugation(), leftBuilder.getTermType(),
+                rightBuilder.getTermType());
+    }
 
+    private void printTable(RootWord[] leftSideRootWords, RootWord[] rightSideRootWords,
+                            SarfTermType leftTermType, SarfTermType rigtTermType) {
         log(TABLE_DECLERATION_START);
         log("<col width=\"16%\"/>");
         log("<col width=\"16%\"/>");
@@ -60,13 +75,13 @@ public class ConjugationMemberTest extends CommonTest {
 
         log(TABLE_HEADER_DECLERATION_START);
         log(START_TABLE_TH_COLSPAN3);
-        log(printArabicText(ARABIC_TEXT_CAPTION_SPAN, leftBuilder.getTermType().getLabel()));
+        log(printArabicText(ARABIC_TEXT_CAPTION_SPAN, leftTermType.getLabel()));
         log(END_TABLE_TH);
         log(START_TABLE_TH);
         log(HTML_SPACE);
         log(END_TABLE_TH);
         log(START_TABLE_TH_COLSPAN3);
-        log(printArabicText(ARABIC_TEXT_CAPTION_SPAN, rightBuilder.getTermType().getLabel()));
+        log(printArabicText(ARABIC_TEXT_CAPTION_SPAN, rigtTermType.getLabel()));
         log(END_TABLE_TH);
         log(TABLE_HEADER_DECLERATION_END);
 
