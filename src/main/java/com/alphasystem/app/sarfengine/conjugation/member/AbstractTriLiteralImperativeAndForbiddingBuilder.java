@@ -2,10 +2,13 @@ package com.alphasystem.app.sarfengine.conjugation.member;
 
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.sarfengine.xml.model.RootWord;
+import com.alphasystem.sarfengine.xml.model.SarfTermType;
 import com.alphasystem.util.MethodNotSupportedException;
 
 import static com.alphasystem.app.sarfengine.guice.GuiceSupport.getInstance;
 import static com.alphasystem.arabic.model.DiacriticType.*;
+import static com.alphasystem.sarfengine.xml.model.SarfTermType.FORBIDDING;
+import static com.alphasystem.sarfengine.xml.model.SarfTermType.IMPERATIVE;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 
 /**
@@ -14,7 +17,7 @@ import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 public abstract class AbstractTriLiteralImperativeAndForbiddingBuilder
         extends AbstractTenseMemberBuilder {
 
-    protected TenseMemberBuilder builder;
+    protected final TenseMemberBuilder builder;
     protected final boolean forbidding;
     protected ArabicLetter imperativeLetter;
 
@@ -204,5 +207,10 @@ public abstract class AbstractTriLiteralImperativeAndForbiddingBuilder
         }
         rootWord.setRootWord(result);
         return rootWord;
+    }
+
+    @Override
+    public SarfTermType getTermType() {
+        return forbidding ? FORBIDDING : IMPERATIVE;
     }
 }

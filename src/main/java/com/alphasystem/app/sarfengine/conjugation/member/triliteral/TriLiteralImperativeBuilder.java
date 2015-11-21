@@ -4,13 +4,10 @@ import com.alphasystem.app.sarfengine.conjugation.member.AbstractTriLiteralImper
 import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
-import com.alphasystem.sarfengine.xml.model.SarfTermType;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
 import javax.annotation.Nullable;
-
-import static com.alphasystem.sarfengine.xml.model.SarfTermType.IMPERATIVE;
 
 /**
  * @author sali
@@ -36,8 +33,4 @@ public class TriLiteralImperativeBuilder extends AbstractTriLiteralImperativeAnd
         this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null);
     }
 
-    @Override
-    public SarfTermType getTermType() {
-        return IMPERATIVE;
-    }
 }

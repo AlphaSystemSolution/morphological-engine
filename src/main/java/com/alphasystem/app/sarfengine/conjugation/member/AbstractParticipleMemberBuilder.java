@@ -23,7 +23,8 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
 
     protected AbstractParticipleMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
                                               ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                              ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+                                              ArabicLetterType thirdRadical, ArabicLetterType fourthRadical,
+                                              int variableLetterIndex) {
         super(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, fourthRadical);
         setVariableLetterIndex(variableLetterIndex);
     }
