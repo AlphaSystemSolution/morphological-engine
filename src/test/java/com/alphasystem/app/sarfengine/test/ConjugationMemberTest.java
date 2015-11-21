@@ -4,11 +4,14 @@ import com.alphasystem.app.sarfengine.conjugation.member.ConjugationMemberBuilde
 import com.alphasystem.app.sarfengine.conjugation.member.MemberBuilderFactory;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicLetterType;
+import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
 import org.testng.annotations.Test;
 
+import static com.alphasystem.app.sarfengine.conjugation.model.VerbalNoun.VERBAL_NOUN_V1;
+import static com.alphasystem.app.sarfengine.conjugation.model.VerbalNoun.VERBAL_NOUN_V2;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_IV_TEMPLATE;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
@@ -25,6 +28,15 @@ public class ConjugationMemberTest extends CommonTest {
     public void runConjugations() {
         runConjugations(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, NOON, SAD, RA);
         runConjugations(FORM_IV_TEMPLATE, SEEN, LAM, MEEM);
+    }
+
+    @Test
+    public void testVerbalNouns() {
+        ConjugationMemberBuilder rightBuilder = factory.getTriLiteralVerbalNounBuilder(
+                FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, false, FA, AIN, LAM, VERBAL_NOUN_V1.getRootWord());
+        ConjugationMemberBuilder leftBuilder = factory.getTriLiteralVerbalNounBuilder(
+                FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, false, FA, AIN, LAM, VERBAL_NOUN_V2.getRootWord());
+        printConjugations(leftBuilder, rightBuilder, false);
     }
 
     private void runConjugations(NamedTemplate namedTemplate, ArabicLetterType firstRadical,

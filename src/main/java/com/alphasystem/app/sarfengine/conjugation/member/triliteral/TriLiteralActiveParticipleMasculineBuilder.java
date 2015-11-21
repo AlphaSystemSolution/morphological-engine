@@ -10,6 +10,8 @@ import com.alphasystem.sarfengine.xml.model.SarfTermType;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
+import javax.annotation.Nullable;
+
 import static com.alphasystem.arabic.model.DiacriticType.*;
 import static com.alphasystem.sarfengine.xml.model.SarfTermType.ACTIVE_PARTICIPLE_MASCULINE;
 
@@ -18,13 +20,30 @@ import static com.alphasystem.sarfengine.xml.model.SarfTermType.ACTIVE_PARTICIPL
  */
 public class TriLiteralActiveParticipleMasculineBuilder extends AbstractParticipleMemberBuilder {
 
+    protected TriLiteralActiveParticipleMasculineBuilder(NamedTemplate template, boolean skipRuleProcessing,
+                                                         ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                                         ArabicLetterType thirdRadical, RootWord baseRootWord,
+                                                         int variableLetterIndex) {
+        super(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, baseRootWord, variableLetterIndex);
+    }
+
+    @AssistedInject
+    public TriLiteralActiveParticipleMasculineBuilder(@Assisted NamedTemplate template,
+                                                      @Assisted boolean skipRuleProcessing,
+                                                      @Assisted("firstRadical") ArabicLetterType firstRadical,
+                                                      @Assisted("secondRadical") ArabicLetterType secondRadical,
+                                                      @Assisted("thirdRadical") ArabicLetterType thirdRadical,
+                                                      @Nullable @Assisted RootWord baseRootWord) {
+        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, baseRootWord, -1);
+    }
+
     @AssistedInject
     public TriLiteralActiveParticipleMasculineBuilder(@Assisted NamedTemplate template,
                                                       @Assisted boolean skipRuleProcessing,
                                                       @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                       @Assisted("secondRadical") ArabicLetterType secondRadical,
                                                       @Assisted("thirdRadical") ArabicLetterType thirdRadical) {
-        super(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, -1);
+        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null);
     }
 
     @Override

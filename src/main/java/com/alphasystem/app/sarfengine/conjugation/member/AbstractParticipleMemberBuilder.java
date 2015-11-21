@@ -16,8 +16,9 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
 
     protected AbstractParticipleMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
                                               ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                              ArabicLetterType thirdRadical, int variableLetterIndex) {
-        super(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical);
+                                              ArabicLetterType thirdRadical, ArabicLetterType fourthRadical,
+                                              RootWord baseRootWord, int variableLetterIndex) {
+        super(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, fourthRadical, baseRootWord);
         setVariableLetterIndex(variableLetterIndex);
     }
 
@@ -25,12 +26,28 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
                                               ArabicLetterType firstRadical, ArabicLetterType secondRadical,
                                               ArabicLetterType thirdRadical, ArabicLetterType fourthRadical,
                                               int variableLetterIndex) {
-        super(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, fourthRadical);
-        setVariableLetterIndex(variableLetterIndex);
+        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, fourthRadical, null, variableLetterIndex);
+    }
+
+    protected AbstractParticipleMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
+                                              ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                              ArabicLetterType thirdRadical, RootWord baseRootWord,
+                                              int variableLetterIndex) {
+        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null, baseRootWord, variableLetterIndex);
+    }
+
+    protected AbstractParticipleMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
+                                              ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                              ArabicLetterType thirdRadical, int variableLetterIndex) {
+        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null, null, variableLetterIndex);
     }
 
     protected void setVariableLetterIndex(int variableLetterIndex) {
         this.variableLetterIndex = variableLetterIndex <= -1 ? getRootWord().getThirdRadicalIndex() : variableLetterIndex;
+    }
+
+    protected int getVariableLetterIndex() {
+        return variableLetterIndex;
     }
 
     @Override

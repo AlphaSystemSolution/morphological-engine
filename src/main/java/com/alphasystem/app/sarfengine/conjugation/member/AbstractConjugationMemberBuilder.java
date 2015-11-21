@@ -26,20 +26,47 @@ public abstract class AbstractConjugationMemberBuilder implements ConjugationMem
     protected Logger logger = LoggerFactory.getLogger(getClass());
     protected RootWord baseRootWord;
 
+    /**
+     * @param template
+     * @param skipRuleProcessing
+     * @param firstRadical
+     * @param secondRadical
+     * @param thirdRadical
+     * @param fourthRadical
+     * @param baseRootWord       Base Root Word for Verbal Noun
+     * @throws NullPointerException
+     */
     protected AbstractConjugationMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
                                                ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                               ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+                                               ArabicLetterType thirdRadical, ArabicLetterType fourthRadical,
+                                               RootWord baseRootWord) throws NullPointerException {
         this.template = template;
         this.skipRuleProcessing = skipRuleProcessing;
         this.ruleProcessor = getInstance().getRuleProcessor(template, null, false, null);
-        this.baseRootWord = new RootWord(getByNamedTemplate(template).getTemplateWord(getTermType()),
-                firstRadical, secondRadical, thirdRadical, fourthRadical);
+        RootWord templateWord = getByNamedTemplate(template).getTemplateWord(getTermType());
+        templateWord = baseRootWord == null ? templateWord : baseRootWord;
+        if (templateWord == null) {
+            throw new NullPointerException(format("No Sarf Term {%s} found for template {%s}", getTermType(), getTemplate()));
+        }
+        this.baseRootWord = new RootWord(templateWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+    }
+
+    protected AbstractConjugationMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
+                                               ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                               ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, fourthRadical, null);
+    }
+
+    protected AbstractConjugationMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
+                                               ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                               ArabicLetterType thirdRadical, RootWord baseRootWord) {
+        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null, baseRootWord);
     }
 
     protected AbstractConjugationMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
                                                ArabicLetterType firstRadical, ArabicLetterType secondRadical,
                                                ArabicLetterType thirdRadical) {
-        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null);
+        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null, null);
     }
 
     @PostConstruct
