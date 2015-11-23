@@ -1,7 +1,10 @@
 package com.alphasystem.app.sarfengine.conjugation.member;
 
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.arabic.model.*;
+import com.alphasystem.arabic.model.ArabicLetter;
+import com.alphasystem.arabic.model.ArabicWord;
+import com.alphasystem.arabic.model.DiacriticType;
+import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
 import com.alphasystem.util.MethodNotSupportedException;
@@ -25,16 +28,14 @@ public abstract class AbstractTriLiteralImperativeAndForbiddingBuilder
     protected AbstractTriLiteralImperativeAndForbiddingBuilder(RuleProcessor ruleProcessor,
                                                                NamedTemplate template,
                                                                boolean skipRuleProcessing,
-                                                               ArabicLetterType firstRadical,
-                                                               ArabicLetterType secondRadical,
-                                                               ArabicLetterType thirdRadical,
+                                                               RootWord baseRootWord,
                                                                ArabicLetter imperativeLetter,
-                                                               boolean forbidding) throws NullPointerException {
-        super(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical);
+                                                               boolean forbidding) {
+        super(ruleProcessor, template, skipRuleProcessing, baseRootWord);
         setImperativeLetter(imperativeLetter);
         this.forbidding = forbidding;
         builder = getInstance().getMemberBuilderFactory().getTriLiteralPresentTenseBuilder(ruleProcessor,
-                template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical);
+                template, skipRuleProcessing, baseRootWord);
     }
 
     @Override

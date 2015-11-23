@@ -1,8 +1,8 @@
 package com.alphasystem.app.sarfengine.conjugation.member.triliteral;
 
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
+import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
@@ -14,9 +14,7 @@ public class TriLiteralImperativeFormIVBuilder extends TriLiteralImperativeBuild
     @AssistedInject
     public TriLiteralImperativeFormIVBuilder(@Assisted RuleProcessor ruleProcessor,
                                              @Assisted NamedTemplate template, @Assisted boolean skipRuleProcessing,
-                                             @Assisted("firstRadical") ArabicLetterType firstRadical,
-                                             @Assisted("secondRadical") ArabicLetterType secondRadical,
-                                             @Assisted("thirdRadical") ArabicLetterType thirdRadical) {
-        super(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, ALIF_HAMZA_ABOVE_WITH_FATHA);
+                                             @Assisted RootWord baseRootWord) {
+        super(ruleProcessor, template, skipRuleProcessing, baseRootWord, ALIF_HAMZA_ABOVE_WITH_FATHA);
     }
 }

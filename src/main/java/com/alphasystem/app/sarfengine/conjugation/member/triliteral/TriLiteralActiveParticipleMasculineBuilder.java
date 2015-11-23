@@ -3,15 +3,12 @@ package com.alphasystem.app.sarfengine.conjugation.member.triliteral;
 
 import com.alphasystem.app.sarfengine.conjugation.member.AbstractParticipleMemberBuilder;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
-
-import javax.annotation.Nullable;
 
 import static com.alphasystem.arabic.model.DiacriticType.*;
 import static com.alphasystem.sarfengine.xml.model.SarfTermType.ACTIVE_PARTICIPLE_MASCULINE;
@@ -21,32 +18,18 @@ import static com.alphasystem.sarfengine.xml.model.SarfTermType.ACTIVE_PARTICIPL
  */
 public class TriLiteralActiveParticipleMasculineBuilder extends AbstractParticipleMemberBuilder {
 
-    protected TriLiteralActiveParticipleMasculineBuilder(RuleProcessor ruleProcessor, NamedTemplate template, boolean skipRuleProcessing,
-                                                         ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                                         ArabicLetterType thirdRadical, RootWord baseRootWord,
+    @AssistedInject
+    public TriLiteralActiveParticipleMasculineBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                      @Assisted NamedTemplate template,
+                                                      @Assisted boolean skipRuleProcessing,
+                                                      @Assisted RootWord baseRootWord) {
+        this(ruleProcessor, template, skipRuleProcessing, baseRootWord, -1);
+    }
+
+    protected TriLiteralActiveParticipleMasculineBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
+                                                         boolean skipRuleProcessing, RootWord baseRootWord,
                                                          int variableLetterIndex) {
-        super(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, baseRootWord, variableLetterIndex);
-    }
-
-    @AssistedInject
-    public TriLiteralActiveParticipleMasculineBuilder(@Assisted RuleProcessor ruleProcessor,
-                                                      @Assisted NamedTemplate template,
-                                                      @Assisted boolean skipRuleProcessing,
-                                                      @Assisted("firstRadical") ArabicLetterType firstRadical,
-                                                      @Assisted("secondRadical") ArabicLetterType secondRadical,
-                                                      @Assisted("thirdRadical") ArabicLetterType thirdRadical,
-                                                      @Nullable @Assisted RootWord baseRootWord) {
-        this(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, baseRootWord, -1);
-    }
-
-    @AssistedInject
-    public TriLiteralActiveParticipleMasculineBuilder(@Assisted RuleProcessor ruleProcessor,
-                                                      @Assisted NamedTemplate template,
-                                                      @Assisted boolean skipRuleProcessing,
-                                                      @Assisted("firstRadical") ArabicLetterType firstRadical,
-                                                      @Assisted("secondRadical") ArabicLetterType secondRadical,
-                                                      @Assisted("thirdRadical") ArabicLetterType thirdRadical) {
-        this(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null);
+        super(ruleProcessor, template, skipRuleProcessing, baseRootWord, variableLetterIndex);
     }
 
     @Override

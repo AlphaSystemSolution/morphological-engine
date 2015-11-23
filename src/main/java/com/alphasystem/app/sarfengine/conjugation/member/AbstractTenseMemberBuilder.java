@@ -1,7 +1,6 @@
 package com.alphasystem.app.sarfengine.conjugation.member;
 
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 
@@ -14,19 +13,9 @@ public abstract class AbstractTenseMemberBuilder extends AbstractConjugationMemb
         implements TenseMemberBuilder {
 
     protected AbstractTenseMemberBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
-                                         boolean skipRuleProcessing, ArabicLetterType firstRadical,
-                                         ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                         ArabicLetterType fourthRadical) throws NullPointerException {
-        super(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, fourthRadical);
+                                         boolean skipRuleProcessing, RootWord baseRootWord) {
+        super(ruleProcessor, template, skipRuleProcessing, baseRootWord);
     }
-
-    protected AbstractTenseMemberBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
-                                         boolean skipRuleProcessing, ArabicLetterType firstRadical,
-                                         ArabicLetterType secondRadical, ArabicLetterType thirdRadical)
-            throws NullPointerException{
-        this(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null);
-    }
-
 
     // Interface methods
 

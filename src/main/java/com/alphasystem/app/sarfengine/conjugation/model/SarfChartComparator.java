@@ -181,7 +181,8 @@ public class SarfChartComparator implements Comparator<SarfChart> {
             if (sarfSagheer != null) {
                 ActiveLine activeLine = sarfSagheer.getActiveLine();
                 if (activeLine != null) {
-                    arabicWord = activeLine.getPastTense();
+                    //TODO:
+                    //arabicWord = activeLine.getPastTense();
                 }
             }
         }
