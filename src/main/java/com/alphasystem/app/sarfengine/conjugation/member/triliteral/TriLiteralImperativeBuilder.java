@@ -1,6 +1,7 @@
 package com.alphasystem.app.sarfengine.conjugation.member.triliteral;
 
 import com.alphasystem.app.sarfengine.conjugation.member.AbstractTriLiteralImperativeAndForbiddingBuilder;
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
@@ -15,22 +16,24 @@ import javax.annotation.Nullable;
 public class TriLiteralImperativeBuilder extends AbstractTriLiteralImperativeAndForbiddingBuilder {
 
     @AssistedInject
-    public TriLiteralImperativeBuilder(@Assisted NamedTemplate template,
+    public TriLiteralImperativeBuilder(@Assisted RuleProcessor ruleProcessor,
+                                       @Assisted NamedTemplate template,
                                        @Assisted boolean skipRuleProcessing,
                                        @Assisted("firstRadical") ArabicLetterType firstRadical,
                                        @Assisted("secondRadical") ArabicLetterType secondRadical,
                                        @Assisted("thirdRadical") ArabicLetterType thirdRadical,
                                        @Nullable @Assisted ArabicLetter imperativeLetter) {
-        super(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, imperativeLetter, false);
+        super(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, imperativeLetter, false);
     }
 
     @AssistedInject
-    public TriLiteralImperativeBuilder(@Assisted NamedTemplate template,
+    public TriLiteralImperativeBuilder(@Assisted RuleProcessor ruleProcessor,
+                                       @Assisted NamedTemplate template,
                                        @Assisted boolean skipRuleProcessing,
                                        @Assisted("firstRadical") ArabicLetterType firstRadical,
                                        @Assisted("secondRadical") ArabicLetterType secondRadical,
                                        @Assisted("thirdRadical") ArabicLetterType thirdRadical) {
-        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null);
+        this(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null);
     }
 
 }

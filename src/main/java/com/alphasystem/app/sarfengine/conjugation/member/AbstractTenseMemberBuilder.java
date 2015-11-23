@@ -1,5 +1,6 @@
 package com.alphasystem.app.sarfengine.conjugation.member;
 
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
@@ -12,16 +13,18 @@ import static com.alphasystem.arabic.model.HiddenPronounStatus.*;
 public abstract class AbstractTenseMemberBuilder extends AbstractConjugationMemberBuilder
         implements TenseMemberBuilder {
 
-    protected AbstractTenseMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
-                                         ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                         ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
-        super(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, fourthRadical);
+    protected AbstractTenseMemberBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
+                                         boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                         ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                         ArabicLetterType fourthRadical) throws NullPointerException {
+        super(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, fourthRadical);
     }
 
-    protected AbstractTenseMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
-                                         ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                         ArabicLetterType thirdRadical) {
-        super(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical);
+    protected AbstractTenseMemberBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
+                                         boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                         ArabicLetterType secondRadical, ArabicLetterType thirdRadical)
+            throws NullPointerException{
+        this(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null);
     }
 
 

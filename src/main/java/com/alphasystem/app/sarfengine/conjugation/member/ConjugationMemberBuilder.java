@@ -3,6 +3,7 @@
  */
 package com.alphasystem.app.sarfengine.conjugation.member;
 
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleEngine;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicLetters;
 import com.alphasystem.arabic.model.NamedTemplate;

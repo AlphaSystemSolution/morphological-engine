@@ -5,6 +5,7 @@ package com.alphasystem.app.sarfengine.conjugation.rule.processor;
 
 import com.alphasystem.app.sarfengine.conjugation.model.WordStatus;
 import com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor;
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
 import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
@@ -12,8 +13,6 @@ import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
-
-import javax.annotation.Nullable;
 
 import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
 import static com.alphasystem.arabic.model.ArabicLetters.LETTER_TATWEEL;
@@ -23,16 +22,13 @@ import static com.alphasystem.arabic.model.ArabicLetters.LETTER_TATWEEL;
  */
 public class HamzaRule7Processor extends AbstractRuleProcessor {
 
-
     @AssistedInject
-    public HamzaRule7Processor(@Assisted NamedTemplate template,
-                               @Nullable @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                               @Assisted boolean pastTenseHasTransformed) {
-        super(template, diacriticForWeakSecondRadicalWaw, pastTenseHasTransformed);
+    public HamzaRule7Processor(@Assisted RuleInfo ruleInfo) {
+        super(ruleInfo);
     }
 
     @Override
-    public RootWord applyRules(RootWord baseRootWord) {
+    public RootWord applyRules(NamedTemplate template, RootWord baseRootWord) {
         try {
             checkArgument(baseRootWord);
         } catch (IllegalArgumentException e) {

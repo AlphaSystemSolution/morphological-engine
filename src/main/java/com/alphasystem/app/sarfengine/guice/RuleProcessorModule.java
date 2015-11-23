@@ -1,6 +1,6 @@
 package com.alphasystem.app.sarfengine.guice;
 
-import com.alphasystem.app.sarfengine.conjugation.rule.DefaultRuleProcessor;
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleEngine;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.sarfengine.conjugation.rule.processor.*;
@@ -33,11 +33,12 @@ public class RuleProcessorModule extends AbstractModule {
     public static final String RULE_17_PROCESSOR = "Rule17Processor";
     public static final String RULE_19_PROCESSOR = "Rule19Processor";
     public static final String RULE_20_PROCESSOR = "Rule20Processor";
-    public static final String DEFAULT_RULE_PROCESSOR = "DefaultRuleProcessor";
+    public static final String RULE_ENGINE = "RuleEngine";
 
     @Override
     protected void configure() {
         install(new FactoryModuleBuilder()
+                .implement(RuleProcessor.class, named(RULE_ENGINE), RuleEngine.class)
                 .implement(RuleProcessor.class, named(DOUBLE_LETTERED_PROCESSOR), DoubleLetteredProcessor.class)
                 .implement(RuleProcessor.class, named(FORM_VIII_PROCESSOR), FormVIIIProcessor.class)
                 .implement(RuleProcessor.class, named(HAMZAH_CHAIR_PROCESSOR), HamzahChairProcessor.class)
@@ -59,7 +60,6 @@ public class RuleProcessorModule extends AbstractModule {
                 .implement(RuleProcessor.class, named(RULE_17_PROCESSOR), Rule17Processor.class)
                 .implement(RuleProcessor.class, named(RULE_19_PROCESSOR), Rule19Processor.class)
                 .implement(RuleProcessor.class, named(RULE_20_PROCESSOR), Rule20Processor.class)
-                .implement(RuleProcessor.class, named(DEFAULT_RULE_PROCESSOR), DefaultRuleProcessor.class)
                 .build(RuleProcessorFactory.class));
     }
 }

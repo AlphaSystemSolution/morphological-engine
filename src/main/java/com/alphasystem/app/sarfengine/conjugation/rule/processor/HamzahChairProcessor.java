@@ -4,13 +4,12 @@
 package com.alphasystem.app.sarfengine.conjugation.rule.processor;
 
 import com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor;
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper;
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
-
-import javax.annotation.Nullable;
 
 import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
 import static com.alphasystem.app.sarfengine.util.PatternHelper.removeTatweel;
@@ -26,17 +25,20 @@ public class HamzahChairProcessor extends AbstractRuleProcessor {
     protected ArabicLetterType hamzahReplacement;
 
     @AssistedInject
-    public HamzahChairProcessor(@Assisted NamedTemplate template,
-                                @Nullable @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                @Assisted boolean pastTenseHasTransformed,
-                                @Nullable @Assisted ArabicLetterType hamzahReplacement) {
-        super(template, diacriticForWeakSecondRadicalWaw, pastTenseHasTransformed);
+    public HamzahChairProcessor(@Assisted RuleInfo ruleInfo) {
+        super(ruleInfo);
+    }
+
+    public ArabicLetterType getHamzahReplacement() {
+        return hamzahReplacement;
+    }
+
+    public void setHamzahReplacement(ArabicLetterType hamzahReplacement) {
         this.hamzahReplacement = hamzahReplacement;
     }
 
-
     @Override
-    public RootWord applyRules(RootWord baseRootWord) {
+    public RootWord applyRules(NamedTemplate template, RootWord baseRootWord) {
         ArabicWord result = new ArabicWord(baseRootWord.getRootWord());
         // we might have "TATWEEL" at this point, so remove it before proceed
         String text = removeTatweel(result.toBuckWalter());

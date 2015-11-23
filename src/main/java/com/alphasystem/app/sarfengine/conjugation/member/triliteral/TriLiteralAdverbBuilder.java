@@ -13,16 +13,16 @@ import javax.annotation.Nullable;
 /**
  * @author sali
  */
-public class TriLiteralVerbalNounBuilder extends AbstractTriLiteralVerbalNounAndAdverbBuilder {
+public class TriLiteralAdverbBuilder extends AbstractTriLiteralVerbalNounAndAdverbBuilder {
 
     @AssistedInject
-    public TriLiteralVerbalNounBuilder(@Assisted RuleProcessor ruleProcessor,
-                                       @Assisted NamedTemplate template,
-                                       @Assisted boolean skipRuleProcessing,
-                                       @Assisted("firstRadical") ArabicLetterType firstRadical,
-                                       @Assisted("secondRadical") ArabicLetterType secondRadical,
-                                       @Assisted("thirdRadical") ArabicLetterType thirdRadical,
-                                       @Nullable @Assisted RootWord baseRootWord) {
+    public TriLiteralAdverbBuilder(@Assisted RuleProcessor ruleProcessor,
+                                   @Assisted NamedTemplate template,
+                                   @Assisted boolean skipRuleProcessing,
+                                   @Assisted("firstRadical") ArabicLetterType firstRadical,
+                                   @Assisted("secondRadical") ArabicLetterType secondRadical,
+                                   @Assisted("thirdRadical") ArabicLetterType thirdRadical,
+                                   @Nullable @Assisted RootWord baseRootWord) {
         super(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, baseRootWord, -1, true);
     }
 

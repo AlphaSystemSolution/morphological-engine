@@ -1,5 +1,6 @@
 package com.alphasystem.app.sarfengine.conjugation.member;
 
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
@@ -21,17 +22,18 @@ public abstract class AbstractTriLiteralImperativeAndForbiddingBuilder
     protected final boolean forbidding;
     protected ArabicLetter imperativeLetter;
 
-    protected AbstractTriLiteralImperativeAndForbiddingBuilder(NamedTemplate template,
+    protected AbstractTriLiteralImperativeAndForbiddingBuilder(RuleProcessor ruleProcessor,
+                                                               NamedTemplate template,
                                                                boolean skipRuleProcessing,
                                                                ArabicLetterType firstRadical,
                                                                ArabicLetterType secondRadical,
                                                                ArabicLetterType thirdRadical,
                                                                ArabicLetter imperativeLetter,
-                                                               boolean forbidding) {
-        super(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical);
+                                                               boolean forbidding) throws NullPointerException {
+        super(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical);
         setImperativeLetter(imperativeLetter);
         this.forbidding = forbidding;
-        builder = getInstance().getMemberBuilderFactory().getTriLiteralPresentTenseBuilder(
+        builder = getInstance().getMemberBuilderFactory().getTriLiteralPresentTenseBuilder(ruleProcessor,
                 template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical);
     }
 

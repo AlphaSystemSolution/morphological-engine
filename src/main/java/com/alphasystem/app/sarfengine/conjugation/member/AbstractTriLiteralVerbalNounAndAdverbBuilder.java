@@ -1,5 +1,6 @@
 package com.alphasystem.app.sarfengine.conjugation.member;
 
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
@@ -21,29 +22,33 @@ public class AbstractTriLiteralVerbalNounAndAdverbBuilder extends AbstractPartic
     private boolean feminineBased;
     private boolean verbalNoun;
 
-    protected AbstractTriLiteralVerbalNounAndAdverbBuilder(NamedTemplate template, boolean skipRuleProcessing,
-                                                           ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                                           ArabicLetterType thirdRadical, RootWord baseRootWord,
-                                                           int variableLetterIndex, boolean verbalNoun) {
-        super(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, baseRootWord, variableLetterIndex);
+    protected AbstractTriLiteralVerbalNounAndAdverbBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
+                                                           boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                                           ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                                           RootWord baseRootWord, int variableLetterIndex,
+                                                           boolean verbalNoun) throws NullPointerException {
+        super(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, baseRootWord,
+                variableLetterIndex);
         this.verbalNoun = verbalNoun;
         feminineBased = getRootWord().getRootWord().getLastLetter().getLetter().equals(TA_MARBUTA);
         MemberBuilderFactory memberBuilderFactory = getInstance().getMemberBuilderFactory();
-        masculineBuilder = memberBuilderFactory.getTriLiteralActiveParticipleMasculineBuilder(
+        masculineBuilder = memberBuilderFactory.getTriLiteralActiveParticipleMasculineBuilder(ruleProcessor,
                 template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, baseRootWord);
-        RootWord feminineRoot = new RootWord(baseRootWord);
+        RootWord feminineRoot = new RootWord(getRootWord());
         feminineRoot.setRootWord(feminineRoot.getRootWord().replaceDiacritic(getVariableLetterIndex(), FATHA)
                 .append(TA_MARBUTA_WITH_DAMMATAN));
-        feminineRoot = feminineBased ? baseRootWord : feminineRoot;
-        feminineBuilder = memberBuilderFactory.getTriLiteralActiveParticipleFeminineBuilder(
+        feminineRoot = feminineBased ? getRootWord() : feminineRoot;
+        feminineBuilder = memberBuilderFactory.getTriLiteralActiveParticipleFeminineBuilder(ruleProcessor,
                 template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, feminineRoot);
     }
 
-    protected AbstractTriLiteralVerbalNounAndAdverbBuilder(NamedTemplate template, boolean skipRuleProcessing,
-                                                           ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                                           ArabicLetterType thirdRadical, int variableLetterIndex,
-                                                           boolean verbalNoun) {
-        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null, variableLetterIndex, verbalNoun);
+    protected AbstractTriLiteralVerbalNounAndAdverbBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
+                                                           boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                                           ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                                           int variableLetterIndex, boolean verbalNoun)
+            throws NullPointerException {
+        this(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null,
+                variableLetterIndex, verbalNoun);
     }
 
     @Override

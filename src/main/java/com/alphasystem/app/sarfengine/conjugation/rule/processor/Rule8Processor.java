@@ -5,13 +5,12 @@ package com.alphasystem.app.sarfengine.conjugation.rule.processor;
 
 import com.alphasystem.app.sarfengine.conjugation.model.WordStatus;
 import com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor;
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
-
-import javax.annotation.Nullable;
 
 import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
 import static com.alphasystem.arabic.model.ArabicLetters.LETTER_ALIF;
@@ -25,14 +24,12 @@ import static com.alphasystem.sarfengine.xml.model.SarfTermType.*;
 public class Rule8Processor extends AbstractRuleProcessor {
 
     @AssistedInject
-    public Rule8Processor(@Assisted NamedTemplate template,
-                          @Nullable @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                          @Assisted boolean pastTenseHasTransformed) {
-        super(template, diacriticForWeakSecondRadicalWaw, pastTenseHasTransformed);
+    public Rule8Processor(@Assisted RuleInfo ruleInfo) {
+        super(ruleInfo);
     }
 
     @Override
-    public RootWord applyRules(RootWord baseRootWord) {
+    public RootWord applyRules(NamedTemplate template, RootWord baseRootWord) {
         try {
             checkArgument(baseRootWord, null, new SarfTermType[]{IMPERATIVE,
                     FORBIDDING});

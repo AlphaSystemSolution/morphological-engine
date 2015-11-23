@@ -1,9 +1,5 @@
 package com.alphasystem.app.sarfengine.conjugation.rule;
 
-import com.alphasystem.app.sarfengine.guice.RuleProcessorModule;
-import com.alphasystem.arabic.model.ArabicLetterType;
-import com.alphasystem.arabic.model.DiacriticType;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
 
@@ -14,106 +10,64 @@ import static com.alphasystem.app.sarfengine.guice.RuleProcessorModule.*;
  */
 public interface RuleProcessorFactory {
 
-    @Named(RuleProcessorModule.DEFAULT_RULE_PROCESSOR)
-    RuleProcessor getRuleProcessor(@Assisted NamedTemplate template,
-                                   @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                   @Assisted boolean pastTenseHasTransformed,
-                                   @Assisted ArabicLetterType hamzahReplacement);
+    @Named(RULE_ENGINE)
+    RuleProcessor getRuleEngine(@Assisted RuleInfo ruleInfo);
 
     @Named(DOUBLE_LETTERED_PROCESSOR)
-    RuleProcessor getDoubleLetteredProcessor(@Assisted NamedTemplate template,
-                                             @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                             @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getDoubleLetteredProcessor(@Assisted RuleInfo ruleInfo);
 
     @Named(FORM_VIII_PROCESSOR)
-    RuleProcessor getFormVIIIProcessor(@Assisted NamedTemplate template,
-                                       @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                       @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getFormVIIIProcessor(@Assisted RuleInfo ruleInfo);
 
     @Named(HAMZAH_CHAIR_PROCESSOR)
-    RuleProcessor getHamzahChairProcessors(@Assisted NamedTemplate template,
-                                           @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                           @Assisted boolean pastTenseHasTransformed,
-                                           @Assisted ArabicLetterType hamzahReplacement);
+    RuleProcessor getHamzahChairProcessor(@Assisted RuleInfo ruleInfo);
 
     @Named(HAMZA_RULE_7_PROCESSOR)
-    RuleProcessor getHamzaRule7Processor(@Assisted NamedTemplate template,
-                                         @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                         @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getHamzaRule7Processor(@Assisted RuleInfo ruleInfo);
 
     @Named(HAMZATED_FIRST_RADICAL_PROCESSOR)
-    RuleProcessor getHamzatedFirstRadicalProcessor(@Assisted NamedTemplate template,
-                                                   @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                                   @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getHamzatedFirstRadicalProcessor(@Assisted RuleInfo ruleInfo);
 
     @Named(HAMZATED_THIRD_RADICAL_PROCESSOR)
-    RuleProcessor getHamzatedThirdRadicalProcessor(@Assisted NamedTemplate template,
-                                                   @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                                   @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getHamzatedThirdRadicalProcessor(@Assisted RuleInfo ruleInfo);
 
     @Named(PREFIX_PROCESSOR)
-    RuleProcessor getPrefixProcessor(@Assisted NamedTemplate template,
-                                     @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                     @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getPrefixProcessor(@Assisted RuleInfo ruleInfo);
 
     @Named(RULE_1_PROCESSOR)
-    RuleProcessor getRule1Processor(@Assisted NamedTemplate template,
-                                    @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                    @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getRule1Processor(@Assisted RuleInfo ruleInfo);
 
-    // Rulr 7 is setting "diacriticForWeakSecondRadicalWaw" and "pastTenseHasTransformed"
+    // Rule 7 is setting "diacriticForWeakSecondRadicalWaw" and "pastTenseHasTransformed"
     @Named(RULE_7_PROCESSOR)
-    RuleProcessor getRule7Processor(@Assisted NamedTemplate template,
-                                    @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                    @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getRule7Processor(@Assisted RuleInfo ruleInfo);
 
     @Named(RULE_8_PROCESSOR)
-    RuleProcessor getRule8Processor(@Assisted NamedTemplate template,
-                                    @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                    @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getRule8Processor(@Assisted RuleInfo ruleInfo);
 
     @Named(RULE_9_PROCESSOR)
-    RuleProcessor getRule9Processor(@Assisted NamedTemplate template,
-                                    @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                    @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getRule9Processor(@Assisted RuleInfo ruleInfo);
 
     @Named(RULE_10_PROCESSOR)
-    RuleProcessor getRule10Processor(@Assisted NamedTemplate template,
-                                     @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                     @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getRule10Processor(@Assisted RuleInfo ruleInfo);
 
     @Named(RULE_11_AND_12_PROCESSOR)
-    RuleProcessor getRule11And12Processor(@Assisted NamedTemplate template,
-                                          @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                          @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getRule11And12Processor(@Assisted RuleInfo ruleInfo);
 
     @Named(RULE_13_PROCESSOR)
-    RuleProcessor getRule13Processor(@Assisted NamedTemplate template,
-                                     @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                     @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getRule13Processor(@Assisted RuleInfo ruleInfo);
 
     @Named(RULE_14_PROCESSOR)
-    RuleProcessor getRule14Processor(@Assisted NamedTemplate template,
-                                     @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                     @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getRule14Processor(@Assisted RuleInfo ruleInfo);
 
     @Named(RULE_16_PROCESSOR)
-    RuleProcessor getRule16Processor(@Assisted NamedTemplate template,
-                                     @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                     @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getRule16Processor(@Assisted RuleInfo ruleInfo);
 
     @Named(RULE_17_PROCESSOR)
-    RuleProcessor getRule17Processor(@Assisted NamedTemplate template,
-                                     @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                     @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getRule17Processor(@Assisted RuleInfo ruleInfo);
 
     @Named(RULE_19_PROCESSOR)
-    RuleProcessor getRule19Processor(@Assisted NamedTemplate template,
-                                     @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                     @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getRule19Processor(@Assisted RuleInfo ruleInfo);
 
     @Named(RULE_20_PROCESSOR)
-    RuleProcessor getRule20Processor(@Assisted NamedTemplate template,
-                                     @Assisted DiacriticType diacriticForWeakSecondRadicalWaw,
-                                     @Assisted boolean pastTenseHasTransformed);
+    RuleProcessor getRule20Processor(@Assisted RuleInfo ruleInfo);
 }

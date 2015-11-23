@@ -2,6 +2,7 @@ package com.alphasystem.app.sarfengine.conjugation.member.triliteral;
 
 
 import com.alphasystem.app.sarfengine.conjugation.member.AbstractParticipleMemberBuilder;
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.NamedTemplate;
@@ -20,30 +21,32 @@ import static com.alphasystem.sarfengine.xml.model.SarfTermType.ACTIVE_PARTICIPL
  */
 public class TriLiteralActiveParticipleMasculineBuilder extends AbstractParticipleMemberBuilder {
 
-    protected TriLiteralActiveParticipleMasculineBuilder(NamedTemplate template, boolean skipRuleProcessing,
+    protected TriLiteralActiveParticipleMasculineBuilder(RuleProcessor ruleProcessor, NamedTemplate template, boolean skipRuleProcessing,
                                                          ArabicLetterType firstRadical, ArabicLetterType secondRadical,
                                                          ArabicLetterType thirdRadical, RootWord baseRootWord,
                                                          int variableLetterIndex) {
-        super(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, baseRootWord, variableLetterIndex);
+        super(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, baseRootWord, variableLetterIndex);
     }
 
     @AssistedInject
-    public TriLiteralActiveParticipleMasculineBuilder(@Assisted NamedTemplate template,
+    public TriLiteralActiveParticipleMasculineBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                      @Assisted NamedTemplate template,
                                                       @Assisted boolean skipRuleProcessing,
                                                       @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                       @Assisted("secondRadical") ArabicLetterType secondRadical,
                                                       @Assisted("thirdRadical") ArabicLetterType thirdRadical,
                                                       @Nullable @Assisted RootWord baseRootWord) {
-        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, baseRootWord, -1);
+        this(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, baseRootWord, -1);
     }
 
     @AssistedInject
-    public TriLiteralActiveParticipleMasculineBuilder(@Assisted NamedTemplate template,
+    public TriLiteralActiveParticipleMasculineBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                      @Assisted NamedTemplate template,
                                                       @Assisted boolean skipRuleProcessing,
                                                       @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                       @Assisted("secondRadical") ArabicLetterType secondRadical,
                                                       @Assisted("thirdRadical") ArabicLetterType thirdRadical) {
-        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null);
+        this(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.alphasystem.app.sarfengine.conjugation.member.triliteral;
 
 import com.alphasystem.app.sarfengine.conjugation.member.AbstractTenseMemberBuilder;
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
@@ -33,12 +34,13 @@ public class TriLiteralPresentTenseBuilder extends AbstractTenseMemberBuilder {
     protected ArabicWord thirdPersonFeminineSingular;
 
     @AssistedInject
-    public TriLiteralPresentTenseBuilder(@Assisted NamedTemplate template,
+    public TriLiteralPresentTenseBuilder(@Assisted RuleProcessor ruleProcessor,
+                                         @Assisted NamedTemplate template,
                                          @Assisted boolean skipRuleProcessing,
                                          @Assisted("firstRadical") ArabicLetterType firstRadical,
                                          @Assisted("secondRadical") ArabicLetterType secondRadical,
                                          @Assisted("thirdRadical") ArabicLetterType thirdRadical) {
-        super(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical);
+        super(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical);
         ArabicWord arabicWord = getRootWord().getRootWord();
         this.imperfectSignDiacritic = arabicWord.getFirstLetter().getDiacritics()[0];
         this.thirdPersonFeminineSingular = new ArabicWord(arabicWord).replaceLetter(0, TA);

@@ -1,6 +1,7 @@
 package com.alphasystem.app.sarfengine.conjugation.member.triliteral;
 
 import com.alphasystem.app.sarfengine.conjugation.member.AbstractTenseMemberBuilder;
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.NamedTemplate;
@@ -46,12 +47,13 @@ public class TriLiteralPastTenseBuilder extends AbstractTenseMemberBuilder {
     protected ArabicWord prefixForSecondAndFirstPerson;
 
     @AssistedInject
-    public TriLiteralPastTenseBuilder(@Assisted NamedTemplate template,
+    public TriLiteralPastTenseBuilder(@Assisted RuleProcessor ruleProcessor,
+                                      @Assisted NamedTemplate template,
                                       @Assisted boolean skipRuleProcessing,
                                       @Assisted("firstRadical") ArabicLetterType firstRadical,
                                       @Assisted("secondRadical") ArabicLetterType secondRadical,
                                       @Assisted("thirdRadical") ArabicLetterType thirdRadical) {
-        super(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical);
+        super(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical);
         initPrefixForSecondAndFirstPerson();
     }
 

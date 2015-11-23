@@ -1,5 +1,6 @@
 package com.alphasystem.app.sarfengine.conjugation.member;
 
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
@@ -14,32 +15,40 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
 
     protected int variableLetterIndex;
 
-    protected AbstractParticipleMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
-                                              ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                              ArabicLetterType thirdRadical, ArabicLetterType fourthRadical,
-                                              RootWord baseRootWord, int variableLetterIndex) {
-        super(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, fourthRadical, baseRootWord);
+    protected AbstractParticipleMemberBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
+                                              boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                              ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                              ArabicLetterType fourthRadical, RootWord baseRootWord,
+                                              int variableLetterIndex) throws NullPointerException {
+        super(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical,
+                fourthRadical, baseRootWord);
         setVariableLetterIndex(variableLetterIndex);
     }
 
-    protected AbstractParticipleMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
-                                              ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                              ArabicLetterType thirdRadical, ArabicLetterType fourthRadical,
-                                              int variableLetterIndex) {
-        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, fourthRadical, null, variableLetterIndex);
+    protected AbstractParticipleMemberBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
+                                              boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                              ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                              ArabicLetterType fourthRadical, int variableLetterIndex)
+            throws NullPointerException {
+        this(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical,
+                fourthRadical, null, variableLetterIndex);
     }
 
-    protected AbstractParticipleMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
-                                              ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                              ArabicLetterType thirdRadical, RootWord baseRootWord,
-                                              int variableLetterIndex) {
-        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null, baseRootWord, variableLetterIndex);
+    protected AbstractParticipleMemberBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
+                                              boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                              ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                              RootWord baseRootWord, int variableLetterIndex)
+            throws NullPointerException {
+        this(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null,
+                baseRootWord, variableLetterIndex);
     }
 
-    protected AbstractParticipleMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
-                                              ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                              ArabicLetterType thirdRadical, int variableLetterIndex) {
-        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null, null, variableLetterIndex);
+    protected AbstractParticipleMemberBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
+                                              boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                              ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                              int variableLetterIndex) throws NullPointerException {
+        this(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null, null,
+                variableLetterIndex);
     }
 
     protected void setVariableLetterIndex(int variableLetterIndex) {

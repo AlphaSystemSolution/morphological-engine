@@ -3,7 +3,6 @@
  */
 package com.alphasystem.app.sarfengine.conjugation.model;
 
-import com.alphasystem.app.sarfengine.conjugation.triliteralwords.TriLiteralVerbalNounV1Builder;
 import com.alphasystem.arabic.model.ArabicLetters;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 
@@ -93,8 +92,8 @@ public enum VerbalNoun implements ArabicLetters {
             TA_MARBUTA_WITH_DAMMATAN)),
 
     VERBAL_NOUN_V26(createVerbalNounRootWord(0, 1, 2,
-            TriLiteralVerbalNounV1Builder.class.getName(), FA_WITH_DAMMA,
-            AIN_WITH_SUKUN, LAM_WITH_FATHA, LETTER_ALIF, NOON_WITH_DAMMATAN)),
+            // TriLiteralVerbalNounV1Builder.class.getName(),
+            FA_WITH_DAMMA, AIN_WITH_SUKUN, LAM_WITH_FATHA, LETTER_ALIF, NOON_WITH_DAMMATAN)),
 
     VERBAL_NOUN_FORM_II(createVerbalNounRootWord(1, 2, 4, TA_WITH_FATHA,
             FA_WITH_SUKUN, AIN_WITH_KASRA, YA_WITH_SUKUN, LAM_WITH_DAMMATAN)),

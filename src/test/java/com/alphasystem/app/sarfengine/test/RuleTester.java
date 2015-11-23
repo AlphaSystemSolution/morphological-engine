@@ -3,6 +3,7 @@
  */
 package com.alphasystem.app.sarfengine.test;
 
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.sarfengine.conjugation.template.FormTemplate;
@@ -32,6 +33,7 @@ public class RuleTester extends Assert implements ArabicLetters {
 
     private RuleProcessorFactory ruleProcessorFactory = GuiceSupport.getInstance().getInjector().
             getInstance(RuleProcessorFactory.class);
+    RuleProcessor ruleEngine = ruleProcessorFactory.getRuleEngine(new RuleInfo());
 
     private void print(String testName, ArabicWord src, ArabicWord result,
                        String msg) {
@@ -82,9 +84,7 @@ public class RuleTester extends Assert implements ArabicLetters {
     private void testExecuteRuleForAssimilatedVerbWawPresentTense(
             RootWord rootWord, String msg, boolean fail) {
         ArabicWord src = rootWord.getRootWord();
-        RuleProcessor ruleProcessor = ruleProcessorFactory.getRuleProcessor(
-                FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, null, false, null);
-        ArabicWord result = ruleProcessor.applyRules(rootWord).getRootWord();
+        ArabicWord result = ruleEngine.applyRules(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, rootWord).getRootWord();
         print("applyRulesForAssimilatedVerbWawPresentTense",
                 rootWord.getRootWord(), result, msg);
         if (fail) {
@@ -104,8 +104,7 @@ public class RuleTester extends Assert implements ArabicLetters {
                 .toHtmlCode());
         log(format("<div>Initial Word: %s</div>", arabicText));
 
-        RuleProcessor processor = ruleProcessorFactory.getHamzaRule7Processor(template, null, false);
-        RootWord rw = processor.applyRules(rootWord);
+        RootWord rw = ruleEngine.applyRules(template, rootWord);
         arabicText = format(ARABIC_TEXT_SPAN, rw.getRootWord().toHtmlCode());
         log(format("<div>After Applying HamzaRule7Processor: %s</div>",
                 arabicText));
@@ -178,10 +177,9 @@ public class RuleTester extends Assert implements ArabicLetters {
     }
 
     private void testReplaceHamzahWithChair(RootWord baseRootWord, String msg) {
-        RuleProcessor processor = ruleProcessorFactory.getHamzahChairProcessors
-                (FORM_I_CATEGORY_U_TEMPLATE, null, false, null);
+        RuleProcessor processor = ruleProcessorFactory.getHamzahChairProcessor(new RuleInfo());
         ArabicWord src = baseRootWord.getRootWord();
-        ArabicWord result = processor.applyRules(baseRootWord).getRootWord();
+        ArabicWord result = processor.applyRules(FORM_I_CATEGORY_U_TEMPLATE, baseRootWord).getRootWord();
         print("testReplaceHamzahWithChair", src, result, msg);
     }
 }

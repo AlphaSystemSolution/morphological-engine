@@ -486,7 +486,7 @@ public enum FormTemplate implements ArabicLetters {
                     SEEN_WITH_SUKUN, TA_WITH_FATHA, FA_WITH_SUKUN, AIN_WITH_FATHA,
                     LAM_WITH_DAMMATAN)});
 
-    private static final Map<NamedTemplate, FormTemplate> NAMED_TEMPLATE_MAP = new HashMap<NamedTemplate, FormTemplate>();
+    private static final Map<NamedTemplate, FormTemplate> NAMED_TEMPLATE_MAP = new HashMap<>();
 
     static {
         for (FormTemplate formTemplate : values()) {
@@ -494,7 +494,7 @@ public enum FormTemplate implements ArabicLetters {
         }
     }
 
-    private final Map<SarfTermType, RootWord[]> rootWordsMap = new LinkedHashMap<SarfTermType, RootWord[]>();
+    private final Map<SarfTermType, RootWord[]> rootWordsMap = new LinkedHashMap<>();
     private final NamedTemplate template;
 
     /**

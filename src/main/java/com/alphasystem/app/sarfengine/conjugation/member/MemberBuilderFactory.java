@@ -1,5 +1,6 @@
 package com.alphasystem.app.sarfengine.conjugation.member;
 
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
@@ -17,35 +18,40 @@ import static com.alphasystem.app.sarfengine.guice.MemberBuilderModule.*;
 public interface MemberBuilderFactory {
 
     @Named(TRI_LITERAL_PAST_TENSE_BUILDER)
-    TenseMemberBuilder getTriLiteralPastTenseBuilder(@Assisted NamedTemplate template,
+    TenseMemberBuilder getTriLiteralPastTenseBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                     @Assisted NamedTemplate template,
                                                      @Assisted boolean skipRuleProcessing,
                                                      @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                      @Assisted("secondRadical") ArabicLetterType secondRadical,
                                                      @Assisted("thirdRadical") ArabicLetterType thirdRadical);
 
     @Named(TRI_LITERAL_PRESENT_TENSE_BUILDER)
-    TenseMemberBuilder getTriLiteralPresentTenseBuilder(@Assisted NamedTemplate template,
+    TenseMemberBuilder getTriLiteralPresentTenseBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                        @Assisted NamedTemplate template,
                                                         @Assisted boolean skipRuleProcessing,
                                                         @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                         @Assisted("secondRadical") ArabicLetterType secondRadical,
                                                         @Assisted("thirdRadical") ArabicLetterType thirdRadical);
 
     @Named(TRI_LITERAL_PAST_PASSIVE_BUILDER)
-    TenseMemberBuilder getTriLiteralPastPassiveBuilder(@Assisted NamedTemplate template,
+    TenseMemberBuilder getTriLiteralPastPassiveBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                       @Assisted NamedTemplate template,
                                                        @Assisted boolean skipRuleProcessing,
                                                        @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                        @Assisted("secondRadical") ArabicLetterType secondRadical,
                                                        @Assisted("thirdRadical") ArabicLetterType thirdRadical);
 
     @Named(TRI_LITERAL_PRESENT_PASSIVE_BUILDER)
-    TenseMemberBuilder getTriLiteralPresentPassiveBuilder(@Assisted NamedTemplate template,
+    TenseMemberBuilder getTriLiteralPresentPassiveBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                          @Assisted NamedTemplate template,
                                                           @Assisted boolean skipRuleProcessing,
                                                           @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                           @Assisted("secondRadical") ArabicLetterType secondRadical,
                                                           @Assisted("thirdRadical") ArabicLetterType thirdRadical);
 
     @Named(TRI_LITERAL_IMPERATIVE_BUILDER)
-    TenseMemberBuilder getTriLiteralImperativeBuilder(@Assisted NamedTemplate template,
+    TenseMemberBuilder getTriLiteralImperativeBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                      @Assisted NamedTemplate template,
                                                       @Assisted boolean skipRuleProcessing,
                                                       @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                       @Assisted("secondRadical") ArabicLetterType secondRadical,
@@ -53,35 +59,40 @@ public interface MemberBuilderFactory {
                                                       @Nullable @Assisted ArabicLetter imperativeLetter);
 
     @Named(TRI_LITERAL_IMPERATIVE_BUILDER)
-    TenseMemberBuilder getTriLiteralImperativeBuilder(@Assisted NamedTemplate template,
+    TenseMemberBuilder getTriLiteralImperativeBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                      @Assisted NamedTemplate template,
                                                       @Assisted boolean skipRuleProcessing,
                                                       @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                       @Assisted("secondRadical") ArabicLetterType secondRadical,
                                                       @Assisted("thirdRadical") ArabicLetterType thirdRadical);
 
     @Named(TRI_LITERAL_IMPERATIVE_FORMIV_BUILDER)
-    TenseMemberBuilder getTriLiteralImperativeFormIVBuilder(@Assisted NamedTemplate template,
+    TenseMemberBuilder getTriLiteralImperativeFormIVBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                            @Assisted NamedTemplate template,
                                                             @Assisted boolean skipRuleProcessing,
                                                             @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                             @Assisted("secondRadical") ArabicLetterType secondRadical,
                                                             @Assisted("thirdRadical") ArabicLetterType thirdRadical);
 
     @Named(TRI_LITERAL_FORBIDDING_BUILDER)
-    TenseMemberBuilder getTriLiteralForbiddingBuilder(@Assisted NamedTemplate template,
+    TenseMemberBuilder getTriLiteralForbiddingBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                      @Assisted NamedTemplate template,
                                                       @Assisted boolean skipRuleProcessing,
                                                       @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                       @Assisted("secondRadical") ArabicLetterType secondRadical,
                                                       @Assisted("thirdRadical") ArabicLetterType thirdRadical);
 
     @Named(TRI_LITERAL_ACTIVE_PARTICIPLE_MASCULINE_BUILDER)
-    ParticipleMemberBuilder getTriLiteralActiveParticipleMasculineBuilder(@Assisted NamedTemplate template,
+    ParticipleMemberBuilder getTriLiteralActiveParticipleMasculineBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                                          @Assisted NamedTemplate template,
                                                                           @Assisted boolean skipRuleProcessing,
                                                                           @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                                           @Assisted("secondRadical") ArabicLetterType secondRadical,
                                                                           @Assisted("thirdRadical") ArabicLetterType thirdRadical);
 
     @Named(TRI_LITERAL_ACTIVE_PARTICIPLE_MASCULINE_BUILDER)
-    ParticipleMemberBuilder getTriLiteralActiveParticipleMasculineBuilder(@Assisted NamedTemplate template,
+    ParticipleMemberBuilder getTriLiteralActiveParticipleMasculineBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                                          @Assisted NamedTemplate template,
                                                                           @Assisted boolean skipRuleProcessing,
                                                                           @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                                           @Assisted("secondRadical") ArabicLetterType secondRadical,
@@ -89,39 +100,54 @@ public interface MemberBuilderFactory {
                                                                           @Nullable @Assisted RootWord baseRootWord);
 
     @Named(TRI_LITERAL_ACTIVE_PARTICIPLE_FEMININE_BUILDER)
-    ParticipleMemberBuilder getTriLiteralActiveParticipleFeminineBuilder(@Assisted NamedTemplate template,
+    ParticipleMemberBuilder getTriLiteralActiveParticipleFeminineBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                                         @Assisted NamedTemplate template,
                                                                          @Assisted boolean skipRuleProcessing,
                                                                          @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                                          @Assisted("secondRadical") ArabicLetterType secondRadical,
                                                                          @Assisted("thirdRadical") ArabicLetterType thirdRadical);
 
     @Named(TRI_LITERAL_ACTIVE_PARTICIPLE_FEMININE_BUILDER)
-    ParticipleMemberBuilder getTriLiteralActiveParticipleFeminineBuilder(@Assisted NamedTemplate template,
-                                                                          @Assisted boolean skipRuleProcessing,
-                                                                          @Assisted("firstRadical") ArabicLetterType firstRadical,
-                                                                          @Assisted("secondRadical") ArabicLetterType secondRadical,
-                                                                          @Assisted("thirdRadical") ArabicLetterType thirdRadical,
-                                                                          @Nullable @Assisted RootWord baseRootWord);
+    ParticipleMemberBuilder getTriLiteralActiveParticipleFeminineBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                                         @Assisted NamedTemplate template,
+                                                                         @Assisted boolean skipRuleProcessing,
+                                                                         @Assisted("firstRadical") ArabicLetterType firstRadical,
+                                                                         @Assisted("secondRadical") ArabicLetterType secondRadical,
+                                                                         @Assisted("thirdRadical") ArabicLetterType thirdRadical,
+                                                                         @Nullable @Assisted RootWord baseRootWord);
 
     @Named(TRI_LITERAL_PASSIVE_PARTICIPLE_MASCULINE_BUILDER)
-    ParticipleMemberBuilder getTriLiteralPassiveParticipleMasculineBuilder(@Assisted NamedTemplate template,
+    ParticipleMemberBuilder getTriLiteralPassiveParticipleMasculineBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                                           @Assisted NamedTemplate template,
                                                                            @Assisted boolean skipRuleProcessing,
                                                                            @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                                            @Assisted("secondRadical") ArabicLetterType secondRadical,
                                                                            @Assisted("thirdRadical") ArabicLetterType thirdRadical);
 
     @Named(TRI_LITERAL_PASSIVE_PARTICIPLE_FEMININE_BUILDER)
-    ParticipleMemberBuilder getTriLiteralPassiveParticipleFeminineBuilder(@Assisted NamedTemplate template,
+    ParticipleMemberBuilder getTriLiteralPassiveParticipleFeminineBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                                          @Assisted NamedTemplate template,
                                                                           @Assisted boolean skipRuleProcessing,
                                                                           @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                                           @Assisted("secondRadical") ArabicLetterType secondRadical,
                                                                           @Assisted("thirdRadical") ArabicLetterType thirdRadical);
 
     @Named(TRI_LITERAL_VERBAL_NOUN_BUILDER)
-    ParticipleMemberBuilder getTriLiteralVerbalNounBuilder(@Assisted NamedTemplate template,
+    ParticipleMemberBuilder getTriLiteralVerbalNounBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                           @Assisted NamedTemplate template,
                                                            @Assisted boolean skipRuleProcessing,
                                                            @Assisted("firstRadical") ArabicLetterType firstRadical,
                                                            @Assisted("secondRadical") ArabicLetterType secondRadical,
                                                            @Assisted("thirdRadical") ArabicLetterType thirdRadical,
                                                            @Nullable @Assisted RootWord baseRootWord);
+
+    @Named(TRI_LITERAL_ADVERB_BUILDER)
+    ParticipleMemberBuilder getTriLiteralAdverbBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                       @Assisted NamedTemplate template,
+                                                       @Assisted boolean skipRuleProcessing,
+                                                       @Assisted("firstRadical") ArabicLetterType firstRadical,
+                                                       @Assisted("secondRadical") ArabicLetterType secondRadical,
+                                                       @Assisted("thirdRadical") ArabicLetterType thirdRadical,
+                                                       @Nullable @Assisted RootWord baseRootWord);
+
 }

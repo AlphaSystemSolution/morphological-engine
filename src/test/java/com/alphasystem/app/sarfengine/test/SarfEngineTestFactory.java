@@ -13,7 +13,7 @@ public class SarfEngineTestFactory {
     @Factory
     public Object[] createTest() {
         return new Object[]{
-                new GuiceTest(),
+                // new GuiceTest(),
                 new RuleTester(),
                 new ConjugationMemberTest(),
                 new BuilderTest()

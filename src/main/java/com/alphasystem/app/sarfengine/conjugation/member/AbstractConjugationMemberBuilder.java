@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 
 import static com.alphasystem.app.sarfengine.conjugation.template.FormTemplate.getByNamedTemplate;
-import static com.alphasystem.app.sarfengine.guice.GuiceSupport.getInstance;
 import static com.alphasystem.app.sarfengine.util.PatternHelper.doApplyPatterns;
 import static java.lang.String.format;
 
@@ -27,6 +26,7 @@ public abstract class AbstractConjugationMemberBuilder implements ConjugationMem
     protected RootWord baseRootWord;
 
     /**
+     * @param ruleProcessor
      * @param template
      * @param skipRuleProcessing
      * @param firstRadical
@@ -36,13 +36,14 @@ public abstract class AbstractConjugationMemberBuilder implements ConjugationMem
      * @param baseRootWord       Base Root Word for Verbal Noun
      * @throws NullPointerException
      */
-    protected AbstractConjugationMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
-                                               ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                               ArabicLetterType thirdRadical, ArabicLetterType fourthRadical,
-                                               RootWord baseRootWord) throws NullPointerException {
+    protected AbstractConjugationMemberBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
+                                               boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                               ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                               ArabicLetterType fourthRadical, RootWord baseRootWord)
+            throws NullPointerException {
         this.template = template;
         this.skipRuleProcessing = skipRuleProcessing;
-        this.ruleProcessor = getInstance().getRuleProcessor(template, null, false, null);
+        this.ruleProcessor = ruleProcessor;
         RootWord templateWord = getByNamedTemplate(template).getTemplateWord(getTermType());
         templateWord = baseRootWord == null ? templateWord : baseRootWord;
         if (templateWord == null) {
@@ -51,22 +52,56 @@ public abstract class AbstractConjugationMemberBuilder implements ConjugationMem
         this.baseRootWord = new RootWord(templateWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
     }
 
-    protected AbstractConjugationMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
-                                               ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                               ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
-        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, fourthRadical, null);
+    /**
+     * @param ruleProcessor
+     * @param template
+     * @param skipRuleProcessing
+     * @param firstRadical
+     * @param secondRadical
+     * @param thirdRadical
+     * @param fourthRadical
+     * @throws NullPointerException
+     */
+    protected AbstractConjugationMemberBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
+                                               boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                               ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                               ArabicLetterType fourthRadical) throws NullPointerException {
+        this(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, fourthRadical, null);
     }
 
-    protected AbstractConjugationMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
-                                               ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                               ArabicLetterType thirdRadical, RootWord baseRootWord) {
-        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null, baseRootWord);
+    /**
+     *
+     * @param ruleProcessor
+     * @param template
+     * @param skipRuleProcessing
+     * @param firstRadical
+     * @param secondRadical
+     * @param thirdRadical
+     * @param baseRootWord
+     * @throws NullPointerException
+     */
+    protected AbstractConjugationMemberBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
+                                               boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                               ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                               RootWord baseRootWord) throws NullPointerException {
+        this(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null, baseRootWord);
     }
 
-    protected AbstractConjugationMemberBuilder(NamedTemplate template, boolean skipRuleProcessing,
-                                               ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                               ArabicLetterType thirdRadical) {
-        this(template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null, null);
+    /**
+     *
+     * @param ruleProcessor
+     * @param template
+     * @param skipRuleProcessing
+     * @param firstRadical
+     * @param secondRadical
+     * @param thirdRadical
+     * @throws NullPointerException
+     */
+    protected AbstractConjugationMemberBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
+                                               boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                               ArabicLetterType secondRadical, ArabicLetterType thirdRadical)
+            throws NullPointerException {
+        this(ruleProcessor, template, skipRuleProcessing, firstRadical, secondRadical, thirdRadical, null, null);
     }
 
     @PostConstruct
@@ -112,7 +147,7 @@ public abstract class AbstractConjugationMemberBuilder implements ConjugationMem
         }
         RootWord rootWord = new RootWord(src);
         if (!isSkipRuleProcessing()) {
-            rootWord = ruleProcessor.applyRules(rootWord);
+            rootWord = ruleProcessor.applyRules(getTemplate(), rootWord);
             rootWord = doApplyPatterns(rootWord);
         }
 
