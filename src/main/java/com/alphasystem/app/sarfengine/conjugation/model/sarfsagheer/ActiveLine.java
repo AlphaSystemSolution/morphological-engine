@@ -3,7 +3,7 @@
  */
 package com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer;
 
-import com.alphasystem.app.sarfengine.conjugation.model.ConjugationMember;
+import com.alphasystem.sarfengine.xml.model.RootWord;
 
 import static com.alphasystem.util.HashCodeUtil.hash;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
@@ -13,35 +13,34 @@ import static org.apache.commons.lang3.ArrayUtils.isEmpty;
  */
 public class ActiveLine {
 
-    private final ConjugationMember pastTense;
+    private final RootWord pastTense;
 
-    private final ConjugationMember presentTense;
+    private final RootWord presentTense;
 
-    private final ConjugationMember[] masdars;
+    private final RootWord[] verbalNouns;
 
-    private final ConjugationMember ismFaailMasculine;
+    private final RootWord activeParticipleMasculine;
 
-    public ActiveLine(ConjugationMember pastTense, ConjugationMember presentTense,
-                      ConjugationMember ismFaailMasculine, ConjugationMember... masdars) {
+    public ActiveLine(RootWord pastTense, RootWord presentTense, RootWord activeParticipleMasculine, RootWord... verbalNouns) {
         this.pastTense = pastTense;
         this.presentTense = presentTense;
-        this.masdars = masdars;
-        this.ismFaailMasculine = ismFaailMasculine;
+        this.verbalNouns = verbalNouns;
+        this.activeParticipleMasculine = activeParticipleMasculine;
     }
 
-    public ConjugationMember getIsmFaailMasculine() {
-        return ismFaailMasculine;
+    public RootWord getActiveParticipleMasculine() {
+        return activeParticipleMasculine;
     }
 
-    public ConjugationMember[] getMasdars() {
-        return masdars;
+    public RootWord[] getVerbalNouns() {
+        return verbalNouns;
     }
 
-    public ConjugationMember getPastTense() {
+    public RootWord getPastTense() {
         return pastTense;
     }
 
-    public ConjugationMember getPresentTense() {
+    public RootWord getPresentTense() {
         return presentTense;
     }
 
@@ -49,9 +48,9 @@ public class ActiveLine {
     public int hashCode() {
         int hc = hash(super.hashCode(), pastTense);
         hc = hash(hc, presentTense);
-        hc = hash(hc, ismFaailMasculine);
-        if (!isEmpty(masdars)) {
-            for (ConjugationMember aw : masdars) {
+        hc = hash(hc, activeParticipleMasculine);
+        if (!isEmpty(verbalNouns)) {
+            for (RootWord aw : verbalNouns) {
                 hc = hash(hc, aw);
             }
         }

@@ -10,56 +10,56 @@ public class SarfKabeer {
 
     private final SarfKabeerPair activeTensePair;
 
-    private final SarfKabeerPair[] masdarPairs;
+    private final SarfKabeerPair[] verbalNounPairs;
 
-    private final SarfKabeerPair activeIsmPair;
+    private final SarfKabeerPair activeParticiplePair;
 
     private final SarfKabeerPair passiveTensePair;
 
-    private final SarfKabeerPair passiveIsmPair;
+    private final SarfKabeerPair passiveParticiplePair;
 
-    private final SarfKabeerPair amrAndNahiPair;
+    private final SarfKabeerPair imperativeAndForbiddingPair;
 
-    private final SarfKabeerPair[] zarfPairs;
+    private final SarfKabeerPair[] adverbPairs;
 
     public SarfKabeer(SarfKabeerPair activeTensePair,
-                      SarfKabeerPair[] masdarPairs, SarfKabeerPair activeIsmPair,
-                      SarfKabeerPair passiveTensePair, SarfKabeerPair passiveIsmPair,
-                      SarfKabeerPair amrAndNahiPair, SarfKabeerPair[] zarfPairs) {
+                      SarfKabeerPair[] verbalNounPairs, SarfKabeerPair activeParticiplePair,
+                      SarfKabeerPair passiveTensePair, SarfKabeerPair passiveParticiplePair,
+                      SarfKabeerPair imperativeAndForbiddingPair, SarfKabeerPair[] adverbPairs) {
         this.activeTensePair = activeTensePair;
-        this.masdarPairs = masdarPairs;
-        this.activeIsmPair = activeIsmPair;
+        this.verbalNounPairs = verbalNounPairs;
+        this.activeParticiplePair = activeParticiplePair;
         this.passiveTensePair = passiveTensePair;
-        this.passiveIsmPair = passiveIsmPair;
-        this.amrAndNahiPair = amrAndNahiPair;
-        this.zarfPairs = zarfPairs;
+        this.passiveParticiplePair = passiveParticiplePair;
+        this.imperativeAndForbiddingPair = imperativeAndForbiddingPair;
+        this.adverbPairs = adverbPairs;
     }
 
-    public SarfKabeerPair getActiveIsmPair() {
-        return activeIsmPair;
+    public SarfKabeerPair getActiveParticiplePair() {
+        return activeParticiplePair;
     }
 
     public SarfKabeerPair getActiveTensePair() {
         return activeTensePair;
     }
 
-    public SarfKabeerPair getAmrAndNahiPair() {
-        return amrAndNahiPair;
+    public SarfKabeerPair getImperativeAndForbiddingPair() {
+        return imperativeAndForbiddingPair;
     }
 
-    public SarfKabeerPair[] getMasdarPairs() {
-        return masdarPairs;
+    public SarfKabeerPair[] getVerbalNounPairs() {
+        return verbalNounPairs;
     }
 
-    public SarfKabeerPair getPassiveIsmPair() {
-        return passiveIsmPair;
+    public SarfKabeerPair getPassiveParticiplePair() {
+        return passiveParticiplePair;
     }
 
     public SarfKabeerPair getPassiveTensePair() {
         return passiveTensePair;
     }
 
-    public SarfKabeerPair[] getZarfPairs() {
-        return zarfPairs;
+    public SarfKabeerPair[] getAdverbPairs() {
+        return adverbPairs;
     }
 }

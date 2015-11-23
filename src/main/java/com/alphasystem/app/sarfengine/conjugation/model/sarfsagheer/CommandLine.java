@@ -3,7 +3,7 @@
  */
 package com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer;
 
-import com.alphasystem.app.sarfengine.conjugation.model.ConjugationMember;
+import com.alphasystem.sarfengine.xml.model.RootWord;
 
 import static com.alphasystem.util.HashCodeUtil.hash;
 
@@ -12,26 +12,26 @@ import static com.alphasystem.util.HashCodeUtil.hash;
  */
 public class CommandLine {
 
-    private final ConjugationMember commnad;
+    private final RootWord imperative;
 
-    private final ConjugationMember forbidding;
+    private final RootWord forbidding;
 
-    public CommandLine(ConjugationMember commnad, ConjugationMember forbidding) {
-        this.commnad = commnad;
+    public CommandLine(RootWord imperative, RootWord forbidding) {
+        this.imperative = imperative;
         this.forbidding = forbidding;
     }
 
-    public ConjugationMember getCommnad() {
-        return commnad;
+    public RootWord getImperative() {
+        return imperative;
     }
 
-    public ConjugationMember getForbidding() {
+    public RootWord getForbidding() {
         return forbidding;
     }
 
     @Override
     public int hashCode() {
-        int hc = hash(super.hashCode(), commnad);
+        int hc = hash(super.hashCode(), imperative);
         hc = hash(hc, forbidding);
         return hc;
     }

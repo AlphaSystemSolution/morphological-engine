@@ -3,7 +3,7 @@
  */
 package com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer;
 
-import com.alphasystem.app.sarfengine.conjugation.model.ConjugationMember;
+import com.alphasystem.sarfengine.xml.model.RootWord;
 
 import static com.alphasystem.util.HashCodeUtil.hash;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
@@ -11,23 +11,23 @@ import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 /**
  * @author sali
  */
-public class ZarfLine {
+public class AdverbLine {
 
-    private final ConjugationMember[] zarfs;
+    private final RootWord[] adverbs;
 
-    public ZarfLine(ConjugationMember... zarfs) {
-        this.zarfs = zarfs;
+    public AdverbLine(RootWord... adverbs) {
+        this.adverbs = adverbs;
     }
 
-    public ConjugationMember[] getZarfs() {
-        return zarfs;
+    public RootWord[] getAdverbs() {
+        return adverbs;
     }
 
     @Override
     public int hashCode() {
         int hc = super.hashCode();
-        if (!isEmpty(zarfs)) {
-            for (ConjugationMember aw : zarfs) {
+        if (!isEmpty(adverbs)) {
+            for (RootWord aw : adverbs) {
                 hc = hash(hc, aw);
             }
         }

@@ -4,9 +4,9 @@
 package com.alphasystem.app.sarfengine.conjugation.model;
 
 import com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer.ActiveLine;
+import com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer.AdverbLine;
 import com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer.CommandLine;
 import com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer.PassiveLine;
-import com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer.ZarfLine;
 
 import static com.alphasystem.util.HashCodeUtil.hash;
 
@@ -21,14 +21,14 @@ public class SarfSagheer {
 
     private final CommandLine commandLine;
 
-    private final ZarfLine zarfLine;
+    private final AdverbLine zarfLine;
 
     public SarfSagheer(ActiveLine activeLine, PassiveLine passiveLine,
-                       CommandLine commnadLine, ZarfLine zarfLine) {
+                       CommandLine commnadLine, AdverbLine adverbLine) {
         this.activeLine = activeLine;
         this.passiveLine = passiveLine;
         this.commandLine = commnadLine;
-        this.zarfLine = zarfLine;
+        this.zarfLine = adverbLine;
     }
 
     public ActiveLine getActiveLine() {
@@ -43,7 +43,7 @@ public class SarfSagheer {
         return passiveLine;
     }
 
-    public ZarfLine getZarfLine() {
+    public AdverbLine getZarfLine() {
         return zarfLine;
     }
 

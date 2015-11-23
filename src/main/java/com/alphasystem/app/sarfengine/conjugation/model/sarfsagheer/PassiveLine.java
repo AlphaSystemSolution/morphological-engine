@@ -3,7 +3,7 @@
  */
 package com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer;
 
-import com.alphasystem.app.sarfengine.conjugation.model.ConjugationMember;
+import com.alphasystem.sarfengine.xml.model.RootWord;
 
 import static com.alphasystem.util.HashCodeUtil.hash;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
@@ -13,52 +13,51 @@ import static org.apache.commons.lang3.ArrayUtils.isEmpty;
  */
 public class PassiveLine {
 
-    private ConjugationMember pastPassiveTense;
+    private RootWord pastPassiveTense;
 
-    private ConjugationMember presentPassiveTense;
+    private RootWord presentPassiveTense;
 
-    private ConjugationMember[] masdars;
+    private RootWord[] verbalNouns;
 
-    private ConjugationMember ismMafoolMasculine;
+    private RootWord passiveParticipleMasculine;
 
-    public PassiveLine(ConjugationMember pastPassiveTense,
-                       ConjugationMember presentPassiveTense, ConjugationMember ismMafoolMasculine,
-                       ConjugationMember... masdars) {
+    public PassiveLine(RootWord pastPassiveTense, RootWord presentPassiveTense, RootWord passiveParticipleMasculine,
+                       RootWord... verbalNouns) {
         this.pastPassiveTense = pastPassiveTense;
         this.presentPassiveTense = presentPassiveTense;
-        this.masdars = masdars;
-        this.ismMafoolMasculine = ismMafoolMasculine;
+        this.verbalNouns = verbalNouns;
+        this.passiveParticipleMasculine = passiveParticipleMasculine;
     }
 
-    public ConjugationMember getIsmMafoolMasculine() {
-        return ismMafoolMasculine;
+    public RootWord getPassiveParticipleMasculine() {
+        return passiveParticipleMasculine;
     }
 
-    public void setIsmMafoolMasculine(ConjugationMember ismMafoolMasculine) {
-        this.ismMafoolMasculine = ismMafoolMasculine;
+    public void setPassiveParticipleMasculine(RootWord passiveParticipleMasculine) {
+        this.passiveParticipleMasculine = passiveParticipleMasculine;
     }
 
-    public ConjugationMember[] getMasdars() {
-        return masdars;
+    public RootWord[] getVerbalNouns() {
+        return verbalNouns;
     }
 
-    public void setMasdars(ConjugationMember[] masdars) {
-        this.masdars = masdars;
+    public void setVerbalNouns(RootWord[] verbalNouns) {
+        this.verbalNouns = verbalNouns;
     }
 
-    public ConjugationMember getPastPassiveTense() {
+    public RootWord getPastPassiveTense() {
         return pastPassiveTense;
     }
 
-    public void setPastPassiveTense(ConjugationMember pastPassiveTense) {
+    public void setPastPassiveTense(RootWord pastPassiveTense) {
         this.pastPassiveTense = pastPassiveTense;
     }
 
-    public ConjugationMember getPresentPassiveTense() {
+    public RootWord getPresentPassiveTense() {
         return presentPassiveTense;
     }
 
-    public void setPresentPassiveTense(ConjugationMember presentPassiveTense) {
+    public void setPresentPassiveTense(RootWord presentPassiveTense) {
         this.presentPassiveTense = presentPassiveTense;
     }
 
@@ -66,9 +65,9 @@ public class PassiveLine {
     public int hashCode() {
         int hc = hash(super.hashCode(), pastPassiveTense);
         hc = hash(hc, presentPassiveTense);
-        hc = hash(hc, ismMafoolMasculine);
-        if (!isEmpty(masdars)) {
-            for (ConjugationMember aw : masdars) {
+        hc = hash(hc, passiveParticipleMasculine);
+        if (!isEmpty(verbalNouns)) {
+            for (RootWord aw : verbalNouns) {
                 hc = hash(hc, aw);
             }
         }
@@ -77,7 +76,7 @@ public class PassiveLine {
 
     public boolean isNull() {
         return pastPassiveTense == null && presentPassiveTense == null
-                && ismMafoolMasculine == null;
+                && passiveParticipleMasculine == null;
     }
 
 }
