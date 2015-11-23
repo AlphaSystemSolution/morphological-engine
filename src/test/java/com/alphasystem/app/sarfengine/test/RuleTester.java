@@ -3,10 +3,10 @@
  */
 package com.alphasystem.app.sarfengine.test;
 
+import com.alphasystem.app.sarfengine.conjugation.model.FormTemplate;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
-import com.alphasystem.app.sarfengine.conjugation.template.FormTemplate;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicLetters;
 import com.alphasystem.arabic.model.ArabicWord;
@@ -15,7 +15,7 @@ import com.alphasystem.sarfengine.xml.model.RootWord;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static com.alphasystem.app.sarfengine.conjugation.template.TriLiteralTemplateHelper.*;
+import static com.alphasystem.app.sarfengine.util.TriLiteralTemplateHelper.*;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.DiacriticType.*;
 import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_MASCULINE_SINGULAR;

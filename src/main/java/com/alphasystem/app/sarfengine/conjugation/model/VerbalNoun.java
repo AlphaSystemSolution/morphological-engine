@@ -6,7 +6,7 @@ package com.alphasystem.app.sarfengine.conjugation.model;
 import com.alphasystem.arabic.model.ArabicLetters;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 
-import static com.alphasystem.app.sarfengine.conjugation.template.TriLiteralTemplateHelper.createVerbalNounRootWord;
+import static com.alphasystem.app.sarfengine.util.TriLiteralTemplateHelper.createVerbalNounRootWord;
 
 /**
  * @author sali

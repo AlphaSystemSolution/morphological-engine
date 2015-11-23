@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 
-import static com.alphasystem.app.sarfengine.conjugation.template.FormTemplate.getByNamedTemplate;
+import static com.alphasystem.app.sarfengine.conjugation.model.FormTemplate.getByNamedTemplate;
 import static com.alphasystem.app.sarfengine.util.PatternHelper.doApplyPatterns;
 import static java.lang.String.format;
 
