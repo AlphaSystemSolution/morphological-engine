@@ -81,6 +81,11 @@ public interface MemberBuilderFactory {
                                                            @Assisted boolean skipRuleProcessing,
                                                            @Assisted RootWord baseRootWord);
 
+    @Named(TRI_LITERAL_VERBAL_NOUN_V1_BUILDER)
+    ParticipleMemberBuilder getTriLiteralVerbalNounV1Builder(@Assisted RuleProcessor ruleProcessor,
+                                                             @Assisted boolean skipRuleProcessing,
+                                                             @Assisted RootWord baseRootWord);
+
     @Named(TRI_LITERAL_ADVERB_BUILDER)
     ParticipleMemberBuilder getTriLiteralAdverbBuilder(@Assisted RuleProcessor ruleProcessor,
                                                        @Assisted boolean skipRuleProcessing,

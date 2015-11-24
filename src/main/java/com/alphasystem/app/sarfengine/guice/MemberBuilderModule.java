@@ -26,6 +26,7 @@ public class MemberBuilderModule extends AbstractModule {
     public static final String TRI_LITERAL_PASSIVE_PARTICIPLE_MASCULINE_BUILDER = "TriLiteralPassiveParticipleMasculineBuilder";
     public static final String TRI_LITERAL_PASSIVE_PARTICIPLE_FEMININE_BUILDER = "TriLiteralPassiveParticipleFeminineBuilder";
     public static final String TRI_LITERAL_VERBAL_NOUN_BUILDER = "TriLiteralVerbalNounBuilder";
+    public static final String TRI_LITERAL_VERBAL_NOUN_V1_BUILDER = "TriLiteralVerbalNounV1Builder";
     public static final String TRI_LITERAL_ADVERB_BUILDER = "TriLiteralAdverbBuilder";
 
     @Override
@@ -55,6 +56,8 @@ public class MemberBuilderModule extends AbstractModule {
                         TriLiteralPassiveParticipleFeminineBuilder.class)
                 .implement(ParticipleMemberBuilder.class, named(TRI_LITERAL_VERBAL_NOUN_BUILDER),
                         TriLiteralVerbalNounBuilder.class)
+                .implement(ParticipleMemberBuilder.class, named(TRI_LITERAL_VERBAL_NOUN_V1_BUILDER),
+                        TriLiteralVerbalNounV1Builder.class)
                 .implement(ParticipleMemberBuilder.class, named(TRI_LITERAL_ADVERB_BUILDER),
                         TriLiteralAdverbBuilder.class)
                 .build(MemberBuilderFactory.class));
