@@ -1,5 +1,6 @@
 package com.alphasystem.app.sarfengine.guice;
 
+import com.alphasystem.app.sarfengine.conjugation.builder.ConjugationBuilderFactory;
 import com.alphasystem.app.sarfengine.conjugation.member.MemberBuilderFactory;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
 import com.google.inject.Guice;
@@ -20,7 +21,7 @@ public class GuiceSupport {
      */
     private GuiceSupport() {
         injector = Guice.createInjector(new CloseableModule(), new Jsr250Module(), new RuleProcessorModule(),
-                new MemberBuilderModule());
+                new MemberBuilderModule(), new ConjugationBuilderModule());
     }
 
     public static GuiceSupport getInstance() {
@@ -37,6 +38,10 @@ public class GuiceSupport {
 
     public MemberBuilderFactory getMemberBuilderFactory() {
         return injector.getInstance(MemberBuilderFactory.class);
+    }
+
+    public ConjugationBuilderFactory getConjugationBuilderFactory() {
+        return injector.getInstance(ConjugationBuilderFactory.class);
     }
 
 }
