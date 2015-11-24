@@ -110,8 +110,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                                                  boolean skipRuleProcessing, ArabicLetterType firstRadical,
                                                  ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
                                                  ArabicLetterType fourthRadical) {
-        ConjugationMemberBuilder rightSideBuilder = null;
-        ConjugationMemberBuilder leftSideBuilder = null;
+        ConjugationMemberBuilder rightSideBuilder;
+        ConjugationMemberBuilder leftSideBuilder;
 
         RootWord rightSideRootWord = processReplacements(formTemplate.getPastTenseRoot(), firstRadical, secondRadical,
                 thirdRadical, fourthRadical);
@@ -137,8 +137,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                                                       boolean skipRuleProcessing, ArabicLetterType firstRadical,
                                                       ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
                                                       ArabicLetterType fourthRadical) {
-        ConjugationMemberBuilder rightSideBuilder = null;
-        ConjugationMemberBuilder leftSideBuilder = null;
+        ConjugationMemberBuilder rightSideBuilder;
+        ConjugationMemberBuilder leftSideBuilder;
 
         RootWord rightSideRootWord = processReplacements(formTemplate.getActiveParticipleMasculineRoot(), firstRadical,
                 secondRadical, thirdRadical, fourthRadical);
@@ -164,8 +164,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                                                   boolean skipRuleProcessing, ArabicLetterType firstRadical,
                                                   ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
                                                   ArabicLetterType fourthRadical) {
-        ConjugationMemberBuilder rightSideBuilder = null;
-        ConjugationMemberBuilder leftSideBuilder = null;
+        ConjugationMemberBuilder rightSideBuilder;
+        ConjugationMemberBuilder leftSideBuilder;
 
         RootWord rightSideRootWord = processReplacements(formTemplate.getPastPassiveTenseRoot(), firstRadical,
                 secondRadical, thirdRadical, fourthRadical);
@@ -190,8 +190,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                                                        boolean skipRuleProcessing, ArabicLetterType firstRadical,
                                                        ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
                                                        ArabicLetterType fourthRadical) {
-        ConjugationMemberBuilder rightSideBuilder = null;
-        ConjugationMemberBuilder leftSideBuilder = null;
+        ConjugationMemberBuilder rightSideBuilder;
+        ConjugationMemberBuilder leftSideBuilder;
 
         RootWord rightSideRootWord = processReplacements(formTemplate.getPassiveParticipleMasculineRoot(), firstRadical,
                 secondRadical, thirdRadical, fourthRadical);
@@ -217,8 +217,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                                                              boolean skipRuleProcessing, ArabicLetterType firstRadical,
                                                              ArabicLetterType secondRadical,
                                                              ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
-        ConjugationMemberBuilder rightSideBuilder = null;
-        ConjugationMemberBuilder leftSideBuilder = null;
+        ConjugationMemberBuilder rightSideBuilder;
+        ConjugationMemberBuilder leftSideBuilder;
 
         RootWord rightSideRootWord = processReplacements(formTemplate.getImperativeRoot(), firstRadical, secondRadical,
                 thirdRadical, fourthRadical);
