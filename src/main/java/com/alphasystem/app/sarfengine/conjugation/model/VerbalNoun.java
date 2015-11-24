@@ -92,7 +92,6 @@ public enum VerbalNoun implements ArabicLetters {
             TA_MARBUTA_WITH_DAMMATAN)),
 
     VERBAL_NOUN_V26(createVerbalNounRootWord(0, 1, 2,
-            // TriLiteralVerbalNounV1Builder.class.getName(),
             FA_WITH_DAMMA, AIN_WITH_SUKUN, LAM_WITH_FATHA, LETTER_ALIF, NOON_WITH_DAMMATAN)),
 
     VERBAL_NOUN_FORM_II(createVerbalNounRootWord(1, 2, 4, TA_WITH_FATHA,

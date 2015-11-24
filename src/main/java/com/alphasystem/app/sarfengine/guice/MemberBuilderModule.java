@@ -28,6 +28,7 @@ public class MemberBuilderModule extends AbstractModule {
     public static final String TRI_LITERAL_VERBAL_NOUN_BUILDER = "TriLiteralVerbalNounBuilder";
     public static final String TRI_LITERAL_VERBAL_NOUN_V1_BUILDER = "TriLiteralVerbalNounV1Builder";
     public static final String TRI_LITERAL_ADVERB_BUILDER = "TriLiteralAdverbBuilder";
+    public static final String TRI_LITERAL_BROKEN_PLURAL_ADVERB_BUILDER = "TriLiteralBrokenPluralAdverbBuilder";
 
     @Override
     protected void configure() {
@@ -60,6 +61,8 @@ public class MemberBuilderModule extends AbstractModule {
                         TriLiteralVerbalNounV1Builder.class)
                 .implement(ParticipleMemberBuilder.class, named(TRI_LITERAL_ADVERB_BUILDER),
                         TriLiteralAdverbBuilder.class)
+                .implement(ParticipleMemberBuilder.class, named(TRI_LITERAL_BROKEN_PLURAL_ADVERB_BUILDER),
+                        TriLiteralBrokenPluralAdverbBuilder.class)
                 .build(MemberBuilderFactory.class));
     }
 }

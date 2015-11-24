@@ -91,4 +91,9 @@ public interface MemberBuilderFactory {
                                                        @Assisted boolean skipRuleProcessing,
                                                        @Assisted RootWord baseRootWord);
 
+    @Named(TRI_LITERAL_BROKEN_PLURAL_ADVERB_BUILDER)
+    ParticipleMemberBuilder getTriLiteralBrokenPluralAdverbBuilder(@Assisted RuleProcessor ruleProcessor,
+                                                                   @Assisted boolean skipRuleProcessing,
+                                                                   @Assisted RootWord baseRootWord);
+
 }
