@@ -1,12 +1,9 @@
 package com.alphasystem.app.sarfengine.conjugation.member;
 
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
-
-import javax.annotation.Nullable;
 
 import static com.alphasystem.app.sarfengine.guice.MemberBuilderModule.*;
 
@@ -34,12 +31,6 @@ public interface MemberBuilderFactory {
     TenseMemberBuilder getTriLiteralPresentPassiveBuilder(@Assisted RuleProcessor ruleProcessor,
                                                           @Assisted boolean skipRuleProcessing,
                                                           @Assisted RootWord baseRootWord);
-
-    @Named(TRI_LITERAL_IMPERATIVE_BUILDER)
-    TenseMemberBuilder getTriLiteralImperativeBuilder(@Assisted RuleProcessor ruleProcessor,
-                                                      @Assisted boolean skipRuleProcessing,
-                                                      @Assisted RootWord baseRootWord,
-                                                      @Nullable @Assisted ArabicLetter imperativeLetter);
 
     @Named(TRI_LITERAL_IMPERATIVE_BUILDER)
     TenseMemberBuilder getTriLiteralImperativeBuilder(@Assisted RuleProcessor ruleProcessor,

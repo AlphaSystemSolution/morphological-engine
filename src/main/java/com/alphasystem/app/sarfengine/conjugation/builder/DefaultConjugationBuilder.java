@@ -28,10 +28,6 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
     private static final RuleProcessorFactory RULE_PROCESSOR_FACTORY = GUICE_SUPPORT.getRuleProcessorFactory();
     private static final MemberBuilderFactory MEMBER_BUILDER_FACTORY = GUICE_SUPPORT.getMemberBuilderFactory();
 
-
-    public DefaultConjugationBuilder() {
-    }
-
     private static RootWord processReplacements(RootWord src, ArabicLetterType firstRadical,
                                                 ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
                                                 ArabicLetterType fourthRadical) {
@@ -171,6 +167,31 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         return createSarfKabeerPair(leftSideBuilder, rightSideBuilder, leftSideRootWord, rightSideRootWord);
     }
 
+    private SarfKabeerPair createImperativeAndForbiddingPair(FormTemplate formTemplate, RuleProcessor ruleEngine,
+                                                             boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                                             ArabicLetterType secondRadical,
+                                                             ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+        ConjugationMemberBuilder rightSideBuilder = null;
+        ConjugationMemberBuilder leftSideBuilder = null;
+
+        RootWord rightSideRootWord = formTemplate.getImperativeRoot();
+        rightSideRootWord = processReplacements(rightSideRootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+        if (fourthRadical == null) {
+            rightSideBuilder = getImperativeBuilder(formTemplate.getTemplate(), ruleEngine, skipRuleProcessing, rightSideRootWord);
+        } else {
+            //TODO:
+        }
+
+        RootWord leftSideRootWord = formTemplate.getForbiddingRoot();
+        leftSideRootWord = processReplacements(leftSideRootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+        if (fourthRadical == null) {
+            leftSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralForbiddingBuilder(ruleEngine, skipRuleProcessing, leftSideRootWord);
+        } else {
+            //TODO:
+        }
+        return createSarfKabeerPair(leftSideBuilder, rightSideBuilder, leftSideRootWord, rightSideRootWord);
+    }
+
     private SarfKabeerPair[] createVerbalNounPairs(List<VerbalNoun> verbalNouns, RuleProcessor ruleEngine,
                                                    boolean skipRuleProcessing, ArabicLetterType firstRadical,
                                                    ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
@@ -267,8 +288,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                     firstRadical, secondRadical, thirdRadical, fourthRadical);
         }
 
-        // TODO: Imperative & Forbidding
-        SarfKabeerPair imperativeAndForbiddingPair = null;
+        SarfKabeerPair imperativeAndForbiddingPair = createImperativeAndForbiddingPair(formTemplate, ruleEngine,
+                skipRuleProcessing, firstRadical, secondRadical, thirdRadical, fourthRadical);
 
         SarfKabeerPair[] adverbPairs = null;
         if (adverbs != null && !adverbs.isEmpty()) {
@@ -454,6 +475,20 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                 break;
             default:
                 builder = MEMBER_BUILDER_FACTORY.getTriLiteralAdverbBuilder(ruleProcessor, skipRuleProcessing, baseRootWord);
+                break;
+        }
+        return builder;
+    }
+
+    private ConjugationMemberBuilder getImperativeBuilder(NamedTemplate template, RuleProcessor ruleProcessor,
+                                                          boolean skipRuleProcessing, RootWord baseRootWord) {
+        ConjugationMemberBuilder builder;
+        switch (template) {
+            case FORM_IV_TEMPLATE:
+                builder = MEMBER_BUILDER_FACTORY.getTriLiteralImperativeFormIVBuilder(ruleProcessor, skipRuleProcessing, baseRootWord);
+                break;
+            default:
+                builder = MEMBER_BUILDER_FACTORY.getTriLiteralImperativeBuilder(ruleProcessor, skipRuleProcessing, baseRootWord);
                 break;
         }
         return builder;
