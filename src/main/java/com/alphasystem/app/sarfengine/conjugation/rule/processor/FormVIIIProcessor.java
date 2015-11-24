@@ -7,7 +7,6 @@ import com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
 import com.google.inject.assistedinject.Assisted;
@@ -29,8 +28,8 @@ public class FormVIIIProcessor extends AbstractRuleProcessor {
     }
 
     @Override
-    public RootWord applyRules(NamedTemplate template, RootWord baseRootWord) {
-        if (FORM_VIII_TEMPLATE.equals(template)) {
+    public RootWord applyRules(RootWord baseRootWord) {
+        if (FORM_VIII_TEMPLATE.equals(ruleInfo.getTemplate())) {
             SarfTermType sarfTermType = baseRootWord.getSarfTermType();
             if (sarfTermType.equals(IMPERATIVE)
                     || sarfTermType.equals(FORBIDDING)) {

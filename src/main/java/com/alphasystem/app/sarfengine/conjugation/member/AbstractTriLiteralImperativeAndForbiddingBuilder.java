@@ -4,7 +4,6 @@ import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
 import com.alphasystem.util.MethodNotSupportedException;
@@ -26,16 +25,15 @@ public abstract class AbstractTriLiteralImperativeAndForbiddingBuilder
     protected ArabicLetter imperativeLetter;
 
     protected AbstractTriLiteralImperativeAndForbiddingBuilder(RuleProcessor ruleProcessor,
-                                                               NamedTemplate template,
                                                                boolean skipRuleProcessing,
                                                                RootWord baseRootWord,
                                                                ArabicLetter imperativeLetter,
                                                                boolean forbidding) {
-        super(ruleProcessor, template, skipRuleProcessing, baseRootWord);
+        super(ruleProcessor, skipRuleProcessing, baseRootWord);
         setImperativeLetter(imperativeLetter);
         this.forbidding = forbidding;
         builder = getInstance().getMemberBuilderFactory().getTriLiteralPresentTenseBuilder(ruleProcessor,
-                template, skipRuleProcessing, baseRootWord);
+                skipRuleProcessing, baseRootWord);
     }
 
     @Override

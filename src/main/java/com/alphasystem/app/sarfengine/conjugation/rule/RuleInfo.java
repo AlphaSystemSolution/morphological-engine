@@ -2,15 +2,25 @@ package com.alphasystem.app.sarfengine.conjugation.rule;
 
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.DiacriticType;
+import com.alphasystem.arabic.model.NamedTemplate;
 
 /**
  * @author sali
  */
 public class RuleInfo {
 
+    private final NamedTemplate template;
     private DiacriticType diacriticForWeakSecondRadicalWaw;
     private boolean pastTenseHasTransformed;
     private ArabicLetterType hamzahReplacement;
+
+    public RuleInfo(NamedTemplate template) {
+        this.template = template;
+    }
+
+    public NamedTemplate getTemplate() {
+        return template;
+    }
 
     public DiacriticType getDiacriticForWeakSecondRadicalWaw() {
         return diacriticForWeakSecondRadicalWaw;

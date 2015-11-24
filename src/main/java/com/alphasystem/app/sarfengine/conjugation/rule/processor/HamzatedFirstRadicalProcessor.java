@@ -7,7 +7,6 @@ import com.alphasystem.app.sarfengine.conjugation.model.WordStatus;
 import com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
 import com.alphasystem.arabic.model.ArabicWord;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
@@ -28,7 +27,7 @@ public class HamzatedFirstRadicalProcessor extends AbstractRuleProcessor {
     }
 
     @Override
-    public RootWord applyRules(NamedTemplate template, RootWord baseRootWord) {
+    public RootWord applyRules(RootWord baseRootWord) {
         try {
             checkArgument(baseRootWord, IMPERATIVE);
         } catch (IllegalArgumentException e) {
@@ -41,7 +40,7 @@ public class HamzatedFirstRadicalProcessor extends AbstractRuleProcessor {
         rw.setRootWord(baseWord);
         WordStatus wordStatus = new WordStatus(rw);
         if (wordStatus.isFirstRadicalHamza()
-                && FORM_I_CATEGORY_A_GROUP_U_TEMPLATE.equals(template)) {
+                && FORM_I_CATEGORY_A_GROUP_U_TEMPLATE.equals(ruleInfo.getTemplate())) {
             ArabicWord result = new ArabicWord(baseRootWord.getRootWord());
             result.replaceLetter(0, LETTER_TATWEEL);
             if (!wordStatus.isSecondRadicalWaw()) {

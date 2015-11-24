@@ -3,10 +3,8 @@
  */
 package com.alphasystem.app.sarfengine.conjugation.member;
 
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleEngine;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicLetters;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
 
@@ -33,11 +31,6 @@ public interface ConjugationMemberBuilder extends ArabicLetters {
      * @return
      */
     RuleProcessor getRuleProcessor();
-
-    /**
-     * @return
-     */
-    NamedTemplate getTemplate();
 
     /**
      * @return

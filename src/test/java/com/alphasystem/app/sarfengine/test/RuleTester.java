@@ -33,7 +33,6 @@ public class RuleTester extends Assert implements ArabicLetters {
 
     private RuleProcessorFactory ruleProcessorFactory = GuiceSupport.getInstance().getInjector().
             getInstance(RuleProcessorFactory.class);
-    RuleProcessor ruleEngine = ruleProcessorFactory.getRuleEngine(new RuleInfo());
 
     private void print(String testName, ArabicWord src, ArabicWord result,
                        String msg) {
@@ -84,7 +83,8 @@ public class RuleTester extends Assert implements ArabicLetters {
     private void testExecuteRuleForAssimilatedVerbWawPresentTense(
             RootWord rootWord, String msg, boolean fail) {
         ArabicWord src = rootWord.getRootWord();
-        ArabicWord result = ruleEngine.applyRules(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, rootWord).getRootWord();
+        RuleProcessor ruleEngine = ruleProcessorFactory.getRuleEngine(new RuleInfo(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE));
+        ArabicWord result = ruleEngine.applyRules(rootWord).getRootWord();
         print("applyRulesForAssimilatedVerbWawPresentTense",
                 rootWord.getRootWord(), result, msg);
         if (fail) {
@@ -103,8 +103,8 @@ public class RuleTester extends Assert implements ArabicLetters {
         String arabicText = format(ARABIC_TEXT_SPAN, rootWord.getRootWord()
                 .toHtmlCode());
         log(format("<div>Initial Word: %s</div>", arabicText));
-
-        RootWord rw = ruleEngine.applyRules(template, rootWord);
+        RuleProcessor ruleEngine = ruleProcessorFactory.getRuleEngine(new RuleInfo(template));
+        RootWord rw = ruleEngine.applyRules(rootWord);
         arabicText = format(ARABIC_TEXT_SPAN, rw.getRootWord().toHtmlCode());
         log(format("<div>After Applying HamzaRule7Processor: %s</div>",
                 arabicText));
@@ -177,9 +177,9 @@ public class RuleTester extends Assert implements ArabicLetters {
     }
 
     private void testReplaceHamzahWithChair(RootWord baseRootWord, String msg) {
-        RuleProcessor processor = ruleProcessorFactory.getHamzahChairProcessor(new RuleInfo());
+        RuleProcessor processor = ruleProcessorFactory.getHamzahChairProcessor(new RuleInfo(FORM_I_CATEGORY_U_TEMPLATE));
         ArabicWord src = baseRootWord.getRootWord();
-        ArabicWord result = processor.applyRules(FORM_I_CATEGORY_U_TEMPLATE, baseRootWord).getRootWord();
+        ArabicWord result = processor.applyRules(baseRootWord).getRootWord();
         print("testReplaceHamzahWithChair", src, result, msg);
     }
 }

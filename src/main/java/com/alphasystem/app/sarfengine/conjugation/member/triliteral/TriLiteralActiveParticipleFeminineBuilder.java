@@ -3,7 +3,6 @@ package com.alphasystem.app.sarfengine.conjugation.member.triliteral;
 import com.alphasystem.app.sarfengine.conjugation.member.AbstractParticipleMemberBuilder;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicWord;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
 import com.google.inject.assistedinject.Assisted;
@@ -19,16 +18,15 @@ public class TriLiteralActiveParticipleFeminineBuilder extends AbstractParticipl
 
     @AssistedInject
     public TriLiteralActiveParticipleFeminineBuilder(@Assisted RuleProcessor ruleProcessor,
-                                                     @Assisted NamedTemplate template,
                                                      @Assisted boolean skipRuleProcessing,
                                                      @Assisted RootWord baseRootWord) {
-        this(ruleProcessor, template, skipRuleProcessing, baseRootWord, -1);
+        this(ruleProcessor, skipRuleProcessing, baseRootWord, -1);
     }
 
-    protected TriLiteralActiveParticipleFeminineBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
-                                                        boolean skipRuleProcessing, RootWord baseRootWord,
+    protected TriLiteralActiveParticipleFeminineBuilder(RuleProcessor ruleProcessor, boolean skipRuleProcessing,
+                                                        RootWord baseRootWord,
                                                         int variableLetterIndex) {
-        super(ruleProcessor, template, skipRuleProcessing, baseRootWord, variableLetterIndex);
+        super(ruleProcessor, skipRuleProcessing, baseRootWord, variableLetterIndex);
     }
 
     @Override

@@ -6,7 +6,10 @@ package com.alphasystem.app.sarfengine.conjugation.rule.processor;
 import com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper;
-import com.alphasystem.arabic.model.*;
+import com.alphasystem.arabic.model.ArabicLetter;
+import com.alphasystem.arabic.model.ArabicLetterType;
+import com.alphasystem.arabic.model.ArabicWord;
+import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
@@ -38,7 +41,7 @@ public class HamzahChairProcessor extends AbstractRuleProcessor {
     }
 
     @Override
-    public RootWord applyRules(NamedTemplate template, RootWord baseRootWord) {
+    public RootWord applyRules(RootWord baseRootWord) {
         ArabicWord result = new ArabicWord(baseRootWord.getRootWord());
         // we might have "TATWEEL" at this point, so remove it before proceed
         String text = removeTatweel(result.toBuckWalter());

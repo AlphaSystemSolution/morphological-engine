@@ -29,7 +29,7 @@ public class Rule10Processor extends AbstractRuleProcessor {
     }
 
     @Override
-    public RootWord applyRules(NamedTemplate template, RootWord baseRootWord) {
+    public RootWord applyRules(RootWord baseRootWord) {
         try {
             checkArgument(baseRootWord, null, new SarfTermType[]{IMPERATIVE,
                     FORBIDDING});

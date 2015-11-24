@@ -63,47 +63,47 @@ public class ConjugationMemberTest extends CommonTest {
 
     private void runConjugations(NamedTemplate namedTemplate, ArabicLetterType firstRadical,
                                  ArabicLetterType secondRadical, ArabicLetterType thirdRadical, RootWord verbalNoun) {
-        RuleProcessor ruleProcessor = ruleProcessorFactory.getRuleEngine(new RuleInfo());
+        RuleProcessor ruleProcessor = ruleProcessorFactory.getRuleEngine(new RuleInfo(namedTemplate));
         FormTemplate formTemplate = FormTemplate.getByNamedTemplate(namedTemplate);
         // Active Present and Past Tenses
-        ConjugationMemberBuilder rightBuilder = factory.getTriLiteralPastTenseBuilder(ruleProcessor, namedTemplate, false,
+        ConjugationMemberBuilder rightBuilder = factory.getTriLiteralPastTenseBuilder(ruleProcessor, false,
                 processReplacements(formTemplate.getPastTenseRoot(), firstRadical, secondRadical, thirdRadical));
-        ConjugationMemberBuilder leftBuilder = factory.getTriLiteralPresentTenseBuilder(ruleProcessor, namedTemplate, false,
+        ConjugationMemberBuilder leftBuilder = factory.getTriLiteralPresentTenseBuilder(ruleProcessor, false,
                 processReplacements(formTemplate.getPresentTenseRoot(), firstRadical, secondRadical, thirdRadical));
         printConjugations(leftBuilder, rightBuilder, true);
 
         // Verbal noun
-        leftBuilder = factory.getTriLiteralVerbalNounBuilder(ruleProcessor, namedTemplate, false, verbalNoun);
+        leftBuilder = factory.getTriLiteralVerbalNounBuilder(ruleProcessor, false, verbalNoun);
         printConjugations(leftBuilder, null, true);
 
         // Active Participle Masculine and Feminine
-        rightBuilder = factory.getTriLiteralActiveParticipleMasculineBuilder(ruleProcessor, namedTemplate, false,
+        rightBuilder = factory.getTriLiteralActiveParticipleMasculineBuilder(ruleProcessor, false,
                 processReplacements(formTemplate.getActiveParticipleMasculineRoot(), firstRadical, secondRadical, thirdRadical));
-        leftBuilder = factory.getTriLiteralActiveParticipleFeminineBuilder(ruleProcessor, namedTemplate, false,
+        leftBuilder = factory.getTriLiteralActiveParticipleFeminineBuilder(ruleProcessor, false,
                 processReplacements(formTemplate.getActiveParticipleFeminineRoot(), firstRadical, secondRadical, thirdRadical));
         printConjugations(leftBuilder, rightBuilder, false);
 
         // Passive Present and Past Tenses
-        rightBuilder = factory.getTriLiteralPastPassiveBuilder(ruleProcessor, namedTemplate, false,
+        rightBuilder = factory.getTriLiteralPastPassiveBuilder(ruleProcessor, false,
                 processReplacements(formTemplate.getPastPassiveTenseRoot(), firstRadical, secondRadical, thirdRadical));
-        leftBuilder = factory.getTriLiteralPresentPassiveBuilder(ruleProcessor, namedTemplate, false,
+        leftBuilder = factory.getTriLiteralPresentPassiveBuilder(ruleProcessor, false,
                 processReplacements(formTemplate.getPresentPassiveTenseRoot(), firstRadical, secondRadical, thirdRadical));
         printConjugations(leftBuilder, rightBuilder, true);
 
         // Passive Participle Masculine and Feminine
-        rightBuilder = factory.getTriLiteralPassiveParticipleMasculineBuilder(ruleProcessor, namedTemplate, false,
+        rightBuilder = factory.getTriLiteralPassiveParticipleMasculineBuilder(ruleProcessor, false,
                 processReplacements(formTemplate.getPassiveParticipleMasculineRoot(), firstRadical, secondRadical, thirdRadical));
-        leftBuilder = factory.getTriLiteralPassiveParticipleFeminineBuilder(ruleProcessor, namedTemplate, false,
+        leftBuilder = factory.getTriLiteralPassiveParticipleFeminineBuilder(ruleProcessor, false,
                 processReplacements(formTemplate.getPassiveParticipleFeminineRoot(), firstRadical, secondRadical, thirdRadical));
         printConjugations(leftBuilder, rightBuilder, false);
 
         // Imperative and Forbidding
         rightBuilder = namedTemplate.equals(FORM_IV_TEMPLATE) ?
-                factory.getTriLiteralImperativeFormIVBuilder(ruleProcessor, namedTemplate, false,
+                factory.getTriLiteralImperativeFormIVBuilder(ruleProcessor, false,
                         processReplacements(formTemplate.getImperativeRoot(), firstRadical, secondRadical, thirdRadical)) :
-                factory.getTriLiteralImperativeBuilder(ruleProcessor, namedTemplate, false,
+                factory.getTriLiteralImperativeBuilder(ruleProcessor, false,
                         processReplacements(formTemplate.getImperativeRoot(), firstRadical, secondRadical, thirdRadical));
-        leftBuilder = factory.getTriLiteralForbiddingBuilder(ruleProcessor, namedTemplate, false,
+        leftBuilder = factory.getTriLiteralForbiddingBuilder(ruleProcessor, false,
                 processReplacements(formTemplate.getForbiddingRoot(), firstRadical, secondRadical, thirdRadical));
         printConjugations(leftBuilder, rightBuilder, true);
 

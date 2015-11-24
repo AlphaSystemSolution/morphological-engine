@@ -1,7 +1,6 @@
 package com.alphasystem.app.sarfengine.conjugation.member;
 
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.arabic.model.SarfMemberType;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import org.slf4j.Logger;
@@ -17,15 +16,12 @@ import static java.lang.String.format;
  */
 public abstract class AbstractConjugationMemberBuilder implements ConjugationMemberBuilder {
 
-    protected final NamedTemplate template;
     protected final boolean skipRuleProcessing;
     protected final RuleProcessor ruleProcessor;
     protected Logger logger = LoggerFactory.getLogger(getClass());
     protected RootWord baseRootWord;
 
-    protected AbstractConjugationMemberBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
-                                               boolean skipRuleProcessing, RootWord baseRootWord) {
-        this.template = template;
+    protected AbstractConjugationMemberBuilder(RuleProcessor ruleProcessor, boolean skipRuleProcessing, RootWord baseRootWord) {
         this.skipRuleProcessing = skipRuleProcessing;
         this.ruleProcessor = ruleProcessor;
         this.baseRootWord = baseRootWord;
@@ -74,16 +70,11 @@ public abstract class AbstractConjugationMemberBuilder implements ConjugationMem
         }
         RootWord rootWord = new RootWord(src);
         if (!isSkipRuleProcessing()) {
-            rootWord = ruleProcessor.applyRules(getTemplate(), rootWord);
+            rootWord = ruleProcessor.applyRules(rootWord);
             rootWord = doApplyPatterns(rootWord);
         }
 
         return rootWord;
-    }
-
-    @Override
-    public NamedTemplate getTemplate() {
-        return template;
     }
 
     @Override

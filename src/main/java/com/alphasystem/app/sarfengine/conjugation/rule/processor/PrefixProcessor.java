@@ -6,7 +6,6 @@ package com.alphasystem.app.sarfengine.conjugation.rule.processor;
 import com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
 import com.alphasystem.arabic.model.ArabicWord;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
 import com.google.inject.assistedinject.Assisted;
@@ -26,12 +25,12 @@ public class PrefixProcessor extends AbstractRuleProcessor {
     private static final ArabicWord NEGATE = getWord(LAM, ALIF);
 
     @AssistedInject
-    public PrefixProcessor(@Assisted  RuleInfo ruleInfo) {
+    public PrefixProcessor(@Assisted RuleInfo ruleInfo) {
         super(ruleInfo);
     }
 
     @Override
-    public RootWord applyRules(NamedTemplate template, RootWord baseRootWord) {
+    public RootWord applyRules(RootWord baseRootWord) {
         try {
             checkArgument(baseRootWord, new SarfTermType[]{FORBIDDING}, null);
         } catch (IllegalArgumentException e) {

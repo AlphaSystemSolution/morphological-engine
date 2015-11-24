@@ -2,7 +2,6 @@ package com.alphasystem.app.sarfengine.conjugation.rule;
 
 import com.alphasystem.app.sarfengine.conjugation.rule.processor.HamzahChairProcessor;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
@@ -57,26 +56,27 @@ public class RuleEngine extends AbstractRuleProcessor {
         rule20Processor = ruleProcessorFactory.getRule20Processor(ruleInfo);
     }
 
-    public RootWord applyRules(NamedTemplate template, RootWord rootWord) {
+    @Override
+    public RootWord applyRules(RootWord rootWord) {
         ((HamzahChairProcessor) hamzahChairProcessor).setHamzahReplacement(ruleInfo.getHamzahReplacement());
-        formVIIIProcessor.applyRules(template, rootWord);
-        rule14Processor.applyRules(template, rootWord);
-        rule1Processor.applyRules(template, rootWord);
-        rule7Processor.applyRules(template, rootWord);
-        rule9Processor.applyRules(template, rootWord);
-        rule8Processor.applyRules(template, rootWord);
-        rule10Processor.applyRules(template, rootWord);
-        rule11And12Processor.applyRules(template, rootWord);
-        rule13Processor.applyRules(template, rootWord);
-        rule16Processor.applyRules(template, rootWord);
-        rule17Processor.applyRules(template, rootWord);
-        rule20Processor.applyRules(template, rootWord);
-        rule19Processor.applyRules(template, rootWord);
-        doubleLetteredProcessor.applyRules(template, rootWord);
-        hamzatedFirstRadicalProcessor.applyRules(template, rootWord);
-        hamzatedThirdRadicalProcessor.applyRules(template, rootWord);
-        hamzahChairProcessor.applyRules(template, rootWord);
-        prefixProcessor.applyRules(template, rootWord);
+        formVIIIProcessor.applyRules(rootWord);
+        rule14Processor.applyRules(rootWord);
+        rule1Processor.applyRules(rootWord);
+        rule7Processor.applyRules(rootWord);
+        rule9Processor.applyRules(rootWord);
+        rule8Processor.applyRules(rootWord);
+        rule10Processor.applyRules(rootWord);
+        rule11And12Processor.applyRules(rootWord);
+        rule13Processor.applyRules(rootWord);
+        rule16Processor.applyRules(rootWord);
+        rule17Processor.applyRules(rootWord);
+        rule20Processor.applyRules(rootWord);
+        rule19Processor.applyRules(rootWord);
+        doubleLetteredProcessor.applyRules(rootWord);
+        hamzatedFirstRadicalProcessor.applyRules(rootWord);
+        hamzatedThirdRadicalProcessor.applyRules(rootWord);
+        hamzahChairProcessor.applyRules(rootWord);
+        prefixProcessor.applyRules(rootWord);
         return rootWord;
     }
 }

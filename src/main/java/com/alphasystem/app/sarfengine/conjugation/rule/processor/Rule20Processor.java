@@ -9,7 +9,6 @@ import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
 import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
 import com.google.inject.assistedinject.Assisted;
@@ -30,7 +29,7 @@ public class Rule20Processor extends AbstractRuleProcessor {
     }
 
     @Override
-    public RootWord applyRules(NamedTemplate template, RootWord baseRootWord) {
+    public RootWord applyRules(RootWord baseRootWord) {
         try {
             checkArgument(baseRootWord, null, new SarfTermType[]{VERBAL_NOUN,
                     NOUN_OF_PLACE_AND_TIME, IMPERATIVE, FORBIDDING});

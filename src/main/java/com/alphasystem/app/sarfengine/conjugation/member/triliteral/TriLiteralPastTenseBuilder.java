@@ -3,7 +3,6 @@ package com.alphasystem.app.sarfengine.conjugation.member.triliteral;
 import com.alphasystem.app.sarfengine.conjugation.member.AbstractTenseMemberBuilder;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicWord;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
 import com.google.inject.assistedinject.Assisted;
@@ -47,10 +46,9 @@ public class TriLiteralPastTenseBuilder extends AbstractTenseMemberBuilder {
 
     @AssistedInject
     public TriLiteralPastTenseBuilder(@Assisted RuleProcessor ruleProcessor,
-                                      @Assisted NamedTemplate template,
                                       @Assisted boolean skipRuleProcessing,
                                       @Assisted RootWord baseRootWord) {
-        super(ruleProcessor, template, skipRuleProcessing, baseRootWord);
+        super(ruleProcessor, skipRuleProcessing, baseRootWord);
         initPrefixForSecondAndFirstPerson();
     }
 

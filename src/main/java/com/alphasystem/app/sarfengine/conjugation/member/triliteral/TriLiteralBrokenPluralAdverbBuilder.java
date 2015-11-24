@@ -4,7 +4,6 @@ import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
@@ -20,10 +19,9 @@ public class TriLiteralBrokenPluralAdverbBuilder extends TriLiteralAdverbBuilder
 
     @AssistedInject
     public TriLiteralBrokenPluralAdverbBuilder(@Assisted RuleProcessor ruleProcessor,
-                                               @Assisted NamedTemplate template,
                                                @Assisted boolean skipRuleProcessing,
                                                @Assisted RootWord baseRootWord) {
-        super(ruleProcessor, template, skipRuleProcessing, baseRootWord);
+        super(ruleProcessor, skipRuleProcessing, baseRootWord);
         brokenPluralWord = new RootWord(getRootWord());
         ArabicLetterType firstRadicalLetter = baseRootWord.getFirstRadical()
                 .getLetter();

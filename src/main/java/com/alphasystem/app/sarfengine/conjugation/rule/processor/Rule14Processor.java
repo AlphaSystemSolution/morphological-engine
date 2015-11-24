@@ -33,7 +33,7 @@ public class Rule14Processor extends AbstractRuleProcessor {
     }
 
     @Override
-    public RootWord applyRules(NamedTemplate template, RootWord baseRootWord) {
+    public RootWord applyRules(RootWord baseRootWord) {
         try {
             checkArgument(baseRootWord);
         } catch (IllegalArgumentException e) {

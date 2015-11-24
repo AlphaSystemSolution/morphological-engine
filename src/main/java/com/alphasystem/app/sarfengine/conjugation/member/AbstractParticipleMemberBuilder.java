@@ -1,7 +1,6 @@
 package com.alphasystem.app.sarfengine.conjugation.member;
 
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 
 import static com.alphasystem.arabic.model.HiddenNounStatus.*;
@@ -14,16 +13,14 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
 
     protected int variableLetterIndex;
 
-    protected AbstractParticipleMemberBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
-                                              boolean skipRuleProcessing, RootWord baseRootWord,
+    protected AbstractParticipleMemberBuilder(RuleProcessor ruleProcessor, boolean skipRuleProcessing, RootWord baseRootWord,
                                               int variableLetterIndex) {
-        super(ruleProcessor, template, skipRuleProcessing, baseRootWord);
+        super(ruleProcessor, skipRuleProcessing, baseRootWord);
         setVariableLetterIndex(variableLetterIndex);
     }
 
-    protected AbstractParticipleMemberBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
-                                              boolean skipRuleProcessing, RootWord baseRootWord) {
-        this(ruleProcessor, template, skipRuleProcessing, baseRootWord, -1);
+    protected AbstractParticipleMemberBuilder(RuleProcessor ruleProcessor, boolean skipRuleProcessing, RootWord baseRootWord) {
+        this(ruleProcessor, skipRuleProcessing, baseRootWord, -1);
     }
 
     protected int getVariableLetterIndex() {

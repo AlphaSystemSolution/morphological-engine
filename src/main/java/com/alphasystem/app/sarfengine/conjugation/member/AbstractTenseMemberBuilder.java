@@ -1,7 +1,6 @@
 package com.alphasystem.app.sarfengine.conjugation.member;
 
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 
 import static com.alphasystem.arabic.model.HiddenPronounStatus.*;
@@ -12,9 +11,8 @@ import static com.alphasystem.arabic.model.HiddenPronounStatus.*;
 public abstract class AbstractTenseMemberBuilder extends AbstractConjugationMemberBuilder
         implements TenseMemberBuilder {
 
-    protected AbstractTenseMemberBuilder(RuleProcessor ruleProcessor, NamedTemplate template,
-                                         boolean skipRuleProcessing, RootWord baseRootWord) {
-        super(ruleProcessor, template, skipRuleProcessing, baseRootWord);
+    protected AbstractTenseMemberBuilder(RuleProcessor ruleProcessor, boolean skipRuleProcessing, RootWord baseRootWord) {
+        super(ruleProcessor, skipRuleProcessing, baseRootWord);
     }
 
     // Interface methods
