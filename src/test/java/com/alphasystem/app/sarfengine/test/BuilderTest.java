@@ -3,10 +3,10 @@
  */
 package com.alphasystem.app.sarfengine.test;
 
-import com.alphasystem.app.sarfengine.conjugation.model.VerbalNoun;
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
+import com.alphasystem.sarfengine.xml.model.VerbalNoun;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.testng.annotations.Test;
 

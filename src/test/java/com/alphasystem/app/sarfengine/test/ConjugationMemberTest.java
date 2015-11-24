@@ -3,7 +3,6 @@ package com.alphasystem.app.sarfengine.test;
 import com.alphasystem.app.sarfengine.conjugation.member.ConjugationMemberBuilder;
 import com.alphasystem.app.sarfengine.conjugation.member.MemberBuilderFactory;
 import com.alphasystem.app.sarfengine.conjugation.model.FormTemplate;
-import com.alphasystem.app.sarfengine.conjugation.model.VerbalNoun;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
@@ -12,6 +11,7 @@ import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
+import com.alphasystem.sarfengine.xml.model.VerbalNoun;
 import org.testng.annotations.Test;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;

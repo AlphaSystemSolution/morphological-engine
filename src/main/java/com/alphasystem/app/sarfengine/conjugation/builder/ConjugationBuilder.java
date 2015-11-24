@@ -1,10 +1,10 @@
 package com.alphasystem.app.sarfengine.conjugation.builder;
 
-import com.alphasystem.app.sarfengine.conjugation.model.NounOfPlaceAndTime;
 import com.alphasystem.app.sarfengine.conjugation.model.SarfChart;
-import com.alphasystem.app.sarfengine.conjugation.model.VerbalNoun;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
+import com.alphasystem.sarfengine.xml.model.NounOfPlaceAndTime;
+import com.alphasystem.sarfengine.xml.model.VerbalNoun;
 
 import java.util.List;
 

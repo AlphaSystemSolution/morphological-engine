@@ -7,14 +7,15 @@ import com.alphasystem.arabic.model.ArabicLetters;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
+import com.alphasystem.sarfengine.xml.model.VerbalNoun;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 import java.util.*;
 
-import static com.alphasystem.app.sarfengine.conjugation.model.VerbalNoun.*;
-import static com.alphasystem.app.sarfengine.util.TriLiteralTemplateHelper.*;
+import static com.alphasystem.sarfengine.util.TriLiteralTemplateHelper.*;
 import static com.alphasystem.sarfengine.xml.model.SarfTermType.*;
+import static com.alphasystem.sarfengine.xml.model.VerbalNoun.*;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 
 /**

@@ -12,8 +12,10 @@ import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.*;
+import com.alphasystem.sarfengine.xml.model.NounOfPlaceAndTime;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
+import com.alphasystem.sarfengine.xml.model.VerbalNoun;
 
 import java.util.ArrayList;
 import java.util.List;
