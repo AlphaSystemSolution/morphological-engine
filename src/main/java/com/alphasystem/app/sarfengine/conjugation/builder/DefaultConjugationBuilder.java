@@ -18,6 +18,7 @@ import com.alphasystem.sarfengine.xml.model.SarfTermType;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.alphasystem.arabic.model.RootType.WEAK;
 import static com.alphasystem.arabic.model.VerbType.*;
 import static com.alphasystem.arabic.model.WeakVerbType.*;
 
@@ -40,7 +41,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
     public SarfChart doConjugation(NamedTemplate template, String translation, boolean removePassiveLine,
                                    boolean skipRuleProcessing, ArabicLetterType firstRadical,
                                    ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                   ArabicLetterType fourthRadical, List<VerbalNoun> verbalNouns, List<NounOfPlaceAndTime> adverbs) {
+                                   ArabicLetterType fourthRadical, List<VerbalNoun> verbalNouns,
+                                   List<NounOfPlaceAndTime> adverbs) {
         FormTemplate formTemplate = FormTemplate.getByNamedTemplate(template);
         RuleProcessor ruleEngine = RULE_PROCESSOR_FACTORY.getRuleEngine(new RuleInfo(template));
 
@@ -71,7 +73,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         VerbType verbType = VerbType.CONSONANT;
         WeakVerbType weakVerbType = null;
         if (status.isWeak()) {
-            rootType = RootType.WEAK;
+            rootType = WEAK;
             if (status.twoSeparateLettersWeak()) {
                 verbType = TWO_SEPARATE_RADICALS_WEAK;
             } else if (status.twoConsecutiveLettersWeak()) {
@@ -117,7 +119,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             rightSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralPastTenseBuilder(ruleEngine, skipRuleProcessing,
                     rightSideRootWord);
         } else {
-            //TODO:
+            throw new RuntimeException("Fourth radical is not implemented");
         }
 
         RootWord leftSideRootWord = processReplacements(formTemplate.getPresentTenseRoot(), firstRadical, secondRadical,
@@ -126,7 +128,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             leftSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralPresentTenseBuilder(ruleEngine, skipRuleProcessing,
                     leftSideRootWord);
         } else {
-            //TODO:
+            throw new RuntimeException("Fourth radical is not implemented");
         }
         return createSarfKabeerPair(leftSideBuilder, rightSideBuilder, leftSideRootWord, rightSideRootWord);
     }
@@ -144,7 +146,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             rightSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralActiveParticipleMasculineBuilder(ruleEngine,
                     skipRuleProcessing, rightSideRootWord);
         } else {
-            //TODO:
+            throw new RuntimeException("Fourth radical is not implemented");
         }
 
         RootWord leftSideRootWord = processReplacements(formTemplate.getActiveParticipleFeminineRoot(), firstRadical,
@@ -153,7 +155,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             leftSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralActiveParticipleFeminineBuilder(ruleEngine,
                     skipRuleProcessing, leftSideRootWord);
         } else {
-            //TODO:
+            throw new RuntimeException("Fourth radical is not implemented");
         }
         return createSarfKabeerPair(leftSideBuilder, rightSideBuilder, leftSideRootWord, rightSideRootWord);
     }
@@ -171,7 +173,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             rightSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralPastPassiveBuilder(ruleEngine, skipRuleProcessing,
                     rightSideRootWord);
         } else {
-            //TODO:
+            throw new RuntimeException("Fourth radical is not implemented");
         }
 
         RootWord leftSideRootWord = processReplacements(formTemplate.getPresentPassiveTenseRoot(), firstRadical, secondRadical, thirdRadical, fourthRadical);
@@ -179,7 +181,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             leftSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralPresentPassiveBuilder(ruleEngine, skipRuleProcessing,
                     leftSideRootWord);
         } else {
-            //TODO:
+            throw new RuntimeException("Fourth radical is not implemented");
         }
         return createSarfKabeerPair(leftSideBuilder, rightSideBuilder, leftSideRootWord, rightSideRootWord);
     }
@@ -197,7 +199,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             rightSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralPassiveParticipleMasculineBuilder(ruleEngine,
                     skipRuleProcessing, rightSideRootWord);
         } else {
-            //TODO:
+            throw new RuntimeException("Fourth radical is not implemented");
         }
 
         RootWord leftSideRootWord = processReplacements(formTemplate.getPassiveParticipleFeminineRoot(), firstRadical,
@@ -206,7 +208,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             leftSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralPassiveParticipleFeminineBuilder(ruleEngine,
                     skipRuleProcessing, leftSideRootWord);
         } else {
-            //TODO:
+            throw new RuntimeException("Fourth radical is not implemented");
         }
         return createSarfKabeerPair(leftSideBuilder, rightSideBuilder, leftSideRootWord, rightSideRootWord);
     }
@@ -223,7 +225,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         if (fourthRadical == null) {
             rightSideBuilder = getImperativeBuilder(formTemplate.getTemplate(), ruleEngine, skipRuleProcessing, rightSideRootWord);
         } else {
-            //TODO:
+            throw new RuntimeException("Fourth radical is not implemented");
         }
 
         RootWord leftSideRootWord = processReplacements(formTemplate.getForbiddingRoot(), firstRadical, secondRadical,
@@ -231,7 +233,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         if (fourthRadical == null) {
             leftSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralForbiddingBuilder(ruleEngine, skipRuleProcessing, leftSideRootWord);
         } else {
-            //TODO:
+            throw new RuntimeException("Fourth radical is not implemented");
         }
         return createSarfKabeerPair(leftSideBuilder, rightSideBuilder, leftSideRootWord, rightSideRootWord);
     }
