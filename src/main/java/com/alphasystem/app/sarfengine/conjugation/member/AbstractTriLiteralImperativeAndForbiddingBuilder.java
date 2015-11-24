@@ -211,6 +211,11 @@ public abstract class AbstractTriLiteralImperativeAndForbiddingBuilder
     }
 
     @Override
+    public RootWord getDefaultConjugation() {
+        return secondPersonMasculineSingular();
+    }
+
+    @Override
     public SarfTermType getTermType() {
         return forbidding ? FORBIDDING : IMPERATIVE;
     }
