@@ -20,8 +20,7 @@ public class SarfChart {
      * @param sarfSagheer
      * @param sarfKabeer
      */
-    public SarfChart(ConjugationHeader conjugationHeader,
-                     SarfSagheer sarfSagheer, SarfKabeer sarfKabeer) {
+    public SarfChart(ConjugationHeader conjugationHeader, SarfSagheer sarfSagheer, SarfKabeer sarfKabeer) {
         this.conjugationHeader = conjugationHeader;
         this.sarfSagheer = sarfSagheer;
         this.sarfKabeer = sarfKabeer;

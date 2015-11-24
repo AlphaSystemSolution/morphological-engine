@@ -11,13 +11,15 @@ import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
-import com.alphasystem.arabic.model.ArabicLetterType;
-import com.alphasystem.arabic.model.NamedTemplate;
+import com.alphasystem.arabic.model.*;
 import com.alphasystem.sarfengine.xml.model.RootWord;
 import com.alphasystem.sarfengine.xml.model.SarfTermType;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.alphasystem.arabic.model.VerbType.*;
+import static com.alphasystem.arabic.model.WeakVerbType.*;
 
 /**
  * @author sali
@@ -46,8 +48,11 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                 firstRadical, secondRadical, thirdRadical, fourthRadical, verbalNouns, adverbs);
 
         SarfSagheer sarfSagheer = createSarfSagheer(sarfKabeer);
+        RootWord pastTense = sarfSagheer.getActiveLine().getPastTense();
+        ConjugationHeader conjugationHeader = createConjugationHeader(template, translation, pastTense, firstRadical,
+                secondRadical, thirdRadical, fourthRadical);
 
-        return null;
+        return new SarfChart(conjugationHeader, sarfSagheer, sarfKabeer);
     }
 
     @Override
@@ -59,6 +64,46 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                 thirdRadical, null, verbalNouns, adverbs);
     }
 
+    private ConjugationHeader createConjugationHeader(NamedTemplate template, String translation, RootWord pastTenseRoot,
+                                                      ArabicLetterType... rootLetters) {
+        WordStatus status = new WordStatus(pastTenseRoot);
+        RootType rootType = RootType.CONSONANT;
+        VerbType verbType = VerbType.CONSONANT;
+        WeakVerbType weakVerbType = null;
+        if (status.isWeak()) {
+            rootType = RootType.WEAK;
+            if (status.twoSeparateLettersWeak()) {
+                verbType = TWO_SEPARATE_RADICALS_WEAK;
+            } else if (status.twoConsecutiveLettersWeak()) {
+                verbType = TWO_CONSECUTIVE_RADICALS_WEAK;
+            } else if (status.isAssimilated()) {
+                verbType = FIRST_RADICAL_WEAK;
+                weakVerbType = status.isFirstRadicalWaw() ? FIRST_RADICAL_WEAK_WAW
+                        : FIRST_RADICAL_WEAK_YA;
+            } else if (status.isHollow()) {
+                verbType = SECOND_RADICAL_WEAK;
+                weakVerbType = status.isSecondRadicalWaw() ? SECOND_RADICAL_WEAK_WAW
+                        : SECOND_RADICAL_WEAK_YA;
+            } else if (status.isDefective()) {
+                verbType = THIRD_RADICAL_WEAK;
+                weakVerbType = status.isThirdRadicalWaw() ? THIRD_RADICAL_WEAK_WAW
+                        : THIRD_RADICAL_WEAK_YA;
+            }
+        } else if (status.isDouledLettered()) {
+            verbType = DOUBLE_LETTERED;
+        } else if (status.isHamzatted()) {
+            if (status.isFirstRadicalHamza()) {
+                verbType = FIRST_RADICAL_HAMZA;
+            } else if (status.isSecondRadicalHamza()) {
+                verbType = SECOND_RADICAL_HAMZA;
+            } else if (status.isThirdRadicalHamza()) {
+                verbType = THIRD_RADICAL_HAMZA;
+            }
+        }
+        ChartMode chartMode = new ChartMode(template, rootType, verbType, weakVerbType);
+        return new ConjugationHeader(translation, template.getLabel(), chartMode, rootLetters);
+    }
+
     private SarfKabeerPair createActiveTensePair(FormTemplate formTemplate, RuleProcessor ruleEngine,
                                                  boolean skipRuleProcessing, ArabicLetterType firstRadical,
                                                  ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
@@ -66,8 +111,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         ConjugationMemberBuilder rightSideBuilder = null;
         ConjugationMemberBuilder leftSideBuilder = null;
 
-        RootWord rightSideRootWord = formTemplate.getPastTenseRoot();
-        rightSideRootWord = processReplacements(rightSideRootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+        RootWord rightSideRootWord = processReplacements(formTemplate.getPastTenseRoot(), firstRadical, secondRadical,
+                thirdRadical, fourthRadical);
         if (fourthRadical == null) {
             rightSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralPastTenseBuilder(ruleEngine, skipRuleProcessing,
                     rightSideRootWord);
@@ -75,8 +120,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             //TODO:
         }
 
-        RootWord leftSideRootWord = formTemplate.getPresentTenseRoot();
-        leftSideRootWord = processReplacements(leftSideRootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+        RootWord leftSideRootWord = processReplacements(formTemplate.getPresentTenseRoot(), firstRadical, secondRadical,
+                thirdRadical, fourthRadical);
         if (fourthRadical == null) {
             leftSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralPresentTenseBuilder(ruleEngine, skipRuleProcessing,
                     leftSideRootWord);
@@ -93,8 +138,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         ConjugationMemberBuilder rightSideBuilder = null;
         ConjugationMemberBuilder leftSideBuilder = null;
 
-        RootWord rightSideRootWord = formTemplate.getActiveParticipleMasculineRoot();
-        rightSideRootWord = processReplacements(rightSideRootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+        RootWord rightSideRootWord = processReplacements(formTemplate.getActiveParticipleMasculineRoot(), firstRadical,
+                secondRadical, thirdRadical, fourthRadical);
         if (fourthRadical == null) {
             rightSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralActiveParticipleMasculineBuilder(ruleEngine,
                     skipRuleProcessing, rightSideRootWord);
@@ -102,8 +147,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             //TODO:
         }
 
-        RootWord leftSideRootWord = formTemplate.getActiveParticipleFeminineRoot();
-        leftSideRootWord = processReplacements(leftSideRootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+        RootWord leftSideRootWord = processReplacements(formTemplate.getActiveParticipleFeminineRoot(), firstRadical,
+                secondRadical, thirdRadical, fourthRadical);
         if (fourthRadical == null) {
             leftSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralActiveParticipleFeminineBuilder(ruleEngine,
                     skipRuleProcessing, leftSideRootWord);
@@ -120,8 +165,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         ConjugationMemberBuilder rightSideBuilder = null;
         ConjugationMemberBuilder leftSideBuilder = null;
 
-        RootWord rightSideRootWord = formTemplate.getPastPassiveTenseRoot();
-        rightSideRootWord = processReplacements(rightSideRootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+        RootWord rightSideRootWord = processReplacements(formTemplate.getPastPassiveTenseRoot(), firstRadical,
+                secondRadical, thirdRadical, fourthRadical);
         if (fourthRadical == null) {
             rightSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralPastPassiveBuilder(ruleEngine, skipRuleProcessing,
                     rightSideRootWord);
@@ -129,8 +174,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             //TODO:
         }
 
-        RootWord leftSideRootWord = formTemplate.getPresentPassiveTenseRoot();
-        leftSideRootWord = processReplacements(leftSideRootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+        RootWord leftSideRootWord = processReplacements(formTemplate.getPresentPassiveTenseRoot(), firstRadical, secondRadical, thirdRadical, fourthRadical);
         if (fourthRadical == null) {
             leftSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralPresentPassiveBuilder(ruleEngine, skipRuleProcessing,
                     leftSideRootWord);
@@ -147,8 +191,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         ConjugationMemberBuilder rightSideBuilder = null;
         ConjugationMemberBuilder leftSideBuilder = null;
 
-        RootWord rightSideRootWord = formTemplate.getPassiveParticipleMasculineRoot();
-        rightSideRootWord = processReplacements(rightSideRootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+        RootWord rightSideRootWord = processReplacements(formTemplate.getPassiveParticipleMasculineRoot(), firstRadical,
+                secondRadical, thirdRadical, fourthRadical);
         if (fourthRadical == null) {
             rightSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralPassiveParticipleMasculineBuilder(ruleEngine,
                     skipRuleProcessing, rightSideRootWord);
@@ -156,8 +200,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             //TODO:
         }
 
-        RootWord leftSideRootWord = formTemplate.getPassiveParticipleFeminineRoot();
-        leftSideRootWord = processReplacements(leftSideRootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+        RootWord leftSideRootWord = processReplacements(formTemplate.getPassiveParticipleFeminineRoot(), firstRadical,
+                secondRadical, thirdRadical, fourthRadical);
         if (fourthRadical == null) {
             leftSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralPassiveParticipleFeminineBuilder(ruleEngine,
                     skipRuleProcessing, leftSideRootWord);
@@ -174,16 +218,16 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         ConjugationMemberBuilder rightSideBuilder = null;
         ConjugationMemberBuilder leftSideBuilder = null;
 
-        RootWord rightSideRootWord = formTemplate.getImperativeRoot();
-        rightSideRootWord = processReplacements(rightSideRootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+        RootWord rightSideRootWord = processReplacements(formTemplate.getImperativeRoot(), firstRadical, secondRadical,
+                thirdRadical, fourthRadical);
         if (fourthRadical == null) {
             rightSideBuilder = getImperativeBuilder(formTemplate.getTemplate(), ruleEngine, skipRuleProcessing, rightSideRootWord);
         } else {
             //TODO:
         }
 
-        RootWord leftSideRootWord = formTemplate.getForbiddingRoot();
-        leftSideRootWord = processReplacements(leftSideRootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+        RootWord leftSideRootWord = processReplacements(formTemplate.getForbiddingRoot(), firstRadical, secondRadical,
+                thirdRadical, fourthRadical);
         if (fourthRadical == null) {
             leftSideBuilder = MEMBER_BUILDER_FACTORY.getTriLiteralForbiddingBuilder(ruleEngine, skipRuleProcessing, leftSideRootWord);
         } else {
