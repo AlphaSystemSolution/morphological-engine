@@ -28,12 +28,12 @@ public class TemplateReader {
     public static final String DOCX_FILE_EXTENSION = "docx";
     private static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
     private static final String EXTENSION_SEPARATOR = ".";
+    public static final String SARF_FILE_EXTENSION_ALL = format("*%s%s", EXTENSION_SEPARATOR, SARF_SUFFIX);
     private static final String XML_SUFFIX = "xml";
     private static final String XML_FILE_EXTENSION = format("%s%s", EXTENSION_SEPARATOR, XML_SUFFIX);
     private static final String TEMPLATE_FILE_PREFIX = "template";
     private static final String DEFAULT_ZIP_FILE_ENTRY = format("%s%s", TEMPLATE_FILE_PREFIX, XML_FILE_EXTENSION);
     private static final String SARF_FILE_EXTENSION = format("%s%s", EXTENSION_SEPARATOR, SARF_SUFFIX);
-
     private static TemplateReader instance = new TemplateReader();
 
     /**
