@@ -12,7 +12,10 @@ import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.*;
-import com.alphasystem.sarfengine.xml.model.*;
+import com.alphasystem.sarfengine.xml.model.NounOfPlaceAndTime;
+import com.alphasystem.sarfengine.xml.model.RootWord;
+import com.alphasystem.sarfengine.xml.model.SarfTermType;
+import com.alphasystem.sarfengine.xml.model.VerbalNoun;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +43,13 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
     public SarfChart doConjugation(NamedTemplate template, String translation, boolean removePassiveLine,
                                    boolean skipRuleProcessing, ArabicLetterType firstRadical,
                                    ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                   ArabicLetterType fourthRadical, VernalNounAndAdverbContainer container) {
+                                   ArabicLetterType fourthRadical, List<VerbalNoun> verbalNouns,
+                                   List<NounOfPlaceAndTime> adverbs) {
         FormTemplate formTemplate = FormTemplate.getByNamedTemplate(template);
         RuleProcessor ruleEngine = RULE_PROCESSOR_FACTORY.getRuleEngine(new RuleInfo(template));
 
         SarfKabeer sarfKabeer = createSarfKabeer(formTemplate, ruleEngine, removePassiveLine, skipRuleProcessing,
-                firstRadical, secondRadical, thirdRadical, fourthRadical, container.getVerbalNouns(), container.getAdverbs());
+                firstRadical, secondRadical, thirdRadical, fourthRadical, verbalNouns, adverbs);
 
         SarfSagheer sarfSagheer = createSarfSagheer(sarfKabeer);
         RootWord pastTense = sarfSagheer.getActiveLine().getPastTense();
@@ -59,9 +63,9 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
     public SarfChart doConjugation(NamedTemplate template, String translation, boolean removePassiveLine,
                                    boolean skipRuleProcessing, ArabicLetterType firstRadical,
                                    ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                   VernalNounAndAdverbContainer container) {
+                                   List<VerbalNoun> verbalNouns, List<NounOfPlaceAndTime> adverbs) {
         return doConjugation(template, translation, removePassiveLine, skipRuleProcessing, firstRadical, secondRadical,
-                thirdRadical, null, container);
+                thirdRadical, null, verbalNouns, adverbs);
     }
 
     private ConjugationHeader createConjugationHeader(NamedTemplate template, String translation, RootWord pastTenseRoot,

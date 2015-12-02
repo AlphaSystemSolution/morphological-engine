@@ -9,7 +9,6 @@ import com.alphasystem.app.sarfengine.conjugation.model.SarfKabeerPair;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.sarfengine.xml.model.VerbalNoun;
-import com.alphasystem.sarfengine.xml.model.VernalNounAndAdverbContainer;
 import org.testng.annotations.Test;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
@@ -25,11 +24,8 @@ public class ConjugationTest extends CommonTest {
     public void runConjugationBuilder() {
         ConjugationBuilderFactory cbf = GuiceSupport.getInstance().getConjugationBuilderFactory();
         ConjugationBuilder cb = cbf.getConjugationBuilder();
-        VernalNounAndAdverbContainer container = new VernalNounAndAdverbContainer();
-        container.getVerbalNouns().addAll(asList(VerbalNoun.VERBAL_NOUN_FORM_IV));
-        container.getAdverbs().addAll(asList(NOUN_OF_PLACE_AND_TIME_FORM_IV));
         SarfChart sarfChart = cb.doConjugation(NamedTemplate.FORM_IV_TEMPLATE, "To send down", false, false,
-                NOON, ZAIN, LAM, container);
+                NOON, ZAIN, LAM, asList(VerbalNoun.VERBAL_NOUN_FORM_IV), asList(NOUN_OF_PLACE_AND_TIME_FORM_IV));
         SarfKabeer sarfKabeer = sarfChart.getSarfKabeer();
 
         SarfKabeerPair sarfKabeerPair = sarfKabeer.getActiveTensePair();
