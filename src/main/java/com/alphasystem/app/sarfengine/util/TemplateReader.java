@@ -118,7 +118,7 @@ public class TemplateReader {
     }
 
     /**
-     * @param archiveFile
+     * @param archiveFile file with extension "sarfx"
      * @param template
      * @throws ApplicationException
      */
@@ -130,6 +130,8 @@ public class TemplateReader {
             archiveFile(archiveFile, new ZipFileEntry(tempFile, DEFAULT_ZIP_FILE_ENTRY));
         } catch (ApplicationException e) {
             throw e;
+        } finally {
+
         }
     }
 
