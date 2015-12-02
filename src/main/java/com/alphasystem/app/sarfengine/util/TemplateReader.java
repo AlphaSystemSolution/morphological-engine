@@ -83,6 +83,10 @@ public class TemplateReader {
         return destFile;
     }
 
+    public static String getFileNameNoExtension(File file) {
+        return getBaseName(file.getAbsolutePath());
+    }
+
     /**
      * @param file
      * @return
