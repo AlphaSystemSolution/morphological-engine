@@ -431,8 +431,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
     }
 
     private PassiveLine createPassiveLine(SarfKabeer sarfKabeer) {
-        SarfKabeerPair activeTensePair = sarfKabeer.getActiveTensePair();
-        SarfKabeerPair activeParticiplePair = sarfKabeer.getActiveParticiplePair();
+        SarfKabeerPair activeTensePair = sarfKabeer.getPassiveTensePair();
+        SarfKabeerPair activeParticiplePair = sarfKabeer.getPassiveParticiplePair();
         SarfKabeerPair[] verbalNounPairs = sarfKabeer.getVerbalNounPairs();
 
         ConjugationStack rightSideStack = activeTensePair.getRightSideStack();
