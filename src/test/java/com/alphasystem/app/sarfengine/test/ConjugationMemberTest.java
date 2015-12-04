@@ -43,23 +43,6 @@ public class ConjugationMemberTest extends CommonTest {
         runConjugations(FORM_IV_TEMPLATE, SEEN, LAM, MEEM, VerbalNoun.VERBAL_NOUN_FORM_IV.getRootWord());
     }
 
-//    @Test
-//    public void testVerbalNouns() {
-//        ConjugationMemberBuilder rightBuilder;
-//        ConjugationMemberBuilder leftBuilder;
-//        RuleProcessor ruleProcessor = ruleProcessorFactory.getRuleEngine(new RuleInfo());
-//
-//        VerbalNoun[] verbalNouns = VerbalNoun.values();
-//        int index = 0;
-//        while (index < 38) {
-//            rightBuilder = factory.getTriLiteralVerbalNounBuilder(ruleProcessor,
-//                    FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, false, FA, AIN, LAM, verbalNouns[index++].getRootWord());
-//            leftBuilder = factory.getTriLiteralVerbalNounBuilder(ruleProcessor,
-//                    FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, false, FA, AIN, LAM, verbalNouns[index++].getRootWord());
-//            printConjugations(leftBuilder, rightBuilder, false);
-//        }
-//    }
-
     private void runConjugations(NamedTemplate namedTemplate, ArabicLetterType firstRadical,
                                  ArabicLetterType secondRadical, ArabicLetterType thirdRadical, RootWord verbalNoun) {
         RuleProcessor ruleProcessor = ruleProcessorFactory.getRuleEngine(new RuleInfo(namedTemplate));

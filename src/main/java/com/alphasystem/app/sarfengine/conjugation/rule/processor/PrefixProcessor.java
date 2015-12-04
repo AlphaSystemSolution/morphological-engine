@@ -12,8 +12,8 @@ import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.checkArgument;
-import static com.alphasystem.arabic.model.ArabicLetterType.ALIF;
-import static com.alphasystem.arabic.model.ArabicLetterType.LAM;
+import static com.alphasystem.arabic.model.ArabicLetterType.*;
+import static com.alphasystem.arabic.model.ArabicWord.concatenateWithSpace;
 import static com.alphasystem.arabic.model.ArabicWord.getWord;
 import static com.alphasystem.sarfengine.xml.model.SarfTermType.FORBIDDING;
 
@@ -38,7 +38,11 @@ public class PrefixProcessor extends AbstractRuleProcessor {
         }
 
         ArabicWord result = new ArabicWord(baseRootWord.getRootWord());
-        result = ArabicWord.concatenateWithSpace(NEGATE, result);
+        // make sure word doesn't have LA in front of it
+        String n = NEGATE.toBuckWalter() + SPACE.toCode();
+        if (!result.toBuckWalter().startsWith(n)) {
+            result = concatenateWithSpace(NEGATE, result);
+        }
 
         baseRootWord.setRootWord(result);
         return baseRootWord;
