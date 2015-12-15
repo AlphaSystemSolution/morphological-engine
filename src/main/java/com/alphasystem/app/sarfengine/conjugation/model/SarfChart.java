@@ -3,8 +3,8 @@
  */
 package com.alphasystem.app.sarfengine.conjugation.model;
 
-import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
+import com.alphasystem.sarfengine.xml.model.RootLetters;
 
 /**
  * @author sali
@@ -37,7 +37,7 @@ public class SarfChart {
         return result;
     }
 
-    public ConjugationHeader getChartTitle() {
+    public ConjugationHeader getHeader() {
         return conjugationHeader;
     }
 
@@ -52,9 +52,8 @@ public class SarfChart {
         return namedTemplate;
     }
 
-    public ArabicLetterType[] getRootLetters() {
-        return conjugationHeader == null ? new ArabicLetterType[0]
-                : conjugationHeader.getRootLetters();
+    public RootLetters getRootLetters() {
+        return conjugationHeader == null ? new RootLetters() : conjugationHeader.getRootLetters();
     }
 
     public SarfKabeer getSarfKabeer() {

@@ -7,9 +7,12 @@ import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.VerbType;
 import com.alphasystem.arabic.model.WeakVerbType;
+import com.alphasystem.sarfengine.xml.model.RootLetters;
+import com.alphasystem.sarfengine.xml.model.RootWord;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.ArabicLetters.LETTER_COMMA;
+import static com.alphasystem.arabic.model.ArabicLetters.WORD_SPACE;
 import static com.alphasystem.arabic.model.ArabicWord.*;
 
 /**
@@ -19,7 +22,9 @@ public class ConjugationHeader {
 
     private static final ArabicWord WEIGHT_LABEL = getWord(WAW, ZAIN, NOON);
 
-    private final ArabicLetterType[] rootLetters;
+    private final RootWord pastTenseRoot;
+    private final RootWord presentTenseRoot;
+    private final RootLetters rootLetters;
     private final String translation;
     private final ArabicWord baseWord;
     private final ChartMode chartMode;
@@ -29,16 +34,29 @@ public class ConjugationHeader {
 
     /**
      * @param translation
+     * @param pastTenseRoot
+     * @param presentTenseRoot
      * @param baseWord
      * @param chartMode
+     * @param rootLetters
      */
-    public ConjugationHeader(String translation, ArabicWord baseWord,
-                             ChartMode chartMode, ArabicLetterType... rootLetters) {
+    public ConjugationHeader(String translation, RootWord pastTenseRoot, RootWord presentTenseRoot,
+                             ArabicWord baseWord, ChartMode chartMode, RootLetters rootLetters) {
         this.translation = translation;
+        this.pastTenseRoot = pastTenseRoot;
+        this.presentTenseRoot = presentTenseRoot;
         this.baseWord = baseWord;
         this.chartMode = chartMode;
         this.rootLetters = rootLetters;
         initLabels();
+    }
+
+    public RootWord getPastTenseRoot() {
+        return pastTenseRoot;
+    }
+
+    public RootWord getPresentTenseRoot() {
+        return presentTenseRoot;
     }
 
     public ArabicWord getBaseWord() {
@@ -49,7 +67,7 @@ public class ConjugationHeader {
         return chartMode;
     }
 
-    public ArabicLetterType[] getRootLetters() {
+    public RootLetters getRootLetters() {
         return rootLetters;
     }
 
@@ -67,6 +85,27 @@ public class ConjugationHeader {
 
     public ArabicWord getTypeLabel3() {
         return typeLabel3;
+    }
+
+    public ArabicWord getTitle() {
+        ArabicWord title = WORD_SPACE;
+        if (pastTenseRoot != null) {
+            title = concatenateWithSpace(title, pastTenseRoot.getLabel());
+        }
+        if (presentTenseRoot != null) {
+            title = concatenateWithSpace(title, presentTenseRoot.getLabel());
+        }
+        if (rootLetters != null) {
+            ArabicLetterType fourthRadical = rootLetters.getFourthRadical();
+            ArabicWord rl = concatenate(getWord(LEFT_PARENTHESIS), WORD_SPACE, getWord(rootLetters.getFirstRadical()),
+                    WORD_SPACE, getWord(rootLetters.getSecondRadical()), WORD_SPACE, getWord(rootLetters.getThirdRadical()));
+            if (fourthRadical != null) {
+                rl = concatenate(WORD_SPACE, getWord(fourthRadical));
+            }
+            rl = concatenate(rl, getWord(RIGHT_PARENTHESIS), WORD_SPACE);
+            title = concatenateWithSpace(title, rl);
+        }
+        return title;
     }
 
     private void initLabels() {

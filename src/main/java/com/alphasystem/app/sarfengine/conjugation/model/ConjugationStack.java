@@ -30,4 +30,8 @@ public class ConjugationStack {
         return label;
     }
 
+    public boolean isEmpty(){
+        return defaultValue == null;
+    }
+
 }

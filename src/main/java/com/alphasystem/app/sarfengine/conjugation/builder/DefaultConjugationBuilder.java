@@ -12,10 +12,7 @@ import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.*;
-import com.alphasystem.sarfengine.xml.model.NounOfPlaceAndTime;
-import com.alphasystem.sarfengine.xml.model.RootWord;
-import com.alphasystem.sarfengine.xml.model.SarfTermType;
-import com.alphasystem.sarfengine.xml.model.VerbalNoun;
+import com.alphasystem.sarfengine.xml.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,9 +49,13 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                 firstRadical, secondRadical, thirdRadical, fourthRadical, verbalNouns, adverbs);
 
         SarfSagheer sarfSagheer = createSarfSagheer(sarfKabeer);
-        RootWord pastTense = sarfSagheer.getActiveLine().getPastTense();
-        ConjugationHeader conjugationHeader = createConjugationHeader(template, translation, pastTense, firstRadical,
-                secondRadical, thirdRadical, fourthRadical);
+        ActiveLine activeLine = sarfSagheer.getActiveLine();
+        RootWord pastTense = activeLine.getPastTense();
+        RootWord presentTense = activeLine.getPresentTense();
+        RootLetters rootLetters = new RootLetters().withFirstRadical(firstRadical).withSecondRadical(secondRadical)
+                .withThirdRadical(thirdRadical).withFourthRadical(fourthRadical);
+        ConjugationHeader conjugationHeader = createConjugationHeader(template, translation, pastTense, presentTense,
+                rootLetters);
 
         return new SarfChart(conjugationHeader, sarfSagheer, sarfKabeer);
     }
@@ -69,7 +70,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
     }
 
     private ConjugationHeader createConjugationHeader(NamedTemplate template, String translation, RootWord pastTenseRoot,
-                                                      ArabicLetterType... rootLetters) {
+                                                      RootWord presentTenseRoot, RootLetters rootLetters) {
         WordStatus status = new WordStatus(pastTenseRoot);
         RootType rootType = RootType.CONSONANT;
         VerbType verbType = VerbType.CONSONANT;
@@ -105,7 +106,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             }
         }
         ChartMode chartMode = new ChartMode(template, rootType, verbType, weakVerbType);
-        return new ConjugationHeader(translation, template.getLabel(), chartMode, rootLetters);
+        return new ConjugationHeader(translation, pastTenseRoot, presentTenseRoot, template.getLabel(), chartMode, rootLetters);
     }
 
     private SarfKabeerPair createActiveTensePair(FormTemplate formTemplate, RuleProcessor ruleEngine,

@@ -99,8 +99,8 @@ public class SarfChartComparator implements Comparator<SarfChart> {
 
     private int compareByType(SarfChart o1, SarfChart o2) {
         int result = 0;
-        ChartMode cm1 = o1.getChartTitle().getChartMode();
-        ChartMode cm2 = o2.getChartTitle().getChartMode();
+        ChartMode cm1 = o1.getHeader().getChartMode();
+        ChartMode cm2 = o2.getHeader().getChartMode();
         result = compareNamedTemplate(o1.getNamedTemplate(),
                 o2.getNamedTemplate());
         if (result == 0) {
