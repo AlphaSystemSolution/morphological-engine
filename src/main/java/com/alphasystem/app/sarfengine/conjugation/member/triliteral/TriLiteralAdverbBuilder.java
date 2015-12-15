@@ -15,7 +15,7 @@ public class TriLiteralAdverbBuilder extends AbstractTriLiteralVerbalNounAndAdve
     public TriLiteralAdverbBuilder(@Assisted RuleProcessor ruleProcessor,
                                    @Assisted boolean skipRuleProcessing,
                                    @Assisted RootWord baseRootWord) {
-        super(ruleProcessor, skipRuleProcessing, baseRootWord, -1, true);
+        super(ruleProcessor, skipRuleProcessing, baseRootWord, -1, false);
     }
 
 }
