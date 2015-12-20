@@ -9,14 +9,16 @@ import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
-import com.alphasystem.sarfengine.xml.model.RootWord;
-import com.alphasystem.sarfengine.xml.model.SarfTermType;
-import com.alphasystem.sarfengine.xml.model.VerbalNoun;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
 import org.testng.annotations.Test;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_IV_TEMPLATE;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
+
+;
 
 /**
  * @author sali

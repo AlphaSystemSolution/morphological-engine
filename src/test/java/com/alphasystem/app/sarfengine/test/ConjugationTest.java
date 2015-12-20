@@ -8,11 +8,11 @@ import com.alphasystem.app.sarfengine.conjugation.model.SarfKabeer;
 import com.alphasystem.app.sarfengine.conjugation.model.SarfKabeerPair;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.NamedTemplate;
-import com.alphasystem.sarfengine.xml.model.VerbalNoun;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
 import org.testng.annotations.Test;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
-import static com.alphasystem.sarfengine.xml.model.NounOfPlaceAndTime.NOUN_OF_PLACE_AND_TIME_FORM_IV;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.NOUN_OF_PLACE_AND_TIME_FORM_IV;
 import static java.util.Arrays.asList;
 
 /**

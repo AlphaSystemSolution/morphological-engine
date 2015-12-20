@@ -1,7 +1,7 @@
 package com.alphasystem.app.sarfengine.conjugation.member;
 
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.sarfengine.xml.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
 import static com.alphasystem.arabic.model.HiddenNounStatus.*;
 

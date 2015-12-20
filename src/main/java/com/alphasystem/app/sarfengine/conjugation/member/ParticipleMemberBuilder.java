@@ -1,6 +1,7 @@
 package com.alphasystem.app.sarfengine.conjugation.member;
 
-import com.alphasystem.sarfengine.xml.model.RootWord;
+
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
 /**
  * @author sali

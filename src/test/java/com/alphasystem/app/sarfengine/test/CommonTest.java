@@ -6,8 +6,8 @@ package com.alphasystem.app.sarfengine.test;
 import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicLetters;
 import com.alphasystem.arabic.model.ArabicWord;
-import com.alphasystem.sarfengine.xml.model.RootWord;
-import com.alphasystem.sarfengine.xml.model.SarfTermType;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -16,6 +16,8 @@ import java.lang.reflect.Method;
 
 import static java.lang.String.format;
 import static org.testng.Reporter.log;
+
+;
 
 /**
  * @author sali

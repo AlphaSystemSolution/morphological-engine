@@ -1,12 +1,14 @@
 package com.alphasystem.app.sarfengine.conjugation.member.triliteral;
 
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.sarfengine.xml.model.RootWord;
-import com.alphasystem.sarfengine.xml.model.SarfTermType;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
-import static com.alphasystem.sarfengine.xml.model.SarfTermType.PASSIVE_PARTICIPLE_MASCULINE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PASSIVE_PARTICIPLE_MASCULINE;
+
+;
 
 /**
  * @author sali

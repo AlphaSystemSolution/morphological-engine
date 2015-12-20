@@ -4,7 +4,7 @@
 package com.alphasystem.app.sarfengine.conjugation.model;
 
 import com.alphasystem.arabic.model.NamedTemplate;
-import com.alphasystem.sarfengine.xml.model.RootLetters;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 
 /**
  * @author sali

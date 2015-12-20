@@ -4,7 +4,7 @@
 package com.alphasystem.app.sarfengine.conjugation.model;
 
 import com.alphasystem.arabic.model.ArabicWord;
-import com.alphasystem.sarfengine.xml.model.SarfTermType;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
 /**
  * @author sali

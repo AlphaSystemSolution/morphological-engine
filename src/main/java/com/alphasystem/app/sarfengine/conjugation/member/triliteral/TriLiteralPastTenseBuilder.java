@@ -3,14 +3,16 @@ package com.alphasystem.app.sarfengine.conjugation.member.triliteral;
 import com.alphasystem.app.sarfengine.conjugation.member.AbstractTenseMemberBuilder;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicWord;
-import com.alphasystem.sarfengine.xml.model.RootWord;
-import com.alphasystem.sarfengine.xml.model.SarfTermType;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.arabic.model.DiacriticType.DAMMA;
 import static com.alphasystem.arabic.model.DiacriticType.SUKUN;
-import static com.alphasystem.sarfengine.xml.model.SarfTermType.PAST_TENSE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PAST_TENSE;
+
+;
 
 /**
  * @author sali

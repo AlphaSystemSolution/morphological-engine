@@ -1,7 +1,9 @@
 package com.alphasystem.app.sarfengine.conjugation.model;
 
-import com.alphasystem.sarfengine.xml.model.RootWord;
-import com.alphasystem.sarfengine.xml.model.SarfTermType;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+
+;
 
 /**
  * @author sali

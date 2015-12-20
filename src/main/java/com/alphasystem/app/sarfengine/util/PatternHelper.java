@@ -3,7 +3,7 @@
  */
 package com.alphasystem.app.sarfengine.util;
 
-import com.alphasystem.sarfengine.xml.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,6 +15,8 @@ import static java.lang.String.format;
 import static java.lang.String.valueOf;
 import static java.util.regex.Pattern.compile;
 import static org.apache.commons.lang3.StringUtils.remove;
+
+;
 
 
 /**

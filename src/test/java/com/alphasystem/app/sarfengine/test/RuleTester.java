@@ -11,7 +11,7 @@ import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicLetters;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.NamedTemplate;
-import com.alphasystem.sarfengine.xml.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -20,9 +20,11 @@ import static com.alphasystem.arabic.model.DiacriticType.*;
 import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_MASCULINE_SINGULAR;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_U_TEMPLATE;
-import static com.alphasystem.sarfengine.util.TriLiteralTemplateHelper.*;
+import static com.alphasystem.morphologicalanalysis.morphology.util.TriLiteralTemplateHelper.*;
 import static java.lang.String.format;
 import static org.testng.Reporter.log;
+
+;
 
 /**
  * @author sali

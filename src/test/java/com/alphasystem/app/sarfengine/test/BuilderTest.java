@@ -4,31 +4,26 @@
 package com.alphasystem.app.sarfengine.test;
 
 import com.alphasystem.arabic.model.*;
-import com.alphasystem.sarfengine.xml.model.RootWord;
-import com.alphasystem.sarfengine.xml.model.SarfTermType;
-import com.alphasystem.sarfengine.xml.model.VerbalNoun;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.testng.annotations.Test;
 
-import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.ArabicWord.fromBuckWalterString;
-import static com.alphasystem.arabic.model.DiacriticType.FATHA;
 import static com.alphasystem.arabic.model.DiacriticType.SUKUN;
-import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_MASCULINE_SINGULAR;
-import static com.alphasystem.sarfengine.xml.model.SarfTermType.PAST_TENSE;
-import static com.alphasystem.sarfengine.xml.model.SarfTermType.PRESENT_TENSE;
-import static com.alphasystem.util.JAXBUtil.marshall;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_TENSE;
 import static java.lang.String.format;
 import static java.util.Collections.addAll;
 import static java.util.Collections.reverse;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
-import static org.apache.commons.lang3.StringEscapeUtils.escapeXml11;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.testng.Reporter.log;
+
+;
 
 /**
  * @author sali
@@ -265,29 +260,5 @@ public class BuilderTest extends CommonTest {
                 printArabicText(targetRootWord.getRootWord())));
     }
 
-    @Test
-    public void testXml() {
-        ObjectFactory objectFactory = new ObjectFactory();
-        ArabicWord arabicWord = new ArabicWord(new ArabicLetter(FA, FATHA),
-                new ArabicLetter(AIN, FATHA), new ArabicLetter(LAM, FATHA));
-        JAXBElement<ArabicWord> element = objectFactory
-                .createArabicWord(arabicWord);
-        String xml = marshall(ArabicWord.class.getPackage().getName(), element);
-        log(format("<div>%s</div>", escapeXml11(xml)));
-
-        RootWord rootWord = new RootWord().withBaseWord(arabicWord)
-                .withRootWord(arabicWord).withFirstRadicalIndex(0)
-                .withSecondRadicalIndex(1).withThirdRadicalIndex(2)
-                .withSarfTermType(PAST_TENSE)
-                .withMemberType(THIRD_PERSON_MASCULINE_SINGULAR);
-
-        log("<br/>");
-
-        com.alphasystem.sarfengine.xml.model.ObjectFactory objectFactory2 = new com.alphasystem.sarfengine.xml.model.ObjectFactory();
-        JAXBElement<RootWord> rootWordElement = objectFactory2
-                .createRootWord(rootWord);
-        xml = marshall(RootWord.class.getPackage().getName(), rootWordElement);
-        log(format("<div>%s</div>", escapeXml11(xml)));
-    }
 
 }

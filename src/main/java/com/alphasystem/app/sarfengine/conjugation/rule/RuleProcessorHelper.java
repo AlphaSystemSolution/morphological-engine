@@ -4,16 +4,18 @@
 package com.alphasystem.app.sarfengine.conjugation.rule;
 
 import com.alphasystem.arabic.model.*;
-import com.alphasystem.sarfengine.xml.model.RootWord;
-import com.alphasystem.sarfengine.xml.model.SarfTermType;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.DiacriticType.*;
 import static com.alphasystem.arabic.model.HiddenPronounStatus.*;
-import static com.alphasystem.sarfengine.xml.model.SarfTermType.*;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.ArrayUtils.contains;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
+
+;
 
 /**
  * @author sali

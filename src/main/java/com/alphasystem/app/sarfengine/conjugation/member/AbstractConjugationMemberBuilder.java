@@ -2,7 +2,7 @@ package com.alphasystem.app.sarfengine.conjugation.member;
 
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.SarfMemberType;
-import com.alphasystem.sarfengine.xml.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -8,14 +8,15 @@ import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.arabic.model.RootType;
 import com.alphasystem.arabic.model.VerbType;
 import com.alphasystem.arabic.model.WeakVerbType;
-import com.alphasystem.sarfengine.xml.model.SortDirection;
-import com.alphasystem.sarfengine.xml.model.SortDirective;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SortDirection;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SortDirective;
 
 import java.util.Comparator;
 
-import static com.alphasystem.sarfengine.xml.model.SortDirection.ASCENDING;
-import static com.alphasystem.sarfengine.xml.model.SortDirection.DESCENDING;
-import static com.alphasystem.sarfengine.xml.model.SortDirective.*;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SortDirection.ASCENDING;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SortDirection.DESCENDING;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SortDirective.*;
+
 
 /**
  * @author sali

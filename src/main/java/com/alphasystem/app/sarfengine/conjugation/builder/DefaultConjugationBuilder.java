@@ -12,7 +12,11 @@ import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.*;
-import com.alphasystem.sarfengine.xml.model.*;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
 
 import java.util.ArrayList;
 import java.util.List;

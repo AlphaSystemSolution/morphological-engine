@@ -3,7 +3,7 @@
  */
 package com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer;
 
-import com.alphasystem.sarfengine.xml.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
 import static com.alphasystem.util.HashCodeUtil.hash;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;

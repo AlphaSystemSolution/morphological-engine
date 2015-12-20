@@ -5,9 +5,11 @@ package com.alphasystem.app.sarfengine.conjugation.model;
 
 import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicLetterType;
-import com.alphasystem.sarfengine.xml.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
+
+;
 
 /**
  * @author sali

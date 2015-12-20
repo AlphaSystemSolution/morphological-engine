@@ -12,9 +12,14 @@
     </parent>
     <dependencies>
         <dependency>
-            <groupId>com.alphasystem.sarf</groupId>
-            <artifactId>xml-model</artifactId>
-            <version>${sarf-xml-model.version}</version>
+            <groupId>com.alphasystem.arabic</groupId>
+            <artifactId>morphological-analysis-model</artifactId>
+            <version>${morphological-analysis-model.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.6.3</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -79,5 +84,6 @@
         <guice.version>4.0</guice.version>
         <mycila-guice.version>3.6.ga</mycila-guice.version>
         <sarf-xml-model.version>${project.version}</sarf-xml-model.version>
+        <morphological-analysis-model.version>${project.version}</morphological-analysis-model.version>
     </properties>
 </project>

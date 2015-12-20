@@ -1,14 +1,14 @@
 package com.alphasystem.app.sarfengine.conjugation.member;
 
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.sarfengine.xml.model.RootWord;
-import com.alphasystem.sarfengine.xml.model.SarfTermType;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
 import static com.alphasystem.app.sarfengine.guice.GuiceSupport.getInstance;
 import static com.alphasystem.arabic.model.ArabicLetterType.TA_MARBUTA;
 import static com.alphasystem.arabic.model.DiacriticType.FATHA;
-import static com.alphasystem.sarfengine.xml.model.SarfTermType.NOUN_OF_PLACE_AND_TIME;
-import static com.alphasystem.sarfengine.xml.model.SarfTermType.VERBAL_NOUN;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.NOUN_OF_PLACE_AND_TIME;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.VERBAL_NOUN;
 
 /**
  * @author sali

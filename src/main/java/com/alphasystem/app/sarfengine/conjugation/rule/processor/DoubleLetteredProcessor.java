@@ -9,15 +9,17 @@ import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
 import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
-import com.alphasystem.sarfengine.xml.model.RootWord;
-import com.alphasystem.sarfengine.xml.model.SarfTermType;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
 import static com.alphasystem.arabic.model.DiacriticType.SUKUN;
-import static com.alphasystem.sarfengine.xml.model.SarfTermType.FORBIDDING;
-import static com.alphasystem.sarfengine.xml.model.SarfTermType.IMPERATIVE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.FORBIDDING;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.IMPERATIVE;
+
+;
 
 /**
  * @author sali

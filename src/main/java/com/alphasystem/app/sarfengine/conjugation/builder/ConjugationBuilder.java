@@ -3,8 +3,8 @@ package com.alphasystem.app.sarfengine.conjugation.builder;
 import com.alphasystem.app.sarfengine.conjugation.model.SarfChart;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
-import com.alphasystem.sarfengine.xml.model.NounOfPlaceAndTime;
-import com.alphasystem.sarfengine.xml.model.VerbalNoun;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
 
 import java.util.List;
 

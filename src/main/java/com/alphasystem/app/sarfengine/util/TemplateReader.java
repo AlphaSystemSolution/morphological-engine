@@ -5,15 +5,14 @@ package com.alphasystem.app.sarfengine.util;
 
 import com.alphasystem.ApplicationException;
 import com.alphasystem.SystemException;
-import com.alphasystem.sarfengine.xml.model.ConjugationTemplate;
-import com.alphasystem.sarfengine.xml.model.ObjectFactory;
+import com.alphasystem.morphologicalanalysis.morphology.model.ConjugationTemplate;
 import com.alphasystem.util.ZipFileEntry;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
+import java.io.IOException;
 
 import static com.alphasystem.util.AppUtil.createTempFile;
-import static com.alphasystem.util.JAXBUtil.marshall;
-import static com.alphasystem.util.JAXBUtil.unmarshal;
 import static com.alphasystem.util.ZipUtil.archiveFile;
 import static com.alphasystem.util.ZipUtil.extractFile;
 import static java.lang.String.format;
@@ -24,16 +23,17 @@ import static org.apache.commons.io.FilenameUtils.getBaseName;
  */
 public class TemplateReader {
 
-    public static final String SARF_SUFFIX = "sarfx";
+    public static final String SARF_SUFFIX = "sarfj";
     public static final String DOCX_FILE_EXTENSION = "docx";
-    private static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
+    public static final String SARF_FILE_DESCRIPTION = format("%s Files", SARF_SUFFIX);
     private static final String EXTENSION_SEPARATOR = ".";
     public static final String SARF_FILE_EXTENSION_ALL = format("*%s%s", EXTENSION_SEPARATOR, SARF_SUFFIX);
-    private static final String XML_SUFFIX = "xml";
-    private static final String XML_FILE_EXTENSION = format("%s%s", EXTENSION_SEPARATOR, XML_SUFFIX);
+    private static final String JSON_SUFFIX = "json";
+    private static final String JSON_FILE_EXTENSION = format("%s%s", EXTENSION_SEPARATOR, JSON_SUFFIX);
     private static final String TEMPLATE_FILE_PREFIX = "template";
-    private static final String DEFAULT_ZIP_FILE_ENTRY = format("%s%s", TEMPLATE_FILE_PREFIX, XML_FILE_EXTENSION);
+    private static final String DEFAULT_ZIP_FILE_ENTRY = format("%s%s", TEMPLATE_FILE_PREFIX, JSON_FILE_EXTENSION);
     private static final String SARF_FILE_EXTENSION = format("%s%s", EXTENSION_SEPARATOR, SARF_SUFFIX);
+    private static ObjectMapper objectMapper = new ObjectMapper();
     private static TemplateReader instance = new TemplateReader();
 
     /**
@@ -99,12 +99,14 @@ public class TemplateReader {
         ConjugationTemplate template;
         File tempFile;
         try {
-            tempFile = createTempFile(XML_SUFFIX);
+            tempFile = createTempFile(JSON_SUFFIX);
             String pathname = file.getAbsolutePath();
             extractFile(pathname, DEFAULT_ZIP_FILE_ENTRY, tempFile);
-            template = unmarshal(ConjugationTemplate.class, tempFile);
+            template = objectMapper.readValue(tempFile, ConjugationTemplate.class);
         } catch (ApplicationException e) {
             throw e;
+        } catch (IOException e) {
+            throw new SystemException(e.getMessage(), e);
         }
         return template;
     }
@@ -129,13 +131,13 @@ public class TemplateReader {
     public void saveFile(File archiveFile, ConjugationTemplate template) throws ApplicationException {
         File tempFile = null;
         try {
-            tempFile = createTempFile(XML_SUFFIX);
-            marshall(tempFile, ConjugationTemplate.class.getPackage().getName(), OBJECT_FACTORY.createChart(template));
+            tempFile = createTempFile(JSON_SUFFIX);
+            objectMapper.writeValue(tempFile, template);
             archiveFile(archiveFile, new ZipFileEntry(tempFile, DEFAULT_ZIP_FILE_ENTRY));
         } catch (ApplicationException e) {
             throw e;
-        } finally {
-
+        } catch (IOException e) {
+            throw new SystemException(e.getMessage(), e);
         }
     }
 

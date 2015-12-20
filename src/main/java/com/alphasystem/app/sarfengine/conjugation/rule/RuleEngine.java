@@ -2,9 +2,11 @@ package com.alphasystem.app.sarfengine.conjugation.rule;
 
 import com.alphasystem.app.sarfengine.conjugation.rule.processor.HamzahChairProcessor;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
-import com.alphasystem.sarfengine.xml.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
+
+;
 
 /**
  * @author sali
