@@ -15,14 +15,11 @@ import com.google.inject.assistedinject.AssistedInject;
 import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
 import static com.alphasystem.arabic.model.ArabicLetterType.WAW;
 import static com.alphasystem.arabic.model.ArabicLetterType.YA;
-import static com.alphasystem.arabic.model.ArabicLetters.LETTER_TATWEEL;
 import static com.alphasystem.arabic.model.DiacriticType.KASRA;
 import static com.alphasystem.arabic.model.DiacriticType.KASRATAN;
 import static com.alphasystem.arabic.model.HiddenNounStatus.GENITIVE_SINGULAR;
 import static com.alphasystem.arabic.model.HiddenNounStatus.NOMINATIVE_SINGULAR;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.ACTIVE_PARTICIPLE_MASCULINE;
-
-;
 
 /**
  * @author sali
@@ -55,7 +52,7 @@ public class Rule14Processor extends AbstractRuleProcessor {
                     || memberType.equals(GENITIVE_SINGULAR)) {
                 result.replaceDiacritic(baseRootWord.getSecondRadicalIndex(),
                         KASRATAN).replaceLetter(
-                        baseRootWord.getThirdRadicalIndex(), LETTER_TATWEEL);
+                        baseRootWord.getThirdRadicalIndex(), REMOVE_MARKER);
                 baseRootWord.setThirdRadicalIndex(-1);
                 baseRootWord.setRootWord(result);
             }

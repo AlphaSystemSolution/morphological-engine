@@ -15,7 +15,6 @@ import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
-import static com.alphasystem.arabic.model.ArabicLetters.LETTER_TATWEEL;
 import static com.alphasystem.arabic.model.DiacriticType.KASRATAN;
 import static org.apache.commons.lang3.ArrayUtils.contains;
 
@@ -52,9 +51,9 @@ public class Rule16Processor extends AbstractRuleProcessor {
         boolean previousDiacriticDamma = isDamma(previousDiacritic);
         if ((wordStatus.isThirdRadicalWaw() && previousDiacriticDamma)
                 || (wordStatus.isThirdRadicalYa() && previousDiacriticDamma)) {
-            result.replaceLetter(thirdRadicalIndex, LETTER_TATWEEL)
+            result.replaceLetter(thirdRadicalIndex, REMOVE_MARKER)
                     .replaceDiacritic(previousIndex, KASRATAN);
-            baseRootWord.setThirdRadical(LETTER_TATWEEL);
+            baseRootWord.setThirdRadical(REMOVE_MARKER);
             if (previousIndex == baseRootWord.getSecondRadicalIndex()) {
                 baseRootWord.setSecondRadical(result.getLetter(previousIndex));
             }

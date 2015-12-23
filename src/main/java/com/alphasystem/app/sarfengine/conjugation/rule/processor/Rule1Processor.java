@@ -14,7 +14,6 @@ import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
-import static com.alphasystem.arabic.model.ArabicLetters.LETTER_TATWEEL;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_PASSIVE_TENSE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_TENSE;
 import static org.apache.commons.lang3.ArrayUtils.contains;
@@ -54,7 +53,7 @@ public class Rule1Processor extends AbstractRuleProcessor {
                 || contains(HEAVY_LETTERS, thirdRadical.getLetter());
         if (isKasra(secondRadicalDiacritic)
                 || (isFatha(secondRadicalDiacritic) && containsHeavyLetters)) {
-            ArabicLetter firstRadical = LETTER_TATWEEL;
+            ArabicLetter firstRadical = REMOVE_MARKER;
             result.replaceLetter(baseRootWord.getFirstRadicalIndex(),
                     firstRadical);
             baseRootWord.setFirstRadical(firstRadical);

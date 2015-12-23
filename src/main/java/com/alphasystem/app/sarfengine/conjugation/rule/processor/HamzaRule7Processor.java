@@ -14,7 +14,6 @@ import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
-import static com.alphasystem.arabic.model.ArabicLetters.LETTER_TATWEEL;
 
 ;
 
@@ -68,7 +67,7 @@ public class HamzaRule7Processor extends AbstractRuleProcessor {
                 // baseRootWord.getSarfTermType(), indexOfHamza));
             }
             result.replaceDiacritic(previousIndex, hamza.getDiacritics())
-                    .replaceLetter(indexOfHamza, LETTER_TATWEEL);
+                    .replaceLetter(indexOfHamza, REMOVE_MARKER);
         }
 
         baseRootWord.setRootWord(result);

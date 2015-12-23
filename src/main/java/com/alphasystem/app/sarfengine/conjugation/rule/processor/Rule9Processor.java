@@ -16,7 +16,6 @@ import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
-import static com.alphasystem.arabic.model.ArabicLetters.LETTER_TATWEEL;
 import static com.alphasystem.arabic.model.ArabicLetters.YA_WITH_SUKUN;
 import static com.alphasystem.arabic.model.DiacriticType.DAMMA;
 import static com.alphasystem.arabic.model.DiacriticType.KASRA;
@@ -71,10 +70,9 @@ public class Rule9Processor extends AbstractRuleProcessor {
                     || !weakWaw) {
                 firstRadicalDiacritic = KASRA;
             }
-            ArabicLetter replacementLetter = LETTER_TATWEEL;
+            ArabicLetter replacementLetter = REMOVE_MARKER;
             result.replaceDiacritic(baseRootWord.getFirstRadicalIndex(),
-                    firstRadicalDiacritic).replaceLetter(secondRadicalIndex,
-                    LETTER_TATWEEL);
+                    firstRadicalDiacritic).replaceLetter(secondRadicalIndex, REMOVE_MARKER);
             baseRootWord.setSecondRadical(replacementLetter);
         }
 

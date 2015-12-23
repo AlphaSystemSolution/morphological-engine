@@ -17,7 +17,6 @@ import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
 import static com.alphasystem.arabic.model.ArabicLetters.LETTER_ALIF;
-import static com.alphasystem.arabic.model.ArabicLetters.LETTER_TATWEEL;
 import static com.alphasystem.arabic.model.DiacriticType.SUKUN;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
 
@@ -102,7 +101,7 @@ public class Rule8Processor extends AbstractRuleProcessor {
             ArabicLetter nextLetter = result.getLetter(nextIndex);
             DiacriticType nextLetterDiacritic = getDiacritic(nextLetter);
             if (isSakin(nextLetterDiacritic)) {
-                replacementLetter = LETTER_TATWEEL;
+                replacementLetter = REMOVE_MARKER;
                 result.replaceLetter(indexOfWeakLetter, replacementLetter);
             }
         }

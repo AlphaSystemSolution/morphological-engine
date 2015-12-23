@@ -7,6 +7,7 @@ import com.alphasystem.app.sarfengine.util.PatternHelper;
 import com.alphasystem.arabic.model.ArabicWord;
 import org.testng.annotations.Test;
 
+import static com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor.REMOVE_MARKER;
 import static com.alphasystem.app.sarfengine.util.PatternHelper.*;
 import static com.alphasystem.arabic.model.ArabicWord.fromBuckWalterString;
 import static java.lang.String.format;
@@ -72,23 +73,20 @@ public class PatternHelperTest extends CommonTest {
     }
 
     @Test
-    public void removeTatweelTest() {
-        ArabicWord arabicWord = new ArabicWord(YA_WITH_FATHA, LETTER_TATWEEL,
-                JEEM_WITH_KASRA, DAL_WITH_FATHA);
+    public void removeMarkerTest() {
+        ArabicWord arabicWord = new ArabicWord(YA_WITH_FATHA, REMOVE_MARKER, JEEM_WITH_KASRA, DAL_WITH_FATHA);
         String src = arabicWord.toBuckWalter();
-        String result = removeTatweel(src);
+        String result = removeMarker(src);
         printResult(src, result);
 
-        arabicWord = new ArabicWord(YA_WITH_FATHA, LETTER_TATWEEL,
-                LETTER_TATWEEL, JEEM_WITH_KASRA, DAL_WITH_FATHA);
+        arabicWord = new ArabicWord(YA_WITH_FATHA, REMOVE_MARKER, REMOVE_MARKER, JEEM_WITH_KASRA, DAL_WITH_FATHA);
         src = arabicWord.toBuckWalter();
-        result = removeTatweel(src);
+        result = removeMarker(src);
         printResult(src, result);
 
-        arabicWord = new ArabicWord(YA_WITH_FATHA, JEEM_WITH_KASRA,
-                DAL_WITH_FATHA);
+        arabicWord = new ArabicWord(YA_WITH_FATHA, JEEM_WITH_KASRA, DAL_WITH_FATHA);
         src = arabicWord.toBuckWalter();
-        result = removeTatweel(src);
+        result = removeMarker(src);
         printResult(src, result);
     }
 

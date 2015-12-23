@@ -17,7 +17,8 @@ import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
 import static com.alphasystem.arabic.model.ArabicLetterType.YA;
-import static com.alphasystem.arabic.model.ArabicLetters.*;
+import static com.alphasystem.arabic.model.ArabicLetters.LETTER_ALIF;
+import static com.alphasystem.arabic.model.ArabicLetters.LETTER_ALIF_MAKSURA;
 import static com.alphasystem.arabic.model.DiacriticType.DAMMA;
 import static com.alphasystem.arabic.model.DiacriticType.KASRA;
 import static com.alphasystem.arabic.model.HiddenPronounStatus.*;
@@ -94,7 +95,7 @@ public class Rule7Processor extends AbstractRuleProcessor {
             ArabicLetter nextLetter = result.getLetter(nextIndex);
             DiacriticType nextLetterDiacritic = getDiacritic(nextLetter);
             if (isSakin(nextLetterDiacritic)) {
-                replacementLetter = LETTER_TATWEEL;
+                replacementLetter = REMOVE_MARKER;
             }
         }
         result.replaceLetter(indexOfWeakLetter, replacementLetter);
@@ -132,7 +133,7 @@ public class Rule7Processor extends AbstractRuleProcessor {
                 && perfectVerb
                 && (THIRD_PERSON_FEMININE_SINGULAR.equals(memberType) || THIRD_PERSON_FEMININE_DUAL
                 .equals(memberType))) {
-            replacementLetter = LETTER_TATWEEL;
+            replacementLetter = REMOVE_MARKER;
             result.replaceLetter(baseRootWord.getThirdRadicalIndex(),
                     replacementLetter);
             baseRootWord.setThirdRadical(replacementLetter);

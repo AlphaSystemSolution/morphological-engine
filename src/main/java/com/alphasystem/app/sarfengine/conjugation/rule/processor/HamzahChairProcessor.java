@@ -15,7 +15,7 @@ import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
-import static com.alphasystem.app.sarfengine.util.PatternHelper.removeTatweel;
+import static com.alphasystem.app.sarfengine.util.PatternHelper.removeMarker;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.ArabicWord.fromBuckWalterString;
 import static com.alphasystem.arabic.model.DiacriticType.*;
@@ -45,8 +45,8 @@ public class HamzahChairProcessor extends AbstractRuleProcessor {
     @Override
     public RootWord applyRules(RootWord baseRootWord) {
         ArabicWord result = new ArabicWord(baseRootWord.getRootWord());
-        // we might have "TATWEEL" at this point, so remove it before proceed
-        String text = removeTatweel(result.toBuckWalter());
+        // we might have "REMOVE_MARKER" at this point, so remove it before proceed
+        String text = removeMarker(result.toBuckWalter());
         result = fromBuckWalterString(text);
         int hamzahIndex = -1;
         ArabicLetterType previousLetterType = null;

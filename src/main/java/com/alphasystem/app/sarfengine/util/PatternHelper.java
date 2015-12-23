@@ -8,6 +8,7 @@ import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor.REMOVE_MARKER;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.ArabicWord.fromBuckWalterString;
 import static com.alphasystem.arabic.model.DiacriticType.*;
@@ -24,7 +25,7 @@ import static org.apache.commons.lang3.StringUtils.remove;
  */
 public class PatternHelper {
 
-    private static final char TATWEEL_CODE = TATWEEL.getCode();
+    private static final char REMOVE_MARKER_CODE = REMOVE_MARKER.getLetter().getCode();
 
     private static final char FATHATAN_CODE = FATHATAN.getCode();
 
@@ -65,8 +66,7 @@ public class PatternHelper {
 
     private static final String ARABIC_LETTERS_PATTERN = "[A-Za-z$]";
 
-    private static final Pattern REMOVE_TATWEEL = compile(format("%s+",
-            TATWEEL_CODE));
+    private static final Pattern REMOVE_MARKER_PATTERN = compile(format("\\%s+", REMOVE_MARKER_CODE));
 
     private static final Pattern MERGE_SIMILAR_LETTERS_WITH_FIRST_SAKIN_PATTERN = compile("[A-Za-z$]o[A-Za-z$]");
 
@@ -170,7 +170,7 @@ public class PatternHelper {
 
     public static RootWord doApplyPatterns(RootWord baseRootWord) {
         String result = baseRootWord.getRootWord().toBuckWalter();
-        result = removeTatweel(result);
+        result = removeMarker(result);
         result = mergeRepeats(result);
         result = applyRule3(result);
         result = replaceConsecutiveHamzah(result);
@@ -322,9 +322,9 @@ public class PatternHelper {
         return result;
     }
 
-    public static String removeTatweel(String text) {
+    public static String removeMarker(String text) {
         String result = text;
-        Matcher matcher = REMOVE_TATWEEL.matcher(text);
+        Matcher matcher = REMOVE_MARKER_PATTERN.matcher(text);
         while (matcher.find()) {
             int start = 0;
             int end = 0;

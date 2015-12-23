@@ -12,7 +12,6 @@ import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.checkArgument;
-import static com.alphasystem.arabic.model.ArabicLetters.LETTER_TATWEEL;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.IMPERATIVE;
 
@@ -44,9 +43,9 @@ public class HamzatedFirstRadicalProcessor extends AbstractRuleProcessor {
         if (wordStatus.isFirstRadicalHamza()
                 && FORM_I_CATEGORY_A_GROUP_U_TEMPLATE.equals(ruleInfo.getTemplate())) {
             ArabicWord result = new ArabicWord(baseRootWord.getRootWord());
-            result.replaceLetter(0, LETTER_TATWEEL);
+            result.replaceLetter(0, REMOVE_MARKER);
             if (!wordStatus.isSecondRadicalWaw()) {
-                result.replaceLetter(1, LETTER_TATWEEL);
+                result.replaceLetter(1, REMOVE_MARKER);
             }
             baseRootWord.setRootWord(result);
         }
