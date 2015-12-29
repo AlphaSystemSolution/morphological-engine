@@ -3,6 +3,10 @@
  */
 package com.alphasystem.app.sarfengine.test;
 
+import com.alphasystem.app.sarfengine.conjugation.model.ConjugationStack;
+import com.alphasystem.app.sarfengine.conjugation.model.SarfChart;
+import com.alphasystem.app.sarfengine.conjugation.model.SarfKabeer;
+import com.alphasystem.app.sarfengine.conjugation.model.SarfKabeerPair;
 import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicLetters;
 import com.alphasystem.arabic.model.ArabicWord;
@@ -112,6 +116,22 @@ public class CommonTest extends Assert implements ArabicLetters, Constants {
         log(TABLE_BODY_DECLERATION_END);
 
         log(TABLE_DECLERATION_END);
+    }
+
+    public static void printConjugation(SarfChart sarfChart) {
+        SarfKabeer sarfKabeer = sarfChart.getSarfKabeer();
+        SarfKabeerPair sarfKabeerPair = sarfKabeer.getActiveTensePair();
+
+        ConjugationStack leftSideStack = sarfKabeerPair.getLeftSideStack();
+        ConjugationStack rightSideStack = sarfKabeerPair.getRightSideStack();
+        printTable(leftSideStack.getConjugations(), rightSideStack.getConjugations(), leftSideStack.getLabel(),
+                rightSideStack.getLabel(), true);
+
+        sarfKabeerPair = sarfKabeer.getActiveParticiplePair();
+        leftSideStack = sarfKabeerPair.getLeftSideStack();
+        rightSideStack = sarfKabeerPair.getRightSideStack();
+        printTable(leftSideStack.getConjugations(), rightSideStack.getConjugations(), leftSideStack.getLabel(),
+                rightSideStack.getLabel(), false);
     }
 
     @AfterMethod

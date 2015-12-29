@@ -17,9 +17,8 @@ public class SarfEngineTestFactory {
                 new RuleTester(),
                 new ConjugationMemberTest(),
                 new BuilderTest(),
-                new ConjugationTest()
-                /*,
-                new PatternHelperTest()*/
+                new ConjugationTest(),
+                new PatternHelperTest()
         };
     }
 }
