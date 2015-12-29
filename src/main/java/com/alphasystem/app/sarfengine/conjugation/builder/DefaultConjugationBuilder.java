@@ -49,10 +49,12 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         FormTemplate formTemplate = FormTemplate.getByNamedTemplate(template);
         RuleProcessor ruleEngine = RULE_PROCESSOR_FACTORY.getRuleEngine(new RuleInfo(template));
 
+        removePassiveLine = removePassiveLine || (formTemplate.getPastPassiveTenseRoot() == null);
+
         SarfKabeer sarfKabeer = createSarfKabeer(formTemplate, ruleEngine, removePassiveLine, skipRuleProcessing,
                 firstRadical, secondRadical, thirdRadical, fourthRadical, verbalNouns, adverbs);
 
-        SarfSagheer sarfSagheer = createSarfSagheer(sarfKabeer);
+        SarfSagheer sarfSagheer = createSarfSagheer(sarfKabeer, removePassiveLine);
         ActiveLine activeLine = sarfSagheer.getActiveLine();
         RootWord pastTense = activeLine.getPastTense();
         RootWord presentTense = activeLine.getPresentTense();
@@ -401,9 +403,12 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                 new ConjugationStack(rightSideRootWords, rightSideDefaultValue, rightSideTerm));
     }
 
-    private SarfSagheer createSarfSagheer(SarfKabeer sarfKabeer) {
+    private SarfSagheer createSarfSagheer(SarfKabeer sarfKabeer, boolean removePassiveLine) {
         ActiveLine activeLine = createActiveLine(sarfKabeer);
-        PassiveLine passiveLine = createPassiveLine(sarfKabeer);
+        PassiveLine passiveLine = null;
+        if (!removePassiveLine) {
+            passiveLine = createPassiveLine(sarfKabeer);
+        }
         ImperativeAndForbiddingLine imperativeAndForbidding = createImperativeAndForbidding(sarfKabeer);
         AdverbLine adverbLine = createAdverbLine(sarfKabeer);
         return new SarfSagheer(activeLine, passiveLine, imperativeAndForbidding, adverbLine);
@@ -436,12 +441,12 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
     }
 
     private PassiveLine createPassiveLine(SarfKabeer sarfKabeer) {
-        SarfKabeerPair activeTensePair = sarfKabeer.getPassiveTensePair();
+        SarfKabeerPair passiveTensePair = sarfKabeer.getPassiveTensePair();
         SarfKabeerPair activeParticiplePair = sarfKabeer.getPassiveParticiplePair();
         SarfKabeerPair[] verbalNounPairs = sarfKabeer.getVerbalNounPairs();
 
-        ConjugationStack rightSideStack = activeTensePair.getRightSideStack();
-        ConjugationStack leftSideStack = activeTensePair.getLeftSideStack();
+        ConjugationStack rightSideStack = passiveTensePair.getRightSideStack();
+        ConjugationStack leftSideStack = passiveTensePair.getLeftSideStack();
         RootWord pastPassiveTense = null;
         RootWord presentPassiveTense = null;
         if (rightSideStack != null) {
