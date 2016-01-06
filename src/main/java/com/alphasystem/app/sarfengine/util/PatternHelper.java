@@ -25,8 +25,6 @@ import static org.apache.commons.lang3.StringUtils.remove;
  */
 public class PatternHelper {
 
-    private static final char REMOVE_MARKER_CODE = REMOVE_MARKER.getLetter().getCode();
-
     private static final char FATHATAN_CODE = FATHATAN.getCode();
 
     private static final char KASRATAN_CODE = KASRATAN.getCode();
@@ -66,7 +64,9 @@ public class PatternHelper {
 
     private static final String ARABIC_LETTERS_PATTERN = "[A-Za-z$]";
 
-    private static final Pattern REMOVE_MARKER_PATTERN = compile(format("\\%s+", REMOVE_MARKER_CODE));
+    private static final Pattern REMOVE_TATWEEL_PATTERN = compile(format("%s+", TATWEEL.toCode()));
+
+    private static final Pattern REMOVE_MARKER_PATTERN = compile(format("\\%s+", REMOVE_MARKER.getLetter().getCode()));
 
     private static final Pattern MERGE_SIMILAR_LETTERS_WITH_FIRST_SAKIN_PATTERN = compile("[A-Za-z$]o[A-Za-z$]");
 
@@ -323,8 +323,16 @@ public class PatternHelper {
     }
 
     public static String removeMarker(String text) {
+        return removeMarker(REMOVE_MARKER_PATTERN, text);
+    }
+
+    public static String removeTatweel(String text) {
+        return removeMarker(REMOVE_TATWEEL_PATTERN, text);
+    }
+
+    private static String removeMarker(Pattern pattern, String text) {
         String result = text;
-        Matcher matcher = REMOVE_MARKER_PATTERN.matcher(text);
+        Matcher matcher = pattern.matcher(text);
         while (matcher.find()) {
             int start = 0;
             int end = 0;

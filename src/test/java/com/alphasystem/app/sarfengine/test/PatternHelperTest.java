@@ -91,6 +91,24 @@ public class PatternHelperTest extends CommonTest {
     }
 
     @Test
+    public void removeTatweelTest() {
+        ArabicWord arabicWord = new ArabicWord(YA_WITH_FATHA, LETTER_TATWEEL, JEEM_WITH_KASRA, DAL_WITH_FATHA);
+        String src = arabicWord.toBuckWalter();
+        String result = removeMarker(src);
+        printResult(src, result);
+
+        arabicWord = new ArabicWord(YA_WITH_FATHA, LETTER_TATWEEL, LETTER_TATWEEL, JEEM_WITH_KASRA, DAL_WITH_FATHA);
+        src = arabicWord.toBuckWalter();
+        result = removeMarker(src);
+        printResult(src, result);
+
+        arabicWord = new ArabicWord(YA_WITH_FATHA, JEEM_WITH_KASRA, DAL_WITH_FATHA);
+        src = arabicWord.toBuckWalter();
+        result = removeMarker(src);
+        printResult(src, result);
+    }
+
+    @Test
     public void repeatPatternTest() {
         ArabicWord arabicWord = new ArabicWord(YA_WITH_FATHA, YA_WITH_SUKUN,
                 MEEM_WITH_DAMMA, NOON_WITH_SUKUN, NOON_WITH_FATHA);
