@@ -8,6 +8,7 @@ import com.alphasystem.app.sarfengine.conjugation.model.SarfChart;
 import com.alphasystem.app.sarfengine.conjugation.model.SarfKabeer;
 import com.alphasystem.app.sarfengine.conjugation.model.SarfKabeerPair;
 import com.alphasystem.arabic.model.ArabicLetter;
+import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicLetters;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
@@ -132,6 +133,17 @@ public class CommonTest extends Assert implements ArabicLetters, Constants {
         rightSideStack = sarfKabeerPair.getRightSideStack();
         printTable(leftSideStack.getConjugations(), rightSideStack.getConjugations(), leftSideStack.getLabel(),
                 rightSideStack.getLabel(), false);
+    }
+
+    public static RootWord processReplacements(RootWord src, ArabicLetterType firstRadical,
+                                               ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                               ArabicLetterType fourthRadical) {
+        return new RootWord(src, firstRadical, secondRadical, thirdRadical, fourthRadical);
+    }
+
+    public static RootWord processReplacements(RootWord src, ArabicLetterType firstRadical,
+                                               ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
+        return processReplacements(src, firstRadical, secondRadical, thirdRadical, null);
     }
 
     @AfterMethod

@@ -18,8 +18,6 @@ import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_IV_TEMPLATE;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
 
-;
-
 /**
  * @author sali
  */
@@ -27,17 +25,6 @@ public class ConjugationMemberTest extends CommonTest {
 
     private MemberBuilderFactory factory = GuiceSupport.getInstance().getMemberBuilderFactory();
     private RuleProcessorFactory ruleProcessorFactory = GuiceSupport.getInstance().getRuleProcessorFactory();
-
-    private static RootWord processReplacements(RootWord src, ArabicLetterType firstRadical,
-                                                ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                                ArabicLetterType fourthRadical) {
-        return new RootWord(src, firstRadical, secondRadical, thirdRadical, fourthRadical);
-    }
-
-    private static RootWord processReplacements(RootWord src, ArabicLetterType firstRadical,
-                                                ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
-        return processReplacements(src, firstRadical, secondRadical, thirdRadical, null);
-    }
 
     @Test
     public void runConjugations() {
