@@ -23,8 +23,6 @@ import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.testng.Reporter.log;
 
-;
-
 /**
  * @author sali
  */
@@ -49,18 +47,17 @@ public class BuilderTest extends CommonTest {
     private void printLabel(String src) {
         ArabicWord arabicWord = fromBuckWalterString(src);
         boolean empty = isEmpty(src);
-        String arabicText = empty ? "&nbsp;" : format(ARABIC_TEXT_SPAN,
-                arabicWord.toHtmlCode());
+        String arabicText = empty ? "&nbsp;" : format(ARABIC_TEXT_SPAN, arabicWord.toHtmlCode());
         String html = empty ? "&nbsp;" : format("%s<br/>%s", arabicText, src);
         log(format("<td>%s</td>", html));
     }
 
-    private void printLabelRow(String... encondings) {
-        if (isEmpty(encondings)) {
+    private void printLabelRow(String... encodings) {
+        if (isEmpty(encodings)) {
             return;
         }
         log(START_TABLE_ROW);
-        for (String encoding : encondings) {
+        for (String encoding : encodings) {
             printLabel(encoding);
         }
         log(END_TABLE_ROW);
@@ -147,16 +144,14 @@ public class BuilderTest extends CommonTest {
             List<NamedTemplate> subList = list.subList(fromIndex, toIndex);
             log(START_TABLE_ROW);
             for (NamedTemplate namedTemplate : subList) {
-                String code = namedTemplate == null ? "&nbsp;" : namedTemplate
-                        .getCode();
+                String code = (namedTemplate == null) ? "&nbsp;" : namedTemplate.getCode();
                 log(format("<td>%s</td>", code));
             }
             log(END_TABLE_ROW);
 
             log(START_TABLE_ROW);
             for (NamedTemplate namedTemplate : subList) {
-                String code = namedTemplate == null ? "&nbsp;" : namedTemplate
-                        .getLabel().toHtmlCode();
+                String code = (namedTemplate == null) ? "&nbsp;" : namedTemplate.getLabel().toHtmlCode();
                 code = format(ARABIC_TEXT_SPAN, code);
                 log(format("<td>%s</td>", code));
             }
@@ -164,8 +159,7 @@ public class BuilderTest extends CommonTest {
 
             log(START_TABLE_ROW);
             for (NamedTemplate namedTemplate : subList) {
-                String code = namedTemplate == null ? "&nbsp;" : namedTemplate
-                        .getType().toHtmlCode();
+                String code = (namedTemplate == null) ? "&nbsp;" : namedTemplate.getType().toHtmlCode();
                 code = format(ARABIC_TEXT_SPAN, code);
                 log(format("<td>%s</td>", code));
             }
