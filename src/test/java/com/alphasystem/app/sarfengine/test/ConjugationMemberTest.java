@@ -44,7 +44,8 @@ public class ConjugationMemberTest extends CommonTest {
         printConjugations(leftBuilder, rightBuilder, true);
 
         // Verbal noun
-        leftBuilder = factory.getTriLiteralVerbalNounBuilder(ruleProcessor, false, verbalNoun);
+        leftBuilder = factory.getTriLiteralVerbalNounBuilder(ruleProcessor, false,
+                processReplacements(verbalNoun, firstRadical, secondRadical, thirdRadical));
         printConjugations(leftBuilder, null, true);
 
         // Active Participle Masculine and Feminine

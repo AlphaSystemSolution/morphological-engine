@@ -5,6 +5,7 @@ package com.alphasystem.app.sarfengine.test;
 
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -205,19 +206,53 @@ public class BuilderTest extends CommonTest {
             List<VerbalNoun> subList = list.subList(fromIndex, toIndex);
 
             log(START_TABLE_ROW);
-            for (VerbalNoun verbalNounsContainer : subList) {
-                String text = verbalNounsContainer == null ? "&nbsp;"
-                        : verbalNounsContainer.name();
+            for (VerbalNoun verbalNoun : subList) {
+                String text = (verbalNoun == null) ? "&nbsp;" : verbalNoun.name();
                 log(format("<td>%s</td>", text));
             }
             log(END_TABLE_ROW);
 
             log(START_TABLE_ROW);
-            for (VerbalNoun verbalNounsContainer : subList) {
-                RootWord rootWord = verbalNounsContainer == null ? null
-                        : verbalNounsContainer.getRootWord();
-                String text = rootWord == null ? "&nbsp;" : format(
-                        ARABIC_TEXT_SPAN, rootWord.getRootWord().toHtmlCode());
+            for (VerbalNoun verbalNoun : subList) {
+                RootWord rootWord = (verbalNoun == null) ? null : verbalNoun.getRootWord();
+                String text = (rootWord == null) ? "&nbsp;" : format(ARABIC_TEXT_SPAN, rootWord.getRootWord().toHtmlCode());
+                log(format("<td>%s</td>", text));
+            }
+            log(END_TABLE_ROW);
+
+            fromIndex = toIndex;
+            toIndex += numOfColumns;
+        }
+        log(TABLE_BODY_DECLERATION_END);
+        log(TABLE_DECLERATION_END);
+    }
+
+    @Test
+    public void printBrokenPlurals() {
+        List<BrokenPlural> list = new ArrayList<>();
+        addAll(list, BrokenPlural.values());
+        int numOfColumns = 7;
+        while (list.size() % numOfColumns != 0) {
+            list.add(null);
+        }
+        log(TABLE_DECLERATION_START);
+        log(TABLE_BODY_DECLERATION_START);
+        int fromIndex = 0;
+        int toIndex = numOfColumns;
+        while (fromIndex < list.size()) {
+            List<BrokenPlural> subList = list.subList(fromIndex, toIndex);
+
+            log(START_TABLE_ROW);
+            for (BrokenPlural brokenPlural : subList) {
+                String text = (brokenPlural == null) ? "&nbsp;" : brokenPlural.name();
+                log(format("<td>%s</td>", text));
+            }
+            log(END_TABLE_ROW);
+
+            log(START_TABLE_ROW);
+            for (BrokenPlural brokenPlural : subList) {
+                RootWord rootWord = (brokenPlural == null) ? null : brokenPlural.getRootWord();
+                String text = (rootWord == null) ? "&nbsp;" : format(ARABIC_TEXT_SPAN, rootWord.getRootWord().toHtmlCode());
                 log(format("<td>%s</td>", text));
             }
             log(END_TABLE_ROW);
