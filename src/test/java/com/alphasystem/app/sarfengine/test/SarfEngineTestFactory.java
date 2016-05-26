@@ -14,9 +14,11 @@ public class SarfEngineTestFactory {
     public Object[] createTest() {
         return new Object[]{
                 // new GuiceTest(),
+                new LabelPrinter(),
                 new RuleTester(),
                 new ConjugationMemberTest(),
                 new BuilderTest(),
+                new TransformerTest(),
                 new ConjugationTest(),
                 new PatternHelperTest()
         };

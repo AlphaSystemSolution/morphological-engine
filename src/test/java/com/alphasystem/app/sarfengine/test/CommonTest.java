@@ -7,27 +7,70 @@ import com.alphasystem.app.sarfengine.conjugation.model.ConjugationStack;
 import com.alphasystem.app.sarfengine.conjugation.model.SarfChart;
 import com.alphasystem.app.sarfengine.conjugation.model.SarfKabeer;
 import com.alphasystem.app.sarfengine.conjugation.model.SarfKabeerPair;
-import com.alphasystem.arabic.model.ArabicLetter;
-import com.alphasystem.arabic.model.ArabicLetterType;
-import com.alphasystem.arabic.model.ArabicLetters;
-import com.alphasystem.arabic.model.ArabicWord;
+import com.alphasystem.app.sarfengine.guice.GuiceSupport;
+import com.alphasystem.arabic.model.*;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
-import org.testng.Assert;
+import org.asciidoctor.Asciidoctor;
+import org.asciidoctor.AttributesBuilder;
+import org.asciidoctor.OptionsBuilder;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
+import static com.alphasystem.arabic.model.HiddenNounStatus.*;
+import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_FEMININE_SINGULAR;
+import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_MASCULINE_SINGULAR;
+import static com.alphasystem.util.AppUtil.NEW_LINE;
 import static java.lang.String.format;
+import static java.nio.file.Files.write;
+import static org.asciidoctor.SafeMode.UNSAFE;
 import static org.testng.Reporter.log;
-
-;
 
 /**
  * @author sali
  */
-public class CommonTest extends Assert implements ArabicLetters, Constants {
+public class CommonTest implements ArabicLetters, Constants {
+
+    private static final String DEST_FOLDER = "C:\\Users\\sali\\git-hub\\AlphaSystemSolution\\morphological-engine\\build\\test-files";
+    protected static GuiceSupport guiceSupport = GuiceSupport.getInstance();
+    protected static Asciidoctor asciidoctor = Asciidoctor.Factory.create();
+    protected List<String> lines;
+
+    public static String getGenderCaption(HiddenPronounStatus status) {
+        return format("[arabicTableCaption]#%s#", status.getGenderLabel().toHtmlCode());
+    }
+
+    public static String getNumberCaption(HiddenNounStatus status) {
+        return format("[arabicTableCaption]#%s#", status.getNumberLabel().toHtmlCode());
+    }
+
+    public static String getStatusCaption(HiddenNounStatus status) {
+        return format("|[arabicTableCaption]#%s#", status.getLabel().toHtmlCode());
+    }
+
+    public static String getRootWord(RootWord rootWord) {
+        return format("|[arabicNormal]#%s#", rootWord.getLabel().toHtmlCode());
+    }
+
+    public static String addGenderHeader() {
+        return format("3+|%s .5+| 3+|%s .2+| %s", getGenderCaption(THIRD_PERSON_FEMININE_SINGULAR), getGenderCaption(THIRD_PERSON_MASCULINE_SINGULAR), NEW_LINE);
+    }
+
+    public static String addNumberHeader() {
+        return format("|%s%s|%s%s|%s%s|%s%s|%s%s|%s%s", getNumberCaption(NOMINATIVE_PLURAL), NEW_LINE,
+                getNumberCaption(NOMINATIVE_DUAL), NEW_LINE, getNumberCaption(NOMINATIVE_SINGULAR), NEW_LINE,
+                getNumberCaption(NOMINATIVE_PLURAL), NEW_LINE, getNumberCaption(NOMINATIVE_DUAL), NEW_LINE,
+                getNumberCaption(NOMINATIVE_SINGULAR), NEW_LINE);
+    }
 
     public static String printArabicText(ArabicLetter src) {
         return format(ARABIC_TEXT_SPAN, src.toHtmlCode());
@@ -156,5 +199,44 @@ public class CommonTest extends Assert implements ArabicLetters, Constants {
     public void beforeMethod(Method method) {
         log("<p><hr/>");
         log(format("<div>Start of test %s</div>", method.getName()));
+    }
+
+    @BeforeClass
+    public void beforeClass() {
+        lines = new ArrayList<>();
+        lines.add(format("= %s", getClass().getSimpleName()));
+        lines.add(":encoding: utf-8");
+        lines.add(":lang: en");
+        lines.add(":numbered!:");
+        lines.add(":stylesdir: css");
+        lines.add(":linkcss:");
+        lines.add(":experimental:");
+        lines.add(":toc!:");
+        lines.add(":table-caption!:");
+        lines.add(":compact:");
+        lines.add(":docinfo2:");
+        lines.add(":last-update-label!:");
+        lines.add(":safe-mode-name: UNSAFE");
+        lines.add("");
+    }
+
+    @AfterClass
+    public void afterClass() {
+        try {
+            final Path path = Paths.get(DEST_FOLDER, format("%s.adoc", getClass().getSimpleName()));
+            write(path, lines);
+            convert(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void convert(Path srcPath) {
+        AttributesBuilder attributesBuilder = AttributesBuilder.attributes().stylesDir("css").linkCss(true);
+        final Path parent = srcPath.getParent();
+        final Path destPath = Paths.get(parent.toString(), format("%s.html", getClass().getSimpleName()));
+        OptionsBuilder optionsBuilder = OptionsBuilder.options().baseDir(parent.toFile()).inPlace(true).safe(UNSAFE)
+                .toFile(destPath.toFile()).attributes(attributesBuilder);
+        asciidoctor.convertFile(srcPath.toFile(), optionsBuilder);
     }
 }

@@ -1,6 +1,16 @@
 package com.alphasystem.app.sarfengine.test;
 
+import static com.alphasystem.util.AppUtil.NEW_LINE;
+import static java.lang.String.format;
+
 public interface Constants {
+
+    String PSV = "|";
+    String ASCII_DOC_TABLE_DECELERATION = format("|===%s", NEW_LINE);
+    String ARABIC_NORMAL_STYLE_START = "[arabicNormal]#";
+    String ARABIC_CAPTION_STYLE_START = "[arabicTableCaption]#";
+    String STYLE_END = "#";
+    String SPACE = " ";
 
     String TABLE_DECLERATION_START = "<div id='conjugationTable'><table style='width: 100%'>";
     String TABLE_DECLERATION_END = "</table></div>";
@@ -12,6 +22,8 @@ public interface Constants {
     String END_TABLE_ROW = "</tr>";
     String START_TABLE_COLUMN = "<td>";
     String END_TABLE_COLUMN = "</td>";
+    String TABLE_COLUMN = "<td>%s</td>";
+    String TABLE_HEADER = "<th>%s</th>";
     String START_TABLE_TH = "<th>";
     String START_TABLE_TH_COLSPAN3 = "<th colspan=\"3\">";
     String END_TABLE_TH = "</th>";

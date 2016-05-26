@@ -3,23 +3,14 @@
  */
 package com.alphasystem.app.sarfengine.test;
 
-import com.alphasystem.arabic.model.*;
+import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
-import com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural;
-import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
-import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.testng.annotations.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.alphasystem.arabic.model.ArabicWord.fromBuckWalterString;
 import static com.alphasystem.arabic.model.DiacriticType.SUKUN;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_TENSE;
 import static java.lang.String.format;
-import static java.util.Collections.addAll;
-import static java.util.Collections.reverse;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.testng.Reporter.log;
@@ -29,28 +20,12 @@ import static org.testng.Reporter.log;
  */
 public class BuilderTest extends CommonTest {
 
-    private static String toHtmlCodeString(char unicode) {
-        String s = format("%04x", (int) unicode);
-        int i = Integer.parseInt(s, 16);
-        return format("&#%s;", i);
-    }
-
-    @SuppressWarnings("unused")
-    private static String toHtmlCodeString(String unicode) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < unicode.length(); i++) {
-            char c = unicode.charAt(i);
-            builder.append(toHtmlCodeString(c));
-        }
-        return builder.toString();
-    }
-
     private void printLabel(String src) {
         ArabicWord arabicWord = fromBuckWalterString(src);
         boolean empty = isEmpty(src);
-        String arabicText = empty ? "&nbsp;" : format(ARABIC_TEXT_SPAN, arabicWord.toHtmlCode());
-        String html = empty ? "&nbsp;" : format("%s<br/>%s", arabicText, src);
-        log(format("<td>%s</td>", html));
+        String arabicText = empty ? HTML_SPACE : format(ARABIC_TEXT_SPAN, arabicWord.toHtmlCode());
+        String html = empty ? HTML_SPACE : format("%s<br/>%s", arabicText, src);
+        log(format(TABLE_COLUMN, html));
     }
 
     private void printLabelRow(String... encodings) {
@@ -79,191 +54,6 @@ public class BuilderTest extends CommonTest {
         log(TABLE_BODY_DECLERATION_END);
         log(TABLE_DECLERATION_END);
     }
-
-    private <M extends SarfMemberType> void printSrafMemberType(List<M> list, int numOfColumns) {
-        log(TABLE_DECLERATION_START);
-        log(TABLE_BODY_DECLERATION_START);
-
-        int fromIndex = 0;
-        int toIndex = numOfColumns;
-        while (fromIndex < list.size()) {
-            final List<M> subList = list.subList(fromIndex, toIndex);
-            reverse(subList);
-
-            log(START_TABLE_ROW);
-            subList.forEach(mt -> {
-                String code = mt == null ? "&nbsp;" : mt.getMemberTermName();
-                log(format("<td>%s</td>", code));
-            });
-            log(END_TABLE_ROW);
-
-            log(START_TABLE_ROW);
-            subList.forEach(mt -> {
-                String code = mt == null ? "&nbsp;" : mt.getMemberTermLabel().toHtmlCode();
-                code = format(ARABIC_TEXT_SPAN, code);
-                log(format("<td>%s</td>", code));
-            });
-            log(END_TABLE_ROW);
-
-            fromIndex = toIndex;
-            toIndex += numOfColumns;
-        }
-
-        log(TABLE_BODY_DECLERATION_END);
-        log(TABLE_DECLERATION_END);
-    }
-
-    @Test
-    public void printNounStatus() {
-        List<HiddenNounStatus> list = new ArrayList<>();
-        addAll(list, HiddenNounStatus.values());
-        printSrafMemberType(list, 3);
-    }
-
-    @Test
-    public void prinProtNounStatus() {
-        List<HiddenPronounStatus> list = new ArrayList<>();
-        addAll(list, HiddenPronounStatus.values());
-        list.add(list.size() - 1, null);
-        printSrafMemberType(list, 3);
-    }
-
-    @Test
-    public void printNamedTemplate() {
-        List<NamedTemplate> list = new ArrayList<>();
-        addAll(list, NamedTemplate.values());
-        int numOfColumns = 5;
-        while (list.size() % numOfColumns != 0) {
-            list.add(null);
-        }
-        log(TABLE_DECLERATION_START);
-        log(TABLE_BODY_DECLERATION_START);
-
-        int fromIndex = 0;
-        int toIndex = numOfColumns;
-        while (fromIndex < list.size()) {
-            List<NamedTemplate> subList = list.subList(fromIndex, toIndex);
-            log(START_TABLE_ROW);
-            for (NamedTemplate namedTemplate : subList) {
-                String code = (namedTemplate == null) ? "&nbsp;" : namedTemplate.getCode();
-                log(format("<td>%s</td>", code));
-            }
-            log(END_TABLE_ROW);
-
-            log(START_TABLE_ROW);
-            for (NamedTemplate namedTemplate : subList) {
-                String code = (namedTemplate == null) ? "&nbsp;" : namedTemplate.getLabel().toHtmlCode();
-                code = format(ARABIC_TEXT_SPAN, code);
-                log(format("<td>%s</td>", code));
-            }
-            log(END_TABLE_ROW);
-
-            log(START_TABLE_ROW);
-            for (NamedTemplate namedTemplate : subList) {
-                String code = (namedTemplate == null) ? "&nbsp;" : namedTemplate.getType().toHtmlCode();
-                code = format(ARABIC_TEXT_SPAN, code);
-                log(format("<td>%s</td>", code));
-            }
-            log(END_TABLE_ROW);
-            fromIndex = toIndex;
-            toIndex += numOfColumns;
-        }
-
-        log(TABLE_BODY_DECLERATION_END);
-        log(TABLE_DECLERATION_END);
-    }
-
-    @Test
-    public void printSarfTermTypes() {
-        log(TABLE_DECLERATION_START);
-        log(TABLE_BODY_DECLERATION_START);
-        for (SarfTermType sarfTermType : SarfTermType.values()) {
-            log(START_TABLE_ROW);
-            String value = StringEscapeUtils.escapeXml11(sarfTermType.value());
-            ArabicWord aw = sarfTermType.getLabel();
-            String arabicText = format(ARABIC_TEXT_SPAN, aw.toHtmlCode());
-            log(format("<td>%s</td><td>%s</td><td>%s</td>",
-                    sarfTermType.name(), value, arabicText));
-            log(END_TABLE_ROW);
-        }
-        log(TABLE_BODY_DECLERATION_END);
-        log(TABLE_DECLERATION_END);
-    }
-
-    @Test
-    public void printVerbalNouns() {
-        List<VerbalNoun> list = new ArrayList<>();
-        addAll(list, VerbalNoun.values());
-        int numOfColumns = 4;
-        while (list.size() % numOfColumns != 0) {
-            list.add(null);
-        }
-        log(TABLE_DECLERATION_START);
-        log(TABLE_BODY_DECLERATION_START);
-        int fromIndex = 0;
-        int toIndex = numOfColumns;
-        while (fromIndex < list.size()) {
-            List<VerbalNoun> subList = list.subList(fromIndex, toIndex);
-
-            log(START_TABLE_ROW);
-            for (VerbalNoun verbalNoun : subList) {
-                String text = (verbalNoun == null) ? "&nbsp;" : verbalNoun.name();
-                log(format("<td>%s</td>", text));
-            }
-            log(END_TABLE_ROW);
-
-            log(START_TABLE_ROW);
-            for (VerbalNoun verbalNoun : subList) {
-                RootWord rootWord = (verbalNoun == null) ? null : verbalNoun.getRootWord();
-                String text = (rootWord == null) ? "&nbsp;" : format(ARABIC_TEXT_SPAN, rootWord.getRootWord().toHtmlCode());
-                log(format("<td>%s</td>", text));
-            }
-            log(END_TABLE_ROW);
-
-            fromIndex = toIndex;
-            toIndex += numOfColumns;
-        }
-        log(TABLE_BODY_DECLERATION_END);
-        log(TABLE_DECLERATION_END);
-    }
-
-    @Test
-    public void printBrokenPlurals() {
-        List<BrokenPlural> list = new ArrayList<>();
-        addAll(list, BrokenPlural.values());
-        int numOfColumns = 7;
-        while (list.size() % numOfColumns != 0) {
-            list.add(null);
-        }
-        log(TABLE_DECLERATION_START);
-        log(TABLE_BODY_DECLERATION_START);
-        int fromIndex = 0;
-        int toIndex = numOfColumns;
-        while (fromIndex < list.size()) {
-            List<BrokenPlural> subList = list.subList(fromIndex, toIndex);
-
-            log(START_TABLE_ROW);
-            for (BrokenPlural brokenPlural : subList) {
-                String text = (brokenPlural == null) ? "&nbsp;" : brokenPlural.name();
-                log(format("<td>%s</td>", text));
-            }
-            log(END_TABLE_ROW);
-
-            log(START_TABLE_ROW);
-            for (BrokenPlural brokenPlural : subList) {
-                RootWord rootWord = (brokenPlural == null) ? null : brokenPlural.getRootWord();
-                String text = (rootWord == null) ? "&nbsp;" : format(ARABIC_TEXT_SPAN, rootWord.getRootWord().toHtmlCode());
-                log(format("<td>%s</td>", text));
-            }
-            log(END_TABLE_ROW);
-
-            fromIndex = toIndex;
-            toIndex += numOfColumns;
-        }
-        log(TABLE_BODY_DECLERATION_END);
-        log(TABLE_DECLERATION_END);
-    }
-
 
     @Test
     public void testConstructorCopy() {
