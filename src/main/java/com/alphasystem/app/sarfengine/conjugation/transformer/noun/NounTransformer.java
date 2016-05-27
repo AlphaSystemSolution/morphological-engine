@@ -1,5 +1,7 @@
 package com.alphasystem.app.sarfengine.conjugation.transformer.noun;
 
+import com.alphasystem.app.sarfengine.conjugation.model.NounConjugationGroup;
+import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
 /**
@@ -10,23 +12,16 @@ import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 public interface NounTransformer {
 
     /**
-     * Transforms to nominative form.
+     * Transform given <code>rootWord</code> into its singular, dual, and plural forms.
      *
-     * @return transformed {@link RootWord} in nominative form
+     * @param rootWord      base word
+     * @param firstRadical  first radical of the target word
+     * @param secondRadical second radical of the target word
+     * @param thirdRadical  third radical of the target word
+     * @param fourthRadical fourth radical of the target word, may be null
+     * @return {@link NounConjugationGroup} representing singular, dual, and plural forms of given <code>rootWord</code>
      */
-    RootWord doNominative();
+    NounConjugationGroup doTransform(RootWord rootWord, ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                     ArabicLetterType thirdRadical, ArabicLetterType fourthRadical);
 
-    /**
-     * Transforms to accusative form.
-     *
-     * @return transformed {@link RootWord} in accusative form
-     */
-    RootWord doAccusative();
-
-    /**
-     * Transforms to genitive form.
-     *
-     * @return transformed {@link RootWord} in genitive form
-     */
-    RootWord doGenitive();
 }

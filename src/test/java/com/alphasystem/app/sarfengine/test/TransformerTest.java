@@ -1,6 +1,7 @@
 package com.alphasystem.app.sarfengine.test;
 
 import com.alphasystem.app.sarfengine.conjugation.model.FormTemplate;
+import com.alphasystem.app.sarfengine.conjugation.model.NounConjugationGroup;
 import com.alphasystem.app.sarfengine.conjugation.transformer.noun.NounTransformer;
 import com.alphasystem.app.sarfengine.conjugation.transformer.noun.TransformerFactory;
 import com.alphasystem.arabic.model.ArabicLetterType;
@@ -75,37 +76,38 @@ public class TransformerTest extends CommonTest {
         RootWord[] rootWords = new RootWord[18];
 
         RootWord rootWord = formTemplate.getActiveParticipleMasculineRoot();
-        NounTransformer nounTransformer = transformerFactory.getMasculineEndingSoundTransformer(rootWord, firstRadical,
-                secondRadical, thirdRadical, null);
-        addRootWords(rootWords, nounTransformer, 5);
+        NounTransformer nounTransformer = transformerFactory.getMasculineEndingSoundTransformer();
+        NounConjugationGroup conjugationGroup = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, conjugationGroup, 5);
 
-        nounTransformer = transformerFactory.getMasculineDualTransformer(rootWord, firstRadical, secondRadical,
-                thirdRadical, null);
-        addRootWords(rootWords, nounTransformer, 4);
+        nounTransformer = transformerFactory.getMasculineDualTransformer();
+        conjugationGroup = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, conjugationGroup, 4);
 
-        nounTransformer = transformerFactory.getMasculinePluralTransformer(rootWord, firstRadical, secondRadical,
-                thirdRadical, null);
-        addRootWords(rootWords, nounTransformer, 3);
+        nounTransformer = transformerFactory.getMasculinePluralTransformer();
+        conjugationGroup = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, conjugationGroup, 3);
 
         rootWord = formTemplate.getActiveParticipleFeminineRoot();
-        nounTransformer = transformerFactory.getFeminineEndingSoundTransformer(rootWord, firstRadical, secondRadical,
-                thirdRadical, null);
-        addRootWords(rootWords, nounTransformer, 2);
+        nounTransformer = transformerFactory.getFeminineEndingSoundTransformer();
+        conjugationGroup = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, conjugationGroup, 2);
 
-        nounTransformer = transformerFactory.getFeminineDualTransformer(rootWord, firstRadical, secondRadical, thirdRadical, null);
-        addRootWords(rootWords, nounTransformer, 1);
+        nounTransformer = transformerFactory.getFeminineDualTransformer();
+        conjugationGroup = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, conjugationGroup, 1);
 
-        nounTransformer = transformerFactory.getFemininePluralTransformer(rootWord, firstRadical, secondRadical,
-                thirdRadical, null);
-        addRootWords(rootWords, nounTransformer, 0);
+        nounTransformer = transformerFactory.getFemininePluralTransformer();
+        conjugationGroup = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, conjugationGroup, 0);
 
         return rootWords;
     }
 
-    private void addRootWords(RootWord[] rootWords, NounTransformer nounTransformer, int initialIndex) {
-        rootWords[initialIndex] = nounTransformer.doNominative();
-        rootWords[initialIndex + 6] = nounTransformer.doAccusative();
-        rootWords[initialIndex + 12] = nounTransformer.doGenitive();
+    private void addRootWords(RootWord[] rootWords, NounConjugationGroup conjugationGroup, int initialIndex) {
+        rootWords[initialIndex] = conjugationGroup.getNominative();
+        rootWords[initialIndex + 6] = conjugationGroup.getAccusative();
+        rootWords[initialIndex + 12] = conjugationGroup.getGenitive();
     }
 
 }
