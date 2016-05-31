@@ -4,7 +4,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.member.AbstractPartic
 import com.alphasystem.app.sarfengine.conjugation.model.Form;
 import com.alphasystem.app.sarfengine.conjugation.model.RootLetters;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.morphologicalanalysis.morphology.model.support.NounRootBase;
+import com.alphasystem.morphologicalanalysis.morphology.model.NounRootBase;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;

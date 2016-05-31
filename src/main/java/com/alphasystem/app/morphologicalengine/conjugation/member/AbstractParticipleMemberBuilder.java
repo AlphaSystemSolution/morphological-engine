@@ -9,12 +9,13 @@ import com.alphasystem.app.sarfengine.conjugation.model.RootLetters;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicLetterType;
+import com.alphasystem.morphologicalanalysis.morphology.model.NounRootBase;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
-import com.alphasystem.morphologicalanalysis.morphology.model.support.NounRootBase;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.NounSupport;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.ACTIVE_PARTICIPLE_MASCULINE;
+import static java.lang.String.format;
 
 /**
  * @author sali
@@ -70,7 +71,7 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
                 break;
         }
         if (rootBase == null) {
-            throw new NullPointerException(String.format("No root base defined for term \"%s\" in form \"%s\".",
+            throw new NullPointerException(format("No root base defined for term \"%s\" in form \"%s\".",
                     termType.name(), form.getTemplate().name()));
         }
         return rootBase;

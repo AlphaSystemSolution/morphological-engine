@@ -1,8 +1,8 @@
 package com.alphasystem.app.sarfengine.conjugation.model;
 
 import com.alphasystem.arabic.model.NamedTemplate;
+import com.alphasystem.morphologicalanalysis.morphology.model.NounRootBase;
 import com.alphasystem.morphologicalanalysis.morphology.model.VerbRootBase;
-import com.alphasystem.morphologicalanalysis.morphology.model.support.NounRootBase;
 
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.Noun.*;
 
