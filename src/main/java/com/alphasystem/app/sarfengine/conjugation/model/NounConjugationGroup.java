@@ -1,48 +1,46 @@
 package com.alphasystem.app.sarfengine.conjugation.model;
 
-import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
-
 /**
  * @author sali
  */
-public final class NounConjugationGroup {
+public class NounConjugationGroup {
 
-    private RootWord nominative;
+    protected NounConjugation singular;
 
-    private RootWord accusative;
+    protected NounConjugation dual;
 
-    private RootWord genitive;
+    protected NounConjugation plural;
 
     public NounConjugationGroup() {
     }
 
-    public NounConjugationGroup(RootWord nominative, RootWord accusative, RootWord genitive) {
-        setNominative(nominative);
-        setAccusative(accusative);
-        setGenitive(genitive);
+    public NounConjugationGroup(NounConjugation singular, NounConjugation dual, NounConjugation plural) {
+        setSingular(singular);
+        setDual(dual);
+        setPlural(plural);
     }
 
-    public RootWord getNominative() {
-        return nominative;
+    public NounConjugation getSingular() {
+        return singular;
     }
 
-    public void setNominative(RootWord nominative) {
-        this.nominative = nominative;
+    public void setSingular(NounConjugation singular) {
+        this.singular = singular;
     }
 
-    public RootWord getAccusative() {
-        return accusative;
+    public NounConjugation getDual() {
+        return dual;
     }
 
-    public void setAccusative(RootWord accusative) {
-        this.accusative = accusative;
+    public void setDual(NounConjugation dual) {
+        this.dual = dual;
     }
 
-    public RootWord getGenitive() {
-        return genitive;
+    public NounConjugation getPlural() {
+        return plural;
     }
 
-    public void setGenitive(RootWord genitive) {
-        this.genitive = genitive;
+    public void setPlural(NounConjugation plural) {
+        this.plural = plural;
     }
 }

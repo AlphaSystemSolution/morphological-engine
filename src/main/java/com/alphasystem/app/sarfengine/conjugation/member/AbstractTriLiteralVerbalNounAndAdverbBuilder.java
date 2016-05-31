@@ -26,7 +26,7 @@ public class AbstractTriLiteralVerbalNounAndAdverbBuilder extends AbstractPartic
         super(ruleProcessor, skipRuleProcessing, baseRootWord, variableLetterIndex);
         this.verbalNoun = verbalNoun;
         feminineBased = getRootWord().getRootWord().getLastLetter().getLetter().equals(TA_MARBUTA);
-        MemberBuilderFactory memberBuilderFactory = getInstance().getMemberBuilderFactory();
+        MemberBuilderFactory memberBuilderFactory = getInstance().getOldMemberBuilderFactory();
         masculineBuilder = memberBuilderFactory.getTriLiteralActiveParticipleMasculineBuilder(ruleProcessor,
                 skipRuleProcessing, baseRootWord);
         RootWord feminineRoot = new RootWord(getRootWord());

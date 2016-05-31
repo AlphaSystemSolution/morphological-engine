@@ -1,9 +1,12 @@
-package com.alphasystem.app.sarfengine.conjugation.transformer.noun;
+package com.alphasystem.app.morphologicalengine.conjugation.transformer.noun;
 
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
+
+import javax.annotation.Nullable;
 
 import static com.alphasystem.arabic.model.DiacriticType.FATHA;
 import static com.alphasystem.arabic.model.HiddenNounStatus.*;
@@ -14,24 +17,24 @@ import static com.alphasystem.arabic.model.HiddenNounStatus.*;
 public class PartlyFlexibleNounTransformer extends AbstractNounTransformer {
 
     @AssistedInject
-    public PartlyFlexibleNounTransformer(@Assisted int variableIndex) {
-        super(variableIndex);
+    PartlyFlexibleNounTransformer(@Assisted @Nullable RuleProcessor ruleProcessor, @Assisted int variableIndex) {
+        super(ruleProcessor, variableIndex);
     }
 
-    protected PartlyFlexibleNounTransformer() {
-        this(LAST_LETTER);
+    protected PartlyFlexibleNounTransformer(@Assisted @Nullable RuleProcessor ruleProcessor) {
+        this(ruleProcessor, LAST_LETTER);
     }
 
     @Override
     protected RootWord doNominative(RootWord rootWord) {
-        return copyRootWord(rootWord, NOMINATIVE_PLURAL);
+        return processRules(copyRootWord(rootWord, NOMINATIVE_PLURAL));
     }
 
     @Override
     protected RootWord doAccusative(RootWord rootWord) {
         RootWord target = copyRootWord(rootWord, ACCUSATIVE_PLURAL);
         ArabicWord arabicWord = target.getRootWord().replaceDiacritic(variableIndex, FATHA);
-        return target.withRootWord(arabicWord);
+        return processRules(target.withRootWord(arabicWord));
     }
 
     @Override

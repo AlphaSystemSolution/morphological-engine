@@ -1,6 +1,6 @@
-package com.alphasystem.app.sarfengine.conjugation.transformer.noun;
+package com.alphasystem.app.morphologicalengine.conjugation.transformer.noun;
 
-import com.alphasystem.app.sarfengine.conjugation.model.NounConjugationGroup;
+import com.alphasystem.app.sarfengine.conjugation.model.NounConjugation;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
@@ -19,9 +19,9 @@ public interface NounTransformer {
      * @param secondRadical second radical of the target word
      * @param thirdRadical  third radical of the target word
      * @param fourthRadical fourth radical of the target word, may be null
-     * @return {@link NounConjugationGroup} representing singular, dual, and plural forms of given <code>rootWord</code>
+     * @return {@link NounConjugation} representing singular, dual, and plural forms of given <code>rootWord</code>
      */
-    NounConjugationGroup doTransform(RootWord rootWord, ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                     ArabicLetterType thirdRadical, ArabicLetterType fourthRadical);
+    NounConjugation doTransform(RootWord rootWord, ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                ArabicLetterType thirdRadical, ArabicLetterType fourthRadical);
 
 }

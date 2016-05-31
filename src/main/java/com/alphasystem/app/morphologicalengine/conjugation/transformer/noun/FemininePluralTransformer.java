@@ -1,7 +1,12 @@
-package com.alphasystem.app.sarfengine.conjugation.transformer.noun;
+package com.alphasystem.app.morphologicalengine.conjugation.transformer.noun;
 
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
+
+import javax.annotation.Nullable;
 
 import static com.alphasystem.arabic.model.HiddenNounStatus.*;
 
@@ -10,8 +15,9 @@ import static com.alphasystem.arabic.model.HiddenNounStatus.*;
  */
 public class FemininePluralTransformer extends AbstractNounTransformer {
 
-    FemininePluralTransformer() {
-        super(LAST_LETTER);
+    @AssistedInject
+    FemininePluralTransformer(@Assisted @Nullable RuleProcessor ruleProcessor) {
+        super(ruleProcessor, LAST_LETTER);
     }
 
     @Override
@@ -19,7 +25,7 @@ public class FemininePluralTransformer extends AbstractNounTransformer {
         RootWord target = copyRootWord(rootWord, NOMINATIVE_PLURAL);
         ArabicWord arabicWord = target.getRootWord();
         arabicWord.replaceLetter(variableIndex, LETTER_ALIF).append(TA_WITH_DAMMATAN);
-        return target.withRootWord(arabicWord);
+        return processRules(target.withRootWord(arabicWord));
     }
 
     @Override
@@ -27,7 +33,7 @@ public class FemininePluralTransformer extends AbstractNounTransformer {
         RootWord target = copyRootWord(rootWord, ACCUSATIVE_PLURAL);
         ArabicWord arabicWord = target.getRootWord();
         arabicWord.replaceLetter(variableIndex, LETTER_ALIF).append(TA_WITH_KASRATAN);
-        return target.withRootWord(arabicWord);
+        return processRules(target.withRootWord(arabicWord));
     }
 
     @Override

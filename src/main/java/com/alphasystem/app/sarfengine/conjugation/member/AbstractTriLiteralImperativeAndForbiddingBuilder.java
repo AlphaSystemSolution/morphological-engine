@@ -32,7 +32,7 @@ public abstract class AbstractTriLiteralImperativeAndForbiddingBuilder
         super(ruleProcessor, skipRuleProcessing, baseRootWord);
         setImperativeLetter(imperativeLetter);
         this.forbidding = forbidding;
-        builder = getInstance().getMemberBuilderFactory().getTriLiteralPresentTenseBuilder(ruleProcessor,
+        builder = getInstance().getOldMemberBuilderFactory().getTriLiteralPresentTenseBuilder(ruleProcessor,
                 skipRuleProcessing, baseRootWord);
     }
 

@@ -3,10 +3,7 @@
  */
 package com.alphasystem.app.sarfengine.test;
 
-import com.alphasystem.app.sarfengine.conjugation.model.ConjugationStack;
-import com.alphasystem.app.sarfengine.conjugation.model.SarfChart;
-import com.alphasystem.app.sarfengine.conjugation.model.SarfKabeer;
-import com.alphasystem.app.sarfengine.conjugation.model.SarfKabeerPair;
+import com.alphasystem.app.sarfengine.conjugation.model.*;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
@@ -54,15 +51,21 @@ public class CommonTest implements ArabicLetters, Constants {
     }
 
     public static String getStatusCaption(HiddenNounStatus status) {
-        return format("|[arabicTableCaption]#%s#", status.getLabel().toHtmlCode());
+        return format("|[arabicTableCaption]#%s#", status.getStatus().toHtmlCode());
     }
 
     public static String getRootWord(RootWord rootWord) {
-        return format("|[arabicNormal]#%s#", rootWord.getLabel().toHtmlCode());
+        return rootWord == null ? HTML_SPACE : format("|[arabicNormal]#%s#", rootWord.getLabel().toHtmlCode());
     }
 
     public static String addGenderHeader() {
         return format("3+|%s .5+| 3+|%s .2+| %s", getGenderCaption(THIRD_PERSON_FEMININE_SINGULAR), getGenderCaption(THIRD_PERSON_MASCULINE_SINGULAR), NEW_LINE);
+    }
+
+    public static String getSarfTermTypeHeader(SarfTermType leftTerm, SarfTermType rightTerm) {
+        String leftTermCaption = format("[arabicTableCaption]#%s#", (leftTerm == null) ? HTML_SPACE : leftTerm.getLabel().toHtmlCode());
+        String rightTermCaption = format("[arabicTableCaption]#%s#", (rightTerm == null) ? HTML_SPACE : rightTerm.getLabel().toHtmlCode());
+        return format("3+|%s .5+| 3+|%s .2+| %s", leftTermCaption, rightTermCaption, NEW_LINE);
     }
 
     public static String addNumberHeader() {
@@ -70,6 +73,22 @@ public class CommonTest implements ArabicLetters, Constants {
                 getNumberCaption(NOMINATIVE_DUAL), NEW_LINE, getNumberCaption(NOMINATIVE_SINGULAR), NEW_LINE,
                 getNumberCaption(NOMINATIVE_PLURAL), NEW_LINE, getNumberCaption(NOMINATIVE_DUAL), NEW_LINE,
                 getNumberCaption(NOMINATIVE_SINGULAR), NEW_LINE);
+    }
+
+    public static void addRootWords(RootWord[] rootWords, NounConjugation nounConjugation, int initialIndex) {
+        rootWords[initialIndex] = nounConjugation.getNominative();
+        rootWords[initialIndex + 6] = nounConjugation.getAccusative();
+        rootWords[initialIndex + 12] = nounConjugation.getGenitive();
+    }
+
+    public static void addRow(List<String> lines, HiddenNounStatus status, RootWord[] rootWords, int initialIndex) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(getRootWord(rootWords[initialIndex]));
+        for (int i = initialIndex + 1; i < initialIndex + 6; i++) {
+            builder.append(NEW_LINE).append(getRootWord(rootWords[i]));
+        }
+        builder.append(NEW_LINE).append(getStatusCaption(status)).append(NEW_LINE);
+        lines.add(builder.toString());
     }
 
     public static String printArabicText(ArabicLetter src) {

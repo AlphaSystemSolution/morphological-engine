@@ -32,7 +32,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
 
     private static final GuiceSupport GUICE_SUPPORT = GuiceSupport.getInstance();
     private static final RuleProcessorFactory RULE_PROCESSOR_FACTORY = GUICE_SUPPORT.getRuleProcessorFactory();
-    private static final MemberBuilderFactory MEMBER_BUILDER_FACTORY = GUICE_SUPPORT.getMemberBuilderFactory();
+    private static final MemberBuilderFactory MEMBER_BUILDER_FACTORY = GUICE_SUPPORT.getOldMemberBuilderFactory();
 
     private static RootWord processReplacements(RootWord src, ArabicLetterType firstRadical,
                                                 ArabicLetterType secondRadical, ArabicLetterType thirdRadical,

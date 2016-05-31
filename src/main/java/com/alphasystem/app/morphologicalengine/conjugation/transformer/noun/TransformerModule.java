@@ -1,4 +1,4 @@
-package com.alphasystem.app.sarfengine.conjugation.transformer.noun;
+package com.alphasystem.app.morphologicalengine.conjugation.transformer.noun;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;

@@ -1,6 +1,8 @@
-package com.alphasystem.app.sarfengine.conjugation.transformer.noun;
+package com.alphasystem.app.morphologicalengine.conjugation.transformer.noun;
 
-import com.alphasystem.app.sarfengine.conjugation.model.NounConjugationGroup;
+import com.alphasystem.app.sarfengine.conjugation.model.NounConjugation;
+import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
+import com.alphasystem.app.sarfengine.util.PatternHelper;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicLetters;
 import com.alphasystem.arabic.model.SarfMemberType;
@@ -16,26 +18,28 @@ public abstract class AbstractNounTransformer implements NounTransformer, Arabic
     public static final int THIRD_RADICAL_INDEX = -1;
     public static final int LAST_LETTER = MAX_VALUE;
 
+    protected final RuleProcessor ruleProcessor;
     protected int variableIndex;
 
     /**
      * @throws NullPointerException if given <code>rootWord</code> is null.
      */
-    protected AbstractNounTransformer() {
-        this(THIRD_RADICAL_INDEX);
+    protected AbstractNounTransformer(RuleProcessor ruleProcessor) {
+        this(ruleProcessor, THIRD_RADICAL_INDEX);
     }
 
     /**
      * @param variableIndex index of letter which "harkah" needs to be changed or add letters to it
      * @throws NullPointerException if given <code>rootWord</code> is null.
      */
-    public AbstractNounTransformer(int variableIndex) {
+    protected AbstractNounTransformer(RuleProcessor ruleProcessor, int variableIndex) {
+        this.ruleProcessor = ruleProcessor;
         this.variableIndex = variableIndex;
     }
 
     @Override
-    public NounConjugationGroup doTransform(RootWord rootWord, ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                            ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+    public NounConjugation doTransform(RootWord rootWord, ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                       ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
         RootWord baseWord = new RootWord(rootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
         final int size = baseWord.getLabel().getLength();
         if (variableIndex >= size) {
@@ -43,7 +47,7 @@ public abstract class AbstractNounTransformer implements NounTransformer, Arabic
         } else if (variableIndex <= THIRD_RADICAL_INDEX) {
             variableIndex = baseWord.getThirdRadicalIndex();
         }
-        return new NounConjugationGroup(doNominative(baseWord), doAccusative(baseWord), doGenitive(baseWord));
+        return new NounConjugation(doNominative(baseWord), doAccusative(baseWord), doGenitive(baseWord));
     }
 
     protected abstract RootWord doNominative(RootWord rootWord);
@@ -51,6 +55,15 @@ public abstract class AbstractNounTransformer implements NounTransformer, Arabic
     protected abstract RootWord doAccusative(RootWord rootWord);
 
     protected abstract RootWord doGenitive(RootWord rootWord);
+
+    protected RootWord processRules(RootWord src) {
+        RootWord target = src;
+        if (ruleProcessor != null) {
+            target = ruleProcessor.applyRules(target);
+            target = PatternHelper.doApplyPatterns(target);
+        }
+        return target;
+    }
 
     protected static RootWord copyRootWord(RootWord rootWord, SarfMemberType memberType) {
         return new RootWord(rootWord).withMemberType(memberType);

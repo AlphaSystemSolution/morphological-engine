@@ -1,6 +1,8 @@
 package com.alphasystem.app.sarfengine.conjugation.member;
 
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
+import com.alphasystem.arabic.model.ArabicLetterType;
+import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.arabic.model.SarfMemberType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import org.slf4j.Logger;
@@ -16,15 +18,33 @@ import static java.lang.String.format;
  */
 public abstract class AbstractConjugationMemberBuilder implements ConjugationMemberBuilder {
 
+    protected Logger logger = LoggerFactory.getLogger(getClass());
     protected final boolean skipRuleProcessing;
     protected final RuleProcessor ruleProcessor;
-    protected Logger logger = LoggerFactory.getLogger(getClass());
     protected RootWord baseRootWord;
+    protected NamedTemplate template;
+    protected ArabicLetterType firstRadical;
+    protected ArabicLetterType secondRadical;
+    protected ArabicLetterType thirdRadical;
+    protected ArabicLetterType fourthRadical;
 
+    // old constructor
     protected AbstractConjugationMemberBuilder(RuleProcessor ruleProcessor, boolean skipRuleProcessing, RootWord baseRootWord) {
         this.skipRuleProcessing = skipRuleProcessing;
         this.ruleProcessor = ruleProcessor;
         this.baseRootWord = baseRootWord;
+    }
+
+    protected AbstractConjugationMemberBuilder(RuleProcessor ruleProcessor, boolean skipRuleProcessing, NamedTemplate template,
+                                               ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                               ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+        this.ruleProcessor = ruleProcessor;
+        this.skipRuleProcessing = skipRuleProcessing;
+        this.template = template;
+        this.firstRadical = firstRadical;
+        this.secondRadical = secondRadical;
+        this.thirdRadical = thirdRadical;
+        this.fourthRadical = fourthRadical;
     }
 
     @PostConstruct

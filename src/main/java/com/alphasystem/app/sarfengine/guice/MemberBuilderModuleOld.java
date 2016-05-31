@@ -12,7 +12,7 @@ import static com.google.inject.name.Names.named;
 /**
  * @author sali
  */
-public class MemberBuilderModule extends AbstractModule {
+public class MemberBuilderModuleOld extends AbstractModule {
 
     public static final String TRI_LITERAL_PAST_TENSE_BUILDER = "TriLiteralPastTenseBuilder";
     public static final String TRI_LITERAL_PRESENT_TENSE_BUILDER = "TriLiteralPresentTenseBuilder";
