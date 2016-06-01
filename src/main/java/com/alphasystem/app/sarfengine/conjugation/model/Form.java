@@ -7,7 +7,7 @@ import com.alphasystem.morphologicalanalysis.morphology.model.VerbRootBase;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V12;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.Noun.*;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.*;
-import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.VERBAL_NOUN_FORM_II;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.*;
 import static org.apache.commons.lang3.ArrayUtils.addAll;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 
@@ -88,7 +88,8 @@ public enum Form {
             new NounRootBase(FORM_III_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_III_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_III_MASCULINE_PASSIVE_PARTICIPLE),
-            new NounRootBase(FORM_III_FEMININE_PASSIVE_PARTICIPLE), null, null, null,
+            new NounRootBase(FORM_III_FEMININE_PASSIVE_PARTICIPLE), null, null,
+            new NounRootBase[]{new NounRootBase(VERBAL_NOUN_FORM_III_V1), new NounRootBase(VERBAL_NOUN_FORM_III_V2)},
             new NounRootBase[]{new NounRootBase(FORM_III_MASCULINE_PASSIVE_PARTICIPLE, FORM_III_FEMININE_PASSIVE_PARTICIPLE)}),
 
     FORM_IV_TEMPLATE(NamedTemplate.FORM_IV_TEMPLATE,
@@ -96,7 +97,8 @@ public enum Form {
             new NounRootBase(FORM_IV_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_IV_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_IV_MASCULINE_PASSIVE_PARTICIPLE),
-            new NounRootBase(FORM_IV_FEMININE_PASSIVE_PARTICIPLE), null, null, null,
+            new NounRootBase(FORM_IV_FEMININE_PASSIVE_PARTICIPLE), null, null,
+            new NounRootBase[]{new NounRootBase(VERBAL_NOUN_FORM_IV)},
             new NounRootBase[]{new NounRootBase(FORM_IV_MASCULINE_PASSIVE_PARTICIPLE, FORM_IV_FEMININE_PASSIVE_PARTICIPLE)}),
 
     FORM_V_TEMPLATE(NamedTemplate.FORM_V_TEMPLATE,
@@ -104,7 +106,8 @@ public enum Form {
             new NounRootBase(FORM_V_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_V_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_V_MASCULINE_PASSIVE_PARTICIPLE),
-            new NounRootBase(FORM_V_FEMININE_PASSIVE_PARTICIPLE), null, null, null,
+            new NounRootBase(FORM_V_FEMININE_PASSIVE_PARTICIPLE), null, null,
+            new NounRootBase[]{new NounRootBase(VERBAL_NOUN_FORM_V)},
             new NounRootBase[]{new NounRootBase(FORM_V_MASCULINE_PASSIVE_PARTICIPLE, FORM_V_FEMININE_PASSIVE_PARTICIPLE)}),
 
     FORM_VI_TEMPLATE(NamedTemplate.FORM_VI_TEMPLATE,
@@ -112,13 +115,15 @@ public enum Form {
             new NounRootBase(FORM_VI_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_VI_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_VI_MASCULINE_PASSIVE_PARTICIPLE),
-            new NounRootBase(FORM_VI_FEMININE_PASSIVE_PARTICIPLE), null, null, null,
+            new NounRootBase(FORM_VI_FEMININE_PASSIVE_PARTICIPLE), null, null,
+            new NounRootBase[]{new NounRootBase(VERBAL_NOUN_FORM_VI)},
             new NounRootBase[]{new NounRootBase(FORM_VI_MASCULINE_PASSIVE_PARTICIPLE, FORM_VI_FEMININE_PASSIVE_PARTICIPLE)}),
 
     FORM_VII_TEMPLATE(NamedTemplate.FORM_VII_TEMPLATE,
             null, null,
             new NounRootBase(FORM_VII_MASCULINE_ACTIVE_PARTICIPLE),
-            new NounRootBase(FORM_VII_FEMININE_ACTIVE_PARTICIPLE), null, null, null,
+            new NounRootBase(FORM_VII_FEMININE_ACTIVE_PARTICIPLE), null, null,
+            new NounRootBase[]{new NounRootBase(VERBAL_NOUN_FORM_VII)},
             new NounRootBase[]{new NounRootBase(FORM_VII_MASCULINE_PASSIVE_PARTICIPLE, FORM_VII_FEMININE_PASSIVE_PARTICIPLE)}),
 
     FORM_VIII_TEMPLATE(NamedTemplate.FORM_VIII_TEMPLATE,
@@ -126,20 +131,23 @@ public enum Form {
             new NounRootBase(FORM_VIII_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_VIII_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_VIII_MASCULINE_PASSIVE_PARTICIPLE),
-            new NounRootBase(FORM_VIII_FEMININE_PASSIVE_PARTICIPLE), null, null, null,
+            new NounRootBase(FORM_VIII_FEMININE_PASSIVE_PARTICIPLE), null, null,
+            new NounRootBase[]{new NounRootBase(VERBAL_NOUN_FORM_VIII)},
             new NounRootBase[]{new NounRootBase(FORM_VIII_MASCULINE_PASSIVE_PARTICIPLE, FORM_VIII_FEMININE_PASSIVE_PARTICIPLE)}),
 
     FORM_IX_TEMPLATE(NamedTemplate.FORM_IX_TEMPLATE,
             null, null,
             new NounRootBase(FORM_IX_MASCULINE_ACTIVE_PARTICIPLE),
-            new NounRootBase(FORM_IX_FEMININE_ACTIVE_PARTICIPLE), null, null, null, null),
+            new NounRootBase(FORM_IX_FEMININE_ACTIVE_PARTICIPLE), null, null,
+            new NounRootBase[]{new NounRootBase(VERBAL_NOUN_FORM_IX)}, null),
 
     FORM_X_TEMPLATE(NamedTemplate.FORM_X_TEMPLATE,
             null, null, null, null,
             new NounRootBase(FORM_X_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_X_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_X_MASCULINE_PASSIVE_PARTICIPLE),
-            new NounRootBase(FORM_X_FEMININE_PASSIVE_PARTICIPLE), null, null, null,
+            new NounRootBase(FORM_X_FEMININE_PASSIVE_PARTICIPLE), null, null,
+            new NounRootBase[]{new NounRootBase(VERBAL_NOUN_FORM_X)},
             new NounRootBase[]{new NounRootBase(FORM_X_MASCULINE_PASSIVE_PARTICIPLE, FORM_X_FEMININE_PASSIVE_PARTICIPLE)});
 
     private final NamedTemplate template;

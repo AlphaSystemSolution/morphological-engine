@@ -125,15 +125,15 @@ public class TransformerTest extends CommonTest {
         rootWord = rightSideWord.getRootWord();
         nounTransformer = transformerFactory.getMasculineEndingSoundTransformer(null);
         nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
-        addRootWords(rootWords, nounConjugation, 5);
+        addRootWords(rootWords, nounConjugation, 2);
 
         nounTransformer = transformerFactory.getMasculineDualTransformer(null);
         nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
-        addRootWords(rootWords, nounConjugation, 4);
+        addRootWords(rootWords, nounConjugation, 1);
 
         nounTransformer = transformerFactory.getFeminineMasculineBasedPluralTransformer(null);
         nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
-        addRootWords(rootWords, nounConjugation, 3);
+        addRootWords(rootWords, nounConjugation, 0);
 
         return rootWords;
     }
