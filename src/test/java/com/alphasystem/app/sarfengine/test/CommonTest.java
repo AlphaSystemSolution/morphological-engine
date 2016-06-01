@@ -51,11 +51,11 @@ public class CommonTest implements ArabicLetters, Constants {
     }
 
     public static String getStatusCaption(HiddenNounStatus status) {
-        return format("|[arabicTableCaption]#%s#", status.getStatus().toHtmlCode());
+        return status == null ? "| " : format("|[arabicTableCaption]#%s#", status.getStatus().toHtmlCode());
     }
 
     public static String getRootWord(RootWord rootWord) {
-        return rootWord == null ? HTML_SPACE : format("|[arabicNormal]#%s#", rootWord.getLabel().toHtmlCode());
+        return (rootWord == null) ? "| " : format("|[arabicNormal]#%s#", rootWord.getLabel().toHtmlCode());
     }
 
     public static String addGenderHeader() {
@@ -68,17 +68,18 @@ public class CommonTest implements ArabicLetters, Constants {
         return format("3+|%s .5+| 3+|%s .2+| %s", leftTermCaption, rightTermCaption, NEW_LINE);
     }
 
-    public static String addNumberHeader() {
-        return format("|%s%s|%s%s|%s%s|%s%s|%s%s|%s%s", getNumberCaption(NOMINATIVE_PLURAL), NEW_LINE,
-                getNumberCaption(NOMINATIVE_DUAL), NEW_LINE, getNumberCaption(NOMINATIVE_SINGULAR), NEW_LINE,
+    public static String addNumberHeader(boolean emptyLeftSide) {
+        return format("|%s%s|%s%s|%s%s|%s%s|%s%s|%s%s", emptyLeftSide ? HTML_SPACE : getNumberCaption(NOMINATIVE_PLURAL),
+                NEW_LINE, emptyLeftSide ? HTML_SPACE : getNumberCaption(NOMINATIVE_DUAL), NEW_LINE,
+                emptyLeftSide ? HTML_SPACE : getNumberCaption(NOMINATIVE_SINGULAR), NEW_LINE,
                 getNumberCaption(NOMINATIVE_PLURAL), NEW_LINE, getNumberCaption(NOMINATIVE_DUAL), NEW_LINE,
                 getNumberCaption(NOMINATIVE_SINGULAR), NEW_LINE);
     }
 
     public static void addRootWords(RootWord[] rootWords, NounConjugation nounConjugation, int initialIndex) {
-        rootWords[initialIndex] = nounConjugation.getNominative();
-        rootWords[initialIndex + 6] = nounConjugation.getAccusative();
-        rootWords[initialIndex + 12] = nounConjugation.getGenitive();
+        rootWords[initialIndex] = nounConjugation == null ? null : nounConjugation.getNominative();
+        rootWords[initialIndex + 6] = nounConjugation == null ? null : nounConjugation.getAccusative();
+        rootWords[initialIndex + 12] = nounConjugation == null ? null : nounConjugation.getGenitive();
     }
 
     public static void addRow(List<String> lines, HiddenNounStatus status, RootWord[] rootWords, int initialIndex) {

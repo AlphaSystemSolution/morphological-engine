@@ -53,7 +53,7 @@ public class TransformerTest extends CommonTest {
         lines.add("[cols=\"^.^14,^.^14,^.^14,^.^1,^.^14,^.^14,^.^14,^.^15\"]");
         lines.add(ASCII_DOC_TABLE_DECELERATION);
         lines.add(addGenderHeader());
-        lines.add(addNumberHeader());
+        lines.add(addNumberHeader(false));
         addRow(lines, NOMINATIVE_SINGULAR, rootWords, 0);
         addRow(lines, ACCUSATIVE_SINGULAR, rootWords, 6);
         addRow(lines, GENITIVE_SINGULAR, rootWords, 12);

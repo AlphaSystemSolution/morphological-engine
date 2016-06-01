@@ -57,4 +57,14 @@ public interface MemberBuilderFactory {
     ParticipleMemberBuilder getPassiveParticipleFeminineBuilder(@Assisted @Nullable RuleProcessor ruleProcessor,
                                                                 @Assisted Form form,
                                                                 @Assisted RootLetters rootLetters);
+
+    @Named(ADVERB_BUILDER)
+    ParticipleMemberBuilder getAdverbBuilder(@Assisted @Nullable RuleProcessor ruleProcessor,
+                                             @Assisted NounRootBase nounRootBase,
+                                             @Assisted RootLetters rootLetters);
+
+    @Named(ADVERB_BUILDER)
+    ParticipleMemberBuilder getAdverbBuilder(@Assisted @Nullable RuleProcessor ruleProcessor,
+                                             @Assisted Form form,
+                                             @Assisted RootLetters rootLetters);
 }

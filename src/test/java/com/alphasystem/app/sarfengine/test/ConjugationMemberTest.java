@@ -9,12 +9,16 @@ import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
+import com.alphasystem.arabic.model.NamedTemplate;
+import com.alphasystem.morphologicalanalysis.morphology.model.NounRootBase;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import org.testng.annotations.Test;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.HiddenNounStatus.*;
+import static java.lang.String.format;
+import static org.apache.commons.lang3.ArrayUtils.*;
 
 /**
  * @author sali
@@ -43,9 +47,12 @@ public class ConjugationMemberTest extends CommonTest {
     }
 
     private void runConjugations(final Form form, final RootLetters rootLetters) {
-        RuleProcessor ruleProcessor = ruleProcessorFactory.getRuleEngine(new RuleInfo(form.getTemplate()));
+        final NamedTemplate template = form.getTemplate();
+        lines.add(format("== %s &mdash; [arabicNormal]#%s#", template.getCode(), template.getLabel().toHtmlCode()));
+        RuleProcessor ruleProcessor = ruleProcessorFactory.getRuleEngine(new RuleInfo(template));
         runActiveParticleConjugation(form, rootLetters, ruleProcessor);
         runPassiveParticleConjugation(form, rootLetters, ruleProcessor);
+        runAdverbConjugation(form, rootLetters, ruleProcessor);
     }
 
     private void runActiveParticleConjugation(final Form form, final RootLetters rootLetters, final RuleProcessor ruleProcessor) {
@@ -66,11 +73,43 @@ public class ConjugationMemberTest extends CommonTest {
         }
     }
 
+    private void runAdverbConjugation(final Form form, final RootLetters rootLetters, final RuleProcessor ruleProcessor) {
+        NounRootBase[] adverbs = form.getAdverbs();
+        if (isEmpty(adverbs)) {
+            return;
+        }
+        int length = adverbs.length;
+        while (length % 2 != 0) {
+            adverbs = add(adverbs, null);
+            length = adverbs.length;
+        }
+        int fromIndex = 0;
+        int toIndex = 2;
+        while (fromIndex < length) {
+            final NounRootBase[] subArray = subarray(adverbs, fromIndex, toIndex);
+            NounRootBase rightSide = subArray[0];
+            NounRootBase leftSide = subArray[1];
+            ParticipleMemberBuilder builder = factory.getAdverbBuilder(ruleProcessor, rightSide, rootLetters);
+            final SarfTermType rightSideTermType = builder.getTermType();
+            final NounConjugationGroup rightSideConjugationGroup = builder.doConjugation();
+            NounConjugationGroup leftSideConjugationGroup = null;
+            SarfTermType leftSideTermType = null;
+            if (leftSide != null) {
+                builder = factory.getAdverbBuilder(ruleProcessor, leftSide, rootLetters);
+                leftSideTermType = builder.getTermType();
+                leftSideConjugationGroup = builder.doConjugation();
+            }
+            addTable(leftSideTermType, rightSideTermType, createRootWords(leftSideConjugationGroup, rightSideConjugationGroup));
+            fromIndex = toIndex;
+            toIndex += 2;
+        }
+    }
+
     private void addTable(SarfTermType leftTerm, SarfTermType rightTerm, RootWord... rootWords) {
         lines.add("[cols=\"^.^14,^.^14,^.^14,^.^1,^.^14,^.^14,^.^14,^.^15\"]");
         lines.add(ASCII_DOC_TABLE_DECELERATION);
         lines.add(getSarfTermTypeHeader(leftTerm, rightTerm));
-        lines.add(addNumberHeader());
+        lines.add(addNumberHeader(leftTerm == null));
         addRow(lines, NOMINATIVE_SINGULAR, rootWords, 0);
         addRow(lines, ACCUSATIVE_SINGULAR, rootWords, 6);
         addRow(lines, GENITIVE_SINGULAR, rootWords, 12);
@@ -80,7 +119,11 @@ public class ConjugationMemberTest extends CommonTest {
     private RootWord[] createRootWords(NounConjugationGroup leftSideGroup, NounConjugationGroup rightSideGroup) {
         RootWord[] rootWords = new RootWord[18];
 
-        if (leftSideGroup != null) {
+        if (leftSideGroup == null) {
+            addRootWords(rootWords, null, 0);
+            addRootWords(rootWords, null, 1);
+            addRootWords(rootWords, null, 2);
+        } else {
             addRootWords(rootWords, leftSideGroup.getPlural(), 0);
             addRootWords(rootWords, leftSideGroup.getDual(), 1);
             addRootWords(rootWords, leftSideGroup.getSingular(), 2);
