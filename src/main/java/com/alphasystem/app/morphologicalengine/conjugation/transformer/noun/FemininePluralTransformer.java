@@ -15,9 +15,13 @@ import static com.alphasystem.arabic.model.HiddenNounStatus.*;
  */
 public class FemininePluralTransformer extends AbstractNounTransformer {
 
+    FemininePluralTransformer(RuleProcessor ruleProcessor, int variableIndex) {
+        super(ruleProcessor, variableIndex);
+    }
+
     @AssistedInject
     FemininePluralTransformer(@Assisted @Nullable RuleProcessor ruleProcessor) {
-        super(ruleProcessor, LAST_LETTER);
+        this(ruleProcessor, LAST_LETTER);
     }
 
     @Override

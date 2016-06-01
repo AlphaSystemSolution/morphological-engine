@@ -15,17 +15,21 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sar
 /**
  * @author sali
  */
-public class AdverbBuilder extends VerbalNounBuilder {
+public class FormIAdverbBuilder extends ActiveParticipleMasculineBuilder {
 
     @AssistedInject
-    AdverbBuilder(@Assisted @Nullable RuleProcessor ruleProcessor, @Assisted NounRootBase nounRootBase,
-                  @Assisted RootLetters rootLetters) {
+    FormIAdverbBuilder(@Assisted @Nullable RuleProcessor ruleProcessor, @Assisted NounRootBase nounRootBase,
+                       @Assisted RootLetters rootLetters) {
         super(ruleProcessor, nounRootBase, rootLetters);
     }
 
     @AssistedInject
-    AdverbBuilder(@Assisted @Nullable RuleProcessor ruleProcessor, @Assisted Form form, @Assisted RootLetters rootLetters) {
+    FormIAdverbBuilder(@Assisted @Nullable RuleProcessor ruleProcessor, @Assisted Form form, @Assisted RootLetters rootLetters) {
         super(ruleProcessor, form, rootLetters);
+    }
+
+    protected void initializePluralTransformer() {
+        pluralTransformer = transformerFactory.getPartlyFlexibleNounTransformer(getRuleProcessor());
     }
 
     @Override

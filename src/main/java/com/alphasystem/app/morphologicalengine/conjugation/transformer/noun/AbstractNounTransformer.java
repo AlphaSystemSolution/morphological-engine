@@ -40,7 +40,7 @@ public abstract class AbstractNounTransformer implements NounTransformer, Arabic
     @Override
     public NounConjugation doTransform(RootWord rootWord, ArabicLetterType firstRadical, ArabicLetterType secondRadical,
                                        ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
-        RootWord baseWord = new RootWord(rootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+        RootWord baseWord = createRootWord(rootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
         final int size = baseWord.getLabel().getLength();
         if (variableIndex >= size) {
             variableIndex = size - 1;
@@ -48,6 +48,11 @@ public abstract class AbstractNounTransformer implements NounTransformer, Arabic
             variableIndex = baseWord.getThirdRadicalIndex();
         }
         return new NounConjugation(doNominative(baseWord), doAccusative(baseWord), doGenitive(baseWord));
+    }
+
+    protected RootWord createRootWord(RootWord rootWord, ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                    ArabicLetterType thirdRadical, ArabicLetterType fourthRadical){
+        return new RootWord(rootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
     }
 
     protected abstract RootWord doNominative(RootWord rootWord);

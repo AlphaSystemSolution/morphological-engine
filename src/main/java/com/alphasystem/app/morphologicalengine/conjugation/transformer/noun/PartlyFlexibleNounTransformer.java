@@ -21,7 +21,8 @@ public class PartlyFlexibleNounTransformer extends AbstractNounTransformer {
         super(ruleProcessor, variableIndex);
     }
 
-    protected PartlyFlexibleNounTransformer(@Assisted @Nullable RuleProcessor ruleProcessor) {
+    @AssistedInject
+    PartlyFlexibleNounTransformer(@Assisted @Nullable RuleProcessor ruleProcessor) {
         this(ruleProcessor, LAST_LETTER);
     }
 

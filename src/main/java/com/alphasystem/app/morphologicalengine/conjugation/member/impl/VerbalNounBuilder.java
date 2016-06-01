@@ -10,26 +10,30 @@ import com.google.inject.assistedinject.AssistedInject;
 
 import javax.annotation.Nullable;
 
-import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.NOUN_OF_PLACE_AND_TIME;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.VERBAL_NOUN;
 
 /**
  * @author sali
  */
-public class AdverbBuilder extends VerbalNounBuilder {
+public class VerbalNounBuilder extends ActiveParticipleMasculineBuilder {
 
     @AssistedInject
-    AdverbBuilder(@Assisted @Nullable RuleProcessor ruleProcessor, @Assisted NounRootBase nounRootBase,
-                  @Assisted RootLetters rootLetters) {
+    VerbalNounBuilder(@Assisted @Nullable RuleProcessor ruleProcessor, @Assisted NounRootBase nounRootBase,
+                      @Assisted RootLetters rootLetters) {
         super(ruleProcessor, nounRootBase, rootLetters);
     }
 
     @AssistedInject
-    AdverbBuilder(@Assisted @Nullable RuleProcessor ruleProcessor, @Assisted Form form, @Assisted RootLetters rootLetters) {
+    VerbalNounBuilder(@Assisted @Nullable RuleProcessor ruleProcessor, @Assisted Form form, @Assisted RootLetters rootLetters) {
         super(ruleProcessor, form, rootLetters);
+    }
+
+    protected void initializePluralTransformer() {
+        pluralTransformer = transformerFactory.getFemininePluralTransformer(getRuleProcessor());
     }
 
     @Override
     public SarfTermType getTermType() {
-        return NOUN_OF_PLACE_AND_TIME;
+        return VERBAL_NOUN;
     }
 }

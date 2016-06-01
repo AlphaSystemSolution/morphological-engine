@@ -58,6 +58,16 @@ public interface MemberBuilderFactory {
                                                                 @Assisted Form form,
                                                                 @Assisted RootLetters rootLetters);
 
+    @Named(VERBAL_NOUN_BUILDER)
+    ParticipleMemberBuilder getVerbalNounBuilder(@Assisted @Nullable RuleProcessor ruleProcessor,
+                                                 @Assisted NounRootBase nounRootBase,
+                                                 @Assisted RootLetters rootLetters);
+
+    @Named(VERBAL_NOUN_BUILDER)
+    ParticipleMemberBuilder getVerbalNounBuilder(@Assisted @Nullable RuleProcessor ruleProcessor,
+                                                 @Assisted Form form,
+                                                 @Assisted RootLetters rootLetters);
+
     @Named(ADVERB_BUILDER)
     ParticipleMemberBuilder getAdverbBuilder(@Assisted @Nullable RuleProcessor ruleProcessor,
                                              @Assisted NounRootBase nounRootBase,

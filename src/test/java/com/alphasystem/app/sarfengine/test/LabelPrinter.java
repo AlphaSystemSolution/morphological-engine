@@ -1,10 +1,7 @@
 package com.alphasystem.app.sarfengine.test;
 
 import com.alphasystem.arabic.model.*;
-import com.alphasystem.morphologicalanalysis.morphology.model.support.Noun;
-import com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime;
-import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
-import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.*;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -43,6 +40,11 @@ public class LabelPrinter extends CommonTest {
     }
 
     @Test(dependsOnMethods = {"printNouns"})
+    public void printBrokenPlurals() {
+        addTable(BrokenPlural.values(), "Broken Plurals patterns", NUM_OF_COLUMNS);
+    }
+
+    @Test(dependsOnMethods = {"printBrokenPlurals"})
     public void printVerbalNouns() {
         addTable(VerbalNoun.values(), "Verbal Noun patterns", NUM_OF_COLUMNS);
     }

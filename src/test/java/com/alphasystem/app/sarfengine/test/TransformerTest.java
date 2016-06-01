@@ -6,11 +6,14 @@ import com.alphasystem.app.sarfengine.conjugation.model.FormTemplate;
 import com.alphasystem.app.sarfengine.conjugation.model.NounConjugation;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
 import org.testng.annotations.Test;
 
 import static com.alphasystem.app.sarfengine.conjugation.model.FormTemplate.*;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.HiddenNounStatus.*;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.VERBAL_NOUN_FORM_II;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.VERBAL_NOUN_FORM_III_V1;
 import static java.lang.String.format;
 
 /**
@@ -26,26 +29,34 @@ public class TransformerTest extends CommonTest {
 
     @Test
     public void testConjugations() {
-        addTable(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, NOON, SAD, RA);
-        addTable(FORM_I_CATEGORY_A_GROUP_I_TEMPLATE, DDAD, RA, BA);
-        addTable(FORM_I_CATEGORY_A_GROUP_A_TEMPLATE, FA, TA, HHA);
-        addTable(FORM_I_CATEGORY_I_GROUP_I_TEMPLATE, SEEN, MEEM, AIN);
-        addTable(FORM_I_CATEGORY_I_GROUP_A_TEMPLATE, HHA, SEEN, BA);
-        addTable(FORM_I_CATEGORY_U_TEMPLATE, KAF, RA, MEEM);
-        addTable(FORM_II_TEMPLATE, AIN, LAM, MEEM);
-        addTable(FORM_III_TEMPLATE, JEEM, HA, DAL);
-        addTable(FORM_IV_TEMPLATE, SEEN, LAM, MEEM);
-        addTable(FORM_V_TEMPLATE, AIN, LAM, MEEM);
-        addTable(FORM_VI_TEMPLATE, SEEN, HAMZA, LAM);
-        addTable(FORM_VII_TEMPLATE, KAF, SEEN, RA);
-        addTable(FORM_VIII_TEMPLATE, QAF, RA, BA);
-        addTable(FORM_X_TEMPLATE, GHAIN, FA, RA);
+        addActiveParticiple(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, NOON, SAD, RA);
+        addActiveParticiple(FORM_I_CATEGORY_A_GROUP_I_TEMPLATE, DDAD, RA, BA);
+        addActiveParticiple(FORM_I_CATEGORY_A_GROUP_A_TEMPLATE, FA, TA, HHA);
+        addActiveParticiple(FORM_I_CATEGORY_I_GROUP_I_TEMPLATE, SEEN, MEEM, AIN);
+        addActiveParticiple(FORM_I_CATEGORY_I_GROUP_A_TEMPLATE, HHA, SEEN, BA);
+        addActiveParticiple(FORM_I_CATEGORY_U_TEMPLATE, KAF, RA, MEEM);
+        addActiveParticiple(FORM_II_TEMPLATE, AIN, LAM, MEEM);
+        addActiveParticiple(FORM_III_TEMPLATE, JEEM, HA, DAL);
+        addActiveParticiple(FORM_IV_TEMPLATE, SEEN, LAM, MEEM);
+        addActiveParticiple(FORM_V_TEMPLATE, AIN, LAM, MEEM);
+        addActiveParticiple(FORM_VI_TEMPLATE, SEEN, HAMZA, LAM);
+        addActiveParticiple(FORM_VII_TEMPLATE, KAF, SEEN, RA);
+        addActiveParticiple(FORM_VIII_TEMPLATE, QAF, RA, BA);
+        addActiveParticiple(FORM_X_TEMPLATE, GHAIN, FA, RA);
+
+        addVerbalNoun("Verbal Noun Form II & III", VERBAL_NOUN_FORM_III_V1, VERBAL_NOUN_FORM_II, AIN, LAM, MEEM);
     }
 
-    private void addTable(FormTemplate formTemplate, ArabicLetterType firstRadical,
-                          ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
-        RootWord[] rootWords = createRootWords(formTemplate, firstRadical, secondRadical, thirdRadical);
+    private void addActiveParticiple(FormTemplate formTemplate, ArabicLetterType firstRadical,
+                                     ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
+        RootWord[] rootWords = createActiveParticipleRootWords(formTemplate, firstRadical, secondRadical, thirdRadical);
         addTable(formTemplate.name(), rootWords);
+    }
+
+    private void addVerbalNoun(String title, VerbalNoun leftSideWord, VerbalNoun rightSideWord,
+                               ArabicLetterType firstRadical, ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
+        RootWord[] rootWords = createVerbalNounRootWords(leftSideWord, rightSideWord, firstRadical, secondRadical, thirdRadical);
+        addTable(title, rootWords);
     }
 
     private void addTable(String title, RootWord... rootWords) {
@@ -60,8 +71,8 @@ public class TransformerTest extends CommonTest {
         lines.add(ASCII_DOC_TABLE_DECELERATION);
     }
 
-    private RootWord[] createRootWords(FormTemplate formTemplate, ArabicLetterType firstRadical,
-                                       ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
+    private RootWord[] createActiveParticipleRootWords(FormTemplate formTemplate, ArabicLetterType firstRadical,
+                                                       ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
         RootWord[] rootWords = new RootWord[18];
 
         RootWord rootWord = formTemplate.getActiveParticipleMasculineRoot();
@@ -89,6 +100,40 @@ public class TransformerTest extends CommonTest {
         nounTransformer = transformerFactory.getFemininePluralTransformer(null);
         nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
         addRootWords(rootWords, nounConjugation, 0);
+
+        return rootWords;
+    }
+
+    private RootWord[] createVerbalNounRootWords(VerbalNoun leftSideWord, VerbalNoun rightSideWord,
+                                                 ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                                 ArabicLetterType thirdRadical) {
+        RootWord[] rootWords = new RootWord[18];
+
+        RootWord rootWord = leftSideWord.getRootWord();
+        NounTransformer nounTransformer = transformerFactory.getMasculineEndingSoundTransformer(null);
+        NounConjugation nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, nounConjugation, 5);
+
+        nounTransformer = transformerFactory.getMasculineDualTransformer(null);
+        nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, nounConjugation, 4);
+
+        nounTransformer = transformerFactory.getFeminineMasculineBasedPluralTransformer(null);
+        nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, nounConjugation, 3);
+
+        rootWord = rightSideWord.getRootWord();
+        nounTransformer = transformerFactory.getMasculineEndingSoundTransformer(null);
+        nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, nounConjugation, 5);
+
+        nounTransformer = transformerFactory.getMasculineDualTransformer(null);
+        nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, nounConjugation, 4);
+
+        nounTransformer = transformerFactory.getFeminineMasculineBasedPluralTransformer(null);
+        nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, nounConjugation, 3);
 
         return rootWords;
     }

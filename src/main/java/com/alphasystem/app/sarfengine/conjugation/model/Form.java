@@ -4,7 +4,10 @@ import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.NounRootBase;
 import com.alphasystem.morphologicalanalysis.morphology.model.VerbRootBase;
 
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V12;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.Noun.*;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.*;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.VERBAL_NOUN_FORM_II;
 import static org.apache.commons.lang3.ArrayUtils.addAll;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 
@@ -18,47 +21,66 @@ public enum Form {
             new NounRootBase(FORM_I_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_MASCULINE_PASSIVE_PARTICIPLE),
-            new NounRootBase(FORM_I_FEMININE_PASSIVE_PARTICIPLE), null, null, null, null),
+            new NounRootBase(FORM_I_FEMININE_PASSIVE_PARTICIPLE), null, null, null,
+            new NounRootBase[]{new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
+                    new NounRootBase(NOUN_OF_PLACE_AND_TIME_V2, BROKEN_PLURAL_V12),
+                    new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)}),
 
     FORM_I_CATEGORY_A_GROUP_I_TEMPLATE(NamedTemplate.FORM_I_CATEGORY_A_GROUP_I_TEMPLATE,
             null, null, null, null,
             new NounRootBase(FORM_I_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_MASCULINE_PASSIVE_PARTICIPLE),
-            new NounRootBase(FORM_I_FEMININE_PASSIVE_PARTICIPLE), null, null, null, null),
+            new NounRootBase(FORM_I_FEMININE_PASSIVE_PARTICIPLE), null, null, null,
+            new NounRootBase[]{new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
+                    new NounRootBase(NOUN_OF_PLACE_AND_TIME_V2, BROKEN_PLURAL_V12),
+                    new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)}),
 
     FORM_I_CATEGORY_A_GROUP_A_TEMPLATE(NamedTemplate.FORM_I_CATEGORY_A_GROUP_A_TEMPLATE,
             null, null, null, null,
             new NounRootBase(FORM_I_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_MASCULINE_PASSIVE_PARTICIPLE),
-            new NounRootBase(FORM_I_FEMININE_PASSIVE_PARTICIPLE), null, null, null, null),
+            new NounRootBase(FORM_I_FEMININE_PASSIVE_PARTICIPLE), null, null, null,
+            new NounRootBase[]{new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
+                    new NounRootBase(NOUN_OF_PLACE_AND_TIME_V2, BROKEN_PLURAL_V12),
+                    new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)}),
 
     FORM_I_CATEGORY_U_TEMPLATE(NamedTemplate.FORM_I_CATEGORY_U_TEMPLATE,
             null, null,
             new NounRootBase(FORM_I_CATEGORY_U_MASCULINE_ACTIVE_PARTICIPLE),
-            new NounRootBase(FORM_I_CATEGORY_U_FEMININE_ACTIVE_PARTICIPLE), null, null, null, null),
+            new NounRootBase(FORM_I_CATEGORY_U_FEMININE_ACTIVE_PARTICIPLE), null, null, null,
+            new NounRootBase[]{new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
+                    new NounRootBase(NOUN_OF_PLACE_AND_TIME_V2, BROKEN_PLURAL_V12),
+                    new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)}),
 
     FORM_I_CATEGORY_I_GROUP_A_TEMPLATE(NamedTemplate.FORM_I_CATEGORY_I_GROUP_A_TEMPLATE,
             null, null, null, null,
             new NounRootBase(FORM_I_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_MASCULINE_PASSIVE_PARTICIPLE),
-            new NounRootBase(FORM_I_FEMININE_PASSIVE_PARTICIPLE), null, null, null, null),
+            new NounRootBase(FORM_I_FEMININE_PASSIVE_PARTICIPLE), null, null, null,
+            new NounRootBase[]{new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
+                    new NounRootBase(NOUN_OF_PLACE_AND_TIME_V2, BROKEN_PLURAL_V12),
+                    new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)}),
 
     FORM_I_CATEGORY_I_GROUP_I_TEMPLATE(NamedTemplate.FORM_I_CATEGORY_I_GROUP_I_TEMPLATE,
             null, null, null, null,
             new NounRootBase(FORM_I_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_MASCULINE_PASSIVE_PARTICIPLE),
-            new NounRootBase(FORM_I_FEMININE_PASSIVE_PARTICIPLE), null, null, null, null),
+            new NounRootBase(FORM_I_FEMININE_PASSIVE_PARTICIPLE), null, null, null,
+            new NounRootBase[]{new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
+                    new NounRootBase(NOUN_OF_PLACE_AND_TIME_V2, BROKEN_PLURAL_V12),
+                    new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)}),
 
     FORM_II_TEMPLATE(NamedTemplate.FORM_II_TEMPLATE,
             null, null, null, null,
             new NounRootBase(FORM_II_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_II_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_II_MASCULINE_PASSIVE_PARTICIPLE),
-            new NounRootBase(FORM_II_FEMININE_PASSIVE_PARTICIPLE), null, null, null,
+            new NounRootBase(FORM_II_FEMININE_PASSIVE_PARTICIPLE), null, null,
+            new NounRootBase[]{new NounRootBase(VERBAL_NOUN_FORM_II)},
             new NounRootBase[]{new NounRootBase(FORM_II_MASCULINE_PASSIVE_PARTICIPLE, FORM_II_FEMININE_PASSIVE_PARTICIPLE)}),
 
     FORM_III_TEMPLATE(NamedTemplate.FORM_III_TEMPLATE,

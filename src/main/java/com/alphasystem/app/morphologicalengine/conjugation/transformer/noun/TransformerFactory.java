@@ -31,9 +31,15 @@ public interface TransformerFactory {
     @Named(FEMININE_PLURAL_TRANSFORMER)
     NounTransformer getFemininePluralTransformer(@Assisted @Nullable RuleProcessor ruleProcessor);
 
+    @Named(FEMININE_MASCULINE_BASED_PLURAL_TRANSFORMER)
+    NounTransformer getFeminineMasculineBasedPluralTransformer(@Assisted @Nullable RuleProcessor ruleProcessor);
+
     @Named(PARTLY_FLEXIBLE_NOUN_TRANSFORMER)
     NounTransformer getPartlyFlexibleNounTransformer(@Assisted @Nullable RuleProcessor ruleProcessor,
                                                      @Assisted int variableIndex);
+
+    @Named(PARTLY_FLEXIBLE_NOUN_TRANSFORMER)
+    NounTransformer getPartlyFlexibleNounTransformer(@Assisted @Nullable RuleProcessor ruleProcessor);
 
     @Named(NON_FLEXIBLE_NOUN_TRANSFORMER)
     NounTransformer getNonFlexibleNounTransformer(@Assisted @Nullable RuleProcessor ruleProcessor);

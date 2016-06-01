@@ -30,10 +30,15 @@ public class ActiveParticipleFeminineBuilder extends AbstractParticipleMemberBui
         super(ruleProcessor, form, rootLetters);
     }
 
-    @Override
-    protected void initializeTransformers() {
+    protected void initializeSingularTransformer() {
         singularTransformer = transformerFactory.getFeminineEndingSoundTransformer(getRuleProcessor());
+    }
+
+    protected void initializeDualTransformer() {
         dualTransformer = transformerFactory.getFeminineDualTransformer(getRuleProcessor());
+    }
+
+    protected void initializePluralTransformer() {
         pluralTransformer = transformerFactory.getFemininePluralTransformer(getRuleProcessor());
     }
 

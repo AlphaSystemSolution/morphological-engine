@@ -77,12 +77,24 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
         return rootBase;
     }
 
-    protected abstract void initializeTransformers();
+    protected void initializeSingularTransformer(){
+        singularTransformer = transformerFactory.getMasculineEndingSoundTransformer(getRuleProcessor());
+    }
+
+    protected void initializeDualTransformer(){
+        dualTransformer = transformerFactory.getMasculineDualTransformer(getRuleProcessor());
+    }
+
+    protected void initializePluralTransformer(){
+        pluralTransformer = transformerFactory.getMasculinePluralTransformer(getRuleProcessor());
+    }
 
     @Override
     protected void beforePostConstruct() {
         super.beforePostConstruct();
-        initializeTransformers();
+        initializeSingularTransformer();
+        initializeDualTransformer();
+        initializePluralTransformer();
     }
 
     @Override
