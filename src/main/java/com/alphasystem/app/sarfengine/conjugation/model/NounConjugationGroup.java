@@ -3,15 +3,16 @@ package com.alphasystem.app.sarfengine.conjugation.model;
 /**
  * @author sali
  */
-public class NounConjugationGroup {
+public final class NounConjugationGroup {
 
-    protected NounConjugation singular;
+    private NounConjugation singular;
 
-    protected NounConjugation dual;
+    private NounConjugation dual;
 
-    protected NounConjugation plural;
+    private NounConjugation plural;
 
     public NounConjugationGroup() {
+        this(null, null, null);
     }
 
     public NounConjugationGroup(NounConjugation singular, NounConjugation dual, NounConjugation plural) {
