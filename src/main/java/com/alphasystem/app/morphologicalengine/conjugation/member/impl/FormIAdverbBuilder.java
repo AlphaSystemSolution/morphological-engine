@@ -29,7 +29,7 @@ public class FormIAdverbBuilder extends ActiveParticipleMasculineBuilder {
     }
 
     protected void initializePluralTransformer() {
-        pluralTransformer = transformerFactory.getPartlyFlexibleNounTransformer(getRuleProcessor());
+        pluralTransformer = nounTransformerFactory.getPartlyFlexibleNounTransformer(getRuleProcessor());
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.member;
 
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
-import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.TransformerFactory;
+import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerFactory;
 import com.alphasystem.app.sarfengine.conjugation.model.Form;
 import com.alphasystem.app.sarfengine.conjugation.model.NounConjugation;
 import com.alphasystem.app.sarfengine.conjugation.model.NounConjugationGroup;
@@ -23,7 +23,7 @@ import static java.lang.String.format;
 public abstract class AbstractParticipleMemberBuilder extends AbstractConjugationMemberBuilder<NounConjugationGroup>
         implements ParticipleMemberBuilder {
 
-    protected static TransformerFactory transformerFactory = GuiceSupport.getInstance().getTransformerFactory();
+    protected static NounTransformerFactory nounTransformerFactory = GuiceSupport.getInstance().getTransformerFactory();
 
     protected final NounRootBase nounRootBase;
 
@@ -78,15 +78,15 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
     }
 
     protected void initializeSingularTransformer(){
-        singularTransformer = transformerFactory.getMasculineEndingSoundTransformer(getRuleProcessor());
+        singularTransformer = nounTransformerFactory.getMasculineEndingSoundTransformer(getRuleProcessor());
     }
 
     protected void initializeDualTransformer(){
-        dualTransformer = transformerFactory.getMasculineDualTransformer(getRuleProcessor());
+        dualTransformer = nounTransformerFactory.getMasculineDualTransformer(getRuleProcessor());
     }
 
     protected void initializePluralTransformer(){
-        pluralTransformer = transformerFactory.getMasculinePluralTransformer(getRuleProcessor());
+        pluralTransformer = nounTransformerFactory.getMasculinePluralTransformer(getRuleProcessor());
     }
 
     @Override

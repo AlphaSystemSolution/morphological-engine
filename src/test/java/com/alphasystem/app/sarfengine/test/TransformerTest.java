@@ -1,7 +1,7 @@
 package com.alphasystem.app.sarfengine.test;
 
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
-import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.TransformerFactory;
+import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerFactory;
 import com.alphasystem.app.sarfengine.conjugation.model.FormTemplate;
 import com.alphasystem.app.sarfengine.conjugation.model.NounConjugation;
 import com.alphasystem.arabic.model.ArabicLetterType;
@@ -21,10 +21,10 @@ import static java.lang.String.format;
  */
 public class TransformerTest extends CommonTest {
 
-    private static TransformerFactory transformerFactory;
+    private static NounTransformerFactory nounTransformerFactory;
 
     static {
-        transformerFactory = guiceSupport.getTransformerFactory();
+        nounTransformerFactory = guiceSupport.getTransformerFactory();
     }
 
     @Test
@@ -76,28 +76,28 @@ public class TransformerTest extends CommonTest {
         RootWord[] rootWords = new RootWord[18];
 
         RootWord rootWord = formTemplate.getActiveParticipleMasculineRoot();
-        NounTransformer nounTransformer = transformerFactory.getMasculineEndingSoundTransformer(null);
+        NounTransformer nounTransformer = nounTransformerFactory.getMasculineEndingSoundTransformer(null);
         NounConjugation nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
         addRootWords(rootWords, nounConjugation, 5);
 
-        nounTransformer = transformerFactory.getMasculineDualTransformer(null);
+        nounTransformer = nounTransformerFactory.getMasculineDualTransformer(null);
         nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
         addRootWords(rootWords, nounConjugation, 4);
 
-        nounTransformer = transformerFactory.getMasculinePluralTransformer(null);
+        nounTransformer = nounTransformerFactory.getMasculinePluralTransformer(null);
         nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
         addRootWords(rootWords, nounConjugation, 3);
 
         rootWord = formTemplate.getActiveParticipleFeminineRoot();
-        nounTransformer = transformerFactory.getFeminineEndingSoundTransformer(null);
+        nounTransformer = nounTransformerFactory.getFeminineEndingSoundTransformer(null);
         nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
         addRootWords(rootWords, nounConjugation, 2);
 
-        nounTransformer = transformerFactory.getFeminineDualTransformer(null);
+        nounTransformer = nounTransformerFactory.getFeminineDualTransformer(null);
         nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
         addRootWords(rootWords, nounConjugation, 1);
 
-        nounTransformer = transformerFactory.getFemininePluralTransformer(null);
+        nounTransformer = nounTransformerFactory.getFemininePluralTransformer(null);
         nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
         addRootWords(rootWords, nounConjugation, 0);
 
@@ -110,28 +110,28 @@ public class TransformerTest extends CommonTest {
         RootWord[] rootWords = new RootWord[18];
 
         RootWord rootWord = leftSideWord.getRootWord();
-        NounTransformer nounTransformer = transformerFactory.getMasculineEndingSoundTransformer(null);
+        NounTransformer nounTransformer = nounTransformerFactory.getMasculineEndingSoundTransformer(null);
         NounConjugation nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
         addRootWords(rootWords, nounConjugation, 5);
 
-        nounTransformer = transformerFactory.getMasculineDualTransformer(null);
+        nounTransformer = nounTransformerFactory.getMasculineDualTransformer(null);
         nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
         addRootWords(rootWords, nounConjugation, 4);
 
-        nounTransformer = transformerFactory.getFeminineMasculineBasedPluralTransformer(null);
+        nounTransformer = nounTransformerFactory.getFeminineMasculineBasedPluralTransformer(null);
         nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
         addRootWords(rootWords, nounConjugation, 3);
 
         rootWord = rightSideWord.getRootWord();
-        nounTransformer = transformerFactory.getMasculineEndingSoundTransformer(null);
+        nounTransformer = nounTransformerFactory.getMasculineEndingSoundTransformer(null);
         nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
         addRootWords(rootWords, nounConjugation, 2);
 
-        nounTransformer = transformerFactory.getMasculineDualTransformer(null);
+        nounTransformer = nounTransformerFactory.getMasculineDualTransformer(null);
         nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
         addRootWords(rootWords, nounConjugation, 1);
 
-        nounTransformer = transformerFactory.getFeminineMasculineBasedPluralTransformer(null);
+        nounTransformer = nounTransformerFactory.getFeminineMasculineBasedPluralTransformer(null);
         nounConjugation = nounTransformer.doTransform(rootWord, firstRadical, secondRadical, thirdRadical, null);
         addRootWords(rootWords, nounConjugation, 0);
 

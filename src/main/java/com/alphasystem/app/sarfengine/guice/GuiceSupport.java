@@ -1,7 +1,7 @@
 package com.alphasystem.app.sarfengine.guice;
 
-import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.TransformerFactory;
-import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.TransformerModule;
+import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerFactory;
+import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerModule;
 import com.alphasystem.app.sarfengine.conjugation.builder.ConjugationBuilderFactory;
 import com.alphasystem.app.sarfengine.conjugation.member.MemberBuilderFactory;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
@@ -22,7 +22,7 @@ public final class GuiceSupport {
      * Do not let anyone instantiate this class
      */
     private GuiceSupport() {
-        injector = Guice.createInjector(new CloseableModule(), new Jsr250Module(), new TransformerModule()
+        injector = Guice.createInjector(new CloseableModule(), new Jsr250Module(), new NounTransformerModule()
                 , new RuleProcessorModule(), new com.alphasystem.app.morphologicalengine.conjugation.member.impl.MemberBuilderModule()
                  /*, new MemberBuilderModuleOld(), new ConjugationBuilderModule()*/);
     }
@@ -35,8 +35,8 @@ public final class GuiceSupport {
         return injector;
     }
 
-    public TransformerFactory getTransformerFactory() {
-        return injector.getInstance(TransformerFactory.class);
+    public NounTransformerFactory getTransformerFactory() {
+        return injector.getInstance(NounTransformerFactory.class);
     }
 
     public RuleProcessorFactory getRuleProcessorFactory() {

@@ -29,7 +29,7 @@ public class VerbalNounBuilder extends ActiveParticipleMasculineBuilder {
     }
 
     protected void initializePluralTransformer() {
-        pluralTransformer = transformerFactory.getFemininePluralTransformer(getRuleProcessor());
+        pluralTransformer = nounTransformerFactory.getFemininePluralTransformer(getRuleProcessor());
     }
 
     @Override

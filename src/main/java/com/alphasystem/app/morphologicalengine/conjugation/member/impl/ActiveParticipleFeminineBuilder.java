@@ -31,15 +31,15 @@ public class ActiveParticipleFeminineBuilder extends AbstractParticipleMemberBui
     }
 
     protected void initializeSingularTransformer() {
-        singularTransformer = transformerFactory.getFeminineEndingSoundTransformer(getRuleProcessor());
+        singularTransformer = nounTransformerFactory.getFeminineEndingSoundTransformer(getRuleProcessor());
     }
 
     protected void initializeDualTransformer() {
-        dualTransformer = transformerFactory.getFeminineDualTransformer(getRuleProcessor());
+        dualTransformer = nounTransformerFactory.getFeminineDualTransformer(getRuleProcessor());
     }
 
     protected void initializePluralTransformer() {
-        pluralTransformer = transformerFactory.getFemininePluralTransformer(getRuleProcessor());
+        pluralTransformer = nounTransformerFactory.getFemininePluralTransformer(getRuleProcessor());
     }
 
     @Override

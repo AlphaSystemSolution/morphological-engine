@@ -6,12 +6,12 @@ import com.google.inject.name.Named;
 
 import javax.annotation.Nullable;
 
-import static com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.TransformerModule.*;
+import static com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerModule.*;
 
 /**
  * @author sali
  */
-public interface TransformerFactory {
+public interface NounTransformerFactory {
 
     @Named(MASCULINE_ENDING_SOUND_TRANSFORMER)
     NounTransformer getMasculineEndingSoundTransformer(@Assisted @Nullable RuleProcessor ruleProcessor);

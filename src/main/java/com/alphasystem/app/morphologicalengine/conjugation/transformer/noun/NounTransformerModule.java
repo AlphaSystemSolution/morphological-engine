@@ -8,7 +8,7 @@ import static com.google.inject.name.Names.named;
 /**
  * @author sali
  */
-public class TransformerModule extends AbstractModule {
+public class NounTransformerModule extends AbstractModule {
 
     public static final String MASCULINE_ENDING_SOUND_TRANSFORMER = "MasculineEndingSoundTransformer";
     public static final String FEMININE_ENDING_SOUND_TRANSFORMER = "FeminineEndingSoundTransformer";
@@ -32,6 +32,6 @@ public class TransformerModule extends AbstractModule {
                 .implement(NounTransformer.class, named(FEMININE_MASCULINE_BASED_PLURAL_TRANSFORMER), FeminineMasculineBasedPluralTransformer.class)
                 .implement(NounTransformer.class, named(PARTLY_FLEXIBLE_NOUN_TRANSFORMER), PartlyFlexibleNounTransformer.class)
                 .implement(NounTransformer.class, named(NON_FLEXIBLE_NOUN_TRANSFORMER), NonFlexibleNounTransformer.class)
-                .build(TransformerFactory.class));
+                .build(NounTransformerFactory.class));
     }
 }
