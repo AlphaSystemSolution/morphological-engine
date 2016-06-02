@@ -23,15 +23,13 @@ public class PastTenseThirdPersonMasculineTransformer extends AbstractVerbTransf
 
     @Override
     protected RootWord doSingular(RootWord rootWord) {
-        return copyRootWord(rootWord, THIRD_PERSON_MASCULINE_SINGULAR);
+        return processRules(copyRootWord(rootWord, THIRD_PERSON_MASCULINE_SINGULAR));
     }
 
     @Override
     protected RootWord doDual(RootWord rootWord) {
         final RootWord target = copyRootWord(rootWord, THIRD_PERSON_MASCULINE_DUAL);
-        final ArabicWord arabicWord = target.getRootWord().append(LETTER_ALIF);
-        target.setRootWord(arabicWord);
-        return target;
+        return processRules(target.withRootWord(target.getRootWord().append(LETTER_ALIF)));
     }
 
     @Override
@@ -39,7 +37,6 @@ public class PastTenseThirdPersonMasculineTransformer extends AbstractVerbTransf
         final RootWord target = copyRootWord(rootWord, THIRD_PERSON_MASCULINE_PLURAL);
         final ArabicWord arabicWord = target.getRootWord().replaceDiacritic(target.getThirdRadicalIndex(), DAMMA)
                 .append(WAW_WITH_SUKUN, LETTER_ALIF);
-        target.setRootWord(arabicWord);
-        return target;
+        return processRules(target.withRootWord(arabicWord));
     }
 }

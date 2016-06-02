@@ -26,8 +26,7 @@ public class PastTenseSecondPersonFeminineTransformer extends AbstractVerbTransf
         final RootWord target = copyRootWord(rootWord, SECOND_PERSON_FEMININE_SINGULAR);
         final ArabicWord arabicWord = target.getRootWord().replaceDiacritic(target.getThirdRadicalIndex(), SUKUN)
                 .append(TA_WITH_KASRA);
-        target.setRootWord(arabicWord);
-        return target;
+        return processRules(target.withRootWord(arabicWord));
     }
 
     @Override
@@ -35,8 +34,7 @@ public class PastTenseSecondPersonFeminineTransformer extends AbstractVerbTransf
         final RootWord target = copyRootWord(rootWord, SECOND_PERSON_FEMININE_DUAL);
         final ArabicWord arabicWord = target.getRootWord().replaceDiacritic(target.getThirdRadicalIndex(), SUKUN)
                 .append(TA_WITH_DAMMA, MEEM_WITH_FATHA, LETTER_ALIF);
-        target.setRootWord(arabicWord);
-        return target;
+        return processRules(target.withRootWord(arabicWord));
     }
 
     @Override
@@ -44,7 +42,6 @@ public class PastTenseSecondPersonFeminineTransformer extends AbstractVerbTransf
         final RootWord target = copyRootWord(rootWord, SECOND_PERSON_FEMININE_PLURAL);
         final ArabicWord arabicWord = target.getRootWord().replaceDiacritic(target.getThirdRadicalIndex(), SUKUN)
                 .append(TA_WITH_DAMMA, NOON_WITH_SHADDA_AND_FATHA);
-        target.setRootWord(arabicWord);
-        return target;
+        return processRules(target.withRootWord(arabicWord));
     }
 }

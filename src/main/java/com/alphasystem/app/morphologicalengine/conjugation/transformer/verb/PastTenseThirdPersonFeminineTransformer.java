@@ -24,17 +24,13 @@ public class PastTenseThirdPersonFeminineTransformer extends AbstractVerbTransfo
     @Override
     protected RootWord doSingular(RootWord rootWord) {
         final RootWord target = copyRootWord(rootWord, THIRD_PERSON_FEMININE_SINGULAR);
-        final ArabicWord arabicWord = target.getRootWord().append(TA_WITH_SUKUN);
-        target.setRootWord(arabicWord);
-        return target;
+        return processRules(target.withRootWord(target.getRootWord().append(TA_WITH_SUKUN)));
     }
 
     @Override
     protected RootWord doDual(RootWord rootWord) {
         final RootWord target = copyRootWord(rootWord, THIRD_PERSON_FEMININE_DUAL);
-        final ArabicWord arabicWord = target.getRootWord().append(TA_WITH_FATHA, LETTER_ALIF);
-        target.setRootWord(arabicWord);
-        return target;
+        return processRules(target.withRootWord(target.getRootWord().append(TA_WITH_FATHA, LETTER_ALIF)));
     }
 
     @Override
@@ -42,7 +38,6 @@ public class PastTenseThirdPersonFeminineTransformer extends AbstractVerbTransfo
         final RootWord target = copyRootWord(rootWord, THIRD_PERSON_FEMININE_PLURAL);
         final ArabicWord arabicWord = target.getRootWord().replaceDiacritic(target.getThirdRadicalIndex(), SUKUN)
                 .append(NOON_WITH_FATHA);
-        target.setRootWord(arabicWord);
-        return target;
+        return processRules(target.withRootWord(arabicWord));
     }
 }

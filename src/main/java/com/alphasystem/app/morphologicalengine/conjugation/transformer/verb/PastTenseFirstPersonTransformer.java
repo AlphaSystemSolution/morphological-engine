@@ -27,8 +27,7 @@ public class PastTenseFirstPersonTransformer extends AbstractVerbTransformer {
         final RootWord target = copyRootWord(rootWord, FIRST_PERSON_SINGULAR);
         final ArabicWord arabicWord = target.getRootWord().replaceDiacritic(target.getThirdRadicalIndex(), SUKUN)
                 .append(TA_WITH_DAMMA);
-        target.setRootWord(arabicWord);
-        return target;
+        return processRules(target.withRootWord(arabicWord));
     }
 
     @Override
@@ -41,7 +40,6 @@ public class PastTenseFirstPersonTransformer extends AbstractVerbTransformer {
         final RootWord target = copyRootWord(rootWord, FIRST_PERSON_PLURAL);
         final ArabicWord arabicWord = target.getRootWord().replaceDiacritic(target.getThirdRadicalIndex(), SUKUN)
                 .append(NOON_WITH_FATHA, LETTER_ALIF);
-        target.setRootWord(arabicWord);
-        return target;
+        return processRules(target.withRootWord(arabicWord));
     }
 }
