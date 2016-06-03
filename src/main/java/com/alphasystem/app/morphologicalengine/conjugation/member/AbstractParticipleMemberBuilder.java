@@ -23,7 +23,7 @@ import static java.lang.String.format;
 public abstract class AbstractParticipleMemberBuilder extends AbstractConjugationMemberBuilder<NounConjugationGroup>
         implements ParticipleMemberBuilder {
 
-    protected static NounTransformerFactory nounTransformerFactory = GuiceSupport.getInstance().getTransformerFactory();
+    protected static NounTransformerFactory nounTransformerFactory = GuiceSupport.getInstance().getNounTransformerFactory();
 
     protected final NounRootBase nounRootBase;
 

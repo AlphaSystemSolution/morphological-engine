@@ -27,4 +27,19 @@ public interface VerbTransformerFactory {
 
     @Named(PAST_TENSE_FIRST_PERSON_TRANSFORMER)
     VerbTransformer getPastTenseFirstPersonTransformer(@Assisted @Nullable RuleProcessor ruleProcessor);
+
+    @Named(PRESENT_TENSE_THIRD_PERSON_MASCULINE_TRANSFORMER)
+    VerbTransformer getPresentTenseThirdPersonMasculineTransformer(@Assisted @Nullable RuleProcessor ruleProcessor);
+
+    @Named(PRESENT_TENSE_THIRD_PERSON_FEMININE_TRANSFORMER)
+    VerbTransformer getPresentTenseThirdPersonFeminineTransformer(@Assisted @Nullable RuleProcessor ruleProcessor);
+
+    @Named(PRESENT_TENSE_SECOND_PERSON_MASCULINE_TRANSFORMER)
+    VerbTransformer getPresentTenseSecondPersonMasculineTransformer(@Assisted @Nullable RuleProcessor ruleProcessor);
+
+    @Named(PRESENT_TENSE_SECOND_PERSON_FEMININE_TRANSFORMER)
+    VerbTransformer getPresentTenseSecondPersonFeminineTransformer(@Assisted @Nullable RuleProcessor ruleProcessor);
+
+    @Named(PRESENT_TENSE_FIRST_PERSON_TRANSFORMER)
+    VerbTransformer getPresentTenseFirstPersonTransformer(@Assisted @Nullable RuleProcessor ruleProcessor);
 }

@@ -47,11 +47,11 @@ public class CommonTest implements ArabicLetters, Constants {
     }
 
     public static String getNumberCaption(HiddenNounStatus status) {
-        return format("[arabicTableCaption]#%s#", status.getNumberLabel().toHtmlCode());
+        return format("[arabicTableCaptionSmall]#%s#", status.getNumberLabel().toHtmlCode());
     }
 
-    public static String getStatusCaption(HiddenNounStatus status) {
-        return status == null ? "| " : format("|[arabicTableCaption]#%s#", status.getStatus().toHtmlCode());
+    public static String getStatusCaption(ArabicWord status) {
+        return status == null ? "| " : format("|[arabicTableCaptionSmall]#%s#", status.toHtmlCode());
     }
 
     public static String getRootWord(RootWord rootWord) {
@@ -62,10 +62,10 @@ public class CommonTest implements ArabicLetters, Constants {
         return format("3+|%s .5+| 3+|%s .2+| %s", getGenderCaption(THIRD_PERSON_FEMININE_SINGULAR), getGenderCaption(THIRD_PERSON_MASCULINE_SINGULAR), NEW_LINE);
     }
 
-    public static String getSarfTermTypeHeader(SarfTermType leftTerm, SarfTermType rightTerm) {
+    public static String getSarfTermTypeHeader(SarfTermType leftTerm, SarfTermType rightTerm, int numOfRows) {
         String leftTermCaption = format("[arabicTableCaption]#%s#", (leftTerm == null) ? HTML_SPACE : leftTerm.getLabel().toHtmlCode());
         String rightTermCaption = format("[arabicTableCaption]#%s#", (rightTerm == null) ? HTML_SPACE : rightTerm.getLabel().toHtmlCode());
-        return format("3+|%s .5+| 3+|%s .2+| %s", leftTermCaption, rightTermCaption, NEW_LINE);
+        return format("3+|%s .%s+| 3+|%s .2+| %s", leftTermCaption, numOfRows, rightTermCaption, NEW_LINE);
     }
 
     public static String addNumberHeader(boolean emptyLeftSide) {
@@ -82,7 +82,13 @@ public class CommonTest implements ArabicLetters, Constants {
         rootWords[initialIndex + 12] = nounConjugation == null ? null : nounConjugation.getGenitive();
     }
 
-    public static void addRow(List<String> lines, HiddenNounStatus status, RootWord[] rootWords, int initialIndex) {
+    public static void addRootWords(RootWord[] rootWords, VerbConjugation verbConjugation, int initialIndex) {
+        rootWords[initialIndex] = verbConjugation == null ? null : verbConjugation.getSingular();
+        rootWords[initialIndex - 1] = verbConjugation == null ? null : verbConjugation.getDual();
+        rootWords[initialIndex - 2] = verbConjugation == null ? null : verbConjugation.getPlural();
+    }
+
+    public static void addRow(List<String> lines, ArabicWord status, RootWord[] rootWords, int initialIndex) {
         StringBuilder builder = new StringBuilder();
         builder.append(getRootWord(rootWords[initialIndex]));
         for (int i = initialIndex + 1; i < initialIndex + 6; i++) {

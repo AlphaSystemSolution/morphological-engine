@@ -3,6 +3,7 @@ package com.alphasystem.app.sarfengine.test;
 import com.alphasystem.app.morphologicalengine.conjugation.member.ParticipleMemberBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.member.impl.MemberBuilderFactory;
 import com.alphasystem.app.sarfengine.conjugation.model.Form;
+import com.alphasystem.app.sarfengine.conjugation.model.NounConjugation;
 import com.alphasystem.app.sarfengine.conjugation.model.NounConjugationGroup;
 import com.alphasystem.app.sarfengine.conjugation.model.RootLetters;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
@@ -58,7 +59,7 @@ public class ConjugationMemberTest extends CommonTest {
     private void runActiveParticleConjugation(final Form form, final RootLetters rootLetters, final RuleProcessor ruleProcessor) {
         ParticipleMemberBuilder masculineBuilder = factory.getActiveParticipleMasculineBuilder(ruleProcessor, form, rootLetters);
         ParticipleMemberBuilder feminineBuilder = factory.getActiveParticipleFeminineBuilder(ruleProcessor, form, rootLetters);
-        addTable(feminineBuilder.getTermType(), masculineBuilder.getTermType(), createRootWords(feminineBuilder.doConjugation(),
+        addTable(feminineBuilder.getTermType(), masculineBuilder.getTermType(), 5, createRootWords(feminineBuilder.doConjugation(),
                 masculineBuilder.doConjugation()));
     }
 
@@ -66,7 +67,7 @@ public class ConjugationMemberTest extends CommonTest {
         try {
             ParticipleMemberBuilder masculineBuilder = factory.getPassiveParticipleMasculineBuilder(ruleProcessor, form, rootLetters);
             ParticipleMemberBuilder feminineBuilder = factory.getPassiveParticipleFeminineBuilder(ruleProcessor, form, rootLetters);
-            addTable(feminineBuilder.getTermType(), masculineBuilder.getTermType(), createRootWords(feminineBuilder.doConjugation(),
+            addTable(feminineBuilder.getTermType(), masculineBuilder.getTermType(), 5, createRootWords(feminineBuilder.doConjugation(),
                     masculineBuilder.doConjugation()));
         } catch (Exception e) {
             // ignore
@@ -99,20 +100,20 @@ public class ConjugationMemberTest extends CommonTest {
                 leftSideTermType = builder.getTermType();
                 leftSideConjugationGroup = builder.doConjugation();
             }
-            addTable(leftSideTermType, rightSideTermType, createRootWords(leftSideConjugationGroup, rightSideConjugationGroup));
+            addTable(leftSideTermType, rightSideTermType, 5, createRootWords(leftSideConjugationGroup, rightSideConjugationGroup));
             fromIndex = toIndex;
             toIndex += 2;
         }
     }
 
-    private void addTable(SarfTermType leftTerm, SarfTermType rightTerm, RootWord... rootWords) {
+    private void addTable(SarfTermType leftTerm, SarfTermType rightTerm, int numOfRows, RootWord... rootWords) {
         lines.add("[cols=\"^.^14,^.^14,^.^14,^.^1,^.^14,^.^14,^.^14,^.^15\"]");
         lines.add(ASCII_DOC_TABLE_DECELERATION);
-        lines.add(getSarfTermTypeHeader(leftTerm, rightTerm));
+        lines.add(getSarfTermTypeHeader(leftTerm, rightTerm, numOfRows));
         lines.add(addNumberHeader(leftTerm == null));
-        addRow(lines, NOMINATIVE_SINGULAR, rootWords, 0);
-        addRow(lines, ACCUSATIVE_SINGULAR, rootWords, 6);
-        addRow(lines, GENITIVE_SINGULAR, rootWords, 12);
+        addRow(lines, NOMINATIVE_SINGULAR.getStatus(), rootWords, 0);
+        addRow(lines, ACCUSATIVE_SINGULAR.getStatus(), rootWords, 6);
+        addRow(lines, GENITIVE_SINGULAR.getStatus(), rootWords, 12);
         lines.add(ASCII_DOC_TABLE_DECELERATION);
     }
 
@@ -120,9 +121,9 @@ public class ConjugationMemberTest extends CommonTest {
         RootWord[] rootWords = new RootWord[18];
 
         if (leftSideGroup == null) {
-            addRootWords(rootWords, null, 0);
-            addRootWords(rootWords, null, 1);
-            addRootWords(rootWords, null, 2);
+            addRootWords(rootWords, (NounConjugation) null, 0);
+            addRootWords(rootWords, (NounConjugation) null, 1);
+            addRootWords(rootWords, (NounConjugation) null, 2);
         } else {
             addRootWords(rootWords, leftSideGroup.getPlural(), 0);
             addRootWords(rootWords, leftSideGroup.getDual(), 1);

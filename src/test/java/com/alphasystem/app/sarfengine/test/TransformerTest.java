@@ -2,8 +2,11 @@ package com.alphasystem.app.sarfengine.test;
 
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerFactory;
+import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformer;
+import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerFactory;
 import com.alphasystem.app.sarfengine.conjugation.model.FormTemplate;
 import com.alphasystem.app.sarfengine.conjugation.model.NounConjugation;
+import com.alphasystem.app.sarfengine.conjugation.model.VerbConjugation;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
@@ -12,6 +15,9 @@ import org.testng.annotations.Test;
 import static com.alphasystem.app.sarfengine.conjugation.model.FormTemplate.*;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.HiddenNounStatus.*;
+import static com.alphasystem.arabic.model.HiddenPronounStatus.*;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PAST_TENSE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_TENSE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.VERBAL_NOUN_FORM_II;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.VERBAL_NOUN_FORM_III_V1;
 import static java.lang.String.format;
@@ -22,13 +28,16 @@ import static java.lang.String.format;
 public class TransformerTest extends CommonTest {
 
     private static NounTransformerFactory nounTransformerFactory;
+    private static VerbTransformerFactory verbTransformerFactory;
 
     static {
-        nounTransformerFactory = guiceSupport.getTransformerFactory();
+        nounTransformerFactory = guiceSupport.getNounTransformerFactory();
+        verbTransformerFactory = guiceSupport.getVerbTransformerFactory();
     }
 
     @Test
     public void testConjugations() {
+        addActiveTense(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, NOON, SAD, RA);
         addActiveParticiple(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, NOON, SAD, RA);
         addActiveParticiple(FORM_I_CATEGORY_A_GROUP_I_TEMPLATE, DDAD, RA, BA);
         addActiveParticiple(FORM_I_CATEGORY_A_GROUP_A_TEMPLATE, FA, TA, HHA);
@@ -47,28 +56,97 @@ public class TransformerTest extends CommonTest {
         addVerbalNoun("Verbal Noun Form II & III", VERBAL_NOUN_FORM_III_V1, VERBAL_NOUN_FORM_II, AIN, LAM, MEEM);
     }
 
+    private void addActiveTense(FormTemplate formTemplate, ArabicLetterType firstRadical,
+                                ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
+        RootWord[] rootWords = createActiveTenseRootWords(formTemplate, firstRadical, secondRadical, thirdRadical);
+        addVerbTable(formTemplate.name(), rootWords);
+    }
+
     private void addActiveParticiple(FormTemplate formTemplate, ArabicLetterType firstRadical,
                                      ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
         RootWord[] rootWords = createActiveParticipleRootWords(formTemplate, firstRadical, secondRadical, thirdRadical);
-        addTable(formTemplate.name(), rootWords);
+        addNounTable(formTemplate.name(), rootWords);
     }
 
     private void addVerbalNoun(String title, VerbalNoun leftSideWord, VerbalNoun rightSideWord,
                                ArabicLetterType firstRadical, ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
         RootWord[] rootWords = createVerbalNounRootWords(leftSideWord, rightSideWord, firstRadical, secondRadical, thirdRadical);
-        addTable(title, rootWords);
+        addNounTable(title, rootWords);
     }
 
-    private void addTable(String title, RootWord... rootWords) {
+    private void addVerbTable(String title, RootWord... rootWords) {
+        lines.add(format(".%s", title));
+        lines.add("[cols=\"^.^14,^.^14,^.^14,^.^1,^.^14,^.^14,^.^14,^.^15\"]");
+        lines.add(ASCII_DOC_TABLE_DECELERATION);
+        lines.add(getSarfTermTypeHeader(PRESENT_TENSE, PAST_TENSE, 7));
+        lines.add(addNumberHeader(false));
+        addRow(lines, THIRD_PERSON_MASCULINE_SINGULAR.getGenderAndConversation(), rootWords, 0);
+        addRow(lines, THIRD_PERSON_FEMININE_SINGULAR.getGenderAndConversation(), rootWords, 6);
+        addRow(lines, SECOND_PERSON_MASCULINE_SINGULAR.getGenderAndConversation(), rootWords, 12);
+        addRow(lines, SECOND_PERSON_FEMININE_SINGULAR.getGenderAndConversation(), rootWords, 18);
+        addRow(lines, FIRST_PERSON_SINGULAR.getGenderAndConversation(), rootWords, 24);
+        lines.add(ASCII_DOC_TABLE_DECELERATION);
+    }
+
+    private void addNounTable(String title, RootWord... rootWords) {
         lines.add(format(".%s", title));
         lines.add("[cols=\"^.^14,^.^14,^.^14,^.^1,^.^14,^.^14,^.^14,^.^15\"]");
         lines.add(ASCII_DOC_TABLE_DECELERATION);
         lines.add(addGenderHeader());
         lines.add(addNumberHeader(false));
-        addRow(lines, NOMINATIVE_SINGULAR, rootWords, 0);
-        addRow(lines, ACCUSATIVE_SINGULAR, rootWords, 6);
-        addRow(lines, GENITIVE_SINGULAR, rootWords, 12);
+        addRow(lines, NOMINATIVE_SINGULAR.getStatus(), rootWords, 0);
+        addRow(lines, ACCUSATIVE_SINGULAR.getStatus(), rootWords, 6);
+        addRow(lines, GENITIVE_SINGULAR.getStatus(), rootWords, 12);
         lines.add(ASCII_DOC_TABLE_DECELERATION);
+    }
+
+    private RootWord[] createActiveTenseRootWords(FormTemplate formTemplate, ArabicLetterType firstRadical,
+                                                  ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
+        RootWord[] rootWords = new RootWord[30];
+
+        final RootWord pastTenseRoot = formTemplate.getPastTenseRoot();
+        final RootWord presentTenseRoot = formTemplate.getPresentTenseRoot();
+        VerbTransformer verbTransformer = verbTransformerFactory.getPastTenseThirdPersonMasculineTransformer(null);
+        VerbConjugation verbConjugation = verbTransformer.doTransform(pastTenseRoot, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, verbConjugation, 5);
+
+        verbTransformer = verbTransformerFactory.getPresentTenseThirdPersonMasculineTransformer(null);
+        verbConjugation = verbTransformer.doTransform(presentTenseRoot, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, verbConjugation, 2);
+
+        verbTransformer = verbTransformerFactory.getPastTenseThirdPersonFeminineTransformer(null);
+        verbConjugation = verbTransformer.doTransform(pastTenseRoot, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, verbConjugation, 11);
+
+        verbTransformer = verbTransformerFactory.getPresentTenseThirdPersonFeminineTransformer(null);
+        verbConjugation = verbTransformer.doTransform(presentTenseRoot, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, verbConjugation, 8);
+
+        verbTransformer = verbTransformerFactory.getPastTenseSecondPersonMasculineTransformer(null);
+        verbConjugation = verbTransformer.doTransform(pastTenseRoot, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, verbConjugation, 17);
+
+        verbTransformer = verbTransformerFactory.getPresentTenseSecondPersonMasculineTransformer(null);
+        verbConjugation = verbTransformer.doTransform(presentTenseRoot, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, verbConjugation, 14);
+
+        verbTransformer = verbTransformerFactory.getPastTenseSecondPersonFeminineTransformer(null);
+        verbConjugation = verbTransformer.doTransform(pastTenseRoot, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, verbConjugation, 23);
+
+        verbTransformer = verbTransformerFactory.getPresentTenseSecondPersonFeminineTransformer(null);
+        verbConjugation = verbTransformer.doTransform(presentTenseRoot, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, verbConjugation, 20);
+
+        verbTransformer = verbTransformerFactory.getPastTenseFirstPersonTransformer(null);
+        verbConjugation = verbTransformer.doTransform(pastTenseRoot, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, verbConjugation, 29);
+
+        verbTransformer = verbTransformerFactory.getPresentTenseFirstPersonTransformer(null);
+        verbConjugation = verbTransformer.doTransform(presentTenseRoot, firstRadical, secondRadical, thirdRadical, null);
+        addRootWords(rootWords, verbConjugation, 26);
+
+        return rootWords;
     }
 
     private RootWord[] createActiveParticipleRootWords(FormTemplate formTemplate, ArabicLetterType firstRadical,
