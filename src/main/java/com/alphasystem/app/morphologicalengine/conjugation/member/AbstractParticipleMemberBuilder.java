@@ -25,8 +25,6 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
 
     protected static NounTransformerFactory nounTransformerFactory = GuiceSupport.getInstance().getNounTransformerFactory();
 
-    private NounConjugationGroup nounConjugationGroup;
-
     protected NounTransformer singularTransformer;
 
     protected NounTransformer dualTransformer;
@@ -91,20 +89,20 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
 
     @Override
     public NounConjugationGroup doConjugation() {
-        if (nounConjugationGroup == null) {
-            nounConjugationGroup = new NounConjugationGroup();
+        if (conjugationGroup == null) {
+            conjugationGroup = new NounConjugationGroup();
             final ArabicLetterType firstRadical = rootLetters.getFirstRadical();
             final ArabicLetterType secondRadical = rootLetters.getSecondRadical();
             final ArabicLetterType thirdRadical = rootLetters.getThirdRadical();
             final ArabicLetterType fourthRadical = rootLetters.getFourthRadical();
-            nounConjugationGroup.setSingular(doTransform(singularTransformer, rootBase.getSingularBaseWord(),
+            conjugationGroup.setSingular(doTransform(singularTransformer, rootBase.getSingularBaseWord(),
                     firstRadical, secondRadical, thirdRadical, fourthRadical));
-            nounConjugationGroup.setDual(doTransform(dualTransformer, rootBase.getDualBaseWord(),
+            conjugationGroup.setDual(doTransform(dualTransformer, rootBase.getDualBaseWord(),
                     firstRadical, secondRadical, thirdRadical, fourthRadical));
-            nounConjugationGroup.setPlural(doTransform(pluralTransformer, rootBase.getPluralBaseWord(),
+            conjugationGroup.setPlural(doTransform(pluralTransformer, rootBase.getPluralBaseWord(),
                     firstRadical, secondRadical, thirdRadical, fourthRadical));
         }
-        return nounConjugationGroup;
+        return conjugationGroup;
     }
 
     private NounConjugation doTransform(NounTransformer transformer, NounSupport baseWord, ArabicLetterType firstRadical,
@@ -118,10 +116,10 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
 
     @Override
     public RootWord getDefaultConjugation() {
-        if (nounConjugationGroup == null) {
+        if (conjugationGroup == null) {
             doConjugation();
         }
-        final NounConjugation singular = nounConjugationGroup.getSingular();
+        final NounConjugation singular = conjugationGroup.getSingular();
         return (singular == null) ? null : singular.getNominative();
     }
 

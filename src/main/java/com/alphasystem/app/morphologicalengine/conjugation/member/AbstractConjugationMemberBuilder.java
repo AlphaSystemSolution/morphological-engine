@@ -14,6 +14,7 @@ import javax.annotation.PostConstruct;
 public abstract class AbstractConjugationMemberBuilder<G, B> implements ConjugationMemberBuilder<G> {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
+    protected G conjugationGroup;
     protected final RuleProcessor ruleProcessor;
     protected final B rootBase;
     protected final RootLetters rootLetters;
