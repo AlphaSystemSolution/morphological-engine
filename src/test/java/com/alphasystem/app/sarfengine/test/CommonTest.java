@@ -58,6 +58,15 @@ public class CommonTest implements ArabicLetters, Constants {
         return (rootWord == null) ? "| " : format("|[arabicNormal]#%s#", rootWord.getLabel().toHtmlCode());
     }
 
+    public static String getRootWordLabel(RootWord rootWord) {
+        return (rootWord == null) ? "" : format("[arabicNormal]#%s#", rootWord.getLabel().toHtmlCode());
+    }
+
+    public static String getRootWordSarfTermType(RootWord rootWord) {
+        SarfTermType sarfTermType = (rootWord == null) ? null : rootWord.getSarfTermType();
+        return (sarfTermType == null) ? "" : format("[small]#%s#", sarfTermType.name());
+    }
+
     public static String addGenderHeader() {
         return format("3+|%s .5+| 3+|%s .2+| %s", getGenderCaption(THIRD_PERSON_FEMININE_SINGULAR), getGenderCaption(THIRD_PERSON_MASCULINE_SINGULAR), NEW_LINE);
     }

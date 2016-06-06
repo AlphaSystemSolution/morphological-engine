@@ -7,6 +7,7 @@ import com.alphasystem.morphologicalanalysis.morphology.model.VerbRootBase;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V12;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.Noun.*;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.*;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.Verb.*;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.*;
 import static org.apache.commons.lang3.ArrayUtils.addAll;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
@@ -17,7 +18,8 @@ import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 public enum Form {
 
     FORM_I_CATEGORY_A_GROUP_U_TEMPLATE(NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE,
-            null, null, null, null,
+            new VerbRootBase(FORM_I_PAST_TENSE_V1), new VerbRootBase(FORM_I_PRESENT_TENSE_V1),
+            new VerbRootBase(FORM_I_PAST_PASSIVE_TENSE), new VerbRootBase(FORM_I_PRESENT_PASSIVE_TENSE),
             new NounRootBase(FORM_I_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_MASCULINE_PASSIVE_PARTICIPLE),
@@ -27,7 +29,8 @@ public enum Form {
                     new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)}),
 
     FORM_I_CATEGORY_A_GROUP_I_TEMPLATE(NamedTemplate.FORM_I_CATEGORY_A_GROUP_I_TEMPLATE,
-            null, null, null, null,
+            new VerbRootBase(FORM_I_PAST_TENSE_V1), new VerbRootBase(FORM_I_PRESENT_TENSE_V2),
+            new VerbRootBase(FORM_I_PAST_PASSIVE_TENSE), new VerbRootBase(FORM_I_PRESENT_PASSIVE_TENSE),
             new NounRootBase(FORM_I_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_MASCULINE_PASSIVE_PARTICIPLE),
@@ -37,7 +40,8 @@ public enum Form {
                     new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)}),
 
     FORM_I_CATEGORY_A_GROUP_A_TEMPLATE(NamedTemplate.FORM_I_CATEGORY_A_GROUP_A_TEMPLATE,
-            null, null, null, null,
+            new VerbRootBase(FORM_I_PAST_TENSE_V1), null,
+            new VerbRootBase(FORM_I_PAST_PASSIVE_TENSE), new VerbRootBase(FORM_I_PRESENT_PASSIVE_TENSE),
             new NounRootBase(FORM_I_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_MASCULINE_PASSIVE_PARTICIPLE),
@@ -47,7 +51,7 @@ public enum Form {
                     new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)}),
 
     FORM_I_CATEGORY_U_TEMPLATE(NamedTemplate.FORM_I_CATEGORY_U_TEMPLATE,
-            null, null,
+            new VerbRootBase(FORM_I_PAST_TENSE_V2), new VerbRootBase(FORM_I_PRESENT_TENSE_V1),
             new NounRootBase(FORM_I_CATEGORY_U_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_CATEGORY_U_FEMININE_ACTIVE_PARTICIPLE), null, null, null,
             new NounRootBase[]{new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
@@ -55,7 +59,8 @@ public enum Form {
                     new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)}),
 
     FORM_I_CATEGORY_I_GROUP_A_TEMPLATE(NamedTemplate.FORM_I_CATEGORY_I_GROUP_A_TEMPLATE,
-            null, null, null, null,
+            new VerbRootBase(FORM_I_PAST_TENSE_V3), new VerbRootBase(FORM_I_PRESENT_TENSE_V3),
+            new VerbRootBase(FORM_I_PAST_PASSIVE_TENSE), new VerbRootBase(FORM_I_PRESENT_PASSIVE_TENSE),
             new NounRootBase(FORM_I_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_MASCULINE_PASSIVE_PARTICIPLE),
@@ -65,7 +70,8 @@ public enum Form {
                     new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)}),
 
     FORM_I_CATEGORY_I_GROUP_I_TEMPLATE(NamedTemplate.FORM_I_CATEGORY_I_GROUP_I_TEMPLATE,
-            null, null, null, null,
+            new VerbRootBase(FORM_I_PAST_TENSE_V3), new VerbRootBase(FORM_I_PRESENT_TENSE_V2),
+            new VerbRootBase(FORM_I_PAST_PASSIVE_TENSE), new VerbRootBase(FORM_I_PRESENT_PASSIVE_TENSE),
             new NounRootBase(FORM_I_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_MASCULINE_PASSIVE_PARTICIPLE),

@@ -1,12 +1,15 @@
 package com.alphasystem.app.sarfengine.test;
 
+import com.alphasystem.app.sarfengine.conjugation.model.FormTemplate;
 import com.alphasystem.arabic.model.*;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.*;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.alphasystem.app.sarfengine.conjugation.model.FormTemplate.*;
 import static com.alphasystem.util.AppUtil.NEW_LINE;
 import static java.lang.String.format;
 import static java.util.Collections.addAll;
@@ -64,6 +67,21 @@ public class LabelPrinter extends CommonTest {
         addTable(HiddenPronounStatus.values(), "Hidden ProNoun Status", NUM_OF_COLUMNS);
     }
 
+    @Test(dependsOnMethods = {"printHiddenProNounStatus"})
+    public void printVerbs() {
+        addTable(Verb.values(), "Verb patterns", NUM_OF_COLUMNS);
+    }
+
+    @Test(dependsOnMethods = {"printVerbs"})
+    public void printForTemplates() {
+        printFormTemplate(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, 2);
+        printFormTemplate(FORM_I_CATEGORY_A_GROUP_I_TEMPLATE, 2);
+        printFormTemplate(FORM_I_CATEGORY_A_GROUP_A_TEMPLATE, 2);
+        printFormTemplate(FORM_I_CATEGORY_U_TEMPLATE, 2);
+        printFormTemplate(FORM_I_CATEGORY_I_GROUP_A_TEMPLATE, 2);
+        printFormTemplate(FORM_I_CATEGORY_I_GROUP_I_TEMPLATE, 2);
+    }
+
     private <M extends Enum<M> & ArabicSupport> void addTable(M[] values, String title, int numOfColumns) {
         if (title != null) {
             lines.add(format(".%s", title));
@@ -106,5 +124,32 @@ public class LabelPrinter extends CommonTest {
         }
 
         lines.add(ASCII_DOC_TABLE_DECELERATION);
+    }
+
+    private void printFormTemplate(FormTemplate formTemplate, int numOfColumns) {
+        lines.add(format(".%s", formTemplate.getTemplate().name()));
+        lines.add(format("[cols=\"%s*^.^\"]", numOfColumns));
+        lines.add(ASCII_DOC_TABLE_DECELERATION);
+        addFormTemplateRow(formTemplate.getPresentTenseRoot(), formTemplate.getPastTenseRoot());
+        addFormTemplateRow(formTemplate.getPresentPassiveTenseRoot(), formTemplate.getPastPassiveTenseRoot());
+        addFormTemplateRow(formTemplate.getForbiddingRoot(), formTemplate.getImperativeRoot());
+        addFormTemplateRow(formTemplate.getActiveParticipleFeminineRoot(), formTemplate.getActiveParticipleMasculineRoot());
+        addFormTemplateRow(formTemplate.getPassiveParticipleFeminineRoot(), formTemplate.getPassiveParticipleMasculineRoot());
+        lines.add(ASCII_DOC_TABLE_DECELERATION);
+    }
+
+    private void addFormTemplateRow(RootWord leftSideTerm, RootWord rightSideWord) {
+        final String value = getFormTemplateRow(leftSideTerm, rightSideWord);
+        if (value != null) {
+            lines.add(value);
+        }
+    }
+
+    private static String getFormTemplateRow(RootWord leftSideTerm, RootWord rightSideWord) {
+        if ((leftSideTerm == null) && (rightSideWord == null)) {
+            return null;
+        }
+        return format("| %s | %s%s| %s | %s%s", getRootWordSarfTermType(leftSideTerm), getRootWordSarfTermType(rightSideWord), NEW_LINE,
+                getRootWordLabel(leftSideTerm), getRootWordLabel(rightSideWord), NEW_LINE);
     }
 }
