@@ -39,7 +39,10 @@ public abstract class AbstractConjugationMemberBuilder<G, B> implements Conjugat
 
     protected abstract B getRootBase(Form form);
 
+    protected abstract void initializeTransformers();
+
     protected void beforePostConstruct() {
+        initializeTransformers();
     }
 
     protected void doPostConstruct() {
