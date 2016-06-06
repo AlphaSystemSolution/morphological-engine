@@ -1,5 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.member;
 
+import com.alphasystem.app.sarfengine.conjugation.model.Form;
+import com.alphasystem.app.sarfengine.conjugation.model.RootLetters;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,13 +11,23 @@ import javax.annotation.PostConstruct;
 /**
  * @author sali
  */
-public abstract class AbstractConjugationMemberBuilder<G> implements ConjugationMemberBuilder<G> {
+public abstract class AbstractConjugationMemberBuilder<G, B> implements ConjugationMemberBuilder<G> {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
     protected final RuleProcessor ruleProcessor;
+    protected final B rootBase;
+    protected final RootLetters rootLetters;
 
-    protected AbstractConjugationMemberBuilder(RuleProcessor ruleProcessor) {
+    protected AbstractConjugationMemberBuilder(RuleProcessor ruleProcessor, B rootBase, RootLetters rootLetters) {
         this.ruleProcessor = ruleProcessor;
+        this.rootLetters = rootLetters;
+        this.rootBase = rootBase;
+    }
+
+    protected AbstractConjugationMemberBuilder(RuleProcessor ruleProcessor, Form form, RootLetters rootLetters){
+        this.ruleProcessor = ruleProcessor;
+        this.rootLetters = rootLetters;
+        this.rootBase = getRootBase(form);
     }
 
     @PostConstruct
@@ -24,6 +36,8 @@ public abstract class AbstractConjugationMemberBuilder<G> implements Conjugation
         doPostConstruct();
         afterPostConstruct();
     }
+
+    protected abstract B getRootBase(Form form);
 
     protected void beforePostConstruct() {
     }

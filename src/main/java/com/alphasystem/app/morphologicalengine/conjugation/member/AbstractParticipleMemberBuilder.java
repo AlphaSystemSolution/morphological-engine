@@ -20,16 +20,12 @@ import static java.lang.String.format;
 /**
  * @author sali
  */
-public abstract class AbstractParticipleMemberBuilder extends AbstractConjugationMemberBuilder<NounConjugationGroup>
+public abstract class AbstractParticipleMemberBuilder extends AbstractConjugationMemberBuilder<NounConjugationGroup, NounRootBase>
         implements ParticipleMemberBuilder {
 
     protected static NounTransformerFactory nounTransformerFactory = GuiceSupport.getInstance().getNounTransformerFactory();
 
-    protected final NounRootBase nounRootBase;
-
-    protected final RootLetters rootLetters;
-
-    protected NounConjugationGroup nounConjugationGroup;
+    private NounConjugationGroup nounConjugationGroup;
 
     protected NounTransformer singularTransformer;
 
@@ -37,18 +33,15 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
 
     protected NounTransformer pluralTransformer;
 
-    protected AbstractParticipleMemberBuilder(RuleProcessor ruleProcessor, NounRootBase nounRootBase, RootLetters rootLetters) {
-        super(ruleProcessor);
-        this.nounRootBase = nounRootBase;
-        this.rootLetters = rootLetters;
+    protected AbstractParticipleMemberBuilder(RuleProcessor ruleProcessor, NounRootBase rootBase, RootLetters rootLetters) {
+        super(ruleProcessor, rootBase, rootLetters);
     }
 
     protected AbstractParticipleMemberBuilder(RuleProcessor ruleProcessor, Form form, RootLetters rootLetters) {
-        super(ruleProcessor);
-        this.nounRootBase = getRootBase(form);
-        this.rootLetters = rootLetters;
+        super(ruleProcessor, form, rootLetters);
     }
 
+    @Override
     protected NounRootBase getRootBase(Form form) {
         NounRootBase rootBase = null;
         final SarfTermType termType = getTermType();
@@ -77,15 +70,15 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
         return rootBase;
     }
 
-    protected void initializeSingularTransformer(){
+    protected void initializeSingularTransformer() {
         singularTransformer = nounTransformerFactory.getMasculineEndingSoundTransformer(getRuleProcessor());
     }
 
-    protected void initializeDualTransformer(){
+    protected void initializeDualTransformer() {
         dualTransformer = nounTransformerFactory.getMasculineDualTransformer(getRuleProcessor());
     }
 
-    protected void initializePluralTransformer(){
+    protected void initializePluralTransformer() {
         pluralTransformer = nounTransformerFactory.getMasculinePluralTransformer(getRuleProcessor());
     }
 
@@ -105,18 +98,18 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
             final ArabicLetterType secondRadical = rootLetters.getSecondRadical();
             final ArabicLetterType thirdRadical = rootLetters.getThirdRadical();
             final ArabicLetterType fourthRadical = rootLetters.getFourthRadical();
-            nounConjugationGroup.setSingular(doTransform(singularTransformer, nounRootBase.getSingularBaseWord(),
+            nounConjugationGroup.setSingular(doTransform(singularTransformer, rootBase.getSingularBaseWord(),
                     firstRadical, secondRadical, thirdRadical, fourthRadical));
-            nounConjugationGroup.setDual(doTransform(dualTransformer, nounRootBase.getDualBaseWord(),
+            nounConjugationGroup.setDual(doTransform(dualTransformer, rootBase.getDualBaseWord(),
                     firstRadical, secondRadical, thirdRadical, fourthRadical));
-            nounConjugationGroup.setPlural(doTransform(pluralTransformer, nounRootBase.getPluralBaseWord(),
+            nounConjugationGroup.setPlural(doTransform(pluralTransformer, rootBase.getPluralBaseWord(),
                     firstRadical, secondRadical, thirdRadical, fourthRadical));
         }
         return nounConjugationGroup;
     }
 
-    protected NounConjugation doTransform(NounTransformer transformer, NounSupport baseWord, ArabicLetterType firstRadical,
-                                          ArabicLetterType secondRadical, ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+    private NounConjugation doTransform(NounTransformer transformer, NounSupport baseWord, ArabicLetterType firstRadical,
+                                        ArabicLetterType secondRadical, ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
         if (transformer != null && baseWord != null) {
             return transformer.doTransform(new RootWord(baseWord.getRootWord()).withSarfTermType(getTermType()),
                     firstRadical, secondRadical, thirdRadical, fourthRadical);
