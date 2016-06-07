@@ -95,11 +95,11 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
             final ArabicLetterType secondRadical = rootLetters.getSecondRadical();
             final ArabicLetterType thirdRadical = rootLetters.getThirdRadical();
             final ArabicLetterType fourthRadical = rootLetters.getFourthRadical();
-            conjugationGroup.setSingular(doTransform(singularTransformer, rootBase.getSingularBaseWord(),
+            conjugationGroup.setSingular(doTransform(singularTransformer, (NounSupport) rootBase.getSingularBaseWord(),
                     firstRadical, secondRadical, thirdRadical, fourthRadical));
-            conjugationGroup.setDual(doTransform(dualTransformer, rootBase.getDualBaseWord(),
+            conjugationGroup.setDual(doTransform(dualTransformer, (NounSupport) rootBase.getDualBaseWord(),
                     firstRadical, secondRadical, thirdRadical, fourthRadical));
-            conjugationGroup.setPlural(doTransform(pluralTransformer, rootBase.getPluralBaseWord(),
+            conjugationGroup.setPlural(doTransform(pluralTransformer, (NounSupport) rootBase.getPluralBaseWord(),
                     firstRadical, secondRadical, thirdRadical, fourthRadical));
         }
         return conjugationGroup;
