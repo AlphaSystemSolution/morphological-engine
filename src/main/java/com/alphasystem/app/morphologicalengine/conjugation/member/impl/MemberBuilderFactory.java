@@ -1,10 +1,12 @@
 package com.alphasystem.app.morphologicalengine.conjugation.member.impl;
 
 import com.alphasystem.app.morphologicalengine.conjugation.member.ParticipleMemberBuilder;
+import com.alphasystem.app.morphologicalengine.conjugation.member.TenseMemberBuilder;
 import com.alphasystem.app.sarfengine.conjugation.model.Form;
 import com.alphasystem.app.sarfengine.conjugation.model.RootLetters;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.morphologicalanalysis.morphology.model.NounRootBase;
+import com.alphasystem.morphologicalanalysis.morphology.model.VerbRootBase;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
 
@@ -77,4 +79,44 @@ public interface MemberBuilderFactory {
     ParticipleMemberBuilder getAdverbBuilder(@Assisted @Nullable RuleProcessor ruleProcessor,
                                              @Assisted Form form,
                                              @Assisted RootLetters rootLetters);
+
+    @Named(PAST_TENSE_MEMBER_BUILDER)
+    TenseMemberBuilder getPastTenseMemberBuilder(@Assisted @Nullable RuleProcessor ruleProcessor,
+                                                 @Assisted VerbRootBase verbRootBase,
+                                                 @Assisted RootLetters rootLetters);
+
+    @Named(PAST_TENSE_MEMBER_BUILDER)
+    TenseMemberBuilder getPastTenseMemberBuilder(@Assisted @Nullable RuleProcessor ruleProcessor,
+                                                 @Assisted Form form,
+                                                 @Assisted RootLetters rootLetters);
+
+    @Named(PRESENT_TENSE_MEMBER_BUILDER)
+    TenseMemberBuilder getPresentTenseMemberBuilder(@Assisted @Nullable RuleProcessor ruleProcessor,
+                                                    @Assisted VerbRootBase verbRootBase,
+                                                    @Assisted RootLetters rootLetters);
+
+    @Named(PRESENT_TENSE_MEMBER_BUILDER)
+    TenseMemberBuilder getPresentTenseMemberBuilder(@Assisted @Nullable RuleProcessor ruleProcessor,
+                                                    @Assisted Form form,
+                                                    @Assisted RootLetters rootLetters);
+
+    @Named(PAST_PASSIVE_TENSE_MEMBER_BUILDER)
+    TenseMemberBuilder getPastPassiveTenseMemberBuilder(@Assisted @Nullable RuleProcessor ruleProcessor,
+                                                        @Assisted VerbRootBase verbRootBase,
+                                                        @Assisted RootLetters rootLetters);
+
+    @Named(PAST_PASSIVE_TENSE_MEMBER_BUILDER)
+    TenseMemberBuilder getPastPassiveTenseMemberBuilder(@Assisted @Nullable RuleProcessor ruleProcessor,
+                                                        @Assisted Form form,
+                                                        @Assisted RootLetters rootLetters);
+
+    @Named(PRESENT_PASSIVE_TENSE_MEMBER_BUILDER)
+    TenseMemberBuilder getPresentPassiveTenseMemberBuilder(@Assisted @Nullable RuleProcessor ruleProcessor,
+                                                           @Assisted VerbRootBase verbRootBase,
+                                                           @Assisted RootLetters rootLetters);
+
+    @Named(PRESENT_PASSIVE_TENSE_MEMBER_BUILDER)
+    TenseMemberBuilder getPresentPassiveTenseMemberBuilder(@Assisted @Nullable RuleProcessor ruleProcessor,
+                                                           @Assisted Form form,
+                                                           @Assisted RootLetters rootLetters);
 }
