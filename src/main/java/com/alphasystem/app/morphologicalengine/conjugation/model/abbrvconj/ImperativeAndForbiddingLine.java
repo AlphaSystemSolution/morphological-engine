@@ -5,7 +5,7 @@ package com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj;
 
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
-import static com.alphasystem.util.HashCodeUtil.hash;
+import static java.util.Objects.hash;
 
 /**
  * @author sali
@@ -31,8 +31,6 @@ public class ImperativeAndForbiddingLine {
 
     @Override
     public int hashCode() {
-        int hc = hash(super.hashCode(), imperative);
-        hc = hash(hc, forbidding);
-        return hc;
+        return hash(imperative, forbidding);
     }
 }

@@ -8,7 +8,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.Adver
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ImperativeAndForbiddingLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.PassiveLine;
 
-import static com.alphasystem.util.HashCodeUtil.hash;
+import static java.util.Objects.hash;
 
 /**
  * @author sali
@@ -49,10 +49,6 @@ public class AbbreviatedConjugation {
 
     @Override
     public int hashCode() {
-        int hc = hash(super.hashCode(), activeLine);
-        hc = hash(hc, passiveLine);
-        hc = hash(hc, imperativeAndForbiddingLine);
-        hc = hash(hc, adverbLine);
-        return hc;
+        return hash(activeLine, passiveLine, imperativeAndForbiddingLine, adverbLine);
     }
 }

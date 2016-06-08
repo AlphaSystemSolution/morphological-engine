@@ -5,8 +5,7 @@ package com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj;
 
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
-import static com.alphasystem.util.HashCodeUtil.hash;
-import static org.apache.commons.lang3.ArrayUtils.isEmpty;
+import static java.util.Objects.hash;
 
 /**
  * @author sali
@@ -25,12 +24,6 @@ public class AdverbLine {
 
     @Override
     public int hashCode() {
-        int hc = super.hashCode();
-        if (!isEmpty(adverbs)) {
-            for (RootWord aw : adverbs) {
-                hc = hash(hc, aw);
-            }
-        }
-        return hc;
+        return hash(adverbs);
     }
 }

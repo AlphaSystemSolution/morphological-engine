@@ -6,8 +6,7 @@ package com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj;
 
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
-import static com.alphasystem.util.HashCodeUtil.hash;
-import static org.apache.commons.lang3.ArrayUtils.isEmpty;
+import static java.util.Objects.hash;
 
 /**
  * @author sali
@@ -47,15 +46,7 @@ public class ActiveLine {
 
     @Override
     public int hashCode() {
-        int hc = hash(super.hashCode(), pastTense);
-        hc = hash(hc, presentTense);
-        hc = hash(hc, activeParticipleMasculine);
-        if (!isEmpty(verbalNouns)) {
-            for (RootWord aw : verbalNouns) {
-                hc = hash(hc, aw);
-            }
-        }
-        return hc;
+        return hash(pastTense, presentTense, activeParticipleMasculine, verbalNouns);
     }
 
 }
