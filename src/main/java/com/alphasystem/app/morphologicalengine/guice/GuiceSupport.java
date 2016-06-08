@@ -1,4 +1,4 @@
-package com.alphasystem.app.sarfengine.guice;
+package com.alphasystem.app.morphologicalengine.guice;
 
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerFactory;

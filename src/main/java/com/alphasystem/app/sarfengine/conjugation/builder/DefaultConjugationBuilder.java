@@ -8,9 +8,9 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.Passi
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
+import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.app.sarfengine.conjugation.member.ConjugationMemberBuilder;
 import com.alphasystem.app.sarfengine.conjugation.member.MemberBuilderFactory;
-import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;

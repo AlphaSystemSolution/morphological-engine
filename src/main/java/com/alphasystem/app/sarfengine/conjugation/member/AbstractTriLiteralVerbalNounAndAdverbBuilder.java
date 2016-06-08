@@ -4,7 +4,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
-import static com.alphasystem.app.sarfengine.guice.GuiceSupport.getInstance;
+import static com.alphasystem.app.morphologicalengine.guice.GuiceSupport.getInstance;
 import static com.alphasystem.arabic.model.ArabicLetterType.TA_MARBUTA;
 import static com.alphasystem.arabic.model.DiacriticType.FATHA;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.NOUN_OF_PLACE_AND_TIME;

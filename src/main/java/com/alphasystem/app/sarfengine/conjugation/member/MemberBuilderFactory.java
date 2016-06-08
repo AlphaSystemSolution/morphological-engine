@@ -5,7 +5,7 @@ import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
 
-import static com.alphasystem.app.sarfengine.guice.MemberBuilderModuleOld.*;
+import static com.alphasystem.app.morphologicalengine.guice.MemberBuilderModuleOld.*;
 
 /**
  * @author sali

@@ -9,7 +9,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
-import com.alphasystem.app.sarfengine.guice.GuiceSupport;
+import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.NounRootBase;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;

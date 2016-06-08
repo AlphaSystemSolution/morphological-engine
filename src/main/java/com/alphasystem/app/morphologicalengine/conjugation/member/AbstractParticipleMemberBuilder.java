@@ -7,7 +7,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerFactory;
-import com.alphasystem.app.sarfengine.guice.GuiceSupport;
+import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.NounRootBase;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;

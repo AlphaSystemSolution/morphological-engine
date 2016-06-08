@@ -3,7 +3,7 @@ package com.alphasystem.app.morphologicalengine.conjugation.rule;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
 
-import static com.alphasystem.app.sarfengine.guice.RuleProcessorModule.*;
+import static com.alphasystem.app.morphologicalengine.guice.RuleProcessorModule.*;
 
 /**
  * @author sali

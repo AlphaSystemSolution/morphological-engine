@@ -1,7 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.rule;
 
 import com.alphasystem.app.morphologicalengine.conjugation.rule.processor.HamzahChairProcessor;
-import com.alphasystem.app.sarfengine.guice.GuiceSupport;
+import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;

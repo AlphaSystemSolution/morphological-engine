@@ -1,9 +1,9 @@
 package com.alphasystem.app.sarfengine.test;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.MorphologicalChart;
+import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.app.sarfengine.conjugation.builder.ConjugationBuilder;
 import com.alphasystem.app.sarfengine.conjugation.builder.ConjugationBuilderFactory;
-import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import org.testng.annotations.Test;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;

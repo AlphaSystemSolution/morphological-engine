@@ -8,7 +8,7 @@ import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.util.MethodNotSupportedException;
 
-import static com.alphasystem.app.sarfengine.guice.GuiceSupport.getInstance;
+import static com.alphasystem.app.morphologicalengine.guice.GuiceSupport.getInstance;
 import static com.alphasystem.arabic.model.DiacriticType.*;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.FORBIDDING;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.IMPERATIVE;

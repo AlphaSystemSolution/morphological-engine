@@ -4,7 +4,7 @@
 package com.alphasystem.app.sarfengine.test;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.*;
-import com.alphasystem.app.sarfengine.guice.GuiceSupport;
+import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;

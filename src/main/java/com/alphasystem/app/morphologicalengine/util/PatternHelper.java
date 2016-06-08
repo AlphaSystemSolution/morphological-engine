@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.alphasystem.app.sarfengine.util;
+package com.alphasystem.app.morphologicalengine.util;
 
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 

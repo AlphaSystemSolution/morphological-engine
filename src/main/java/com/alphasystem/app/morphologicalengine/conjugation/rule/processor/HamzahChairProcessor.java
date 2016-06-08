@@ -15,7 +15,7 @@ import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.*;
-import static com.alphasystem.app.sarfengine.util.PatternHelper.removeMarker;
+import static com.alphasystem.app.morphologicalengine.util.PatternHelper.removeMarker;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.ArabicWord.fromBuckWalterString;
 import static com.alphasystem.arabic.model.DiacriticType.*;

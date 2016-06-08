@@ -1,4 +1,4 @@
-package com.alphasystem.app.sarfengine.guice;
+package com.alphasystem.app.morphologicalengine.guice;
 
 import com.alphasystem.app.sarfengine.conjugation.member.MemberBuilderFactory;
 import com.alphasystem.app.sarfengine.conjugation.member.ParticipleMemberBuilder;
