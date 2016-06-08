@@ -51,10 +51,10 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
 
         removePassiveLine = removePassiveLine || (formTemplate.getPastPassiveTenseRoot() == null);
 
-        SarfKabeer sarfKabeer = createSarfKabeer(formTemplate, ruleEngine, removePassiveLine, skipRuleProcessing,
+        DetailedConjugation detailedConjugation = createSarfKabeer(formTemplate, ruleEngine, removePassiveLine, skipRuleProcessing,
                 firstRadical, secondRadical, thirdRadical, fourthRadical, verbalNouns, adverbs);
 
-        AbbreviatedConjugation abbreviatedConjugation = createSarfSagheer(sarfKabeer, removePassiveLine);
+        AbbreviatedConjugation abbreviatedConjugation = createSarfSagheer(detailedConjugation, removePassiveLine);
         ActiveLine activeLine = abbreviatedConjugation.getActiveLine();
         RootWord pastTense = activeLine.getPastTense();
         RootWord presentTense = activeLine.getPresentTense();
@@ -63,7 +63,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         ConjugationHeader conjugationHeader = createConjugationHeader(template, translation, pastTense, presentTense,
                 rootLetters);
 
-        return new MorphologicalChart(conjugationHeader, abbreviatedConjugation, sarfKabeer);
+        return new MorphologicalChart(conjugationHeader, abbreviatedConjugation, detailedConjugation);
     }
 
     @Override
@@ -315,11 +315,11 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         return detailedConjugationPairs.toArray(new DetailedConjugationPair[detailedConjugationPairs.size()]);
     }
 
-    private SarfKabeer createSarfKabeer(FormTemplate formTemplate, RuleProcessor ruleEngine, boolean removePassiveLine,
-                                        boolean skipRuleProcessing, ArabicLetterType firstRadical,
-                                        ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                        ArabicLetterType fourthRadical, List<VerbalNoun> verbalNouns,
-                                        List<NounOfPlaceAndTime> adverbs) {
+    private DetailedConjugation createSarfKabeer(FormTemplate formTemplate, RuleProcessor ruleEngine, boolean removePassiveLine,
+                                                 boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                                 ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                                 ArabicLetterType fourthRadical, List<VerbalNoun> verbalNouns,
+                                                 List<NounOfPlaceAndTime> adverbs) {
         DetailedConjugationPair activeTensePair = createActiveTensePair(formTemplate, ruleEngine, skipRuleProcessing,
                 firstRadical, secondRadical, thirdRadical, fourthRadical);
 
@@ -352,7 +352,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                     secondRadical, thirdRadical, fourthRadical);
         }
 
-        return new SarfKabeer(activeTensePair, verbalNounPairs, activeParticiplePair, passiveTensePair,
+        return new DetailedConjugation(activeTensePair, verbalNounPairs, activeParticiplePair, passiveTensePair,
                 passiveParticiplePair, imperativeAndForbiddingPair, adverbPairs);
     }
 
@@ -403,21 +403,21 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                 new ConjugationStack(rightSideRootWords, rightSideDefaultValue, rightSideTerm));
     }
 
-    private AbbreviatedConjugation createSarfSagheer(SarfKabeer sarfKabeer, boolean removePassiveLine) {
-        ActiveLine activeLine = createActiveLine(sarfKabeer);
+    private AbbreviatedConjugation createSarfSagheer(DetailedConjugation detailedConjugation, boolean removePassiveLine) {
+        ActiveLine activeLine = createActiveLine(detailedConjugation);
         PassiveLine passiveLine = null;
         if (!removePassiveLine) {
-            passiveLine = createPassiveLine(sarfKabeer);
+            passiveLine = createPassiveLine(detailedConjugation);
         }
-        ImperativeAndForbiddingLine imperativeAndForbidding = createImperativeAndForbidding(sarfKabeer);
-        AdverbLine adverbLine = createAdverbLine(sarfKabeer);
+        ImperativeAndForbiddingLine imperativeAndForbidding = createImperativeAndForbidding(detailedConjugation);
+        AdverbLine adverbLine = createAdverbLine(detailedConjugation);
         return new AbbreviatedConjugation(activeLine, passiveLine, imperativeAndForbidding, adverbLine);
     }
 
-    private ActiveLine createActiveLine(SarfKabeer sarfKabeer) {
-        DetailedConjugationPair activeTensePair = sarfKabeer.getActiveTensePair();
-        DetailedConjugationPair activeParticiplePair = sarfKabeer.getActiveParticiplePair();
-        DetailedConjugationPair[] verbalNounPairs = sarfKabeer.getVerbalNounPairs();
+    private ActiveLine createActiveLine(DetailedConjugation detailedConjugation) {
+        DetailedConjugationPair activeTensePair = detailedConjugation.getActiveTensePair();
+        DetailedConjugationPair activeParticiplePair = detailedConjugation.getActiveParticiplePair();
+        DetailedConjugationPair[] verbalNounPairs = detailedConjugation.getVerbalNounPairs();
 
         ConjugationStack rightSideStack = activeTensePair.getRightSideStack();
         ConjugationStack leftSideStack = activeTensePair.getLeftSideStack();
@@ -440,10 +440,10 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                 getDefaultValues(verbalNounPairs));
     }
 
-    private PassiveLine createPassiveLine(SarfKabeer sarfKabeer) {
-        DetailedConjugationPair passiveTensePair = sarfKabeer.getPassiveTensePair();
-        DetailedConjugationPair activeParticiplePair = sarfKabeer.getPassiveParticiplePair();
-        DetailedConjugationPair[] verbalNounPairs = sarfKabeer.getVerbalNounPairs();
+    private PassiveLine createPassiveLine(DetailedConjugation detailedConjugation) {
+        DetailedConjugationPair passiveTensePair = detailedConjugation.getPassiveTensePair();
+        DetailedConjugationPair activeParticiplePair = detailedConjugation.getPassiveParticiplePair();
+        DetailedConjugationPair[] verbalNounPairs = detailedConjugation.getVerbalNounPairs();
 
         ConjugationStack rightSideStack = passiveTensePair.getRightSideStack();
         ConjugationStack leftSideStack = passiveTensePair.getLeftSideStack();
@@ -466,8 +466,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                 getDefaultValues(verbalNounPairs));
     }
 
-    private ImperativeAndForbiddingLine createImperativeAndForbidding(SarfKabeer sarfKabeer) {
-        DetailedConjugationPair imperativeAndForbiddingPair = sarfKabeer.getImperativeAndForbiddingPair();
+    private ImperativeAndForbiddingLine createImperativeAndForbidding(DetailedConjugation detailedConjugation) {
+        DetailedConjugationPair imperativeAndForbiddingPair = detailedConjugation.getImperativeAndForbiddingPair();
 
         ConjugationStack rightSideStack = imperativeAndForbiddingPair.getRightSideStack();
         ConjugationStack leftSideStack = imperativeAndForbiddingPair.getLeftSideStack();
@@ -482,8 +482,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         return new ImperativeAndForbiddingLine(imperative, forbidding);
     }
 
-    private AdverbLine createAdverbLine(SarfKabeer sarfKabeer) {
-        return new AdverbLine(getDefaultValues(sarfKabeer.getAdverbPairs()));
+    private AdverbLine createAdverbLine(DetailedConjugation detailedConjugation) {
+        return new AdverbLine(getDefaultValues(detailedConjugation.getAdverbPairs()));
     }
 
     private RootWord[] getDefaultValues(DetailedConjugationPair[] detailedConjugationPairs) {

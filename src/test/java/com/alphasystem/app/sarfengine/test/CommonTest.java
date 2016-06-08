@@ -198,15 +198,15 @@ public class CommonTest implements ArabicLetters, Constants {
     }
 
     public static void printConjugation(MorphologicalChart morphologicalChart) {
-        SarfKabeer sarfKabeer = morphologicalChart.getSarfKabeer();
-        DetailedConjugationPair detailedConjugationPair = sarfKabeer.getActiveTensePair();
+        DetailedConjugation detailedConjugation = morphologicalChart.getDetailedConjugation();
+        DetailedConjugationPair detailedConjugationPair = detailedConjugation.getActiveTensePair();
 
         ConjugationStack leftSideStack = detailedConjugationPair.getLeftSideStack();
         ConjugationStack rightSideStack = detailedConjugationPair.getRightSideStack();
         printTable(leftSideStack.getConjugations(), rightSideStack.getConjugations(), leftSideStack.getLabel(),
                 rightSideStack.getLabel(), true);
 
-        detailedConjugationPair = sarfKabeer.getActiveParticiplePair();
+        detailedConjugationPair = detailedConjugation.getActiveParticiplePair();
         leftSideStack = detailedConjugationPair.getLeftSideStack();
         rightSideStack = detailedConjugationPair.getRightSideStack();
         printTable(leftSideStack.getConjugations(), rightSideStack.getConjugations(), leftSideStack.getLabel(),

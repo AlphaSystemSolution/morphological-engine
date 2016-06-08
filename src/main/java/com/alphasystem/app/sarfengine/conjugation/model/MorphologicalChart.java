@@ -12,18 +12,18 @@ import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 public class MorphologicalChart {
 
     private final AbbreviatedConjugation abbreviatedConjugation;
-    private final SarfKabeer sarfKabeer;
+    private final DetailedConjugation detailedConjugation;
     private final ConjugationHeader conjugationHeader;
 
     /**
      * @param conjugationHeader
      * @param abbreviatedConjugation
-     * @param sarfKabeer
+     * @param detailedConjugation
      */
-    public MorphologicalChart(ConjugationHeader conjugationHeader, AbbreviatedConjugation abbreviatedConjugation, SarfKabeer sarfKabeer) {
+    public MorphologicalChart(ConjugationHeader conjugationHeader, AbbreviatedConjugation abbreviatedConjugation, DetailedConjugation detailedConjugation) {
         this.conjugationHeader = conjugationHeader;
         this.abbreviatedConjugation = abbreviatedConjugation;
-        this.sarfKabeer = sarfKabeer;
+        this.detailedConjugation = detailedConjugation;
     }
 
     @Override
@@ -56,8 +56,8 @@ public class MorphologicalChart {
         return conjugationHeader == null ? new RootLetters() : conjugationHeader.getRootLetters();
     }
 
-    public SarfKabeer getSarfKabeer() {
-        return sarfKabeer;
+    public DetailedConjugation getDetailedConjugation() {
+        return detailedConjugation;
     }
 
     public AbbreviatedConjugation getAbbreviatedConjugation() {

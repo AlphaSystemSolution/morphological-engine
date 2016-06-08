@@ -6,7 +6,7 @@ package com.alphasystem.app.sarfengine.conjugation.model;
 /**
  * @author sali
  */
-public class SarfKabeer {
+public class DetailedConjugation {
 
     private final DetailedConjugationPair activeTensePair;
 
@@ -22,10 +22,10 @@ public class SarfKabeer {
 
     private final DetailedConjugationPair[] adverbPairs;
 
-    public SarfKabeer(DetailedConjugationPair activeTensePair,
-                      DetailedConjugationPair[] verbalNounPairs, DetailedConjugationPair activeParticiplePair,
-                      DetailedConjugationPair passiveTensePair, DetailedConjugationPair passiveParticiplePair,
-                      DetailedConjugationPair imperativeAndForbiddingPair, DetailedConjugationPair[] adverbPairs) {
+    public DetailedConjugation(DetailedConjugationPair activeTensePair,
+                               DetailedConjugationPair[] verbalNounPairs, DetailedConjugationPair activeParticiplePair,
+                               DetailedConjugationPair passiveTensePair, DetailedConjugationPair passiveParticiplePair,
+                               DetailedConjugationPair imperativeAndForbiddingPair, DetailedConjugationPair[] adverbPairs) {
         this.activeTensePair = activeTensePair;
         this.verbalNounPairs = verbalNounPairs;
         this.activeParticiplePair = activeParticiplePair;
