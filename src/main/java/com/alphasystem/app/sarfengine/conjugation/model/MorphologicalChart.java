@@ -9,28 +9,28 @@ import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 /**
  * @author sali
  */
-public class SarfChart {
+public class MorphologicalChart {
 
-    private final SarfSagheer sarfSagheer;
+    private final AbbreviatedConjugation abbreviatedConjugation;
     private final SarfKabeer sarfKabeer;
     private final ConjugationHeader conjugationHeader;
 
     /**
      * @param conjugationHeader
-     * @param sarfSagheer
+     * @param abbreviatedConjugation
      * @param sarfKabeer
      */
-    public SarfChart(ConjugationHeader conjugationHeader, SarfSagheer sarfSagheer, SarfKabeer sarfKabeer) {
+    public MorphologicalChart(ConjugationHeader conjugationHeader, AbbreviatedConjugation abbreviatedConjugation, SarfKabeer sarfKabeer) {
         this.conjugationHeader = conjugationHeader;
-        this.sarfSagheer = sarfSagheer;
+        this.abbreviatedConjugation = abbreviatedConjugation;
         this.sarfKabeer = sarfKabeer;
     }
 
     @Override
     public boolean equals(Object obj) {
         boolean result = false;
-        if (obj != null && SarfChart.class.isAssignableFrom(obj.getClass())) {
-            SarfChart other = (SarfChart) obj;
+        if (obj != null && MorphologicalChart.class.isAssignableFrom(obj.getClass())) {
+            MorphologicalChart other = (MorphologicalChart) obj;
             SarfChartComparator c = new SarfChartComparator();
             result = c.compare(this, other) == 0;
         }
@@ -60,8 +60,8 @@ public class SarfChart {
         return sarfKabeer;
     }
 
-    public SarfSagheer getSarfSagheer() {
-        return sarfSagheer;
+    public AbbreviatedConjugation getAbbreviatedConjugation() {
+        return abbreviatedConjugation;
     }
 
 }

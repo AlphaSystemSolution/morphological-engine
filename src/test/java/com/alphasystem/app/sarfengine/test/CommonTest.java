@@ -197,18 +197,18 @@ public class CommonTest implements ArabicLetters, Constants {
         log(TABLE_DECLERATION_END);
     }
 
-    public static void printConjugation(SarfChart sarfChart) {
-        SarfKabeer sarfKabeer = sarfChart.getSarfKabeer();
-        SarfKabeerPair sarfKabeerPair = sarfKabeer.getActiveTensePair();
+    public static void printConjugation(MorphologicalChart morphologicalChart) {
+        SarfKabeer sarfKabeer = morphologicalChart.getSarfKabeer();
+        DetailedConjugationPair detailedConjugationPair = sarfKabeer.getActiveTensePair();
 
-        ConjugationStack leftSideStack = sarfKabeerPair.getLeftSideStack();
-        ConjugationStack rightSideStack = sarfKabeerPair.getRightSideStack();
+        ConjugationStack leftSideStack = detailedConjugationPair.getLeftSideStack();
+        ConjugationStack rightSideStack = detailedConjugationPair.getRightSideStack();
         printTable(leftSideStack.getConjugations(), rightSideStack.getConjugations(), leftSideStack.getLabel(),
                 rightSideStack.getLabel(), true);
 
-        sarfKabeerPair = sarfKabeer.getActiveParticiplePair();
-        leftSideStack = sarfKabeerPair.getLeftSideStack();
-        rightSideStack = sarfKabeerPair.getRightSideStack();
+        detailedConjugationPair = sarfKabeer.getActiveParticiplePair();
+        leftSideStack = detailedConjugationPair.getLeftSideStack();
+        rightSideStack = detailedConjugationPair.getRightSideStack();
         printTable(leftSideStack.getConjugations(), rightSideStack.getConjugations(), leftSideStack.getLabel(),
                 rightSideStack.getLabel(), false);
     }

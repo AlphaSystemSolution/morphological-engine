@@ -3,6 +3,9 @@ package com.alphasystem.app.sarfengine.conjugation.model;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V12;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.Noun.*;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.*;
@@ -155,6 +158,14 @@ public enum Form {
             new NounRootBase[]{new VerbalNounRootBase(VERBAL_NOUN_FORM_X)},
             new NounRootBase[]{new ParticipleRootBase(FORM_X_MASCULINE_PASSIVE_PARTICIPLE, FORM_X_FEMININE_PASSIVE_PARTICIPLE)});
 
+    private static final Map<NamedTemplate, Form> CACHED_VALUES = new HashMap<>();
+
+    static {
+        for (Form form : values()) {
+            CACHED_VALUES.put(form.getTemplate(), form);
+        }
+    }
+
     private final NamedTemplate template;
     private final VerbRootBase pastTense;
     private final VerbRootBase presentTense;
@@ -193,6 +204,10 @@ public enum Form {
          NounRootBase[] adverbs) {
         this(template, pastTense, presentTense, null, null, activeParticipleMasculine, activeParticipleFeminine, null,
                 null, imperative, forbidding, verbalNouns, adverbs);
+    }
+
+    public static Form getByTemplate(NamedTemplate template) {
+        return CACHED_VALUES.get(template);
     }
 
     public NamedTemplate getTemplate() {

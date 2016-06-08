@@ -6,12 +6,12 @@ package com.alphasystem.app.sarfengine.conjugation.model;
 /**
  * @author sali
  */
-public class SarfKabeerPair {
+public class DetailedConjugationPair {
 
     private final ConjugationStack rightSideStack;
     private final ConjugationStack leftSideStack;
 
-    public SarfKabeerPair(ConjugationStack leftSideStack, ConjugationStack rightSideStack) {
+    public DetailedConjugationPair(ConjugationStack leftSideStack, ConjugationStack rightSideStack) {
         this.leftSideStack = leftSideStack;
         this.rightSideStack = rightSideStack;
     }

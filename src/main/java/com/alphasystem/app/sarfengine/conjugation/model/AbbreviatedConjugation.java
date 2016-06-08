@@ -13,7 +13,7 @@ import static com.alphasystem.util.HashCodeUtil.hash;
 /**
  * @author sali
  */
-public class SarfSagheer {
+public class AbbreviatedConjugation {
 
     private final ActiveLine activeLine;
 
@@ -23,11 +23,11 @@ public class SarfSagheer {
 
     private final AdverbLine adverbLine;
 
-    public SarfSagheer(ActiveLine activeLine, PassiveLine passiveLine,
-                       ImperativeAndForbiddingLine commnadLine, AdverbLine adverbLine) {
+    public AbbreviatedConjugation(ActiveLine activeLine, PassiveLine passiveLine,
+                                  ImperativeAndForbiddingLine commandLine, AdverbLine adverbLine) {
         this.activeLine = activeLine;
         this.passiveLine = passiveLine;
-        this.imperativeAndForbiddingLine = commnadLine;
+        this.imperativeAndForbiddingLine = commandLine;
         this.adverbLine = adverbLine;
     }
 

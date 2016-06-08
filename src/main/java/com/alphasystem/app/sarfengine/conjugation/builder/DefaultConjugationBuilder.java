@@ -41,11 +41,11 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
     }
 
     @Override
-    public SarfChart doConjugation(NamedTemplate template, String translation, boolean removePassiveLine,
-                                   boolean skipRuleProcessing, ArabicLetterType firstRadical,
-                                   ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                   ArabicLetterType fourthRadical, List<VerbalNoun> verbalNouns,
-                                   List<NounOfPlaceAndTime> adverbs) {
+    public MorphologicalChart doConjugation(NamedTemplate template, String translation, boolean removePassiveLine,
+                                            boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                            ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                            ArabicLetterType fourthRadical, List<VerbalNoun> verbalNouns,
+                                            List<NounOfPlaceAndTime> adverbs) {
         FormTemplate formTemplate = FormTemplate.getByNamedTemplate(template);
         RuleProcessor ruleEngine = RULE_PROCESSOR_FACTORY.getRuleEngine(new RuleInfo(template));
 
@@ -54,8 +54,8 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         SarfKabeer sarfKabeer = createSarfKabeer(formTemplate, ruleEngine, removePassiveLine, skipRuleProcessing,
                 firstRadical, secondRadical, thirdRadical, fourthRadical, verbalNouns, adverbs);
 
-        SarfSagheer sarfSagheer = createSarfSagheer(sarfKabeer, removePassiveLine);
-        ActiveLine activeLine = sarfSagheer.getActiveLine();
+        AbbreviatedConjugation abbreviatedConjugation = createSarfSagheer(sarfKabeer, removePassiveLine);
+        ActiveLine activeLine = abbreviatedConjugation.getActiveLine();
         RootWord pastTense = activeLine.getPastTense();
         RootWord presentTense = activeLine.getPresentTense();
         RootLetters rootLetters = new RootLetters().withFirstRadical(firstRadical).withSecondRadical(secondRadical)
@@ -63,14 +63,14 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         ConjugationHeader conjugationHeader = createConjugationHeader(template, translation, pastTense, presentTense,
                 rootLetters);
 
-        return new SarfChart(conjugationHeader, sarfSagheer, sarfKabeer);
+        return new MorphologicalChart(conjugationHeader, abbreviatedConjugation, sarfKabeer);
     }
 
     @Override
-    public SarfChart doConjugation(NamedTemplate template, String translation, boolean removePassiveLine,
-                                   boolean skipRuleProcessing, ArabicLetterType firstRadical,
-                                   ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                   List<VerbalNoun> verbalNouns, List<NounOfPlaceAndTime> adverbs) {
+    public MorphologicalChart doConjugation(NamedTemplate template, String translation, boolean removePassiveLine,
+                                            boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                            ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                            List<VerbalNoun> verbalNouns, List<NounOfPlaceAndTime> adverbs) {
         return doConjugation(template, translation, removePassiveLine, skipRuleProcessing, firstRadical, secondRadical,
                 thirdRadical, null, verbalNouns, adverbs);
     }
@@ -115,10 +115,10 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         return new ConjugationHeader(translation, pastTenseRoot, presentTenseRoot, template.getLabel(), chartMode, rootLetters);
     }
 
-    private SarfKabeerPair createActiveTensePair(FormTemplate formTemplate, RuleProcessor ruleEngine,
-                                                 boolean skipRuleProcessing, ArabicLetterType firstRadical,
-                                                 ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                                 ArabicLetterType fourthRadical) {
+    private DetailedConjugationPair createActiveTensePair(FormTemplate formTemplate, RuleProcessor ruleEngine,
+                                                          boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                                          ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                                          ArabicLetterType fourthRadical) {
         ConjugationMemberBuilder rightSideBuilder;
         ConjugationMemberBuilder leftSideBuilder;
 
@@ -142,10 +142,10 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         return createSarfKabeerPair(leftSideBuilder, rightSideBuilder, leftSideRootWord, rightSideRootWord);
     }
 
-    private SarfKabeerPair createActiveParticiplePair(FormTemplate formTemplate, RuleProcessor ruleEngine,
-                                                      boolean skipRuleProcessing, ArabicLetterType firstRadical,
-                                                      ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                                      ArabicLetterType fourthRadical) {
+    private DetailedConjugationPair createActiveParticiplePair(FormTemplate formTemplate, RuleProcessor ruleEngine,
+                                                               boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                                               ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                                               ArabicLetterType fourthRadical) {
         ConjugationMemberBuilder rightSideBuilder;
         ConjugationMemberBuilder leftSideBuilder;
 
@@ -169,10 +169,10 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         return createSarfKabeerPair(leftSideBuilder, rightSideBuilder, leftSideRootWord, rightSideRootWord);
     }
 
-    private SarfKabeerPair createPassiveTensePair(FormTemplate formTemplate, RuleProcessor ruleEngine,
-                                                  boolean skipRuleProcessing, ArabicLetterType firstRadical,
-                                                  ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                                  ArabicLetterType fourthRadical) {
+    private DetailedConjugationPair createPassiveTensePair(FormTemplate formTemplate, RuleProcessor ruleEngine,
+                                                           boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                                           ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                                           ArabicLetterType fourthRadical) {
         ConjugationMemberBuilder rightSideBuilder;
         ConjugationMemberBuilder leftSideBuilder;
 
@@ -195,10 +195,10 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         return createSarfKabeerPair(leftSideBuilder, rightSideBuilder, leftSideRootWord, rightSideRootWord);
     }
 
-    private SarfKabeerPair createPassiveParticiplePair(FormTemplate formTemplate, RuleProcessor ruleEngine,
-                                                       boolean skipRuleProcessing, ArabicLetterType firstRadical,
-                                                       ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                                       ArabicLetterType fourthRadical) {
+    private DetailedConjugationPair createPassiveParticiplePair(FormTemplate formTemplate, RuleProcessor ruleEngine,
+                                                                boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                                                ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                                                ArabicLetterType fourthRadical) {
         ConjugationMemberBuilder rightSideBuilder;
         ConjugationMemberBuilder leftSideBuilder;
 
@@ -222,10 +222,10 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         return createSarfKabeerPair(leftSideBuilder, rightSideBuilder, leftSideRootWord, rightSideRootWord);
     }
 
-    private SarfKabeerPair createImperativeAndForbiddingPair(FormTemplate formTemplate, RuleProcessor ruleEngine,
-                                                             boolean skipRuleProcessing, ArabicLetterType firstRadical,
-                                                             ArabicLetterType secondRadical,
-                                                             ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+    private DetailedConjugationPair createImperativeAndForbiddingPair(FormTemplate formTemplate, RuleProcessor ruleEngine,
+                                                                      boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                                                      ArabicLetterType secondRadical,
+                                                                      ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
         ConjugationMemberBuilder rightSideBuilder;
         ConjugationMemberBuilder leftSideBuilder;
 
@@ -247,16 +247,16 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         return createSarfKabeerPair(leftSideBuilder, rightSideBuilder, leftSideRootWord, rightSideRootWord);
     }
 
-    private SarfKabeerPair[] createVerbalNounPairs(List<VerbalNoun> verbalNouns, RuleProcessor ruleEngine,
-                                                   boolean skipRuleProcessing, ArabicLetterType firstRadical,
-                                                   ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                                   ArabicLetterType fourthRadical) {
+    private DetailedConjugationPair[] createVerbalNounPairs(List<VerbalNoun> verbalNouns, RuleProcessor ruleEngine,
+                                                            boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                                            ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                                            ArabicLetterType fourthRadical) {
         ConjugationMemberBuilder rightSideBuilder;
         ConjugationMemberBuilder leftSideBuilder;
         RootWord rightSideRootWord;
         RootWord leftSideRootWord;
 
-        List<SarfKabeerPair> sarfKabeerPairs = new ArrayList<>();
+        List<DetailedConjugationPair> detailedConjugationPairs = new ArrayList<>();
         int len = verbalNouns.size();
         int index = 0;
         while (true) {
@@ -275,22 +275,22 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             leftSideBuilder = leftSideRootWord == null ? null :
                     getVerbalNounBuilder(leftSideVerbalNoun, ruleEngine, skipRuleProcessing, leftSideRootWord);
 
-            sarfKabeerPairs.add(createSarfKabeerPair(leftSideBuilder, rightSideBuilder, leftSideRootWord, rightSideRootWord));
+            detailedConjugationPairs.add(createSarfKabeerPair(leftSideBuilder, rightSideBuilder, leftSideRootWord, rightSideRootWord));
         }
 
-        return sarfKabeerPairs.toArray(new SarfKabeerPair[sarfKabeerPairs.size()]);
+        return detailedConjugationPairs.toArray(new DetailedConjugationPair[detailedConjugationPairs.size()]);
     }
 
-    private SarfKabeerPair[] createAdverbPairs(List<NounOfPlaceAndTime> adverbs, RuleProcessor ruleEngine,
-                                               boolean skipRuleProcessing, ArabicLetterType firstRadical,
-                                               ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                               ArabicLetterType fourthRadical) {
+    private DetailedConjugationPair[] createAdverbPairs(List<NounOfPlaceAndTime> adverbs, RuleProcessor ruleEngine,
+                                                        boolean skipRuleProcessing, ArabicLetterType firstRadical,
+                                                        ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                                        ArabicLetterType fourthRadical) {
         ConjugationMemberBuilder rightSideBuilder;
         ConjugationMemberBuilder leftSideBuilder;
         RootWord rightSideRootWord;
         RootWord leftSideRootWord;
 
-        List<SarfKabeerPair> sarfKabeerPairs = new ArrayList<>();
+        List<DetailedConjugationPair> detailedConjugationPairs = new ArrayList<>();
         int len = adverbs.size();
         int index = 0;
         while (true) {
@@ -309,10 +309,10 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
             leftSideBuilder = leftSideRootWord == null ? null :
                     getAdverbBuilder(leftSideAdverb, ruleEngine, skipRuleProcessing, leftSideRootWord);
 
-            sarfKabeerPairs.add(createSarfKabeerPair(leftSideBuilder, rightSideBuilder, leftSideRootWord, rightSideRootWord));
+            detailedConjugationPairs.add(createSarfKabeerPair(leftSideBuilder, rightSideBuilder, leftSideRootWord, rightSideRootWord));
         }
 
-        return sarfKabeerPairs.toArray(new SarfKabeerPair[sarfKabeerPairs.size()]);
+        return detailedConjugationPairs.toArray(new DetailedConjugationPair[detailedConjugationPairs.size()]);
     }
 
     private SarfKabeer createSarfKabeer(FormTemplate formTemplate, RuleProcessor ruleEngine, boolean removePassiveLine,
@@ -320,20 +320,20 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                                         ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
                                         ArabicLetterType fourthRadical, List<VerbalNoun> verbalNouns,
                                         List<NounOfPlaceAndTime> adverbs) {
-        SarfKabeerPair activeTensePair = createActiveTensePair(formTemplate, ruleEngine, skipRuleProcessing,
+        DetailedConjugationPair activeTensePair = createActiveTensePair(formTemplate, ruleEngine, skipRuleProcessing,
                 firstRadical, secondRadical, thirdRadical, fourthRadical);
 
-        SarfKabeerPair[] verbalNounPairs = null;
+        DetailedConjugationPair[] verbalNounPairs = null;
         if (verbalNouns != null && !verbalNouns.isEmpty()) {
             verbalNounPairs = createVerbalNounPairs(verbalNouns, ruleEngine, skipRuleProcessing, firstRadical,
                     secondRadical, thirdRadical, fourthRadical);
         }
 
-        SarfKabeerPair activeParticiplePair = createActiveParticiplePair(formTemplate, ruleEngine, skipRuleProcessing,
+        DetailedConjugationPair activeParticiplePair = createActiveParticiplePair(formTemplate, ruleEngine, skipRuleProcessing,
                 firstRadical, secondRadical, thirdRadical, fourthRadical);
 
-        SarfKabeerPair passiveTensePair = null;
-        SarfKabeerPair passiveParticiplePair = null;
+        DetailedConjugationPair passiveTensePair = null;
+        DetailedConjugationPair passiveParticiplePair = null;
 
         if (!removePassiveLine) {
             passiveTensePair = createPassiveTensePair(formTemplate, ruleEngine, skipRuleProcessing,
@@ -343,10 +343,10 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                     firstRadical, secondRadical, thirdRadical, fourthRadical);
         }
 
-        SarfKabeerPair imperativeAndForbiddingPair = createImperativeAndForbiddingPair(formTemplate, ruleEngine,
+        DetailedConjugationPair imperativeAndForbiddingPair = createImperativeAndForbiddingPair(formTemplate, ruleEngine,
                 skipRuleProcessing, firstRadical, secondRadical, thirdRadical, fourthRadical);
 
-        SarfKabeerPair[] adverbPairs = null;
+        DetailedConjugationPair[] adverbPairs = null;
         if (adverbs != null && !adverbs.isEmpty()) {
             adverbPairs = createAdverbPairs(adverbs, ruleEngine, skipRuleProcessing, firstRadical,
                     secondRadical, thirdRadical, fourthRadical);
@@ -356,10 +356,10 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
                 passiveParticiplePair, imperativeAndForbiddingPair, adverbPairs);
     }
 
-    private SarfKabeerPair createSarfKabeerPair(ConjugationMemberBuilder leftSideBuilder,
-                                                ConjugationMemberBuilder rightSideBuilder,
-                                                RootWord leftSideRootWord,
-                                                RootWord rightSideRootWord) {
+    private DetailedConjugationPair createSarfKabeerPair(ConjugationMemberBuilder leftSideBuilder,
+                                                         ConjugationMemberBuilder rightSideBuilder,
+                                                         RootWord leftSideRootWord,
+                                                         RootWord rightSideRootWord) {
         if (leftSideRootWord == null && rightSideRootWord == null) {
             return null;
         }
@@ -374,9 +374,9 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         return createSarfKabeerPair(leftSideBuilder, rightSideBuilder, leftSideTerm, rightSideTerm);
     }
 
-    private SarfKabeerPair createSarfKabeerPair(ConjugationMemberBuilder leftSideBuilder,
-                                                ConjugationMemberBuilder rightSideBuilder,
-                                                SarfTermType leftSideTerm, SarfTermType rightSideTerm) {
+    private DetailedConjugationPair createSarfKabeerPair(ConjugationMemberBuilder leftSideBuilder,
+                                                         ConjugationMemberBuilder rightSideBuilder,
+                                                         SarfTermType leftSideTerm, SarfTermType rightSideTerm) {
         RootWord[] rightSideRootWords = null;
         RootWord rightSideDefaultValue = null;
         RootWord[] leftSideRootWords = null;
@@ -398,12 +398,12 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         if (leftSideRootWords == null && rightSideRootWords != null) {
             leftSideRootWords = new RootWord[rightSideRootWords.length];
         }
-        return new SarfKabeerPair(
+        return new DetailedConjugationPair(
                 new ConjugationStack(leftSideRootWords, leftSideDefaultValue, leftSideTerm),
                 new ConjugationStack(rightSideRootWords, rightSideDefaultValue, rightSideTerm));
     }
 
-    private SarfSagheer createSarfSagheer(SarfKabeer sarfKabeer, boolean removePassiveLine) {
+    private AbbreviatedConjugation createSarfSagheer(SarfKabeer sarfKabeer, boolean removePassiveLine) {
         ActiveLine activeLine = createActiveLine(sarfKabeer);
         PassiveLine passiveLine = null;
         if (!removePassiveLine) {
@@ -411,13 +411,13 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         }
         ImperativeAndForbiddingLine imperativeAndForbidding = createImperativeAndForbidding(sarfKabeer);
         AdverbLine adverbLine = createAdverbLine(sarfKabeer);
-        return new SarfSagheer(activeLine, passiveLine, imperativeAndForbidding, adverbLine);
+        return new AbbreviatedConjugation(activeLine, passiveLine, imperativeAndForbidding, adverbLine);
     }
 
     private ActiveLine createActiveLine(SarfKabeer sarfKabeer) {
-        SarfKabeerPair activeTensePair = sarfKabeer.getActiveTensePair();
-        SarfKabeerPair activeParticiplePair = sarfKabeer.getActiveParticiplePair();
-        SarfKabeerPair[] verbalNounPairs = sarfKabeer.getVerbalNounPairs();
+        DetailedConjugationPair activeTensePair = sarfKabeer.getActiveTensePair();
+        DetailedConjugationPair activeParticiplePair = sarfKabeer.getActiveParticiplePair();
+        DetailedConjugationPair[] verbalNounPairs = sarfKabeer.getVerbalNounPairs();
 
         ConjugationStack rightSideStack = activeTensePair.getRightSideStack();
         ConjugationStack leftSideStack = activeTensePair.getLeftSideStack();
@@ -441,9 +441,9 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
     }
 
     private PassiveLine createPassiveLine(SarfKabeer sarfKabeer) {
-        SarfKabeerPair passiveTensePair = sarfKabeer.getPassiveTensePair();
-        SarfKabeerPair activeParticiplePair = sarfKabeer.getPassiveParticiplePair();
-        SarfKabeerPair[] verbalNounPairs = sarfKabeer.getVerbalNounPairs();
+        DetailedConjugationPair passiveTensePair = sarfKabeer.getPassiveTensePair();
+        DetailedConjugationPair activeParticiplePair = sarfKabeer.getPassiveParticiplePair();
+        DetailedConjugationPair[] verbalNounPairs = sarfKabeer.getVerbalNounPairs();
 
         ConjugationStack rightSideStack = passiveTensePair.getRightSideStack();
         ConjugationStack leftSideStack = passiveTensePair.getLeftSideStack();
@@ -467,7 +467,7 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
     }
 
     private ImperativeAndForbiddingLine createImperativeAndForbidding(SarfKabeer sarfKabeer) {
-        SarfKabeerPair imperativeAndForbiddingPair = sarfKabeer.getImperativeAndForbiddingPair();
+        DetailedConjugationPair imperativeAndForbiddingPair = sarfKabeer.getImperativeAndForbiddingPair();
 
         ConjugationStack rightSideStack = imperativeAndForbiddingPair.getRightSideStack();
         ConjugationStack leftSideStack = imperativeAndForbiddingPair.getLeftSideStack();
@@ -486,14 +486,14 @@ public class DefaultConjugationBuilder implements ConjugationBuilder {
         return new AdverbLine(getDefaultValues(sarfKabeer.getAdverbPairs()));
     }
 
-    private RootWord[] getDefaultValues(SarfKabeerPair[] sarfKabeerPairs) {
+    private RootWord[] getDefaultValues(DetailedConjugationPair[] detailedConjugationPairs) {
         ConjugationStack rightSideStack;
         ConjugationStack leftSideStack;
-        int len = sarfKabeerPairs == null ? 0 : sarfKabeerPairs.length;
+        int len = detailedConjugationPairs == null ? 0 : detailedConjugationPairs.length;
         List<RootWord> rootWords = new ArrayList<>();
         if (len > 0) {
             for (int i = 0; i < len; i++) {
-                SarfKabeerPair verbalNounPair = sarfKabeerPairs[i];
+                DetailedConjugationPair verbalNounPair = detailedConjugationPairs[i];
                 rightSideStack = verbalNounPair.getRightSideStack();
                 leftSideStack = verbalNounPair.getLeftSideStack();
                 if (rightSideStack != null) {

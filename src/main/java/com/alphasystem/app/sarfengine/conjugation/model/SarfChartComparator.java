@@ -21,7 +21,7 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sor
 /**
  * @author sali
  */
-public class SarfChartComparator implements Comparator<SarfChart> {
+public class SarfChartComparator implements Comparator<MorphologicalChart> {
 
     private SortDirective sortDirective;
 
@@ -52,7 +52,7 @@ public class SarfChartComparator implements Comparator<SarfChart> {
     }
 
     @Override
-    public int compare(SarfChart o1, SarfChart o2) {
+    public int compare(MorphologicalChart o1, MorphologicalChart o2) {
         if (sortDirective.equals(NONE)) {
             return 1;
         }
@@ -73,7 +73,7 @@ public class SarfChartComparator implements Comparator<SarfChart> {
         return result;
     }
 
-    private int compareAlphabatically(SarfChart o1, SarfChart o2) {
+    private int compareAlphabatically(MorphologicalChart o1, MorphologicalChart o2) {
         ConjugationMember pt1 = getPastTense(o1);
         ConjugationMember pt2 = getPastTense(o2);
         return compareArabicWords(pt1, pt2);
@@ -98,7 +98,7 @@ public class SarfChartComparator implements Comparator<SarfChart> {
         }
     }
 
-    private int compareByType(SarfChart o1, SarfChart o2) {
+    private int compareByType(MorphologicalChart o1, MorphologicalChart o2) {
         int result = 0;
         ChartMode cm1 = o1.getHeader().getChartMode();
         ChartMode cm2 = o2.getHeader().getChartMode();
@@ -175,12 +175,12 @@ public class SarfChartComparator implements Comparator<SarfChart> {
         return t1.compareTo(t2);
     }
 
-    private ConjugationMember getPastTense(SarfChart sarfChart) {
+    private ConjugationMember getPastTense(MorphologicalChart morphologicalChart) {
         ConjugationMember arabicWord = null;
-        if (sarfChart != null) {
-            SarfSagheer sarfSagheer = sarfChart.getSarfSagheer();
-            if (sarfSagheer != null) {
-                ActiveLine activeLine = sarfSagheer.getActiveLine();
+        if (morphologicalChart != null) {
+            AbbreviatedConjugation abbreviatedConjugation = morphologicalChart.getAbbreviatedConjugation();
+            if (abbreviatedConjugation != null) {
+                ActiveLine activeLine = abbreviatedConjugation.getActiveLine();
                 if (activeLine != null) {
                     //TODO:
                     //arabicWord = activeLine.getPastTense();

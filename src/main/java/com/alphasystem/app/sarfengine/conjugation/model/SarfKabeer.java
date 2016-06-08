@@ -8,24 +8,24 @@ package com.alphasystem.app.sarfengine.conjugation.model;
  */
 public class SarfKabeer {
 
-    private final SarfKabeerPair activeTensePair;
+    private final DetailedConjugationPair activeTensePair;
 
-    private final SarfKabeerPair[] verbalNounPairs;
+    private final DetailedConjugationPair[] verbalNounPairs;
 
-    private final SarfKabeerPair activeParticiplePair;
+    private final DetailedConjugationPair activeParticiplePair;
 
-    private final SarfKabeerPair passiveTensePair;
+    private final DetailedConjugationPair passiveTensePair;
 
-    private final SarfKabeerPair passiveParticiplePair;
+    private final DetailedConjugationPair passiveParticiplePair;
 
-    private final SarfKabeerPair imperativeAndForbiddingPair;
+    private final DetailedConjugationPair imperativeAndForbiddingPair;
 
-    private final SarfKabeerPair[] adverbPairs;
+    private final DetailedConjugationPair[] adverbPairs;
 
-    public SarfKabeer(SarfKabeerPair activeTensePair,
-                      SarfKabeerPair[] verbalNounPairs, SarfKabeerPair activeParticiplePair,
-                      SarfKabeerPair passiveTensePair, SarfKabeerPair passiveParticiplePair,
-                      SarfKabeerPair imperativeAndForbiddingPair, SarfKabeerPair[] adverbPairs) {
+    public SarfKabeer(DetailedConjugationPair activeTensePair,
+                      DetailedConjugationPair[] verbalNounPairs, DetailedConjugationPair activeParticiplePair,
+                      DetailedConjugationPair passiveTensePair, DetailedConjugationPair passiveParticiplePair,
+                      DetailedConjugationPair imperativeAndForbiddingPair, DetailedConjugationPair[] adverbPairs) {
         this.activeTensePair = activeTensePair;
         this.verbalNounPairs = verbalNounPairs;
         this.activeParticiplePair = activeParticiplePair;
@@ -35,31 +35,31 @@ public class SarfKabeer {
         this.adverbPairs = adverbPairs;
     }
 
-    public SarfKabeerPair getActiveParticiplePair() {
+    public DetailedConjugationPair getActiveParticiplePair() {
         return activeParticiplePair;
     }
 
-    public SarfKabeerPair getActiveTensePair() {
+    public DetailedConjugationPair getActiveTensePair() {
         return activeTensePair;
     }
 
-    public SarfKabeerPair getImperativeAndForbiddingPair() {
+    public DetailedConjugationPair getImperativeAndForbiddingPair() {
         return imperativeAndForbiddingPair;
     }
 
-    public SarfKabeerPair[] getVerbalNounPairs() {
+    public DetailedConjugationPair[] getVerbalNounPairs() {
         return verbalNounPairs;
     }
 
-    public SarfKabeerPair getPassiveParticiplePair() {
+    public DetailedConjugationPair getPassiveParticiplePair() {
         return passiveParticiplePair;
     }
 
-    public SarfKabeerPair getPassiveTensePair() {
+    public DetailedConjugationPair getPassiveTensePair() {
         return passiveTensePair;
     }
 
-    public SarfKabeerPair[] getAdverbPairs() {
+    public DetailedConjugationPair[] getAdverbPairs() {
         return adverbPairs;
     }
 }

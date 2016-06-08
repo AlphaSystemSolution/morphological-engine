@@ -2,7 +2,7 @@ package com.alphasystem.app.sarfengine.test;
 
 import com.alphasystem.app.sarfengine.conjugation.builder.ConjugationBuilder;
 import com.alphasystem.app.sarfengine.conjugation.builder.ConjugationBuilderFactory;
-import com.alphasystem.app.sarfengine.conjugation.model.SarfChart;
+import com.alphasystem.app.sarfengine.conjugation.model.MorphologicalChart;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import org.testng.annotations.Test;
 
@@ -23,13 +23,13 @@ public class ConjugationTest extends CommonTest {
     public void runConjugationBuilder() {
         ConjugationBuilderFactory cbf = GuiceSupport.getInstance().getConjugationBuilderFactory();
         ConjugationBuilder cb = cbf.getConjugationBuilder();
-        SarfChart sarfChart = cb.doConjugation(FORM_IV_TEMPLATE, "To send down", false, false, NOON, ZAIN, LAM,
+        MorphologicalChart morphologicalChart = cb.doConjugation(FORM_IV_TEMPLATE, "To send down", false, false, NOON, ZAIN, LAM,
                 asList(VERBAL_NOUN_FORM_IV), asList(NOUN_OF_PLACE_AND_TIME_FORM_IV));
-        printConjugation(sarfChart);
+        printConjugation(morphologicalChart);
 
-        sarfChart = cb.doConjugation(FORM_IX_TEMPLATE, "To collapse", true, false, NOON, QAF, DDAD,
+        morphologicalChart = cb.doConjugation(FORM_IX_TEMPLATE, "To collapse", true, false, NOON, QAF, DDAD,
                 asList(VERBAL_NOUN_FORM_IX), null);
-        printConjugation(sarfChart);
+        printConjugation(morphologicalChart);
     }
 
 }
