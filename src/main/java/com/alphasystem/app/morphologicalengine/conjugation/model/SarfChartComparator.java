@@ -3,7 +3,7 @@
  */
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
-import com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer.ActiveLine;
+import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ActiveLine;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.arabic.model.RootType;
 import com.alphasystem.arabic.model.VerbType;
