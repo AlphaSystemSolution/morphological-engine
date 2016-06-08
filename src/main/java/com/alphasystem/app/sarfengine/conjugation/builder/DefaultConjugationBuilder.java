@@ -5,11 +5,11 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.Activ
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.AdverbLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ImperativeAndForbiddingLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.PassiveLine;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.sarfengine.conjugation.member.ConjugationMemberBuilder;
 import com.alphasystem.app.sarfengine.conjugation.member.MemberBuilderFactory;
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;

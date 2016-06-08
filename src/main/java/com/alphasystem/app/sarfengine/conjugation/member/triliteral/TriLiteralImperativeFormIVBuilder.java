@@ -1,6 +1,6 @@
 package com.alphasystem.app.sarfengine.conjugation.member.triliteral;
 
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;

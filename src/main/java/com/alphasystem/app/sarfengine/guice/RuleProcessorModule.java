@@ -1,9 +1,9 @@
 package com.alphasystem.app.sarfengine.guice;
 
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleEngine;
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
-import com.alphasystem.app.sarfengine.conjugation.rule.processor.*;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleEngine;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.processor.*;
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 

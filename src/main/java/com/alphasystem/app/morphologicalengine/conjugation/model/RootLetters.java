@@ -39,4 +39,8 @@ public final class RootLetters {
         return fourthRadical;
     }
 
+    public boolean hasFourthRadical() {
+        return fourthRadical != null;
+    }
+
 }

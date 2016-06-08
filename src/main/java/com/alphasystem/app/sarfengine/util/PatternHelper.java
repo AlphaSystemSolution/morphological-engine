@@ -8,7 +8,7 @@ import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor.REMOVE_MARKER;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.AbstractRuleProcessor.REMOVE_MARKER;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.ArabicWord.fromBuckWalterString;
 import static com.alphasystem.arabic.model.DiacriticType.*;

@@ -1,6 +1,6 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.noun;
 
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
 

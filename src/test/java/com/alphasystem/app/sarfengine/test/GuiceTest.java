@@ -1,14 +1,7 @@
 package com.alphasystem.app.sarfengine.test;
 
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
-import com.alphasystem.app.sarfengine.guice.GuiceSupport;
-import com.alphasystem.arabic.model.ArabicLetterType;
-import com.alphasystem.arabic.model.DiacriticType;
-import com.alphasystem.arabic.model.NamedTemplate;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
 import org.testng.annotations.Test;
-
-import static com.alphasystem.arabic.model.NamedTemplate.FORM_IV_TEMPLATE;
 
 /**
  * @author sali

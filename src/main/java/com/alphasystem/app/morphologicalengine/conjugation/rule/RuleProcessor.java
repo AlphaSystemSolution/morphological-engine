@@ -1,4 +1,4 @@
-package com.alphasystem.app.sarfengine.conjugation.rule;
+package com.alphasystem.app.morphologicalengine.conjugation.rule;
 
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 

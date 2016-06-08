@@ -1,11 +1,11 @@
 /**
  *
  */
-package com.alphasystem.app.sarfengine.conjugation.rule.processor;
+package com.alphasystem.app.morphologicalengine.conjugation.rule.processor;
 
-import com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor;
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.AbstractRuleProcessor;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper;
 import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
@@ -14,7 +14,7 @@ import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
-import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.*;
 import static com.alphasystem.app.sarfengine.util.PatternHelper.removeMarker;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.ArabicWord.fromBuckWalterString;

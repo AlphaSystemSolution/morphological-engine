@@ -7,7 +7,7 @@ import com.alphasystem.app.sarfengine.util.PatternHelper;
 import com.alphasystem.arabic.model.ArabicWord;
 import org.testng.annotations.Test;
 
-import static com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor.REMOVE_MARKER;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.AbstractRuleProcessor.REMOVE_MARKER;
 import static com.alphasystem.app.sarfengine.util.PatternHelper.*;
 import static com.alphasystem.arabic.model.ArabicWord.fromBuckWalterString;
 import static java.lang.String.format;

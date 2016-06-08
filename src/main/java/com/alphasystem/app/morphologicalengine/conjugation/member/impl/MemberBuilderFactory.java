@@ -4,7 +4,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.member.ParticipleMemb
 import com.alphasystem.app.morphologicalengine.conjugation.member.TenseMemberBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
 import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.morphologicalanalysis.morphology.model.NounRootBase;
 import com.alphasystem.morphologicalanalysis.morphology.model.VerbRootBase;
 import com.google.inject.assistedinject.Assisted;

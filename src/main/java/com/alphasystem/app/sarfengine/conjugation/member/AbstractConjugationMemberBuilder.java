@@ -1,6 +1,6 @@
 package com.alphasystem.app.sarfengine.conjugation.member;
 
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.arabic.model.SarfMemberType;

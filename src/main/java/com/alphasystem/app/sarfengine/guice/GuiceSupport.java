@@ -1,12 +1,12 @@
 package com.alphasystem.app.sarfengine.guice;
 
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerFactory;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerModule;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerFactory;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerModule;
 import com.alphasystem.app.sarfengine.conjugation.builder.ConjugationBuilderFactory;
 import com.alphasystem.app.sarfengine.conjugation.member.MemberBuilderFactory;
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.mycila.guice.ext.closeable.CloseableModule;

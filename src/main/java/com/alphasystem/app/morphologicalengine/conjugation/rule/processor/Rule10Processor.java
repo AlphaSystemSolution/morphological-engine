@@ -1,22 +1,22 @@
 /**
  *
  */
-package com.alphasystem.app.sarfengine.conjugation.rule.processor;
+package com.alphasystem.app.morphologicalengine.conjugation.rule.processor;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.WordStatus;
-import com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor;
-import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.AbstractRuleProcessor;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper;
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
+import org.apache.commons.lang3.ArrayUtils;
 
-import static com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorHelper.*;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.DiacriticType.SUKUN;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
-import static org.apache.commons.lang3.ArrayUtils.contains;
 
 ;
 
@@ -33,7 +33,7 @@ public class Rule10Processor extends AbstractRuleProcessor {
     @Override
     public RootWord applyRules(RootWord baseRootWord) {
         try {
-            checkArgument(baseRootWord, null, new SarfTermType[]{IMPERATIVE,
+            RuleProcessorHelper.checkArgument(baseRootWord, null, new SarfTermType[]{IMPERATIVE,
                     FORBIDDING});
         } catch (IllegalArgumentException e) {
             return baseRootWord;
@@ -48,18 +48,18 @@ public class Rule10Processor extends AbstractRuleProcessor {
                 || PRESENT_PASSIVE_TENSE.equals(sarfTermType);
         SarfMemberType memberType = baseRootWord.getMemberType();
         ArabicLetter secondRadical = baseRootWord.getSecondRadical();
-        DiacriticType secondRadicalDiacritic = getDiacritic(secondRadical);
-        boolean secondRadicalHasFatha = isFatha(secondRadicalDiacritic);
+        DiacriticType secondRadicalDiacritic = RuleProcessorHelper.getDiacritic(secondRadical);
+        boolean secondRadicalHasFatha = RuleProcessorHelper.isFatha(secondRadicalDiacritic);
         ArabicLetter thirdRadical = baseRootWord.getThirdRadical();
         boolean weakYa = thirdRadical.getLetter().equals(YA);
         int thirdRadicalIndex = baseRootWord.getThirdRadicalIndex();
-        boolean secondRadicalIsDamma = isDamma(secondRadicalDiacritic);
+        boolean secondRadicalIsDamma = RuleProcessorHelper.isDamma(secondRadicalDiacritic);
         @SuppressWarnings("unused")
-        DiacriticType thirdRadicalDiacritic = getDiacritic(thirdRadical);
+        DiacriticType thirdRadicalDiacritic = RuleProcessorHelper.getDiacritic(thirdRadical);
         if (imperfect) {
             ArabicLetter replacementLetter = thirdRadical;
-            if (contains(IMPERFECT_SINGULAR, memberType)) {
-                boolean kasraOrDamma = isKasra(secondRadicalDiacritic)
+            if (ArrayUtils.contains(RuleProcessorHelper.IMPERFECT_SINGULAR, memberType)) {
+                boolean kasraOrDamma = RuleProcessorHelper.isKasra(secondRadicalDiacritic)
                         || secondRadicalIsDamma;
                 ArabicLetterType thirdRadicalLetter = secondRadicalHasFatha
                         || (kasraOrDamma && weakYa) ? ALIF_MAKSURA : WAW;

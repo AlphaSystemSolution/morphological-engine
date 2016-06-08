@@ -1,4 +1,4 @@
-package com.alphasystem.app.sarfengine.conjugation.rule;
+package com.alphasystem.app.morphologicalengine.conjugation.rule;
 
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
