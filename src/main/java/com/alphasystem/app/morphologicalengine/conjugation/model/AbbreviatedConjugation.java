@@ -3,10 +3,10 @@
  */
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
-import com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer.ActiveLine;
-import com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer.AdverbLine;
-import com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer.ImperativeAndForbiddingLine;
-import com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer.PassiveLine;
+import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ActiveLine;
+import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.AdverbLine;
+import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ImperativeAndForbiddingLine;
+import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.PassiveLine;
 
 import static com.alphasystem.util.HashCodeUtil.hash;
 

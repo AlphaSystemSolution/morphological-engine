@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer;
+package com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj;
 
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
