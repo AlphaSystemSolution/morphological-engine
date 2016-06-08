@@ -1,6 +1,6 @@
 package com.alphasystem.app.sarfengine.conjugation.builder;
 
-import com.alphasystem.app.sarfengine.conjugation.model.MorphologicalChart;
+import com.alphasystem.app.morphologicalengine.conjugation.model.MorphologicalChart;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime;

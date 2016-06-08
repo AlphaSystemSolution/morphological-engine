@@ -1,6 +1,6 @@
 package com.alphasystem.app.sarfengine.test;
 
-import com.alphasystem.app.sarfengine.conjugation.model.FormTemplate;
+import com.alphasystem.app.morphologicalengine.conjugation.model.FormTemplate;
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.*;
@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.alphasystem.app.sarfengine.conjugation.model.FormTemplate.*;
+import static com.alphasystem.app.morphologicalengine.conjugation.model.FormTemplate.*;
 import static com.alphasystem.util.AppUtil.NEW_LINE;
 import static java.lang.String.format;
 import static java.util.Collections.addAll;

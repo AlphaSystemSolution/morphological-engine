@@ -1,7 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.member;
 
-import com.alphasystem.app.sarfengine.conjugation.model.Form;
-import com.alphasystem.app.sarfengine.conjugation.model.RootLetters;
+import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
+import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

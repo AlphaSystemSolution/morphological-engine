@@ -1,4 +1,4 @@
-package com.alphasystem.app.sarfengine.conjugation.model;
+package com.alphasystem.app.morphologicalengine.conjugation.model;
 
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.*;

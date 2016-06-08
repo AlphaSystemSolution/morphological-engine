@@ -1,7 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.verb;
 
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugation;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.Transformer;
-import com.alphasystem.app.sarfengine.conjugation.model.VerbConjugation;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
 /**

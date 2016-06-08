@@ -3,7 +3,7 @@
  */
 package com.alphasystem.app.sarfengine.conjugation.rule.processor;
 
-import com.alphasystem.app.sarfengine.conjugation.model.WordStatus;
+import com.alphasystem.app.morphologicalengine.conjugation.model.WordStatus;
 import com.alphasystem.app.sarfengine.conjugation.rule.AbstractRuleProcessor;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
 import com.alphasystem.arabic.model.*;

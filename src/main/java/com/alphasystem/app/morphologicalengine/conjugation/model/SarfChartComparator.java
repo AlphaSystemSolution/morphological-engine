@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.alphasystem.app.sarfengine.conjugation.model;
+package com.alphasystem.app.morphologicalengine.conjugation.model;
 
 import com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer.ActiveLine;
 import com.alphasystem.arabic.model.NamedTemplate;

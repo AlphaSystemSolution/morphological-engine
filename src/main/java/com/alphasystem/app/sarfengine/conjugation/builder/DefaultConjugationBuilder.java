@@ -1,8 +1,8 @@
 package com.alphasystem.app.sarfengine.conjugation.builder;
 
+import com.alphasystem.app.morphologicalengine.conjugation.model.*;
 import com.alphasystem.app.sarfengine.conjugation.member.ConjugationMemberBuilder;
 import com.alphasystem.app.sarfengine.conjugation.member.MemberBuilderFactory;
-import com.alphasystem.app.sarfengine.conjugation.model.*;
 import com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer.ActiveLine;
 import com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer.AdverbLine;
 import com.alphasystem.app.sarfengine.conjugation.model.sarfsagheer.ImperativeAndForbiddingLine;

@@ -1,7 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.member;
 
 
-import com.alphasystem.app.sarfengine.conjugation.model.VerbConjugationGroup;
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugationGroup;
 
 /**
  * @author sali

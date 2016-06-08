@@ -1,11 +1,11 @@
 package com.alphasystem.app.morphologicalengine.conjugation.member;
 
+import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
+import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugation;
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugationGroup;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformer;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerFactory;
-import com.alphasystem.app.sarfengine.conjugation.model.Form;
-import com.alphasystem.app.sarfengine.conjugation.model.RootLetters;
-import com.alphasystem.app.sarfengine.conjugation.model.VerbConjugation;
-import com.alphasystem.app.sarfengine.conjugation.model.VerbConjugationGroup;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.sarfengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicLetterType;

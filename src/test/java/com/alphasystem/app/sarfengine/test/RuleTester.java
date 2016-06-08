@@ -3,7 +3,7 @@
  */
 package com.alphasystem.app.sarfengine.test;
 
-import com.alphasystem.app.sarfengine.conjugation.model.FormTemplate;
+import com.alphasystem.app.morphologicalengine.conjugation.model.FormTemplate;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;

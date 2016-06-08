@@ -1,6 +1,6 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer;
 
-import com.alphasystem.app.sarfengine.conjugation.model.NounConjugation;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugation;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 

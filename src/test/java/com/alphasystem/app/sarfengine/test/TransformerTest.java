@@ -1,18 +1,18 @@
 package com.alphasystem.app.sarfengine.test;
 
+import com.alphasystem.app.morphologicalengine.conjugation.model.FormTemplate;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugation;
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugation;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerFactory;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformer;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerFactory;
-import com.alphasystem.app.sarfengine.conjugation.model.FormTemplate;
-import com.alphasystem.app.sarfengine.conjugation.model.NounConjugation;
-import com.alphasystem.app.sarfengine.conjugation.model.VerbConjugation;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
 import org.testng.annotations.Test;
 
-import static com.alphasystem.app.sarfengine.conjugation.model.FormTemplate.*;
+import static com.alphasystem.app.morphologicalengine.conjugation.model.FormTemplate.*;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.HiddenNounStatus.*;
 import static com.alphasystem.arabic.model.HiddenPronounStatus.*;

@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.alphasystem.app.sarfengine.conjugation.model;
+package com.alphasystem.app.morphologicalengine.conjugation.model;
 
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;

@@ -2,10 +2,10 @@ package com.alphasystem.app.sarfengine.test;
 
 import com.alphasystem.app.morphologicalengine.conjugation.member.ParticipleMemberBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.member.impl.MemberBuilderFactory;
-import com.alphasystem.app.sarfengine.conjugation.model.Form;
-import com.alphasystem.app.sarfengine.conjugation.model.NounConjugation;
-import com.alphasystem.app.sarfengine.conjugation.model.NounConjugationGroup;
-import com.alphasystem.app.sarfengine.conjugation.model.RootLetters;
+import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugation;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugationGroup;
+import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.sarfengine.conjugation.rule.RuleProcessorFactory;
