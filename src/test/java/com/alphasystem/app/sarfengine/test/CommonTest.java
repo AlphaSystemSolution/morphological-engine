@@ -201,14 +201,14 @@ public class CommonTest implements ArabicLetters, Constants {
         DetailedConjugation detailedConjugation = morphologicalChart.getDetailedConjugation();
         DetailedConjugationPair detailedConjugationPair = detailedConjugation.getActiveTensePair();
 
-        ConjugationStack leftSideStack = detailedConjugationPair.getLeftSideStack();
-        ConjugationStack rightSideStack = detailedConjugationPair.getRightSideStack();
+        ConjugationStack leftSideStack = detailedConjugationPair.getLeftSideConjugations();
+        ConjugationStack rightSideStack = detailedConjugationPair.getRightSideConjugations();
         printTable(leftSideStack.getConjugations(), rightSideStack.getConjugations(), leftSideStack.getLabel(),
                 rightSideStack.getLabel(), true);
 
         detailedConjugationPair = detailedConjugation.getActiveParticiplePair();
-        leftSideStack = detailedConjugationPair.getLeftSideStack();
-        rightSideStack = detailedConjugationPair.getRightSideStack();
+        leftSideStack = detailedConjugationPair.getLeftSideConjugations();
+        rightSideStack = detailedConjugationPair.getRightSideConjugations();
         printTable(leftSideStack.getConjugations(), rightSideStack.getConjugations(), leftSideStack.getLabel(),
                 rightSideStack.getLabel(), false);
     }

@@ -102,6 +102,7 @@ public abstract class AbstractTenseMemberBuilder extends AbstractConjugationMemb
                     firstRadical, secondRadical, thirdRadical, fourthRadical));
             conjugationGroup.setFirstPerson(doTransform(firstPersonTransformer, rootBase.getRoot(), firstRadical,
                     secondRadical, thirdRadical, fourthRadical));
+            conjugationGroup.setTermType(getTermType());
         }
         return conjugationGroup;
     }

@@ -1,5 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+
 /**
  * @author sali
  */
@@ -11,14 +13,9 @@ public final class NounConjugationGroup {
 
     private NounConjugation plural;
 
-    public NounConjugationGroup() {
-        this(null, null, null);
-    }
+    private SarfTermType termType;
 
-    public NounConjugationGroup(NounConjugation singular, NounConjugation dual, NounConjugation plural) {
-        setSingular(singular);
-        setDual(dual);
-        setPlural(plural);
+    public NounConjugationGroup() {
     }
 
     public NounConjugation getSingular() {
@@ -43,5 +40,13 @@ public final class NounConjugationGroup {
 
     public void setPlural(NounConjugation plural) {
         this.plural = plural;
+    }
+
+    public SarfTermType getTermType() {
+        return termType;
+    }
+
+    public void setTermType(SarfTermType termType) {
+        this.termType = termType;
     }
 }

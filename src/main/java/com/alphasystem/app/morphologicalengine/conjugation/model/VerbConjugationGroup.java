@@ -1,5 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+
 /**
  * @author sali
  */
@@ -15,17 +17,9 @@ public final class VerbConjugationGroup {
 
     private VerbConjugation firstPerson;
 
-    public VerbConjugationGroup() {
-        this(null, null, null, null, null);
-    }
+    private SarfTermType termType;
 
-    public VerbConjugationGroup(VerbConjugation masculineThirdPerson, VerbConjugation feminineThirdPerson,
-                                VerbConjugation masculineSecondPerson, VerbConjugation feminineSecondPerson, VerbConjugation firstPerson) {
-        setMasculineThirdPerson(masculineThirdPerson);
-        setFeminineThirdPerson(feminineThirdPerson);
-        setMasculineSecondPerson(masculineSecondPerson);
-        setFeminineSecondPerson(feminineSecondPerson);
-        setFirstPerson(firstPerson);
+    public VerbConjugationGroup() {
     }
 
     public VerbConjugation getMasculineThirdPerson() {
@@ -66,5 +60,14 @@ public final class VerbConjugationGroup {
 
     public void setFirstPerson(VerbConjugation firstPerson) {
         this.firstPerson = firstPerson;
+    }
+
+
+    public SarfTermType getTermType() {
+        return termType;
+    }
+
+    public void setTermType(SarfTermType termType) {
+        this.termType = termType;
     }
 }

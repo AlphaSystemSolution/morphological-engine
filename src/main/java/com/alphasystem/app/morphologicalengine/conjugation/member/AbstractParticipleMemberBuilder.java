@@ -101,6 +101,7 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
                     firstRadical, secondRadical, thirdRadical, fourthRadical));
             conjugationGroup.setPlural(doTransform(pluralTransformer, (NounSupport) rootBase.getPluralBaseWord(),
                     firstRadical, secondRadical, thirdRadical, fourthRadical));
+            conjugationGroup.setTermType(getTermType());
         }
         return conjugationGroup;
     }

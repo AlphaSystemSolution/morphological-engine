@@ -6,21 +6,22 @@ package com.alphasystem.app.morphologicalengine.conjugation.model;
 /**
  * @author sali
  */
-public class DetailedConjugationPair {
+public class DetailedConjugationPair<G> {
 
-    private final ConjugationStack rightSideStack;
-    private final ConjugationStack leftSideStack;
+    private final G leftSideConjugations;
+    private final G rightSideConjugations;
 
-    public DetailedConjugationPair(ConjugationStack leftSideStack, ConjugationStack rightSideStack) {
-        this.leftSideStack = leftSideStack;
-        this.rightSideStack = rightSideStack;
+    public DetailedConjugationPair(G leftSideConjugations, G rightSideConjugations) {
+        this.leftSideConjugations = leftSideConjugations;
+        this.rightSideConjugations = rightSideConjugations;
     }
 
-    public ConjugationStack getLeftSideStack() {
-        return leftSideStack;
+    public G getLeftSideConjugations() {
+        return leftSideConjugations;
     }
 
-    public ConjugationStack getRightSideStack() {
-        return rightSideStack;
+    public G getRightSideConjugations() {
+        return rightSideConjugations;
     }
+
 }
