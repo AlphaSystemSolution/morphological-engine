@@ -1,15 +1,9 @@
 package com.alphasystem.app.morphologicalengine.conjugation.member;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
-import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugation;
-import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugationGroup;
-import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
+import com.alphasystem.app.morphologicalengine.conjugation.model.*;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
-import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerFactory;
-import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicLetterType;
-import com.alphasystem.morphologicalanalysis.morphology.model.NounRootBase;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.NounSupport;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
@@ -22,8 +16,6 @@ import static java.lang.String.format;
  */
 public abstract class AbstractParticipleMemberBuilder extends AbstractConjugationMemberBuilder<NounConjugationGroup, NounRootBase>
         implements ParticipleMemberBuilder {
-
-    protected static NounTransformerFactory nounTransformerFactory = GuiceSupport.getInstance().getNounTransformerFactory();
 
     protected NounTransformer singularTransformer;
 
@@ -70,21 +62,17 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
 
     @Override
     protected void initializeTransformers() {
-        initializeSingularTransformer();
-        initializeDualTransformer();
-        initializePluralTransformer();
-    }
+        NounSupport baseWord = (NounSupport) rootBase.getSingularBaseWord();
+        String name = (baseWord == null) ? null : baseWord.getSingularRootName();
+        singularTransformer = GUICE_SUPPORT.getNounTransformer(name);
 
-    protected void initializeSingularTransformer() {
-        singularTransformer = nounTransformerFactory.getMasculineEndingSoundTransformer(getRuleProcessor());
-    }
+        baseWord = (NounSupport) rootBase.getDualBaseWord();
+        name = (baseWord == null) ? null : baseWord.getDualRootName();
+        dualTransformer = GUICE_SUPPORT.getNounTransformer(name);
 
-    protected void initializeDualTransformer() {
-        dualTransformer = nounTransformerFactory.getMasculineDualTransformer(getRuleProcessor());
-    }
-
-    protected void initializePluralTransformer() {
-        pluralTransformer = nounTransformerFactory.getMasculinePluralTransformer(getRuleProcessor());
+        baseWord = (NounSupport) rootBase.getPluralBaseWord();
+        name = (baseWord == null) ? null : baseWord.getPluralRootName();
+        pluralTransformer = GUICE_SUPPORT.getNounTransformer(name);
     }
 
     @Override
@@ -109,7 +97,7 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
     private NounConjugation doTransform(NounTransformer transformer, NounSupport baseWord, ArabicLetterType firstRadical,
                                         ArabicLetterType secondRadical, ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
         if (transformer != null && baseWord != null) {
-            return transformer.doTransform(new RootWord(baseWord.getRootWord()).withSarfTermType(getTermType()),
+            return transformer.doTransform(getRuleProcessor(), new RootWord(baseWord.getRootWord()).withSarfTermType(getTermType()),
                     firstRadical, secondRadical, thirdRadical, fourthRadical);
         }
         return null;

@@ -3,6 +3,7 @@ package com.alphasystem.app.morphologicalengine.conjugation.member;
 import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
 import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
+import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +13,8 @@ import javax.annotation.PostConstruct;
  * @author sali
  */
 public abstract class AbstractConjugationMemberBuilder<G, B> implements ConjugationMemberBuilder<G> {
+
+    protected static final GuiceSupport GUICE_SUPPORT = GuiceSupport.getInstance();
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
     protected G conjugationGroup;

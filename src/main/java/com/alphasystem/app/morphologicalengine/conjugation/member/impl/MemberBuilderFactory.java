@@ -3,10 +3,10 @@ package com.alphasystem.app.morphologicalengine.conjugation.member.impl;
 import com.alphasystem.app.morphologicalengine.conjugation.member.ParticipleMemberBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.member.TenseMemberBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.morphologicalanalysis.morphology.model.NounRootBase;
-import com.alphasystem.morphologicalanalysis.morphology.model.VerbRootBase;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
 

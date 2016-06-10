@@ -2,16 +2,12 @@ package com.alphasystem.app.sarfengine.test;
 
 import com.alphasystem.app.morphologicalengine.conjugation.member.ParticipleMemberBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.member.impl.MemberBuilderFactory;
-import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
-import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugation;
-import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugationGroup;
-import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
+import com.alphasystem.app.morphologicalengine.conjugation.model.*;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.NamedTemplate;
-import com.alphasystem.morphologicalanalysis.morphology.model.NounRootBase;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import org.testng.annotations.Test;

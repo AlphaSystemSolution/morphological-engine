@@ -2,10 +2,6 @@ package com.alphasystem.app.morphologicalengine.conjugation.transformer.noun;
 
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
-
-import javax.annotation.Nullable;
 
 import static com.alphasystem.arabic.model.HiddenNounStatus.*;
 
@@ -14,23 +10,22 @@ import static com.alphasystem.arabic.model.HiddenNounStatus.*;
  */
 public class NonFlexibleNounTransformer extends AbstractNounTransformer {
 
-    @AssistedInject
-    NonFlexibleNounTransformer(@Assisted @Nullable RuleProcessor ruleProcessor) {
-        super(ruleProcessor);
+    NonFlexibleNounTransformer() {
+        super();
     }
 
     @Override
-    protected RootWord doNominative(RootWord rootWord) {
-        return processRules(copyRootWord(rootWord, NOMINATIVE_PLURAL));
+    protected RootWord doNominative(RuleProcessor ruleProcessor, RootWord rootWord) {
+        return processRules(ruleProcessor, copyRootWord(rootWord, NOMINATIVE_PLURAL));
     }
 
     @Override
-    protected RootWord doAccusative(RootWord rootWord) {
-        return processRules(copyRootWord(doNominative(rootWord), ACCUSATIVE_PLURAL));
+    protected RootWord doAccusative(RuleProcessor ruleProcessor, RootWord rootWord) {
+        return copyRootWord(doNominative(ruleProcessor, rootWord), ACCUSATIVE_PLURAL);
     }
 
     @Override
-    protected RootWord doGenitive(RootWord rootWord) {
-        return copyRootWord(doNominative(rootWord), GENITIVE_PLURAL);
+    protected RootWord doGenitive(RuleProcessor ruleProcessor, RootWord rootWord) {
+        return copyRootWord(doNominative(ruleProcessor, rootWord), GENITIVE_PLURAL);
     }
 }

@@ -1,16 +1,10 @@
 package com.alphasystem.app.morphologicalengine.conjugation.member;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
-import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
-import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugation;
-import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugationGroup;
+import com.alphasystem.app.morphologicalengine.conjugation.model.*;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformer;
-import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerFactory;
-import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
-import com.alphasystem.morphologicalanalysis.morphology.model.VerbRootBase;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.RootWordSupport;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
@@ -21,8 +15,6 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sar
  */
 public abstract class AbstractTenseMemberBuilder extends AbstractConjugationMemberBuilder<VerbConjugationGroup, VerbRootBase>
         implements TenseMemberBuilder {
-
-    protected static VerbTransformerFactory verbTransformerFactory = GuiceSupport.getInstance().getVerbTransformerFactory();
 
     protected VerbTransformer thirdPersonMasculineTransformer;
     protected VerbTransformer thirdPersonFeminineTransformer;
@@ -110,7 +102,7 @@ public abstract class AbstractTenseMemberBuilder extends AbstractConjugationMemb
     private VerbConjugation doTransform(VerbTransformer transformer, RootWordSupport baseWord, ArabicLetterType firstRadical,
                                         ArabicLetterType secondRadical, ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
         if (transformer != null && baseWord != null) {
-            return transformer.doTransform(new RootWord(baseWord.getRootWord()).withSarfTermType(getTermType()),
+            return transformer.doTransform(getRuleProcessor(), new RootWord(baseWord.getRootWord()).withSarfTermType(getTermType()),
                     firstRadical, secondRadical, thirdRadical, fourthRadical);
         }
         return null;

@@ -3,7 +3,8 @@
  */
 package com.alphasystem.app.sarfengine.test;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.*;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugation;
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugation;
 import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
@@ -195,22 +196,6 @@ public class CommonTest implements ArabicLetters, Constants {
         log(TABLE_BODY_DECLERATION_END);
 
         log(TABLE_DECLERATION_END);
-    }
-
-    public static void printConjugation(MorphologicalChart morphologicalChart) {
-        DetailedConjugation detailedConjugation = morphologicalChart.getDetailedConjugation();
-        DetailedConjugationPair detailedConjugationPair = detailedConjugation.getActiveTensePair();
-
-        ConjugationStack leftSideStack = detailedConjugationPair.getLeftSideConjugations();
-        ConjugationStack rightSideStack = detailedConjugationPair.getRightSideConjugations();
-        printTable(leftSideStack.getConjugations(), rightSideStack.getConjugations(), leftSideStack.getLabel(),
-                rightSideStack.getLabel(), true);
-
-        detailedConjugationPair = detailedConjugation.getActiveParticiplePair();
-        leftSideStack = detailedConjugationPair.getLeftSideConjugations();
-        rightSideStack = detailedConjugationPair.getRightSideConjugations();
-        printTable(leftSideStack.getConjugations(), rightSideStack.getConjugations(), leftSideStack.getLabel(),
-                rightSideStack.getLabel(), false);
     }
 
     public static RootWord processReplacements(RootWord src, ArabicLetterType firstRadical,

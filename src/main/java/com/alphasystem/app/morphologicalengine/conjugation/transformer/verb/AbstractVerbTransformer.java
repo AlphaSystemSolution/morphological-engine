@@ -11,20 +11,18 @@ import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
  */
 public abstract class AbstractVerbTransformer extends AbstractTransformer<VerbConjugation> implements VerbTransformer {
 
-    protected AbstractVerbTransformer(RuleProcessor ruleProcessor) {
-        super(ruleProcessor);
-    }
-
     @Override
-    public VerbConjugation doTransform(RootWord rootWord, ArabicLetterType firstRadical, ArabicLetterType
-            secondRadical, ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+    public VerbConjugation doTransform(RuleProcessor ruleProcessor, RootWord rootWord, ArabicLetterType firstRadical,
+                                       ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                       ArabicLetterType fourthRadical) {
         RootWord baseWord = createRootWord(rootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
-        return new VerbConjugation(doSingular(baseWord), doDual(baseWord), doPlural(baseWord));
+        return new VerbConjugation(doSingular(ruleProcessor, baseWord), doDual(ruleProcessor, baseWord),
+                doPlural(ruleProcessor, baseWord));
     }
 
-    protected abstract RootWord doSingular(RootWord rootWord);
+    protected abstract RootWord doSingular(RuleProcessor ruleProcessor, RootWord rootWord);
 
-    protected abstract RootWord doDual(RootWord rootWord);
+    protected abstract RootWord doDual(RuleProcessor ruleProcessor, RootWord rootWord);
 
-    protected abstract RootWord doPlural(RootWord rootWord);
+    protected abstract RootWord doPlural(RuleProcessor ruleProcessor, RootWord rootWord);
 }

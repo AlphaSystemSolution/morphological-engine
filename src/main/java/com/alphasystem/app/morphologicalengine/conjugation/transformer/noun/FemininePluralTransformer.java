@@ -1,12 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.noun;
 
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
-
-import javax.annotation.Nullable;
 
 import static com.alphasystem.arabic.model.HiddenNounStatus.*;
 
@@ -15,33 +10,30 @@ import static com.alphasystem.arabic.model.HiddenNounStatus.*;
  */
 public class FemininePluralTransformer extends AbstractNounTransformer {
 
-    FemininePluralTransformer(RuleProcessor ruleProcessor, int variableIndex) {
-        super(ruleProcessor, variableIndex);
+    FemininePluralTransformer() {
+        this(LAST_LETTER);
     }
 
-    @AssistedInject
-    FemininePluralTransformer(@Assisted @Nullable RuleProcessor ruleProcessor) {
-        this(ruleProcessor, LAST_LETTER);
+    private FemininePluralTransformer(int variableIndex) {
+        super(variableIndex);
     }
 
     @Override
-    protected RootWord doNominative(RootWord rootWord) {
+    protected RootWord doNominative(RuleProcessor ruleProcessor, RootWord rootWord) {
         RootWord target = copyRootWord(rootWord, NOMINATIVE_PLURAL);
-        ArabicWord arabicWord = target.getRootWord();
-        arabicWord.replaceLetter(variableIndex, LETTER_ALIF).append(TA_WITH_DAMMATAN);
-        return processRules(target.withRootWord(arabicWord));
+        target.getRootWord().replaceLetter(variableIndex, LETTER_ALIF).append(TA_WITH_DAMMATAN);
+        return processRules(ruleProcessor, target);
     }
 
     @Override
-    protected RootWord doAccusative(RootWord rootWord) {
+    protected RootWord doAccusative(RuleProcessor ruleProcessor, RootWord rootWord) {
         RootWord target = copyRootWord(rootWord, ACCUSATIVE_PLURAL);
-        ArabicWord arabicWord = target.getRootWord();
-        arabicWord.replaceLetter(variableIndex, LETTER_ALIF).append(TA_WITH_KASRATAN);
-        return processRules(target.withRootWord(arabicWord));
+        target.getRootWord().replaceLetter(variableIndex, LETTER_ALIF).append(TA_WITH_KASRATAN);
+        return processRules(ruleProcessor, target);
     }
 
     @Override
-    protected RootWord doGenitive(RootWord rootWord) {
-        return copyRootWord(doAccusative(rootWord), GENITIVE_PLURAL);
+    protected RootWord doGenitive(RuleProcessor ruleProcessor, RootWord rootWord) {
+        return copyRootWord(doAccusative(ruleProcessor, rootWord), GENITIVE_PLURAL);
     }
 }

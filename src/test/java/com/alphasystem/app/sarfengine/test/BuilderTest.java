@@ -79,5 +79,4 @@ public class BuilderTest extends CommonTest {
                 printArabicText(targetRootWord.getRootWord())));
     }
 
-
 }

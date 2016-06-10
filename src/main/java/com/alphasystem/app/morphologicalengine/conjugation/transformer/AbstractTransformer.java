@@ -12,12 +12,6 @@ import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
  */
 public abstract class AbstractTransformer<G> implements Transformer<G>, ArabicLetters {
 
-    protected final RuleProcessor ruleProcessor;
-
-    protected AbstractTransformer(RuleProcessor ruleProcessor) {
-        this.ruleProcessor = ruleProcessor;
-    }
-
     protected static RootWord copyRootWord(RootWord rootWord, SarfMemberType memberType) {
         return new RootWord(rootWord).withMemberType(memberType);
     }
@@ -27,7 +21,7 @@ public abstract class AbstractTransformer<G> implements Transformer<G>, ArabicLe
         return new RootWord(rootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
     }
 
-    protected RootWord processRules(RootWord src) {
+    protected RootWord processRules(RuleProcessor ruleProcessor, RootWord src) {
         RootWord target = src;
         if (ruleProcessor != null) {
             target = ruleProcessor.applyRules(target);

@@ -21,22 +21,23 @@ public abstract class AbstractNounTransformer extends AbstractTransformer<NounCo
     /**
      * @throws NullPointerException if given <code>rootWord</code> is null.
      */
-    protected AbstractNounTransformer(RuleProcessor ruleProcessor) {
-        this(ruleProcessor, THIRD_RADICAL_INDEX);
+    protected AbstractNounTransformer() {
+        this(THIRD_RADICAL_INDEX);
     }
 
     /**
      * @param variableIndex index of letter which "harkah" needs to be changed or add letters to it
      * @throws NullPointerException if given <code>rootWord</code> is null.
      */
-    protected AbstractNounTransformer(RuleProcessor ruleProcessor, int variableIndex) {
-        super(ruleProcessor);
+    protected AbstractNounTransformer(int variableIndex) {
+        super();
         this.variableIndex = variableIndex;
     }
 
     @Override
-    public NounConjugation doTransform(RootWord rootWord, ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                       ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+    public NounConjugation doTransform(RuleProcessor ruleProcessor, RootWord rootWord, ArabicLetterType firstRadical,
+                                       ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                       ArabicLetterType fourthRadical) {
         RootWord baseWord = createRootWord(rootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
         final int size = baseWord.getLabel().getLength();
         if (variableIndex >= size) {
@@ -44,13 +45,14 @@ public abstract class AbstractNounTransformer extends AbstractTransformer<NounCo
         } else if (variableIndex <= THIRD_RADICAL_INDEX) {
             variableIndex = baseWord.getThirdRadicalIndex();
         }
-        return new NounConjugation(doNominative(baseWord), doAccusative(baseWord), doGenitive(baseWord));
+        return new NounConjugation(doNominative(ruleProcessor, baseWord), doAccusative(ruleProcessor, baseWord),
+                doGenitive(ruleProcessor, baseWord));
     }
 
-    protected abstract RootWord doNominative(RootWord rootWord);
+    protected abstract RootWord doNominative(RuleProcessor ruleProcessor, RootWord rootWord);
 
-    protected abstract RootWord doAccusative(RootWord rootWord);
+    protected abstract RootWord doAccusative(RuleProcessor ruleProcessor, RootWord rootWord);
 
-    protected abstract RootWord doGenitive(RootWord rootWord);
+    protected abstract RootWord doGenitive(RuleProcessor ruleProcessor, RootWord rootWord);
 
 }

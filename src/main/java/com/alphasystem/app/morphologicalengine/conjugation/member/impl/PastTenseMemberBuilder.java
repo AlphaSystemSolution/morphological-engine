@@ -3,13 +3,15 @@ package com.alphasystem.app.morphologicalengine.conjugation.member.impl;
 import com.alphasystem.app.morphologicalengine.conjugation.member.AbstractTenseMemberBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
 import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformer;
-import com.alphasystem.morphologicalanalysis.morphology.model.VerbRootBase;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
 import javax.annotation.Nullable;
+
+import static com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerModule.*;
 
 /**
  * @author sali
@@ -30,26 +32,26 @@ public class PastTenseMemberBuilder extends AbstractTenseMemberBuilder {
 
     @Override
     protected VerbTransformer initializeThirdPersonMasculineTransformer() {
-        return verbTransformerFactory.getPastTenseThirdPersonMasculineTransformer(getRuleProcessor());
+        return GUICE_SUPPORT.getVerbTransformer(PAST_TENSE_THIRD_PERSON_MASCULINE_TRANSFORMER);
     }
 
     @Override
     protected VerbTransformer initializeThirdPersonFeminineTransformer() {
-        return verbTransformerFactory.getPastTenseThirdPersonFeminineTransformer(getRuleProcessor());
+        return GUICE_SUPPORT.getVerbTransformer(PAST_TENSE_THIRD_PERSON_FEMININE_TRANSFORMER);
     }
 
     @Override
     protected VerbTransformer initializeSecondPersonMasculineTransformer() {
-        return verbTransformerFactory.getPastTenseSecondPersonMasculineTransformer(getRuleProcessor());
+        return GUICE_SUPPORT.getVerbTransformer(PAST_TENSE_SECOND_PERSON_MASCULINE_TRANSFORMER);
     }
 
     @Override
     protected VerbTransformer initializeSecondPersonFeminineTransformer() {
-        return verbTransformerFactory.getPastTenseSecondPersonFeminineTransformer(getRuleProcessor());
+        return GUICE_SUPPORT.getVerbTransformer(PAST_TENSE_SECOND_PERSON_FEMININE_TRANSFORMER);
     }
 
     @Override
     protected VerbTransformer initializeFirstPersonTransformer() {
-        return verbTransformerFactory.getPastTenseFirstPersonTransformer(getRuleProcessor());
+        return GUICE_SUPPORT.getVerbTransformer(PAST_TENSE_FIRST_PERSON_TRANSFORMER);
     }
 }
