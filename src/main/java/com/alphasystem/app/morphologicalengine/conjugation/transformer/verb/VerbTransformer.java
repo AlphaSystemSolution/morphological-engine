@@ -1,6 +1,6 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.verb;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugation;
+import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationTuple;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.Transformer;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
@@ -9,6 +9,6 @@ import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
  *
  * @author sali
  */
-public interface VerbTransformer extends Transformer<VerbConjugation> {
+public interface VerbTransformer extends Transformer<ConjugationTuple> {
 
 }

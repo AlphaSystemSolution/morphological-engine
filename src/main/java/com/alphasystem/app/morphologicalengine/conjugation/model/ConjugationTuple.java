@@ -5,7 +5,7 @@ import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 /**
  * @author sali
  */
-public final class VerbConjugation {
+public final class ConjugationTuple {
 
     private RootWord singular;
 
@@ -13,11 +13,11 @@ public final class VerbConjugation {
 
     private RootWord plural;
 
-    public VerbConjugation() {
+    public ConjugationTuple() {
         this(null, null, null);
     }
 
-    public VerbConjugation(RootWord singular, RootWord dual, RootWord plural) {
+    public ConjugationTuple(RootWord singular, RootWord dual, RootWord plural) {
         setSingular(singular);
         setDual(dual);
         setPlural(plural);

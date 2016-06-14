@@ -20,7 +20,8 @@ public class MorphologicalChart {
      * @param abbreviatedConjugation
      * @param detailedConjugation
      */
-    public MorphologicalChart(ConjugationHeader conjugationHeader, AbbreviatedConjugation abbreviatedConjugation, DetailedConjugation detailedConjugation) {
+    public MorphologicalChart(ConjugationHeader conjugationHeader, AbbreviatedConjugation abbreviatedConjugation,
+                              DetailedConjugation detailedConjugation) {
         this.conjugationHeader = conjugationHeader;
         this.abbreviatedConjugation = abbreviatedConjugation;
         this.detailedConjugation = detailedConjugation;

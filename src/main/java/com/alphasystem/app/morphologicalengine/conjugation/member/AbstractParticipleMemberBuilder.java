@@ -17,11 +17,11 @@ import static java.lang.String.format;
 public abstract class AbstractParticipleMemberBuilder extends AbstractConjugationMemberBuilder<NounConjugationGroup, NounRootBase>
         implements ParticipleMemberBuilder {
 
-    protected NounTransformer singularTransformer;
+    private NounTransformer singularTransformer;
 
-    protected NounTransformer dualTransformer;
+    private NounTransformer dualTransformer;
 
-    protected NounTransformer pluralTransformer;
+    private NounTransformer pluralTransformer;
 
     protected AbstractParticipleMemberBuilder(RuleProcessor ruleProcessor, NounRootBase rootBase, RootLetters rootLetters) {
         super(ruleProcessor, rootBase, rootLetters);
@@ -62,15 +62,15 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
 
     @Override
     protected void initializeTransformers() {
-        NounSupport baseWord = (NounSupport) rootBase.getSingularBaseWord();
+        NounSupport baseWord = rootBase.getSingularBaseWord();
         String name = (baseWord == null) ? null : baseWord.getSingularRootName();
         singularTransformer = GUICE_SUPPORT.getNounTransformer(name);
 
-        baseWord = (NounSupport) rootBase.getDualBaseWord();
+        baseWord = rootBase.getDualBaseWord();
         name = (baseWord == null) ? null : baseWord.getDualRootName();
         dualTransformer = GUICE_SUPPORT.getNounTransformer(name);
 
-        baseWord = (NounSupport) rootBase.getPluralBaseWord();
+        baseWord = rootBase.getPluralBaseWord();
         name = (baseWord == null) ? null : baseWord.getPluralRootName();
         pluralTransformer = GUICE_SUPPORT.getNounTransformer(name);
     }
@@ -83,12 +83,20 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
             final ArabicLetterType secondRadical = rootLetters.getSecondRadical();
             final ArabicLetterType thirdRadical = rootLetters.getThirdRadical();
             final ArabicLetterType fourthRadical = rootLetters.getFourthRadical();
-            conjugationGroup.setSingular(doTransform(singularTransformer, (NounSupport) rootBase.getSingularBaseWord(),
-                    firstRadical, secondRadical, thirdRadical, fourthRadical));
-            conjugationGroup.setDual(doTransform(dualTransformer, (NounSupport) rootBase.getDualBaseWord(),
-                    firstRadical, secondRadical, thirdRadical, fourthRadical));
-            conjugationGroup.setPlural(doTransform(pluralTransformer, (NounSupport) rootBase.getPluralBaseWord(),
-                    firstRadical, secondRadical, thirdRadical, fourthRadical));
+
+            final NounConjugation singularConjugation = doTransform(singularTransformer, rootBase.getSingularBaseWord(),
+                    firstRadical, secondRadical, thirdRadical, fourthRadical);
+            final NounConjugation dualConjugation = doTransform(dualTransformer, rootBase.getDualBaseWord(),
+                    firstRadical, secondRadical, thirdRadical, fourthRadical);
+            final NounConjugation pluralConjugation = doTransform(pluralTransformer, rootBase.getPluralBaseWord(),
+                    firstRadical, secondRadical, thirdRadical, fourthRadical);
+
+            conjugationGroup.setNominative(new ConjugationTuple(singularConjugation.getNominative(),
+                    dualConjugation.getNominative(), pluralConjugation.getNominative()));
+            conjugationGroup.setAccusative(new ConjugationTuple(singularConjugation.getAccusative(),
+                    dualConjugation.getAccusative(), pluralConjugation.getAccusative()));
+            conjugationGroup.setGenitive(new ConjugationTuple(singularConjugation.getGenitive(),
+                    dualConjugation.getGenitive(), pluralConjugation.getGenitive()));
             conjugationGroup.setTermType(getTermType());
         }
         return conjugationGroup;
@@ -108,8 +116,8 @@ public abstract class AbstractParticipleMemberBuilder extends AbstractConjugatio
         if (conjugationGroup == null) {
             doConjugation();
         }
-        final NounConjugation singular = conjugationGroup.getSingular();
-        return (singular == null) ? null : singular.getNominative();
+        final ConjugationTuple nominative = conjugationGroup.getNominative();
+        return (nominative == null) ? null : nominative.getSingular();
     }
 
     @Override

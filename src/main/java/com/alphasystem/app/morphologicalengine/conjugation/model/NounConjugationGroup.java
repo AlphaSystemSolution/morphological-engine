@@ -7,39 +7,39 @@ import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermTy
  */
 public final class NounConjugationGroup {
 
-    private NounConjugation singular;
+    private ConjugationTuple nominative;
 
-    private NounConjugation dual;
+    private ConjugationTuple accusative;
 
-    private NounConjugation plural;
+    private ConjugationTuple genitive;
 
     private SarfTermType termType;
 
     public NounConjugationGroup() {
     }
 
-    public NounConjugation getSingular() {
-        return singular;
+    public ConjugationTuple getNominative() {
+        return nominative;
     }
 
-    public void setSingular(NounConjugation singular) {
-        this.singular = singular;
+    public void setNominative(ConjugationTuple nominative) {
+        this.nominative = nominative;
     }
 
-    public NounConjugation getDual() {
-        return dual;
+    public ConjugationTuple getAccusative() {
+        return accusative;
     }
 
-    public void setDual(NounConjugation dual) {
-        this.dual = dual;
+    public void setAccusative(ConjugationTuple accusative) {
+        this.accusative = accusative;
     }
 
-    public NounConjugation getPlural() {
-        return plural;
+    public ConjugationTuple getGenitive() {
+        return genitive;
     }
 
-    public void setPlural(NounConjugation plural) {
-        this.plural = plural;
+    public void setGenitive(ConjugationTuple genitive) {
+        this.genitive = genitive;
     }
 
     public SarfTermType getTermType() {

@@ -3,9 +3,8 @@
  */
 package com.alphasystem.app.sarfengine.test;
 
+import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationTuple;
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugation;
-import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugation;
-import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.*;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
@@ -39,7 +38,6 @@ import static org.testng.Reporter.log;
 public class CommonTest implements ArabicLetters, Constants {
 
     private static final String DEST_FOLDER = "C:\\Users\\sali\\git-hub\\AlphaSystemSolution\\morphological-engine\\build\\test-files";
-    protected static GuiceSupport guiceSupport = GuiceSupport.getInstance();
     protected static Asciidoctor asciidoctor = Asciidoctor.Factory.create();
     protected List<String> lines;
 
@@ -73,9 +71,13 @@ public class CommonTest implements ArabicLetters, Constants {
     }
 
     public static String getSarfTermTypeHeader(SarfTermType leftTerm, SarfTermType rightTerm, int numOfRows) {
+        return getSarfTermTypeHeader(leftTerm, rightTerm, numOfRows, "3+|%s .%s+| 3+|%s .2+| %s");
+    }
+
+    public static String getSarfTermTypeHeader(SarfTermType leftTerm, SarfTermType rightTerm, int numOfRows, String format) {
         String leftTermCaption = format("[arabicTableCaption]#%s#", (leftTerm == null) ? HTML_SPACE : leftTerm.getLabel().toHtmlCode());
         String rightTermCaption = format("[arabicTableCaption]#%s#", (rightTerm == null) ? HTML_SPACE : rightTerm.getLabel().toHtmlCode());
-        return format("3+|%s .%s+| 3+|%s .2+| %s", leftTermCaption, numOfRows, rightTermCaption, NEW_LINE);
+        return format(format, leftTermCaption, numOfRows, rightTermCaption, NEW_LINE);
     }
 
     public static String addNumberHeader(boolean emptyLeftSide) {
@@ -87,15 +89,15 @@ public class CommonTest implements ArabicLetters, Constants {
     }
 
     public static void addRootWords(RootWord[] rootWords, NounConjugation nounConjugation, int initialIndex) {
-        rootWords[initialIndex] = nounConjugation == null ? null : nounConjugation.getNominative();
-        rootWords[initialIndex + 6] = nounConjugation == null ? null : nounConjugation.getAccusative();
-        rootWords[initialIndex + 12] = nounConjugation == null ? null : nounConjugation.getGenitive();
+        rootWords[initialIndex] = (nounConjugation == null) ? null : nounConjugation.getNominative();
+        rootWords[initialIndex + 6] = (nounConjugation == null) ? null : nounConjugation.getAccusative();
+        rootWords[initialIndex + 12] = (nounConjugation == null) ? null : nounConjugation.getGenitive();
     }
 
-    public static void addRootWords(RootWord[] rootWords, VerbConjugation verbConjugation, int initialIndex) {
-        rootWords[initialIndex] = verbConjugation == null ? null : verbConjugation.getSingular();
-        rootWords[initialIndex - 1] = verbConjugation == null ? null : verbConjugation.getDual();
-        rootWords[initialIndex - 2] = verbConjugation == null ? null : verbConjugation.getPlural();
+    public static void addRootWords(RootWord[] rootWords, ConjugationTuple conjugationTuple, int initialIndex) {
+        rootWords[initialIndex] = (conjugationTuple == null) ? null : conjugationTuple.getSingular();
+        rootWords[initialIndex - 1] = (conjugationTuple == null) ? null : conjugationTuple.getDual();
+        rootWords[initialIndex - 2] = (conjugationTuple == null) ? null : conjugationTuple.getPlural();
     }
 
     public static void addRow(List<String> lines, ArabicWord status, RootWord[] rootWords, int initialIndex) {

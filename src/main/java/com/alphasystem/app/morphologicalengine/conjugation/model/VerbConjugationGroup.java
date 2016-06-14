@@ -7,58 +7,58 @@ import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermTy
  */
 public final class VerbConjugationGroup {
 
-    private VerbConjugation masculineThirdPerson;
+    private ConjugationTuple masculineThirdPerson;
 
-    private VerbConjugation feminineThirdPerson;
+    private ConjugationTuple feminineThirdPerson;
 
-    private VerbConjugation masculineSecondPerson;
+    private ConjugationTuple masculineSecondPerson;
 
-    private VerbConjugation feminineSecondPerson;
+    private ConjugationTuple feminineSecondPerson;
 
-    private VerbConjugation firstPerson;
+    private ConjugationTuple firstPerson;
 
     private SarfTermType termType;
 
     public VerbConjugationGroup() {
     }
 
-    public VerbConjugation getMasculineThirdPerson() {
+    public ConjugationTuple getMasculineThirdPerson() {
         return masculineThirdPerson;
     }
 
-    public void setMasculineThirdPerson(VerbConjugation masculineThirdPerson) {
+    public void setMasculineThirdPerson(ConjugationTuple masculineThirdPerson) {
         this.masculineThirdPerson = masculineThirdPerson;
     }
 
-    public VerbConjugation getFeminineThirdPerson() {
+    public ConjugationTuple getFeminineThirdPerson() {
         return feminineThirdPerson;
     }
 
-    public void setFeminineThirdPerson(VerbConjugation feminineThirdPerson) {
+    public void setFeminineThirdPerson(ConjugationTuple feminineThirdPerson) {
         this.feminineThirdPerson = feminineThirdPerson;
     }
 
-    public VerbConjugation getMasculineSecondPerson() {
+    public ConjugationTuple getMasculineSecondPerson() {
         return masculineSecondPerson;
     }
 
-    public void setMasculineSecondPerson(VerbConjugation masculineSecondPerson) {
+    public void setMasculineSecondPerson(ConjugationTuple masculineSecondPerson) {
         this.masculineSecondPerson = masculineSecondPerson;
     }
 
-    public VerbConjugation getFeminineSecondPerson() {
+    public ConjugationTuple getFeminineSecondPerson() {
         return feminineSecondPerson;
     }
 
-    public void setFeminineSecondPerson(VerbConjugation feminineSecondPerson) {
+    public void setFeminineSecondPerson(ConjugationTuple feminineSecondPerson) {
         this.feminineSecondPerson = feminineSecondPerson;
     }
 
-    public VerbConjugation getFirstPerson() {
+    public ConjugationTuple getFirstPerson() {
         return firstPerson;
     }
 
-    public void setFirstPerson(VerbConjugation firstPerson) {
+    public void setFirstPerson(ConjugationTuple firstPerson) {
         this.firstPerson = firstPerson;
     }
 

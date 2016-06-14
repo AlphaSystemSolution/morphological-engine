@@ -103,45 +103,45 @@ public class TransformerTest extends CommonTest {
         VerbRootBase pastTenseRoot = form.getPastTense();
         VerbRootBase presentTenseRoot = form.getPresentTense();
 
-        VerbConjugation verbConjugation = getConjugation(pastTenseRoot, PAST_TENSE, THIRD_PERSON_MASCULINE_SINGULAR,
+        ConjugationTuple conjugationTuple = getConjugation(pastTenseRoot, PAST_TENSE, THIRD_PERSON_MASCULINE_SINGULAR,
                 firstRadical, secondRadical, thirdRadical);
-        addRootWords(rootWords, verbConjugation, 5);
+        addRootWords(rootWords, conjugationTuple, 5);
 
-        verbConjugation = getConjugation(presentTenseRoot, PRESENT_TENSE, THIRD_PERSON_MASCULINE_SINGULAR, firstRadical,
+        conjugationTuple = getConjugation(presentTenseRoot, PRESENT_TENSE, THIRD_PERSON_MASCULINE_SINGULAR, firstRadical,
                 secondRadical, thirdRadical);
-        addRootWords(rootWords, verbConjugation, 2);
+        addRootWords(rootWords, conjugationTuple, 2);
 
-        verbConjugation = getConjugation(pastTenseRoot, PAST_TENSE, THIRD_PERSON_FEMININE_SINGULAR, firstRadical,
+        conjugationTuple = getConjugation(pastTenseRoot, PAST_TENSE, THIRD_PERSON_FEMININE_SINGULAR, firstRadical,
                 secondRadical, thirdRadical);
-        addRootWords(rootWords, verbConjugation, 11);
+        addRootWords(rootWords, conjugationTuple, 11);
 
-        verbConjugation = getConjugation(presentTenseRoot, PRESENT_TENSE, THIRD_PERSON_FEMININE_SINGULAR, firstRadical,
+        conjugationTuple = getConjugation(presentTenseRoot, PRESENT_TENSE, THIRD_PERSON_FEMININE_SINGULAR, firstRadical,
                 secondRadical, thirdRadical);
-        addRootWords(rootWords, verbConjugation, 8);
+        addRootWords(rootWords, conjugationTuple, 8);
 
-        verbConjugation = getConjugation(pastTenseRoot, PAST_TENSE, SECOND_PERSON_MASCULINE_SINGULAR, firstRadical,
+        conjugationTuple = getConjugation(pastTenseRoot, PAST_TENSE, SECOND_PERSON_MASCULINE_SINGULAR, firstRadical,
                 secondRadical, thirdRadical);
-        addRootWords(rootWords, verbConjugation, 17);
+        addRootWords(rootWords, conjugationTuple, 17);
 
-        verbConjugation = getConjugation(presentTenseRoot, PRESENT_TENSE, SECOND_PERSON_MASCULINE_SINGULAR, firstRadical,
+        conjugationTuple = getConjugation(presentTenseRoot, PRESENT_TENSE, SECOND_PERSON_MASCULINE_SINGULAR, firstRadical,
                 secondRadical, thirdRadical);
-        addRootWords(rootWords, verbConjugation, 14);
+        addRootWords(rootWords, conjugationTuple, 14);
 
-        verbConjugation = getConjugation(pastTenseRoot, PAST_TENSE, SECOND_PERSON_FEMININE_SINGULAR, firstRadical,
+        conjugationTuple = getConjugation(pastTenseRoot, PAST_TENSE, SECOND_PERSON_FEMININE_SINGULAR, firstRadical,
                 secondRadical, thirdRadical);
-        addRootWords(rootWords, verbConjugation, 23);
+        addRootWords(rootWords, conjugationTuple, 23);
 
-        verbConjugation = getConjugation(presentTenseRoot, PRESENT_TENSE, SECOND_PERSON_FEMININE_SINGULAR, firstRadical,
+        conjugationTuple = getConjugation(presentTenseRoot, PRESENT_TENSE, SECOND_PERSON_FEMININE_SINGULAR, firstRadical,
                 secondRadical, thirdRadical);
-        addRootWords(rootWords, verbConjugation, 20);
+        addRootWords(rootWords, conjugationTuple, 20);
 
-        verbConjugation = getConjugation(pastTenseRoot, PAST_TENSE, FIRST_PERSON_SINGULAR, firstRadical, secondRadical,
+        conjugationTuple = getConjugation(pastTenseRoot, PAST_TENSE, FIRST_PERSON_SINGULAR, firstRadical, secondRadical,
                 thirdRadical);
-        addRootWords(rootWords, verbConjugation, 29);
+        addRootWords(rootWords, conjugationTuple, 29);
 
-        verbConjugation = getConjugation(presentTenseRoot, PRESENT_TENSE, FIRST_PERSON_SINGULAR, firstRadical,
+        conjugationTuple = getConjugation(presentTenseRoot, PRESENT_TENSE, FIRST_PERSON_SINGULAR, firstRadical,
                 secondRadical, thirdRadical);
-        addRootWords(rootWords, verbConjugation, 26);
+        addRootWords(rootWords, conjugationTuple, 26);
 
         return rootWords;
     }
@@ -247,8 +247,8 @@ public class TransformerTest extends CommonTest {
         return nounTransformer.doTransform(null, noun.getRootWord(), firstRadical, secondRadical, thirdRadical, null);
     }
 
-    private VerbConjugation getConjugation(VerbRootBase verbRootBase, SarfTermType termType, HiddenPronounStatus pronounStatus,
-                                           ArabicLetterType firstRadical, ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
+    private ConjugationTuple getConjugation(VerbRootBase verbRootBase, SarfTermType termType, HiddenPronounStatus pronounStatus,
+                                            ArabicLetterType firstRadical, ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
         VerbTransformer verbTransformer = getTransformer(termType, pronounStatus);
         return verbTransformer.doTransform(null, verbRootBase.getRoot().getRootWord(), firstRadical, secondRadical, thirdRadical, null);
     }

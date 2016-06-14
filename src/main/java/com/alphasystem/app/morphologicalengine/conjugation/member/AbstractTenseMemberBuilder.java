@@ -99,8 +99,8 @@ public abstract class AbstractTenseMemberBuilder extends AbstractConjugationMemb
         return conjugationGroup;
     }
 
-    private VerbConjugation doTransform(VerbTransformer transformer, RootWordSupport baseWord, ArabicLetterType firstRadical,
-                                        ArabicLetterType secondRadical, ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+    private ConjugationTuple doTransform(VerbTransformer transformer, RootWordSupport baseWord, ArabicLetterType firstRadical,
+                                         ArabicLetterType secondRadical, ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
         if (transformer != null && baseWord != null) {
             return transformer.doTransform(getRuleProcessor(), new RootWord(baseWord.getRootWord()).withSarfTermType(getTermType()),
                     firstRadical, secondRadical, thirdRadical, fourthRadical);
