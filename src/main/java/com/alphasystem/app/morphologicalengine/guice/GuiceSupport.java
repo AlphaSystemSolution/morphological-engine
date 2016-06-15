@@ -1,12 +1,13 @@
 package com.alphasystem.app.morphologicalengine.guice;
 
-import com.alphasystem.app.morphologicalengine.conjugation.member.impl.MemberBuilderFactory;
+import com.alphasystem.app.morphologicalengine.conjugation.member.ConjugationMemberBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.member.impl.MemberBuilderModule;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerModule;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformer;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerModule;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.mycila.guice.ext.closeable.CloseableModule;
@@ -45,16 +46,16 @@ public final class GuiceSupport {
         return injector.getInstance(RuleProcessorFactory.class);
     }
 
-    public MemberBuilderFactory getMemberBuilderFactory() {
-        return injector.getInstance(MemberBuilderFactory.class);
-    }
-
     public <T> T getInstance(Class<T> type, Class<? extends Annotation> annotationType) {
         return injector.getInstance(get(type, annotationType));
     }
 
     public <T> T getInstance(Class<T> type, String name) {
         return injector.getInstance(get(type, named(name)));
+    }
+
+    public <B extends ConjugationMemberBuilder> B getMemberBuilder(Class<B> type, SarfTermType termType) {
+        return termType == null ? null : getInstance(type, termType.name());
     }
 
     public NounTransformer getNounTransformer(String name) {

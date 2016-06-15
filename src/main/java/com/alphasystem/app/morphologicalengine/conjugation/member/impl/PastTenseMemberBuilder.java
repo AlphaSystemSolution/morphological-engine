@@ -1,33 +1,19 @@
 package com.alphasystem.app.morphologicalengine.conjugation.member.impl;
 
 import com.alphasystem.app.morphologicalengine.conjugation.member.AbstractTenseMemberBuilder;
-import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
-import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
-import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
-import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformer;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 
-import javax.annotation.Nullable;
+import javax.inject.Singleton;
 
 import static com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerModule.*;
 
 /**
  * @author sali
  */
-public class PastTenseMemberBuilder extends AbstractTenseMemberBuilder {
+@Singleton
+class PastTenseMemberBuilder extends AbstractTenseMemberBuilder {
 
-    @AssistedInject
-    PastTenseMemberBuilder(@Assisted @Nullable RuleProcessor ruleProcessor, @Assisted VerbRootBase rootBase,
-                           @Assisted RootLetters rootLetters) {
-        super(ruleProcessor, rootBase, rootLetters);
-    }
-
-    @AssistedInject
-    PastTenseMemberBuilder(@Assisted @Nullable RuleProcessor ruleProcessor, @Assisted Form form,
-                           @Assisted RootLetters rootLetters) {
-        super(ruleProcessor, form, rootLetters);
+    PastTenseMemberBuilder() {
     }
 
     @Override

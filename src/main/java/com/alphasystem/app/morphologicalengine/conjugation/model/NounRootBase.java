@@ -5,7 +5,7 @@ import com.alphasystem.morphologicalanalysis.morphology.model.support.NounSuppor
 /**
  * @author sali
  */
-public class NounRootBase {
+public final class NounRootBase implements RootBase {
 
     protected final NounSupport singularBaseWord;
     protected final NounSupport dualBaseWord;
