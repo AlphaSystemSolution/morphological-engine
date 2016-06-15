@@ -32,7 +32,7 @@ public abstract class AbstractParticipleMemberBuilder implements ParticipleMembe
 
     private NounTransformer getPluralTransformer(NounRootBase rootBase) {
         NounSupport baseWord = rootBase.getPluralBaseWord();
-        String name = (baseWord == null) ? null : baseWord.getDualRootName();
+        String name = (baseWord == null) ? null : baseWord.getPluralRootName();
         return GUICE_SUPPORT.getNounTransformer(name);
     }
 
