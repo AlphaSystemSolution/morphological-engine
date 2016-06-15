@@ -16,8 +16,7 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sar
 /**
  * @author sali
  */
-public abstract class AbstractTenseMemberBuilder extends AbstractConjugationMemberBuilder<VerbConjugationGroup, VerbRootBase>
-        implements TenseMemberBuilder {
+public abstract class AbstractTenseMemberBuilder implements TenseMemberBuilder {
 
     protected AbstractTenseMemberBuilder() {
     }

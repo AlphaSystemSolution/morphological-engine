@@ -5,6 +5,7 @@ package com.alphasystem.app.morphologicalengine.conjugation.member;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.*;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
+import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
 /**
@@ -13,6 +14,8 @@ import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermTy
  * @author sali
  */
 public interface ConjugationMemberBuilder<G extends ConjugationGroup, B extends RootBase> {
+
+    GuiceSupport GUICE_SUPPORT = GuiceSupport.getInstance();
 
     /**
      * Perform the conjugation.

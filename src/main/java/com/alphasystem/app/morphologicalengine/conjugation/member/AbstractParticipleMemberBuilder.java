@@ -13,8 +13,7 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sar
 /**
  * @author sali
  */
-public abstract class AbstractParticipleMemberBuilder extends AbstractConjugationMemberBuilder<NounConjugationGroup, NounRootBase>
-        implements ParticipleMemberBuilder {
+public abstract class AbstractParticipleMemberBuilder implements ParticipleMemberBuilder {
 
     protected AbstractParticipleMemberBuilder() {
     }
