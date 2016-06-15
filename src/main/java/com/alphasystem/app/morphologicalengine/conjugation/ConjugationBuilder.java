@@ -12,9 +12,14 @@ import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.ChartConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.ConjugationConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
-import static org.apache.commons.lang3.ArrayUtils.addAll;
+import static org.apache.commons.lang3.ArrayUtils.add;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 
 /**
@@ -24,6 +29,7 @@ public class ConjugationBuilder {
 
     private static final GuiceSupport GUICE_SUPPORT = GuiceSupport.getInstance();
     private static final RuleProcessorFactory RULE_PROCESSOR_FACTORY = GUICE_SUPPORT.getRuleProcessorFactory();
+    private static final int NUM_OF_COLUMNS = 2;
 
     private ConjugationConfiguration conjugationConfiguration;
     private ChartConfiguration chartConfiguration;
@@ -69,10 +75,13 @@ public class ConjugationBuilder {
     private DetailedConjugation createDetailedConjugation(RootLetters rootLetters, boolean removePassiveLine) {
         final VerbDetailedConjugationPair activeTensePair = createActiveTensePair(rootLetters);
         final NounDetailedConjugationPair activeParticiplePair = createActiveParticiplePair(rootLetters);
+        final NounDetailedConjugationPair[] verbalNounPairs = createVerbalNounPairs(rootLetters);
         final VerbDetailedConjugationPair passiveTensePair = removePassiveLine ? null : createPassiveTensePair(rootLetters);
         final NounDetailedConjugationPair passiveParticiplePair = removePassiveLine ? null : createPassiveParticiplePair(rootLetters);
+        final NounDetailedConjugationPair[] adverbPairs = createAdverbPairs(rootLetters);
 
-        return new DetailedConjugation(activeTensePair, null, activeParticiplePair, passiveTensePair, passiveParticiplePair, null, null);
+        return new DetailedConjugation(activeTensePair, verbalNounPairs, activeParticiplePair, passiveTensePair,
+                passiveParticiplePair, null, adverbPairs);
     }
 
     private VerbDetailedConjugationPair createTensePair(SarfTermType leftTerm, SarfTermType rightTerm,
@@ -95,10 +104,18 @@ public class ConjugationBuilder {
     private NounDetailedConjugationPair createParticiplePair(SarfTermType leftTerm, SarfTermType rightTerm,
                                                              NounRootBase leftBase, NounRootBase rightBase,
                                                              RootLetters rootLetters) {
-        ParticipleMemberBuilder rightSideBuilder = GUICE_SUPPORT.getMemberBuilder(ParticipleMemberBuilder.class, rightTerm);
-        ParticipleMemberBuilder leftSideBuilder = GUICE_SUPPORT.getMemberBuilder(ParticipleMemberBuilder.class, leftTerm);
-        return new NounDetailedConjugationPair(leftSideBuilder.doConjugation(ruleEngine, leftBase, rootLetters),
-                rightSideBuilder.doConjugation(ruleEngine, rightBase, rootLetters));
+        NounConjugationGroup leftSideConjugations = null;
+        if (leftTerm != null) {
+            ParticipleMemberBuilder leftSideBuilder = GUICE_SUPPORT.getMemberBuilder(ParticipleMemberBuilder.class, leftTerm);
+            leftSideConjugations = leftSideBuilder.doConjugation(ruleEngine, leftBase, rootLetters);
+        }
+
+        NounConjugationGroup rightSideConjugations = null;
+        if (rightTerm != null) {
+            ParticipleMemberBuilder rightSideBuilder = GUICE_SUPPORT.getMemberBuilder(ParticipleMemberBuilder.class, rightTerm);
+            rightSideConjugations = rightSideBuilder.doConjugation(ruleEngine, rightBase, rootLetters);
+        }
+        return new NounDetailedConjugationPair(leftSideConjugations, rightSideConjugations);
     }
 
     private NounDetailedConjugationPair createActiveParticiplePair(RootLetters rootLetters) {
@@ -109,6 +126,43 @@ public class ConjugationBuilder {
     private NounDetailedConjugationPair createPassiveParticiplePair(RootLetters rootLetters) {
         return createParticiplePair(PASSIVE_PARTICIPLE_FEMININE, PASSIVE_PARTICIPLE_MASCULINE, passiveParticipleFeminine,
                 passiveParticipleMasculine, rootLetters);
+    }
+
+    private NounDetailedConjugationPair[] createVerbalNounPairs(RootLetters rootLetters) {
+        return createPairs(verbalNouns, VERBAL_NOUN, rootLetters);
+    }
+
+    private NounDetailedConjugationPair[] createAdverbPairs(RootLetters rootLetters) {
+        return createPairs(adverbs, NOUN_OF_PLACE_AND_TIME, rootLetters);
+    }
+
+    private NounDetailedConjugationPair[] createPairs(NounRootBase[] pairs, SarfTermType termType, RootLetters rootLetters) {
+        NounDetailedConjugationPair[] result = new NounDetailedConjugationPair[0];
+
+        if (!isEmpty(pairs)) {
+            List<NounRootBase> rootBaseList = new ArrayList<>();
+            Collections.addAll(rootBaseList, pairs);
+            while (rootBaseList.size() % NUM_OF_COLUMNS != 0) {
+                rootBaseList.add(null);
+            }
+
+            int fromIndex = 0;
+            int toIndex = NUM_OF_COLUMNS;
+            while (fromIndex < rootBaseList.size()) {
+                final List<NounRootBase> subList = rootBaseList.subList(fromIndex, toIndex);
+                result = add(result, createPair(subList.get(1), subList.get(0), termType, rootLetters));
+                fromIndex = toIndex;
+                toIndex += NUM_OF_COLUMNS;
+            }
+        }
+        return result;
+    }
+
+    private NounDetailedConjugationPair createPair(NounRootBase leftBase, NounRootBase rightBase, SarfTermType termType,
+                                                   RootLetters rootLetters) {
+        SarfTermType leftTerm = (leftBase == null) ? null : termType;
+        SarfTermType rightTerm = (rightBase == null) ? null : termType;
+        return createParticiplePair(leftTerm, rightTerm, leftBase, rightBase, rootLetters);
     }
 
     public ConjugationConfiguration getConjugationConfiguration() {
@@ -196,11 +250,11 @@ public class ConjugationBuilder {
     }
 
     public void setVerbalNouns(NounRootBase[] verbalNouns) {
-        this.verbalNouns = addAll(new NounRootBase[0], verbalNouns);
+        this.verbalNouns = ArrayUtils.addAll(new NounRootBase[0], verbalNouns);
     }
 
     public void setAdverbs(NounRootBase[] adverbs) {
-        this.adverbs = addAll(new NounRootBase[0], adverbs);
+        this.adverbs = ArrayUtils.addAll(new NounRootBase[0], adverbs);
     }
 
     public ConjugationBuilder conjugationConfiguration(ConjugationConfiguration conjugationConfiguration) {
@@ -276,14 +330,14 @@ public class ConjugationBuilder {
 
     public ConjugationBuilder verbalNouns(NounRootBase... verbalNouns) {
         if (!isEmpty(verbalNouns)) {
-            this.verbalNouns = addAll(this.verbalNouns, verbalNouns);
+            this.verbalNouns = ArrayUtils.addAll(this.verbalNouns, verbalNouns);
         }
         return this;
     }
 
     public ConjugationBuilder adverbs(NounRootBase... adverbs) {
         if (!isEmpty(adverbs)) {
-            this.adverbs = addAll(this.adverbs, adverbs);
+            this.adverbs = ArrayUtils.addAll(this.adverbs, adverbs);
         }
         return this;
     }

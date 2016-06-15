@@ -4,10 +4,13 @@ import com.alphasystem.app.morphologicalengine.conjugation.ConjugationBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.model.*;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.util.AppUtil;
+import org.apache.commons.lang3.ArrayUtils;
 import org.testng.annotations.Test;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V12;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.*;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.VERBAL_NOUN_V1;
 import static java.lang.String.format;
 
@@ -24,6 +27,9 @@ public class ConjugationTest extends CommonTest {
         ConjugationBuilder conjugationBuilder = new ConjugationBuilder();
         conjugationBuilder.applyTemplate(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE);
         conjugationBuilder.setVerbalNouns(new NounRootBase[]{new NounRootBase(VERBAL_NOUN_V1)});
+        conjugationBuilder.setAdverbs(new NounRootBase[]{new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
+                new NounRootBase(NOUN_OF_PLACE_AND_TIME_V2, BROKEN_PLURAL_V12),
+                new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)});
         printMorphologicalChart(conjugationBuilder.doConjugation(NOON, SAD, RA, null));
         /*ConjugationBuilderFactory cbf = GuiceSupport.getInstance().getConjugationBuilderFactory();
         ConjugationBuilder cb = cbf.getConjugationBuilder();
@@ -42,13 +48,15 @@ public class ConjugationTest extends CommonTest {
         lines.add("[cols=\"^.^17,^.^16,^.^16,^.^2,^.^17,^.^16,^.^16\"]");
         lines.add(ASCII_DOC_TABLE_DECELERATION);
         addTenseConjugations(detailedConjugation.getActiveTensePair());
+        addPairConjugations(detailedConjugation.getVerbalNounPairs());
         addParticipleConjugations(detailedConjugation.getActiveParticiplePair());
         addTenseConjugations(detailedConjugation.getPassiveTensePair());
         addParticipleConjugations(detailedConjugation.getPassiveParticiplePair());
+        addPairConjugations(detailedConjugation.getAdverbPairs());
         lines.add(ASCII_DOC_TABLE_DECELERATION);
     }
 
-    private void addTenseConjugations(DetailedConjugationPair<VerbConjugationGroup> tensePair) {
+    private void addTenseConjugations(VerbDetailedConjugationPair tensePair) {
         if (tensePair == null) {
             return;
         }
@@ -65,7 +73,7 @@ public class ConjugationTest extends CommonTest {
         lines.add(AppUtil.NEW_LINE);
     }
 
-    private void addParticipleConjugations(DetailedConjugationPair<NounConjugationGroup> participlePair) {
+    private void addParticipleConjugations(NounDetailedConjugationPair participlePair) {
         if (participlePair == null) {
             return;
         }
@@ -73,11 +81,30 @@ public class ConjugationTest extends CommonTest {
         final NounConjugationGroup rsc = participlePair.getRightSideConjugations();
 
         lines.add(getSarfTermTypeHeader(lsc, rsc, 4));
-        lines.add(getRowData(lsc.getNominative(), rsc.getNominative()));
-        lines.add(getRowData(lsc.getAccusative(), rsc.getAccusative()));
-        lines.add(getRowData(lsc.getGenitive(), rsc.getGenitive()));
+
+        ConjugationTuple leftSide = (lsc == null) ? null : lsc.getNominative();
+        ConjugationTuple rightSide = (rsc == null) ? null : rsc.getNominative();
+        lines.add(getRowData(leftSide, rightSide));
+
+        leftSide = (lsc == null) ? null : lsc.getAccusative();
+        rightSide = (rsc == null) ? null : rsc.getAccusative();
+        lines.add(getRowData(leftSide, rightSide));
+
+        leftSide = (lsc == null) ? null : lsc.getGenitive();
+        rightSide = (rsc == null) ? null : rsc.getGenitive();
+        lines.add(getRowData(leftSide, rightSide));
+
         lines.add(EMPTY_ROW);
         lines.add(AppUtil.NEW_LINE);
+    }
+
+    private void addPairConjugations(NounDetailedConjugationPair[] pairs) {
+        if (ArrayUtils.isEmpty(pairs)) {
+            return;
+        }
+        for (NounDetailedConjugationPair pair : pairs) {
+            addParticipleConjugations(pair);
+        }
     }
 
     private String getSarfTermTypeHeader(ConjugationGroup lsc, ConjugationGroup rsc, int numOfRows) {
