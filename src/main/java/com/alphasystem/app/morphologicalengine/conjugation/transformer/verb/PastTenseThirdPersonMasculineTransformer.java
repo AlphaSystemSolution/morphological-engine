@@ -10,7 +10,7 @@ import static com.alphasystem.arabic.model.HiddenPronounStatus.*;
 /**
  * @author sali
  */
-public class PastTenseThirdPersonMasculineTransformer extends AbstractVerbTransformer {
+class PastTenseThirdPersonMasculineTransformer extends AbstractVerbTransformer {
 
     PastTenseThirdPersonMasculineTransformer() {
         super();

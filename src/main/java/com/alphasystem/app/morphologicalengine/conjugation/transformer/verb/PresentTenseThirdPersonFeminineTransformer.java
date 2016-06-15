@@ -11,7 +11,7 @@ import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_MASC
 /**
  * @author sali
  */
-public class PresentTenseThirdPersonFeminineTransformer extends PresentTenseThirdPersonMasculineTransformer {
+class PresentTenseThirdPersonFeminineTransformer extends PresentTenseThirdPersonMasculineTransformer {
 
     PresentTenseThirdPersonFeminineTransformer() {
         super();
