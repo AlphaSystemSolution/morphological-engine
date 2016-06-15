@@ -8,27 +8,27 @@ package com.alphasystem.app.morphologicalengine.conjugation.model;
  */
 public class DetailedConjugation {
 
-    private final DetailedConjugationPair<VerbConjugationGroup> activeTensePair;
+    private final VerbDetailedConjugationPair activeTensePair;
 
-    private final DetailedConjugationPair<NounConjugationGroup>[] verbalNounPairs;
+    private final NounDetailedConjugationPair[] verbalNounPairs;
 
-    private final DetailedConjugationPair<NounConjugationGroup> activeParticiplePair;
+    private final NounDetailedConjugationPair activeParticiplePair;
 
-    private final DetailedConjugationPair<VerbConjugationGroup> passiveTensePair;
+    private final VerbDetailedConjugationPair passiveTensePair;
 
-    private final DetailedConjugationPair<NounConjugationGroup> passiveParticiplePair;
+    private final NounDetailedConjugationPair passiveParticiplePair;
 
-    private final DetailedConjugationPair<VerbConjugationGroup> imperativeAndForbiddingPair;
+    private final VerbDetailedConjugationPair imperativeAndForbiddingPair;
 
-    private final DetailedConjugationPair<NounConjugationGroup>[] adverbPairs;
+    private final NounDetailedConjugationPair[] adverbPairs;
 
-    public DetailedConjugation(DetailedConjugationPair<VerbConjugationGroup> activeTensePair,
-                               DetailedConjugationPair<NounConjugationGroup>[] verbalNounPairs,
-                               DetailedConjugationPair<NounConjugationGroup> activeParticiplePair,
-                               DetailedConjugationPair<VerbConjugationGroup> passiveTensePair,
-                               DetailedConjugationPair<NounConjugationGroup> passiveParticiplePair,
-                               DetailedConjugationPair<VerbConjugationGroup> imperativeAndForbiddingPair,
-                               DetailedConjugationPair<NounConjugationGroup>[] adverbPairs) {
+    public DetailedConjugation(VerbDetailedConjugationPair activeTensePair,
+                               NounDetailedConjugationPair[] verbalNounPairs,
+                               NounDetailedConjugationPair activeParticiplePair,
+                               VerbDetailedConjugationPair passiveTensePair,
+                               NounDetailedConjugationPair passiveParticiplePair,
+                               VerbDetailedConjugationPair imperativeAndForbiddingPair,
+                               NounDetailedConjugationPair[] adverbPairs) {
         this.activeTensePair = activeTensePair;
         this.verbalNounPairs = verbalNounPairs;
         this.activeParticiplePair = activeParticiplePair;
@@ -38,31 +38,31 @@ public class DetailedConjugation {
         this.adverbPairs = adverbPairs;
     }
 
-    public DetailedConjugationPair<NounConjugationGroup> getActiveParticiplePair() {
-        return activeParticiplePair;
-    }
-
-    public DetailedConjugationPair<VerbConjugationGroup> getActiveTensePair() {
+    public VerbDetailedConjugationPair getActiveTensePair() {
         return activeTensePair;
     }
 
-    public DetailedConjugationPair<VerbConjugationGroup> getImperativeAndForbiddingPair() {
-        return imperativeAndForbiddingPair;
-    }
-
-    public DetailedConjugationPair<NounConjugationGroup>[] getVerbalNounPairs() {
+    public NounDetailedConjugationPair[] getVerbalNounPairs() {
         return verbalNounPairs;
     }
 
-    public DetailedConjugationPair<NounConjugationGroup> getPassiveParticiplePair() {
-        return passiveParticiplePair;
+    public NounDetailedConjugationPair getActiveParticiplePair() {
+        return activeParticiplePair;
     }
 
-    public DetailedConjugationPair<VerbConjugationGroup> getPassiveTensePair() {
+    public VerbDetailedConjugationPair getPassiveTensePair() {
         return passiveTensePair;
     }
 
-    public DetailedConjugationPair<NounConjugationGroup>[] getAdverbPairs() {
+    public NounDetailedConjugationPair getPassiveParticiplePair() {
+        return passiveParticiplePair;
+    }
+
+    public VerbDetailedConjugationPair getImperativeAndForbiddingPair() {
+        return imperativeAndForbiddingPair;
+    }
+
+    public NounDetailedConjugationPair[] getAdverbPairs() {
         return adverbPairs;
     }
 }
