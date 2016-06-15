@@ -54,7 +54,7 @@ public class CommonTest implements ArabicLetters, Constants {
     }
 
     public static String getRootWord(RootWord rootWord) {
-        return (rootWord == null) ? "| " : format("|[arabicNormal]#%s#", rootWord.getLabel().toHtmlCode());
+        return (rootWord == null) ? "|&nbsp; " : format("|[arabicNormal]#%s#", rootWord.getLabel().toHtmlCode());
     }
 
     public static String getRootWordLabel(RootWord rootWord) {
