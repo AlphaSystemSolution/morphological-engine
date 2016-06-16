@@ -1,7 +1,5 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.verb;
 
-import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
 import static com.alphasystem.arabic.model.DiacriticType.SUKUN;
@@ -18,23 +16,21 @@ class PastTenseFirstPersonTransformer extends AbstractVerbTransformer {
     }
 
     @Override
-    protected RootWord doSingular(RuleProcessor ruleProcessor, RootWord rootWord) {
+    protected RootWord doSingular(RootWord rootWord) {
         final RootWord target = copyRootWord(rootWord, FIRST_PERSON_SINGULAR);
-        final ArabicWord arabicWord = target.getRootWord().replaceDiacritic(target.getThirdRadicalIndex(), SUKUN)
-                .append(TA_WITH_DAMMA);
-        return processRules(ruleProcessor, target.withRootWord(arabicWord));
+        target.getRootWord().replaceDiacritic(target.getThirdRadicalIndex(), SUKUN).append(TA_WITH_DAMMA);
+        return target;
     }
 
     @Override
-    protected RootWord doDual(RuleProcessor ruleProcessor, RootWord rootWord) {
+    protected RootWord doDual(RootWord rootWord) {
         return null;
     }
 
     @Override
-    protected RootWord doPlural(RuleProcessor ruleProcessor, RootWord rootWord) {
+    protected RootWord doPlural(RootWord rootWord) {
         final RootWord target = copyRootWord(rootWord, FIRST_PERSON_PLURAL);
-        final ArabicWord arabicWord = target.getRootWord().replaceDiacritic(target.getThirdRadicalIndex(), SUKUN)
-                .append(NOON_WITH_FATHA, LETTER_ALIF);
-        return processRules(ruleProcessor, target.withRootWord(arabicWord));
+        target.getRootWord().replaceDiacritic(target.getThirdRadicalIndex(), SUKUN).append(NOON_WITH_FATHA, LETTER_ALIF);
+        return target;
     }
 }

@@ -1,6 +1,5 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.verb;
 
-import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.ALIF_HAMZA_ABOVE;
@@ -18,19 +17,21 @@ class PresentTenseFirstPersonTransformer extends PresentTenseThirdPersonMasculin
     }
 
     @Override
-    protected RootWord doSingular(RuleProcessor ruleProcessor, RootWord rootWord) {
+    protected RootWord doSingular(RootWord rootWord) {
         final RootWord target = copyRootWord(rootWord, FIRST_PERSON_SINGULAR);
-        return processRules(ruleProcessor, target.withRootWord(target.getRootWord().replaceLetter(0, ALIF_HAMZA_ABOVE)));
+        target.getRootWord().replaceLetter(0, ALIF_HAMZA_ABOVE);
+        return target;
     }
 
     @Override
-    protected RootWord doDual(RuleProcessor ruleProcessor, RootWord rootWord) {
+    protected RootWord doDual(RootWord rootWord) {
         return null;
     }
 
     @Override
-    protected RootWord doPlural(RuleProcessor ruleProcessor, RootWord rootWord) {
+    protected RootWord doPlural(RootWord rootWord) {
         final RootWord target = copyRootWord(rootWord, FIRST_PERSON_PLURAL);
-        return processRules(ruleProcessor, target.withRootWord(target.getRootWord().replaceLetter(0, NOON)));
+        target.getRootWord().replaceLetter(0, NOON);
+        return target;
     }
 }

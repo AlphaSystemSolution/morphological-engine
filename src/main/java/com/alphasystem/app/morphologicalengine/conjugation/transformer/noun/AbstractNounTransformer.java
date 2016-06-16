@@ -45,14 +45,16 @@ public abstract class AbstractNounTransformer extends AbstractTransformer<NounCo
         } else if (variableIndex <= THIRD_RADICAL_INDEX) {
             variableIndex = baseWord.getThirdRadicalIndex();
         }
-        return new NounConjugation(doNominative(ruleProcessor, baseWord), doAccusative(ruleProcessor, baseWord),
-                doGenitive(ruleProcessor, baseWord));
+        final RootWord nominative = processRules(ruleProcessor, doNominative(baseWord));
+        final RootWord accusative = processRules(ruleProcessor, doAccusative(baseWord));
+        final RootWord genitive = processRules(ruleProcessor, doGenitive(baseWord));
+        return new NounConjugation(nominative, accusative, genitive);
     }
 
-    protected abstract RootWord doNominative(RuleProcessor ruleProcessor, RootWord rootWord);
+    protected abstract RootWord doNominative(RootWord rootWord);
 
-    protected abstract RootWord doAccusative(RuleProcessor ruleProcessor, RootWord rootWord);
+    protected abstract RootWord doAccusative(RootWord rootWord);
 
-    protected abstract RootWord doGenitive(RuleProcessor ruleProcessor, RootWord rootWord);
+    protected abstract RootWord doGenitive(RootWord rootWord);
 
 }

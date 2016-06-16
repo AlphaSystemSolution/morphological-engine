@@ -16,13 +16,15 @@ public abstract class AbstractVerbTransformer extends AbstractTransformer<Conjug
                                         ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
                                         ArabicLetterType fourthRadical) {
         RootWord baseWord = createRootWord(rootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
-        return new ConjugationTuple(doSingular(ruleProcessor, baseWord), doDual(ruleProcessor, baseWord),
-                doPlural(ruleProcessor, baseWord));
+        final RootWord singular = processRules(ruleProcessor, doSingular(baseWord));
+        final RootWord dual = processRules(ruleProcessor, doDual(baseWord));
+        final RootWord plural = processRules(ruleProcessor, doPlural(baseWord));
+        return new ConjugationTuple(singular, dual, plural);
     }
 
-    protected abstract RootWord doSingular(RuleProcessor ruleProcessor, RootWord rootWord);
+    protected abstract RootWord doSingular(RootWord rootWord);
 
-    protected abstract RootWord doDual(RuleProcessor ruleProcessor, RootWord rootWord);
+    protected abstract RootWord doDual(RootWord rootWord);
 
-    protected abstract RootWord doPlural(RuleProcessor ruleProcessor, RootWord rootWord);
+    protected abstract RootWord doPlural(RootWord rootWord);
 }
