@@ -23,7 +23,7 @@ public abstract class AbstractTransformer<G> implements Transformer<G>, ArabicLe
 
     protected RootWord processRules(RuleProcessor ruleProcessor, RootWord src) {
         RootWord target = src;
-        if (ruleProcessor != null) {
+        if (ruleProcessor != null && target != null) {
             target = ruleProcessor.applyRules(target);
             target = PatternHelper.doApplyPatterns(target);
         }
