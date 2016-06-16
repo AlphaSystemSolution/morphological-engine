@@ -19,6 +19,10 @@ public class VerbTransformerModule extends AbstractModule {
     public static final String PRESENT_TENSE_SECOND_PERSON_MASCULINE_TRANSFORMER = "PresentTenseSecondPersonMasculineTransformer";
     public static final String PRESENT_TENSE_SECOND_PERSON_FEMININE_TRANSFORMER = "PresentTenseSecondPersonFeminineTransformer";
     public static final String PRESENT_TENSE_FIRST_PERSON_TRANSFORMER = "PresentTenseFirstPersonTransformer";
+    public static final String FORBIDDING_SECOND_PERSON_MASCULINE_TRANSFORMER = "ForbiddingSecondPersonMasculineTransformer";
+    public static final String FORBIDDING_SECOND_PERSON_FEMININE_TRANSFORMER = "ForbiddingSecondPersonFeminineTransformer";
+    public static final String IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER = "ImperativeSecondPersonMasculineTransformer";
+    public static final String IMPERATIVE_SECOND_PERSON_FEMININE_TRANSFORMER = "ImperativeSecondPersonFeminineTransformer";
 
     @Override
     protected void configure() {
@@ -32,5 +36,9 @@ public class VerbTransformerModule extends AbstractModule {
         bind(VerbTransformer.class).annotatedWith(named(PRESENT_TENSE_SECOND_PERSON_MASCULINE_TRANSFORMER)).toInstance(new PresentTenseSecondPersonMasculineTransformer());
         bind(VerbTransformer.class).annotatedWith(named(PRESENT_TENSE_SECOND_PERSON_FEMININE_TRANSFORMER)).toInstance(new PresentTenseSecondPersonFeminineTransformer());
         bind(VerbTransformer.class).annotatedWith(named(PRESENT_TENSE_FIRST_PERSON_TRANSFORMER)).toInstance(new PresentTenseFirstPersonTransformer());
+        bind(VerbTransformer.class).annotatedWith(named(FORBIDDING_SECOND_PERSON_MASCULINE_TRANSFORMER)).toInstance(new ForbiddingSecondPersonMasculineTransformer());
+        bind(VerbTransformer.class).annotatedWith(named(FORBIDDING_SECOND_PERSON_FEMININE_TRANSFORMER)).toInstance(new ForbiddingSecondPersonFeminineTransformer());
+        bind(VerbTransformer.class).annotatedWith(named(IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER)).toInstance(new ImperativeSecondPersonMasculineTransformer());
+        bind(VerbTransformer.class).annotatedWith(named(IMPERATIVE_SECOND_PERSON_FEMININE_TRANSFORMER)).toInstance(new ImperativeSecondPersonFeminineTransformer());
     }
 }

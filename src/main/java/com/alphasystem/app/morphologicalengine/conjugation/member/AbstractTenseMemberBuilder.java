@@ -8,7 +8,6 @@ import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformer;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
-import com.alphasystem.morphologicalanalysis.morphology.model.support.RootWordSupport;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PAST_TENSE;
@@ -45,24 +44,24 @@ public abstract class AbstractTenseMemberBuilder implements TenseMemberBuilder {
         VerbTransformer secondPersonFeminineTransformer = initializeSecondPersonFeminineTransformer();
         VerbTransformer firstPersonTransformer = initializeFirstPersonTransformer();
 
-        conjugationGroup.setMasculineThirdPerson(doTransform(ruleProcessor, thirdPersonMasculineTransformer, rootBase.getRoot(),
+        conjugationGroup.setMasculineThirdPerson(doTransform(ruleProcessor, thirdPersonMasculineTransformer, rootBase,
                 firstRadical, secondRadical, thirdRadical, fourthRadical));
-        conjugationGroup.setFeminineThirdPerson(doTransform(ruleProcessor, thirdPersonFeminineTransformer, rootBase.getRoot(),
+        conjugationGroup.setFeminineThirdPerson(doTransform(ruleProcessor, thirdPersonFeminineTransformer, rootBase,
                 firstRadical, secondRadical, thirdRadical, fourthRadical));
-        conjugationGroup.setMasculineSecondPerson(doTransform(ruleProcessor, secondPersonMasculineTransformer, rootBase.getRoot(),
+        conjugationGroup.setMasculineSecondPerson(doTransform(ruleProcessor, secondPersonMasculineTransformer, rootBase,
                 firstRadical, secondRadical, thirdRadical, fourthRadical));
-        conjugationGroup.setFeminineSecondPerson(doTransform(ruleProcessor, secondPersonFeminineTransformer, rootBase.getRoot(),
+        conjugationGroup.setFeminineSecondPerson(doTransform(ruleProcessor, secondPersonFeminineTransformer, rootBase,
                 firstRadical, secondRadical, thirdRadical, fourthRadical));
-        conjugationGroup.setFirstPerson(doTransform(ruleProcessor, firstPersonTransformer, rootBase.getRoot(), firstRadical,
+        conjugationGroup.setFirstPerson(doTransform(ruleProcessor, firstPersonTransformer, rootBase, firstRadical,
                 secondRadical, thirdRadical, fourthRadical));
         conjugationGroup.setTermType(getTermType());
         return conjugationGroup;
     }
 
-    private ConjugationTuple doTransform(RuleProcessor ruleProcessor, VerbTransformer transformer, RootWordSupport baseWord, ArabicLetterType firstRadical,
+    private ConjugationTuple doTransform(RuleProcessor ruleProcessor, VerbTransformer transformer, VerbRootBase rootBase, ArabicLetterType firstRadical,
                                          ArabicLetterType secondRadical, ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
-        if (transformer != null && baseWord != null) {
-            return transformer.doTransform(ruleProcessor, new RootWord(baseWord.getRootWord()).withSarfTermType(getTermType()),
+        if (transformer != null && rootBase != null) {
+            return transformer.doTransform(ruleProcessor, new RootWord(rootBase.getRoot().getRootWord()).withSarfTermType(getTermType()),
                     firstRadical, secondRadical, thirdRadical, fourthRadical);
         }
         return null;

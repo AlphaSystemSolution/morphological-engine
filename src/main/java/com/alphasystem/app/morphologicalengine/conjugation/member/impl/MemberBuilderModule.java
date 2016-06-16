@@ -18,6 +18,8 @@ public class MemberBuilderModule extends AbstractModule {
         bind(TenseMemberBuilder.class).annotatedWith(named(PRESENT_TENSE.name())).to(PresentTenseMemberBuilder.class);
         bind(TenseMemberBuilder.class).annotatedWith(named(PAST_PASSIVE_TENSE.name())).to(PastPassiveTenseMemberBuilder.class);
         bind(TenseMemberBuilder.class).annotatedWith(named(PRESENT_PASSIVE_TENSE.name())).to(PresentPassiveTenseMemberBuilder.class);
+        bind(TenseMemberBuilder.class).annotatedWith(named(IMPERATIVE.name())).to(ImperativeMemberBuilder.class);
+        bind(TenseMemberBuilder.class).annotatedWith(named(FORBIDDING.name())).to(ForbiddingMemberBuilder.class);
         bind(ParticipleMemberBuilder.class).annotatedWith(named(ACTIVE_PARTICIPLE_MASCULINE.name())).to(ActiveParticipleMasculineBuilder.class);
         bind(ParticipleMemberBuilder.class).annotatedWith(named(ACTIVE_PARTICIPLE_FEMININE.name())).to(ActiveParticipleFeminineBuilder.class);
         bind(ParticipleMemberBuilder.class).annotatedWith(named(PASSIVE_PARTICIPLE_MASCULINE.name())).to(PassiveParticipleMasculineBuilder.class);

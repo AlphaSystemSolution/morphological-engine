@@ -53,24 +53,55 @@ public class ConjugationTest extends CommonTest {
         addTenseConjugations(detailedConjugation.getPassiveTensePair());
         addParticipleConjugations(detailedConjugation.getPassiveParticiplePair());
         addPairConjugations(detailedConjugation.getAdverbPairs());
+        addTenseConjugations(detailedConjugation.getImperativeAndForbiddingPair(), 3);
         lines.add(ASCII_DOC_TABLE_DECELERATION);
     }
 
-    private void addTenseConjugations(VerbDetailedConjugationPair tensePair) {
+    private void addTenseConjugations(VerbDetailedConjugationPair tensePair, int numOfColumns) {
         if (tensePair == null) {
             return;
         }
         final VerbConjugationGroup lsc = tensePair.getLeftSideConjugations();
         final VerbConjugationGroup rsc = tensePair.getRightSideConjugations();
 
-        lines.add(getSarfTermTypeHeader(lsc, rsc, 6));
-        lines.add(getRowData(lsc.getMasculineThirdPerson(), rsc.getMasculineThirdPerson()));
-        lines.add(getRowData(lsc.getFeminineThirdPerson(), rsc.getFeminineThirdPerson()));
-        lines.add(getRowData(lsc.getMasculineSecondPerson(), rsc.getMasculineSecondPerson()));
-        lines.add(getRowData(lsc.getFeminineSecondPerson(), rsc.getFeminineSecondPerson()));
-        lines.add(getRowData(lsc.getFirstPerson(), rsc.getFirstPerson()));
+        lines.add(getSarfTermTypeHeader(lsc, rsc, numOfColumns));
+
+        ConjugationTuple leftTuple = lsc.getMasculineThirdPerson();
+        ConjugationTuple rightTuple = rsc.getMasculineThirdPerson();
+        if (leftTuple != null && rightTuple != null) {
+            lines.add(getRowData(leftTuple, rightTuple));
+        }
+
+        leftTuple = lsc.getFeminineThirdPerson();
+        rightTuple = rsc.getFeminineThirdPerson();
+        if (leftTuple != null && rightTuple != null) {
+            lines.add(getRowData(leftTuple, rightTuple));
+        }
+
+        leftTuple = lsc.getMasculineSecondPerson();
+        rightTuple = rsc.getMasculineSecondPerson();
+        if (leftTuple != null && rightTuple != null) {
+            lines.add(getRowData(leftTuple, rightTuple));
+        }
+
+        leftTuple = lsc.getFeminineSecondPerson();
+        rightTuple = rsc.getFeminineSecondPerson();
+        if (leftTuple != null && rightTuple != null) {
+            lines.add(getRowData(leftTuple, rightTuple));
+        }
+
+        leftTuple = lsc.getFirstPerson();
+        rightTuple = rsc.getFirstPerson();
+        if (leftTuple != null && rightTuple != null) {
+            lines.add(getRowData(leftTuple, rightTuple));
+        }
+
         lines.add(EMPTY_ROW);
         lines.add(AppUtil.NEW_LINE);
+    }
+
+    private void addTenseConjugations(VerbDetailedConjugationPair tensePair) {
+        addTenseConjugations(tensePair, 6);
     }
 
     private void addParticipleConjugations(NounDetailedConjugationPair participlePair) {

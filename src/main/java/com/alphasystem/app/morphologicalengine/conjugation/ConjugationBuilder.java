@@ -79,18 +79,27 @@ public class ConjugationBuilder {
         final VerbDetailedConjugationPair passiveTensePair = removePassiveLine ? null : createPassiveTensePair(rootLetters);
         final NounDetailedConjugationPair passiveParticiplePair = removePassiveLine ? null : createPassiveParticiplePair(rootLetters);
         final NounDetailedConjugationPair[] adverbPairs = createAdverbPairs(rootLetters);
+        final VerbDetailedConjugationPair imperativeAndForbiddingPair = createImperativeAndForbiddingPair(rootLetters);
 
         return new DetailedConjugation(activeTensePair, verbalNounPairs, activeParticiplePair, passiveTensePair,
-                passiveParticiplePair, null, adverbPairs);
+                passiveParticiplePair, imperativeAndForbiddingPair, adverbPairs);
     }
 
     private VerbDetailedConjugationPair createTensePair(SarfTermType leftTerm, SarfTermType rightTerm,
                                                         VerbRootBase leftBase, VerbRootBase rightBase,
                                                         RootLetters rootLetters) {
-        TenseMemberBuilder rightSideBuilder = GUICE_SUPPORT.getMemberBuilder(TenseMemberBuilder.class, rightTerm);
-        TenseMemberBuilder leftSideBuilder = GUICE_SUPPORT.getMemberBuilder(TenseMemberBuilder.class, leftTerm);
-        return new VerbDetailedConjugationPair(leftSideBuilder.doConjugation(ruleEngine, leftBase, rootLetters),
-                rightSideBuilder.doConjugation(ruleEngine, rightBase, rootLetters));
+        VerbConjugationGroup rightSideConjugations = null;
+        if (rightTerm != null) {
+            TenseMemberBuilder rightSideBuilder = GUICE_SUPPORT.getMemberBuilder(TenseMemberBuilder.class, rightTerm);
+            rightSideConjugations = rightSideBuilder.doConjugation(ruleEngine, rightBase, rootLetters);
+        }
+
+        VerbConjugationGroup leftSideConjugations = null;
+        if (leftTerm != null) {
+            TenseMemberBuilder leftSideBuilder = GUICE_SUPPORT.getMemberBuilder(TenseMemberBuilder.class, leftTerm);
+            leftSideConjugations = leftSideBuilder.doConjugation(ruleEngine, leftBase, rootLetters);
+        }
+        return new VerbDetailedConjugationPair(leftSideConjugations, rightSideConjugations);
     }
 
     private VerbDetailedConjugationPair createActiveTensePair(RootLetters rootLetters) {
@@ -99,6 +108,10 @@ public class ConjugationBuilder {
 
     private VerbDetailedConjugationPair createPassiveTensePair(RootLetters rootLetters) {
         return createTensePair(PRESENT_PASSIVE_TENSE, PAST_PASSIVE_TENSE, presentPassiveTense, pastPassiveTense, rootLetters);
+    }
+
+    private VerbDetailedConjugationPair createImperativeAndForbiddingPair(RootLetters rootLetters) {
+        return createTensePair(FORBIDDING, IMPERATIVE, forbidding, imperative, rootLetters);
     }
 
     private NounDetailedConjugationPair createParticiplePair(SarfTermType leftTerm, SarfTermType rightTerm,

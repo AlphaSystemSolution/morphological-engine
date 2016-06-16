@@ -24,7 +24,7 @@ public enum Form {
             new NounRootBase(FORM_I_MASCULINE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_FEMININE_ACTIVE_PARTICIPLE),
             new NounRootBase(FORM_I_MASCULINE_PASSIVE_PARTICIPLE),
-            new NounRootBase(FORM_I_FEMININE_PASSIVE_PARTICIPLE), null, null, null,
+            new NounRootBase(FORM_I_FEMININE_PASSIVE_PARTICIPLE), null,
             new NounRootBase[]{new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
                     new NounRootBase(NOUN_OF_PLACE_AND_TIME_V2, BROKEN_PLURAL_V12),
                     new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)}),
@@ -205,11 +205,25 @@ public enum Form {
         this.adverbs = isEmpty(adverbs) ? new NounRootBase[0] : addAll(null, adverbs);
     }
 
+    Form(NamedTemplate template, VerbRootBase pastTense, VerbRootBase presentTense, VerbRootBase pastPassiveTense,
+         VerbRootBase presentPassiveTense, NounRootBase activeParticipleMasculine, NounRootBase activeParticipleFeminine,
+         NounRootBase passiveParticipleMasculine, NounRootBase passiveParticipleFeminine, NounRootBase[] verbalNouns, NounRootBase[] adverbs) {
+        this(template, pastTense, presentTense, pastPassiveTense, presentPassiveTense, activeParticipleMasculine,
+                activeParticipleFeminine, passiveParticipleMasculine, passiveParticipleFeminine, presentTense,
+                presentTense, verbalNouns, adverbs);
+    }
+
     Form(NamedTemplate template, VerbRootBase pastTense, VerbRootBase presentTense, NounRootBase activeParticipleMasculine,
          NounRootBase activeParticipleFeminine, VerbRootBase imperative, VerbRootBase forbidding, NounRootBase[] verbalNouns,
          NounRootBase[] adverbs) {
         this(template, pastTense, presentTense, null, null, activeParticipleMasculine, activeParticipleFeminine, null,
                 null, imperative, forbidding, verbalNouns, adverbs);
+    }
+
+    Form(NamedTemplate template, VerbRootBase pastTense, VerbRootBase presentTense, NounRootBase activeParticipleMasculine,
+         NounRootBase activeParticipleFeminine, NounRootBase[] verbalNouns, NounRootBase[] adverbs) {
+        this(template, pastTense, presentTense, null, null, activeParticipleMasculine, activeParticipleFeminine, null,
+                null, presentTense, presentTense, verbalNouns, adverbs);
     }
 
     public static Form getByTemplate(NamedTemplate template) {
