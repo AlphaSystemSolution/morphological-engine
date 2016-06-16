@@ -4,6 +4,8 @@ import com.alphasystem.app.morphologicalengine.conjugation.member.AbstractTenseM
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformer;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
+import javax.inject.Singleton;
+
 import static com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerModule.FORBIDDING_SECOND_PERSON_FEMININE_TRANSFORMER;
 import static com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerModule.FORBIDDING_SECOND_PERSON_MASCULINE_TRANSFORMER;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.FORBIDDING;
@@ -11,6 +13,7 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sar
 /**
  * @author sali
  */
+@Singleton
 class ForbiddingMemberBuilder extends AbstractTenseMemberBuilder {
 
     ForbiddingMemberBuilder() {

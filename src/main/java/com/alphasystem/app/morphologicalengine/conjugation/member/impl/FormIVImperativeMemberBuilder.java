@@ -6,17 +6,17 @@ import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermTy
 
 import javax.inject.Singleton;
 
-import static com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerModule.IMPERATIVE_SECOND_PERSON_FEMININE_TRANSFORMER;
-import static com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerModule.IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER;
+import static com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerModule.FORM_IV_IMPERATIVE_SECOND_PERSON_FEMININE_TRANSFORMER;
+import static com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerModule.FORM_IV_IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.IMPERATIVE;
 
 /**
  * @author sali
  */
 @Singleton
-class ImperativeMemberBuilder extends AbstractTenseMemberBuilder {
+class FormIVImperativeMemberBuilder extends AbstractTenseMemberBuilder {
 
-    ImperativeMemberBuilder() {
+    FormIVImperativeMemberBuilder() {
     }
 
     @Override
@@ -31,12 +31,12 @@ class ImperativeMemberBuilder extends AbstractTenseMemberBuilder {
 
     @Override
     protected VerbTransformer initializeSecondPersonMasculineTransformer() {
-        return GUICE_SUPPORT.getVerbTransformer(IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER);
+        return GUICE_SUPPORT.getVerbTransformer(FORM_IV_IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER);
     }
 
     @Override
     protected VerbTransformer initializeSecondPersonFeminineTransformer() {
-        return GUICE_SUPPORT.getVerbTransformer(IMPERATIVE_SECOND_PERSON_FEMININE_TRANSFORMER);
+        return GUICE_SUPPORT.getVerbTransformer(FORM_IV_IMPERATIVE_SECOND_PERSON_FEMININE_TRANSFORMER);
     }
 
     @Override

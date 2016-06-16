@@ -90,13 +90,13 @@ public class ConjugationBuilder {
                                                         RootLetters rootLetters) {
         VerbConjugationGroup rightSideConjugations = null;
         if (rightTerm != null) {
-            TenseMemberBuilder rightSideBuilder = GUICE_SUPPORT.getMemberBuilder(TenseMemberBuilder.class, rightTerm);
+            TenseMemberBuilder rightSideBuilder = GUICE_SUPPORT.getMemberBuilder(TenseMemberBuilder.class, template, rightTerm);
             rightSideConjugations = rightSideBuilder.doConjugation(ruleEngine, rightBase, rootLetters);
         }
 
         VerbConjugationGroup leftSideConjugations = null;
         if (leftTerm != null) {
-            TenseMemberBuilder leftSideBuilder = GUICE_SUPPORT.getMemberBuilder(TenseMemberBuilder.class, leftTerm);
+            TenseMemberBuilder leftSideBuilder = GUICE_SUPPORT.getMemberBuilder(TenseMemberBuilder.class, template, leftTerm);
             leftSideConjugations = leftSideBuilder.doConjugation(ruleEngine, leftBase, rootLetters);
         }
         return new VerbDetailedConjugationPair(leftSideConjugations, rightSideConjugations);

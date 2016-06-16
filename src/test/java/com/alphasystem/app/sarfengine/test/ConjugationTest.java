@@ -2,13 +2,13 @@ package com.alphasystem.app.sarfengine.test;
 
 import com.alphasystem.app.morphologicalengine.conjugation.ConjugationBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.model.*;
+import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.util.AppUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.testng.annotations.Test;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
-import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V12;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.*;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.VERBAL_NOUN_V1;
@@ -25,12 +25,16 @@ public class ConjugationTest extends CommonTest {
     @Test
     public void runConjugationBuilder() {
         ConjugationBuilder conjugationBuilder = new ConjugationBuilder();
-        conjugationBuilder.applyTemplate(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE);
+        conjugationBuilder.applyTemplate(NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE);
         conjugationBuilder.setVerbalNouns(new NounRootBase[]{new NounRootBase(VERBAL_NOUN_V1)});
         conjugationBuilder.setAdverbs(new NounRootBase[]{new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
                 new NounRootBase(NOUN_OF_PLACE_AND_TIME_V2, BROKEN_PLURAL_V12),
                 new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)});
         printMorphologicalChart(conjugationBuilder.doConjugation(NOON, SAD, RA, null));
+
+        conjugationBuilder = new ConjugationBuilder();
+        conjugationBuilder.applyTemplate(Form.FORM_IV_TEMPLATE);
+        printMorphologicalChart(conjugationBuilder.doConjugation(SEEN, LAM, MEEM, null));
         /*ConjugationBuilderFactory cbf = GuiceSupport.getInstance().getConjugationBuilderFactory();
         ConjugationBuilder cb = cbf.getConjugationBuilder();
         MorphologicalChart morphologicalChart = cb.doConjugation(FORM_IV_TEMPLATE, "To send down", false, false, NOON, ZAIN, LAM,
