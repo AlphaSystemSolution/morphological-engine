@@ -1,7 +1,6 @@
 package com.alphasystem.app.morphologicalengine.conjugation.member.impl;
 
 import com.alphasystem.app.morphologicalengine.conjugation.member.AbstractParticipleMemberBuilder;
-import com.google.inject.assistedinject.AssistedInject;
 
 import javax.inject.Singleton;
 
@@ -11,7 +10,6 @@ import javax.inject.Singleton;
 @Singleton
 class ActiveParticipleMasculineBuilder extends AbstractParticipleMemberBuilder {
 
-    @AssistedInject
     ActiveParticipleMasculineBuilder() {
     }
 

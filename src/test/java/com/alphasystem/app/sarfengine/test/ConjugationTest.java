@@ -2,6 +2,10 @@ package com.alphasystem.app.sarfengine.test;
 
 import com.alphasystem.app.morphologicalengine.conjugation.ConjugationBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.model.*;
+import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ActiveLine;
+import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.AdverbLine;
+import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ImperativeAndForbiddingLine;
+import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.PassiveLine;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.util.AppUtil;
@@ -19,7 +23,6 @@ import static java.lang.String.format;
  */
 public class ConjugationTest extends CommonTest {
 
-    private static final String EMPTY_ROW = "7+| ";
     private static final String SARF_TERM_PATTERN = "3+|%s .%s+| 3+|%s %s";
 
     @Test
@@ -47,8 +50,45 @@ public class ConjugationTest extends CommonTest {
     }
 
     private void printMorphologicalChart(MorphologicalChart chart) {
-        final DetailedConjugation detailedConjugation = chart.getDetailedConjugation();
+        createAbbreviatedConjugationChart(chart.getAbbreviatedConjugation());
+        createDetailedConjugationChart(chart.getDetailedConjugation());
+    }
 
+    private void createAbbreviatedConjugationChart(AbbreviatedConjugation abbreviatedConjugation) {
+        lines.add("[cols=\"^.^25,^.^25,^.^25,^.^25\"]");
+        lines.add(ASCII_DOC_TABLE_DECELERATION);
+        addActiveLine(abbreviatedConjugation.getActiveLine());
+        addPassiveLine(abbreviatedConjugation.getPassiveLine());
+        addImperativeAndForbiddingLine(abbreviatedConjugation.getImperativeAndForbiddingLine());
+        addAdverbLine(abbreviatedConjugation.getAdverbLine());
+        lines.add(getEmptyRow(4));
+        lines.add(ASCII_DOC_TABLE_DECELERATION);
+    }
+
+    private void addActiveLine(ActiveLine activeLine) {
+        lines.add(getRootWord(activeLine.getActiveParticipleMasculine()));
+        lines.add(getRootWord(activeLine.getVerbalNouns()));
+        lines.add(getRootWord(activeLine.getPresentTense()));
+        lines.add(getRootWord(activeLine.getPastTense()));
+    }
+
+    private void addPassiveLine(PassiveLine passiveLine) {
+        lines.add(getRootWord(passiveLine.getPassiveParticipleMasculine()));
+        lines.add(getRootWord(passiveLine.getVerbalNouns()));
+        lines.add(getRootWord(passiveLine.getPresentPassiveTense()));
+        lines.add(getRootWord(passiveLine.getPastPassiveTense()));
+    }
+
+    private void addImperativeAndForbiddingLine(ImperativeAndForbiddingLine imperativeAndForbiddingLine) {
+        lines.add(getRootWord(2, imperativeAndForbiddingLine.getForbidding()));
+        lines.add(getRootWord(2, imperativeAndForbiddingLine.getImperative()));
+    }
+
+    private void addAdverbLine(AdverbLine adverbLine) {
+        lines.add(getRootWord(4, adverbLine.getAdverbs()));
+    }
+
+    private void createDetailedConjugationChart(DetailedConjugation detailedConjugation) {
         lines.add("[cols=\"^.^17,^.^16,^.^16,^.^2,^.^17,^.^16,^.^16\"]");
         lines.add(ASCII_DOC_TABLE_DECELERATION);
         addTenseConjugations(detailedConjugation.getActiveTensePair());
@@ -100,7 +140,7 @@ public class ConjugationTest extends CommonTest {
             lines.add(getRowData(leftTuple, rightTuple));
         }
 
-        lines.add(EMPTY_ROW);
+        lines.add(getEmptyRow(7));
         lines.add(AppUtil.NEW_LINE);
     }
 
@@ -129,7 +169,7 @@ public class ConjugationTest extends CommonTest {
         rightSide = (rsc == null) ? null : rsc.getGenitive();
         lines.add(getRowData(leftSide, rightSide));
 
-        lines.add(EMPTY_ROW);
+        lines.add(getEmptyRow(7));
         lines.add(AppUtil.NEW_LINE);
     }
 

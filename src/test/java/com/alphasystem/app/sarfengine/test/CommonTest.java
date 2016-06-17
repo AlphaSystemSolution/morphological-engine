@@ -23,12 +23,14 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.alphasystem.arabic.model.ArabicWord.concatenateWithAnd;
 import static com.alphasystem.arabic.model.HiddenNounStatus.*;
 import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_FEMININE_SINGULAR;
 import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_MASCULINE_SINGULAR;
 import static com.alphasystem.util.AppUtil.NEW_LINE;
 import static java.lang.String.format;
 import static java.nio.file.Files.write;
+import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 import static org.asciidoctor.SafeMode.UNSAFE;
 import static org.testng.Reporter.log;
 
@@ -53,8 +55,24 @@ public class CommonTest implements ArabicLetters, Constants {
         return status == null ? "| " : format("|[arabicTableCaptionSmall]#%s#", status.toHtmlCode());
     }
 
-    public static String getRootWord(RootWord rootWord) {
-        return (rootWord == null) ? "|&nbsp; " : format("|[arabicNormal]#%s#", rootWord.getLabel().toHtmlCode());
+    public static String getRootWord(RootWord... rootWords) {
+        return getRootWord(0, rootWords);
+    }
+
+    public static String getRootWord(int columnSpan, RootWord... rootWords) {
+        if (isEmpty(rootWords)) {
+            return columnSpan <= 0 ? "|&nbsp; " : getEmptyRow(columnSpan);
+        }
+        RootWord rootWord = rootWords[0];
+        if (rootWord == null) {
+            return columnSpan <= 0 ? "|&nbsp; " : getEmptyRow(columnSpan);
+        }
+        ArabicWord arabicWord = rootWord.getLabel();
+        for (int i = 1; i < rootWords.length; i++) {
+            arabicWord = concatenateWithAnd(arabicWord, rootWords[i].getLabel());
+        }
+        return columnSpan <= 0 ? format("|[arabicNormal]#%s#", arabicWord.toHtmlCode()) :
+                format("%s+|[arabicNormal]#%s#", columnSpan, arabicWord.toHtmlCode());
     }
 
     public static String getRootWordLabel(RootWord rootWord) {
@@ -108,6 +126,10 @@ public class CommonTest implements ArabicLetters, Constants {
         }
         builder.append(NEW_LINE).append(getStatusCaption(status)).append(NEW_LINE);
         lines.add(builder.toString());
+    }
+
+    static String getEmptyRow(int numOfColumns) {
+        return format("%s+| ", numOfColumns);
     }
 
     public static String printArabicText(ArabicLetter src) {
