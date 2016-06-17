@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.alphasystem.arabic.model.ArabicWord.concatenateWithAnd;
+import static com.alphasystem.arabic.model.ArabicWord.concatenateWithSpace;
 import static com.alphasystem.arabic.model.HiddenNounStatus.*;
 import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_FEMININE_SINGULAR;
 import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_MASCULINE_SINGULAR;
@@ -60,6 +61,10 @@ public class CommonTest implements ArabicLetters, Constants {
     }
 
     public static String getRootWord(int columnSpan, RootWord... rootWords) {
+        return getRootWord(columnSpan, null, rootWords);
+    }
+
+    public static String getRootWord(int columnSpan, ArabicWord prefix, RootWord... rootWords) {
         if (isEmpty(rootWords)) {
             return columnSpan <= 0 ? "|&nbsp; " : getEmptyRow(columnSpan);
         }
@@ -70,6 +75,9 @@ public class CommonTest implements ArabicLetters, Constants {
         ArabicWord arabicWord = rootWord.getLabel();
         for (int i = 1; i < rootWords.length; i++) {
             arabicWord = concatenateWithAnd(arabicWord, rootWords[i].getLabel());
+        }
+        if (prefix != null) {
+            arabicWord = concatenateWithSpace(prefix, arabicWord);
         }
         return columnSpan <= 0 ? format("|[arabicNormal]#%s#", arabicWord.toHtmlCode()) :
                 format("%s+|[arabicNormal]#%s#", columnSpan, arabicWord.toHtmlCode());

@@ -6,6 +6,8 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.Activ
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.AdverbLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ImperativeAndForbiddingLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.PassiveLine;
+import com.alphasystem.arabic.model.ArabicLetterType;
+import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.util.AppUtil;
@@ -13,6 +15,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.testng.annotations.Test;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
+import static com.alphasystem.arabic.model.ArabicWord.getWord;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V12;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.*;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.VERBAL_NOUN_V1;
@@ -24,6 +27,12 @@ import static java.lang.String.format;
 public class ConjugationTest extends CommonTest {
 
     private static final String SARF_TERM_PATTERN = "3+|%s .%s+| 3+|%s %s";
+    public static final ArabicWord COMMAND_PREFIX = getWord(ALIF, LAM, ALIF_HAMZA_ABOVE, MEEM, RA, ArabicLetterType.SPACE,
+            MEEM, NOON, HA);
+    private static final ArabicWord FORBIDDING_PREFIX = getWord(WAW, NOON, HA, YA, ArabicLetterType.SPACE, AIN, NOON, HA,
+            ArabicLetterType.SPACE, LAM, ALIF);
+    private static final ArabicWord ADVERB_PREFIX = getWord(WAW, ALIF, LAM, DTHA, RA, FA, ArabicLetterType.SPACE, MEEM,
+            NOON, HA);
 
     @Test
     public void runConjugationBuilder() {
@@ -80,12 +89,12 @@ public class ConjugationTest extends CommonTest {
     }
 
     private void addImperativeAndForbiddingLine(ImperativeAndForbiddingLine imperativeAndForbiddingLine) {
-        lines.add(getRootWord(2, imperativeAndForbiddingLine.getForbidding()));
-        lines.add(getRootWord(2, imperativeAndForbiddingLine.getImperative()));
+        lines.add(getRootWord(2, FORBIDDING_PREFIX, imperativeAndForbiddingLine.getForbidding()));
+        lines.add(getRootWord(2, COMMAND_PREFIX, imperativeAndForbiddingLine.getImperative()));
     }
 
     private void addAdverbLine(AdverbLine adverbLine) {
-        lines.add(getRootWord(4, adverbLine.getAdverbs()));
+        lines.add(getRootWord(4, ADVERB_PREFIX, adverbLine.getAdverbs()));
     }
 
     private void createDetailedConjugationChart(DetailedConjugation detailedConjugation) {
