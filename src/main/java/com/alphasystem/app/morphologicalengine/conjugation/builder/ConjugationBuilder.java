@@ -1,4 +1,4 @@
-package com.alphasystem.app.morphologicalengine.conjugation;
+package com.alphasystem.app.morphologicalengine.conjugation.builder;
 
 import com.alphasystem.app.morphologicalengine.conjugation.member.ParticipleMemberBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.member.TenseMemberBuilder;

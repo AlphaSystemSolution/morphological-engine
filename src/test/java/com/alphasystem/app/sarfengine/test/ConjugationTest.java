@@ -1,6 +1,6 @@
 package com.alphasystem.app.sarfengine.test;
 
-import com.alphasystem.app.morphologicalengine.conjugation.ConjugationBuilder;
+import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.model.*;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ActiveLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.AdverbLine;
