@@ -97,10 +97,21 @@ public class ConjugationBuilder {
 
     private ActiveLine createActiveLine(ArabicLetterType firstRadical, ArabicLetterType secondRadical,
                                         ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
-        RootWord pastTense = getTenseRootWord(PAST_TENSE_THIRD_PERSON_MASCULINE_TRANSFORMER, this.pastTense, firstRadical,
-                secondRadical, thirdRadical, fourthRadical);
-        RootWord presentTense = getTenseRootWord(PRESENT_TENSE_THIRD_PERSON_MASCULINE_TRANSFORMER, this.presentTense,
-                firstRadical, secondRadical, thirdRadical, fourthRadical);
+        RootWord rootWord;
+        RootWord pastTense = null;
+        if (this.pastTense != null) {
+            rootWord = new RootWord(this.pastTense.getRoot().getRootWord()).withSarfTermType(PAST_TENSE);
+            pastTense = getTenseRootWord(PAST_TENSE_THIRD_PERSON_MASCULINE_TRANSFORMER, rootWord, firstRadical,
+                    secondRadical, thirdRadical, fourthRadical);
+        }
+
+        RootWord presentTense = null;
+        if (this.presentTense != null) {
+            rootWord = new RootWord(this.presentTense.getRoot().getRootWord()).withSarfTermType(PRESENT_TENSE);
+            presentTense = getTenseRootWord(PRESENT_TENSE_THIRD_PERSON_MASCULINE_TRANSFORMER, rootWord, firstRadical,
+                    secondRadical, thirdRadical, fourthRadical);
+        }
+
         RootWord activeParticipleMasculine = getNounRootWord(this.activeParticipleMasculine, firstRadical, secondRadical,
                 thirdRadical, fourthRadical);
         RootWord[] verbalNouns = getNounRootWords(this.verbalNouns, true, firstRadical, secondRadical, thirdRadical, fourthRadical);
@@ -109,10 +120,21 @@ public class ConjugationBuilder {
 
     private PassiveLine createPassiveLine(ArabicLetterType firstRadical, ArabicLetterType secondRadical,
                                           ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
-        RootWord pastPassiveTense = getTenseRootWord(PAST_TENSE_THIRD_PERSON_MASCULINE_TRANSFORMER, this.pastPassiveTense,
-                firstRadical, secondRadical, thirdRadical, fourthRadical);
-        RootWord presentPassiveTense = getTenseRootWord(PRESENT_TENSE_THIRD_PERSON_MASCULINE_TRANSFORMER, this.presentPassiveTense,
-                firstRadical, secondRadical, thirdRadical, fourthRadical);
+        RootWord rootWord;
+        RootWord pastPassiveTense = null;
+        if (this.pastPassiveTense != null) {
+            rootWord = new RootWord(this.pastPassiveTense.getRoot().getRootWord()).withSarfTermType(PAST_PASSIVE_TENSE);
+            pastPassiveTense = getTenseRootWord(PAST_TENSE_THIRD_PERSON_MASCULINE_TRANSFORMER, rootWord, firstRadical,
+                    secondRadical, thirdRadical, fourthRadical);
+        }
+
+        RootWord presentPassiveTense = null;
+        if (this.presentPassiveTense != null) {
+            rootWord = new RootWord(this.presentPassiveTense.getRoot().getRootWord()).withSarfTermType(PRESENT_PASSIVE_TENSE);
+            presentPassiveTense = getTenseRootWord(PRESENT_TENSE_THIRD_PERSON_MASCULINE_TRANSFORMER, rootWord, firstRadical,
+                    secondRadical, thirdRadical, fourthRadical);
+        }
+
         RootWord passiveParticipleMasculine = getNounRootWord(this.passiveParticipleMasculine, firstRadical, secondRadical,
                 thirdRadical, fourthRadical);
         RootWord[] verbalNouns = getNounRootWords(this.verbalNouns, true, firstRadical, secondRadical, thirdRadical, fourthRadical);
@@ -123,11 +145,22 @@ public class ConjugationBuilder {
                                                                           ArabicLetterType secondRadical,
                                                                           ArabicLetterType thirdRadical,
                                                                           ArabicLetterType fourthRadical) {
-        final String name = this.template.equals(FORM_IV_TEMPLATE) ? FORM_IV_IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER :
-                IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER;
-        RootWord imperative = getTenseRootWord(name, this.imperative, firstRadical, secondRadical, thirdRadical, fourthRadical);
-        RootWord forbidding = getTenseRootWord(FORBIDDING_SECOND_PERSON_MASCULINE_TRANSFORMER, this.forbidding,
-                firstRadical, secondRadical, thirdRadical, fourthRadical);
+        RootWord rootWord;
+        RootWord imperative = null;
+        if (this.imperative != null) {
+            rootWord = new RootWord(this.imperative.getRoot().getRootWord()).withSarfTermType(IMPERATIVE);
+            final String name = this.template.equals(FORM_IV_TEMPLATE) ? FORM_IV_IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER :
+                    IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER;
+            imperative = getTenseRootWord(name, rootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+        }
+
+        RootWord forbidding = null;
+        if (this.forbidding != null) {
+            rootWord = new RootWord(this.forbidding.getRoot().getRootWord()).withSarfTermType(FORBIDDING);
+            forbidding = getTenseRootWord(FORBIDDING_SECOND_PERSON_MASCULINE_TRANSFORMER, rootWord, firstRadical,
+                    secondRadical, thirdRadical, fourthRadical);
+        }
+
         return new ImperativeAndForbiddingLine(imperative, forbidding);
     }
 
@@ -136,11 +169,11 @@ public class ConjugationBuilder {
         return new AdverbLine(getNounRootWords(this.adverbs, false, firstRadical, secondRadical, thirdRadical, fourthRadical));
     }
 
-    private RootWord getTenseRootWord(String name, VerbRootBase rootBase, ArabicLetterType firstRadical,
+    private RootWord getTenseRootWord(String name, RootWord rootWord, ArabicLetterType firstRadical,
                                       ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
                                       ArabicLetterType fourthRadical) {
         final VerbTransformer verbTransformer = GUICE_SUPPORT.getVerbTransformer(name);
-        final ConjugationTuple tuple = verbTransformer.doTransform(ruleEngine, rootBase.getRoot().getRootWord(),
+        final ConjugationTuple tuple = verbTransformer.doTransform(ruleEngine, rootWord,
                 firstRadical, secondRadical, thirdRadical, fourthRadical);
         return tuple.getSingular();
     }

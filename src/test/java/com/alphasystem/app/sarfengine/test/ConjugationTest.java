@@ -29,8 +29,7 @@ public class ConjugationTest extends CommonTest {
     private static final String SARF_TERM_PATTERN = "3+|%s .%s+| 3+|%s %s";
     public static final ArabicWord COMMAND_PREFIX = getWord(ALIF, LAM, ALIF_HAMZA_ABOVE, MEEM, RA, ArabicLetterType.SPACE,
             MEEM, NOON, HA);
-    private static final ArabicWord FORBIDDING_PREFIX = getWord(WAW, NOON, HA, YA, ArabicLetterType.SPACE, AIN, NOON, HA,
-            ArabicLetterType.SPACE, LAM, ALIF);
+    private static final ArabicWord FORBIDDING_PREFIX = getWord(WAW, NOON, HA, YA, ArabicLetterType.SPACE, AIN, NOON, HA);
     private static final ArabicWord ADVERB_PREFIX = getWord(WAW, ALIF, LAM, DTHA, RA, FA, ArabicLetterType.SPACE, MEEM,
             NOON, HA);
 
