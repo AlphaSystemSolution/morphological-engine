@@ -37,8 +37,8 @@ public class ConjugationTest extends CommonTest {
     public void runConjugationBuilder() {
         ConjugationBuilder conjugationBuilder = new ConjugationBuilder();
         conjugationBuilder.applyTemplate(NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE);
-        conjugationBuilder.setVerbalNouns(new NounRootBase[]{new NounRootBase(VERBAL_NOUN_V1)});
-        conjugationBuilder.setAdverbs(new NounRootBase[]{new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
+        conjugationBuilder.getConjugationRoots().setVerbalNouns(new NounRootBase[]{new NounRootBase(VERBAL_NOUN_V1)});
+        conjugationBuilder.getConjugationRoots().setAdverbs(new NounRootBase[]{new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
                 new NounRootBase(NOUN_OF_PLACE_AND_TIME_V2, BROKEN_PLURAL_V12),
                 new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)});
         printMorphologicalChart(conjugationBuilder.doConjugation(NOON, SAD, RA, null));

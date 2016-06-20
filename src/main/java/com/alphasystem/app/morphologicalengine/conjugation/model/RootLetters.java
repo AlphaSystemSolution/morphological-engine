@@ -2,6 +2,8 @@ package com.alphasystem.app.morphologicalengine.conjugation.model;
 
 import com.alphasystem.arabic.model.ArabicLetterType;
 
+import static com.alphasystem.arabic.model.ArabicLetterType.*;
+
 /**
  * @author sali
  */
@@ -11,6 +13,10 @@ public final class RootLetters {
     protected final ArabicLetterType secondRadical;
     protected final ArabicLetterType thirdRadical;
     protected final ArabicLetterType fourthRadical;
+
+    public RootLetters() {
+        this(FA, AIN, LAM);
+    }
 
     public RootLetters(ArabicLetterType firstRadical, ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
         this(firstRadical, secondRadical, thirdRadical, null);
