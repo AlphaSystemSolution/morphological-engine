@@ -1,6 +1,7 @@
 package com.alphasystem.app.sarfengine.test;
 
 import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilder;
+import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationRoots;
 import com.alphasystem.app.morphologicalengine.conjugation.model.*;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ActiveLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.AdverbLine;
@@ -15,6 +16,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.testng.annotations.Test;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
+import static com.alphasystem.arabic.model.ArabicWord.concatenateWithSpace;
 import static com.alphasystem.arabic.model.ArabicWord.getWord;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V12;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.*;
@@ -37,8 +39,9 @@ public class ConjugationTest extends CommonTest {
     public void runConjugationBuilder() {
         ConjugationBuilder conjugationBuilder = new ConjugationBuilder();
         conjugationBuilder.applyTemplate(NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE);
-        conjugationBuilder.getConjugationRoots().setVerbalNouns(new NounRootBase[]{new NounRootBase(VERBAL_NOUN_V1)});
-        conjugationBuilder.getConjugationRoots().setAdverbs(new NounRootBase[]{new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
+        final ConjugationRoots conjugationRoots = conjugationBuilder.getConjugationRoots().translation("To Help");
+        conjugationRoots.setVerbalNouns(new NounRootBase[]{new NounRootBase(VERBAL_NOUN_V1)});
+        conjugationRoots.setAdverbs(new NounRootBase[]{new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
                 new NounRootBase(NOUN_OF_PLACE_AND_TIME_V2, BROKEN_PLURAL_V12),
                 new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)});
         printMorphologicalChart(conjugationBuilder.doConjugation(NOON, SAD, RA, null));
@@ -58,13 +61,21 @@ public class ConjugationTest extends CommonTest {
     }
 
     private void printMorphologicalChart(MorphologicalChart chart) {
-        createAbbreviatedConjugationChart(chart.getAbbreviatedConjugation());
+        createHeading(chart.getHeader());
+        createAbbreviatedConjugationChart(chart.getAbbreviatedConjugation(), chart.getHeader());
         createDetailedConjugationChart(chart.getDetailedConjugation());
     }
 
-    private void createAbbreviatedConjugationChart(AbbreviatedConjugation abbreviatedConjugation) {
+    private void createHeading(ConjugationHeader header) {
+        final ArabicWord arabicWord = concatenateWithSpace(header.getPastTenseRoot().getLabel(),
+                header.getPresentTenseRoot().getLabel());
+        lines.add(format("== [arabicHeading1]#%s#", arabicWord.toHtmlCode()));
+    }
+
+    private void createAbbreviatedConjugationChart(AbbreviatedConjugation abbreviatedConjugation, ConjugationHeader header) {
         lines.add("[cols=\"^.^25,^.^25,^.^25,^.^25\"]");
         lines.add(ASCII_DOC_TABLE_DECELERATION);
+        addHeader(header);
         addActiveLine(abbreviatedConjugation.getActiveLine());
         addPassiveLine(abbreviatedConjugation.getPassiveLine());
         addImperativeAndForbiddingLine(abbreviatedConjugation.getImperativeAndForbiddingLine());
@@ -72,6 +83,32 @@ public class ConjugationTest extends CommonTest {
         lines.add(getEmptyRow(4));
         lines.add(ASCII_DOC_TABLE_DECELERATION);
     }
+
+    private void addHeader(ConjugationHeader header) {
+        final String rootLettersAndTranslation = addRootLettersAndTranslation(header.getRootLetters(), header.getTranslation());
+        final String headerLabels = addHeaderLabels(header);
+        lines.add(format("2+|%s 2+>.^|%s", rootLettersAndTranslation, headerLabels));
+    }
+
+    private String addRootLettersAndTranslation(RootLetters rootLetters, String translation) {
+        ArabicLetterType fourthRadical = rootLetters.getFourthRadical();
+        ArabicWord fourthRadicalWord = (fourthRadical == null) ? null : fourthRadical.getLabel();
+        final ArabicWord rootLettersWord = concatenateWithSpace(rootLetters.getFirstRadical().getLabel(),
+                rootLetters.getSecondRadical().getLabel(), rootLetters.getThirdRadical().getLabel(), fourthRadicalWord);
+        String translationValue = (translation == null) ? "" : format("[small]#(%s)#", translation);
+        return format("[arabicHeading1]#%s#%s%s%s", rootLettersWord.toHtmlCode(), AppUtil.NEW_LINE, AppUtil.NEW_LINE, translationValue);
+    }
+
+    private String addHeaderLabels(ConjugationHeader header) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(ARABIC_NORMAL_STYLE_START).append(header.getTypeLabel1().toHtmlCode()).append("#")
+                .append(AppUtil.NEW_LINE).append(AppUtil.NEW_LINE)
+                .append(ARABIC_NORMAL_STYLE_START).append(header.getTypeLabel2().toHtmlCode()).append("#")
+                .append(AppUtil.NEW_LINE).append(AppUtil.NEW_LINE)
+                .append(ARABIC_NORMAL_STYLE_START).append(header.getTypeLabel3().toHtmlCode()).append("#");
+        return builder.toString();
+    }
+
 
     private void addActiveLine(ActiveLine activeLine) {
         lines.add(getRootWord(activeLine.getActiveParticipleMasculine()));
