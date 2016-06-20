@@ -54,7 +54,11 @@ public class ConjugationBuilder {
 
         final DetailedConjugationBuilder detailedConjugationBuilder = new DetailedConjugationBuilder(conjugationRoots, ruleEngine);
         final DetailedConjugation detailedConjugation = detailedConjugationBuilder.createDetailedConjugation(rootLetters, removePassiveLine);
-        return new MorphologicalChart(null, abbreviatedConjugation, detailedConjugation);
+
+        final ConjugationHeaderBuilder conjugationHeaderBuilder = new ConjugationHeaderBuilder(conjugationRoots, abbreviatedConjugation);
+        final ConjugationHeader conjugationHeader = conjugationHeaderBuilder.createConjugationHeader(rootLetters);
+
+        return new MorphologicalChart(conjugationHeader, abbreviatedConjugation, detailedConjugation);
     }
 
     public ConjugationBuilder applyTemplate(NamedTemplate template) {
