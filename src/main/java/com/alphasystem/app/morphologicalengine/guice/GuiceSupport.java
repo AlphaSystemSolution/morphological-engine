@@ -7,11 +7,9 @@ import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.Noun
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerModule;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformer;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerModule;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.name.Named;
 import com.mycila.guice.ext.closeable.CloseableModule;
 import com.mycila.guice.ext.jsr250.Jsr250Module;
 
@@ -19,8 +17,6 @@ import java.lang.annotation.Annotation;
 
 import static com.google.inject.Key.get;
 import static com.google.inject.name.Names.named;
-import static java.lang.String.format;
-import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /**
  * @author sali
@@ -40,13 +36,6 @@ public final class GuiceSupport {
 
     public static GuiceSupport getInstance() {
         return instance;
-    }
-
-    public static Named createAnnotation(NamedTemplate template, SarfTermType termType) {
-        String templateName = (template == null) ? "" : format("%s_", template.name());
-        String typeName = termType == null ? "" : termType.name();
-        final String name = format("%s%s", templateName, typeName);
-        return isBlank(name) ? null : named(name);
     }
 
     public Injector getInjector() {
@@ -74,18 +63,8 @@ public final class GuiceSupport {
         return injector.getInstance(get(type, named(name)));
     }
 
-    public <B extends ConjugationMemberBuilder> B getMemberBuilder(Class<B> type, NamedTemplate template, SarfTermType termType) {
-        Named annotation = createAnnotation(template, termType);
-        B instance = getInstance(type, annotation);
-        if (instance == null) {
-            annotation = createAnnotation(null, termType);
-            instance = getInstance(type, annotation);
-        }
-        return instance;
-    }
-
     public <B extends ConjugationMemberBuilder> B getMemberBuilder(Class<B> type, SarfTermType termType) {
-        return getMemberBuilder(type, null, termType);
+        return termType == null ? null : getInstance(type, termType.name());
     }
 
     public NounTransformer getNounTransformer(String name) {

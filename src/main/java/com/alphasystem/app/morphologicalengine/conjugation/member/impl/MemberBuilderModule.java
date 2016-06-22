@@ -4,8 +4,6 @@ import com.alphasystem.app.morphologicalengine.conjugation.member.ParticipleMemb
 import com.alphasystem.app.morphologicalengine.conjugation.member.TenseMemberBuilder;
 import com.google.inject.AbstractModule;
 
-import static com.alphasystem.app.morphologicalengine.guice.GuiceSupport.createAnnotation;
-import static com.alphasystem.arabic.model.NamedTemplate.FORM_IV_TEMPLATE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
 import static com.google.inject.name.Names.named;
 
@@ -21,7 +19,6 @@ public class MemberBuilderModule extends AbstractModule {
         bind(TenseMemberBuilder.class).annotatedWith(named(PAST_PASSIVE_TENSE.name())).to(PastPassiveTenseMemberBuilder.class);
         bind(TenseMemberBuilder.class).annotatedWith(named(PRESENT_PASSIVE_TENSE.name())).to(PresentPassiveTenseMemberBuilder.class);
         bind(TenseMemberBuilder.class).annotatedWith(named(IMPERATIVE.name())).to(ImperativeMemberBuilder.class);
-        bind(TenseMemberBuilder.class).annotatedWith(createAnnotation(FORM_IV_TEMPLATE, IMPERATIVE)).to(FormIVImperativeMemberBuilder.class);
         bind(TenseMemberBuilder.class).annotatedWith(named(FORBIDDING.name())).to(ForbiddingMemberBuilder.class);
         bind(ParticipleMemberBuilder.class).annotatedWith(named(ACTIVE_PARTICIPLE_MASCULINE.name())).to(ActiveParticipleMasculineBuilder.class);
         bind(ParticipleMemberBuilder.class).annotatedWith(named(ACTIVE_PARTICIPLE_FEMININE.name())).to(ActiveParticipleFeminineBuilder.class);

@@ -20,15 +20,29 @@ public abstract class AbstractTenseMemberBuilder implements TenseMemberBuilder {
     protected AbstractTenseMemberBuilder() {
     }
 
-    protected abstract VerbTransformer initializeThirdPersonMasculineTransformer();
+    private VerbTransformer initializeThirdPersonMasculineTransformer(VerbRootBase rootBase) {
+        return getTransformer(rootBase.getRoot().getThirdPersonMasculineName());
+    }
 
-    protected abstract VerbTransformer initializeThirdPersonFeminineTransformer();
+    private VerbTransformer initializeThirdPersonFeminineTransformer(VerbRootBase rootBase) {
+        return getTransformer(rootBase.getRoot().getThirdPersonFeminineName());
+    }
 
-    protected abstract VerbTransformer initializeSecondPersonMasculineTransformer();
+    private VerbTransformer initializeSecondPersonMasculineTransformer(VerbRootBase rootBase) {
+        return getTransformer(rootBase.getRoot().getSecondPersonMasculineName());
+    }
 
-    protected abstract VerbTransformer initializeSecondPersonFeminineTransformer();
+    private VerbTransformer initializeSecondPersonFeminineTransformer(VerbRootBase rootBase) {
+        return getTransformer(rootBase.getRoot().getSecondPersonFeminineName());
+    }
 
-    protected abstract VerbTransformer initializeFirstPersonTransformer();
+    private VerbTransformer initializeFirstPersonTransformer(VerbRootBase rootBase) {
+        return getTransformer(rootBase.getRoot().getFirstPersonName());
+    }
+
+    private VerbTransformer getTransformer(String name){
+        return (name == null) ? null : GUICE_SUPPORT.getVerbTransformer(name);
+    }
 
     @Override
     public VerbConjugationGroup doConjugation(RuleProcessor ruleProcessor, VerbRootBase rootBase, RootLetters rootLetters) {
@@ -38,11 +52,11 @@ public abstract class AbstractTenseMemberBuilder implements TenseMemberBuilder {
         final ArabicLetterType thirdRadical = rootLetters.getThirdRadical();
         final ArabicLetterType fourthRadical = rootLetters.getFourthRadical();
 
-        VerbTransformer thirdPersonMasculineTransformer = initializeThirdPersonMasculineTransformer();
-        VerbTransformer thirdPersonFeminineTransformer = initializeThirdPersonFeminineTransformer();
-        VerbTransformer secondPersonMasculineTransformer = initializeSecondPersonMasculineTransformer();
-        VerbTransformer secondPersonFeminineTransformer = initializeSecondPersonFeminineTransformer();
-        VerbTransformer firstPersonTransformer = initializeFirstPersonTransformer();
+        VerbTransformer thirdPersonMasculineTransformer = initializeThirdPersonMasculineTransformer(rootBase);
+        VerbTransformer thirdPersonFeminineTransformer = initializeThirdPersonFeminineTransformer(rootBase);
+        VerbTransformer secondPersonMasculineTransformer = initializeSecondPersonMasculineTransformer(rootBase);
+        VerbTransformer secondPersonFeminineTransformer = initializeSecondPersonFeminineTransformer(rootBase);
+        VerbTransformer firstPersonTransformer = initializeFirstPersonTransformer(rootBase);
 
         conjugationGroup.setMasculineThirdPerson(doTransform(ruleProcessor, thirdPersonMasculineTransformer, rootBase,
                 firstRadical, secondRadical, thirdRadical, fourthRadical));
