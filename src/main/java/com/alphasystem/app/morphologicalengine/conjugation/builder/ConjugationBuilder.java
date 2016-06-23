@@ -62,20 +62,12 @@ public class ConjugationBuilder {
     }
 
     public ConjugationBuilder applyTemplate(NamedTemplate template) {
-        return applyTemplate(Form.getByTemplate(template));
+        ConjugationHelper.applyTemplate(conjugationRoots, template);
+        return this;
     }
 
     public ConjugationBuilder applyTemplate(Form form) {
-        if (form == null) {
-            throw new NullPointerException("Form cannot be null.");
-        }
-        conjugationRoots.setTemplate(form.getTemplate());
-        conjugationRoots.pastTense(form.getPastTense()).presentTense(form.getPresentTense()).pastPassiveTense(form.getPastPassiveTense())
-                .presentPassiveTense(form.getPresentPassiveTense()).activeParticipleMasculine(form.getActiveParticipleMasculine())
-                .activeParticipleFeminine(form.getActiveParticipleFeminine()).passiveParticipleMasculine(form.getPassiveParticipleMasculine())
-                .passiveParticipleFeminine(form.getPassiveParticipleFeminine()).imperative(form.getImperative()).forbidding(form.getForbidding());
-        conjugationRoots.setVerbalNouns(form.getVerbalNouns());
-        conjugationRoots.setAdverbs(form.getAdverbs());
+        ConjugationHelper.applyTemplate(conjugationRoots, form);
         return this;
     }
 

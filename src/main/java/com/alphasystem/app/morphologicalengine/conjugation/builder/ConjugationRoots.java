@@ -7,8 +7,6 @@ import com.alphasystem.morphologicalanalysis.morphology.model.ChartConfiguration
 import com.alphasystem.morphologicalanalysis.morphology.model.ConjugationConfiguration;
 import org.apache.commons.lang3.ArrayUtils;
 
-import static org.apache.commons.lang3.ArrayUtils.isEmpty;
-
 /**
  * @author sali
  */
@@ -164,7 +162,7 @@ public final class ConjugationRoots {
         this.adverbs = ArrayUtils.addAll(new NounRootBase[0], adverbs);
     }
 
-    public ConjugationRoots template(NamedTemplate template){
+    public ConjugationRoots template(NamedTemplate template) {
         setTemplate(template);
         return this;
     }
@@ -240,17 +238,27 @@ public final class ConjugationRoots {
         return this;
     }
 
-    public ConjugationRoots verbalNouns(NounRootBase... verbalNouns) {
-        if (!isEmpty(verbalNouns)) {
-            this.verbalNouns = ArrayUtils.addAll(this.verbalNouns, verbalNouns);
+    public ConjugationRoots verbalNouns(boolean override, NounRootBase... verbalNouns) {
+        if (override) {
+            this.verbalNouns = new NounRootBase[0];
         }
+        this.verbalNouns = ArrayUtils.addAll(this.verbalNouns, verbalNouns);
+        return this;
+    }
+
+    public ConjugationRoots verbalNouns(NounRootBase... verbalNouns) {
+        return verbalNouns(false, verbalNouns);
+    }
+
+    public ConjugationRoots adverbs(boolean override, NounRootBase... adverbs) {
+        if (override) {
+            this.adverbs = new NounRootBase[0];
+        }
+        this.adverbs = ArrayUtils.addAll(this.adverbs, adverbs);
         return this;
     }
 
     public ConjugationRoots adverbs(NounRootBase... adverbs) {
-        if (!isEmpty(adverbs)) {
-            this.adverbs = ArrayUtils.addAll(this.adverbs, adverbs);
-        }
-        return this;
+        return adverbs(false, adverbs);
     }
 }
