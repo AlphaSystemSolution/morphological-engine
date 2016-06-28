@@ -40,7 +40,7 @@ public class DoubleLetteredProcessor extends AbstractRuleProcessor {
             return baseRootWord;
         }
         WordStatus wordStatus = new WordStatus(baseRootWord);
-        if (!wordStatus.isDouledLettered()) {
+        if (!wordStatus.isDoubledLettered()) {
             return baseRootWord;
         }
 

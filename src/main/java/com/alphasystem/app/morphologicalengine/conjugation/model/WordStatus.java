@@ -34,7 +34,7 @@ public final class WordStatus {
 
     private boolean thirdRadicalHamza;
 
-    private boolean douledLettered;
+    private boolean doubledLettered;
 
     /**
      * @param baseRootWord
@@ -74,7 +74,7 @@ public final class WordStatus {
         }
 
         if (secondRadicalLetter != null) {
-            douledLettered = secondRadicalLetter.equals(thirdRadicalLetter);
+            doubledLettered = secondRadicalLetter.equals(thirdRadicalLetter);
         }
     }
 
@@ -90,8 +90,8 @@ public final class WordStatus {
         return twoSeparateLettersWeak() || twoConsecutiveLettersWeak();
     }
 
-    public boolean isDouledLettered() {
-        return douledLettered;
+    public boolean isDoubledLettered() {
+        return doubledLettered;
     }
 
     public boolean isFirstRadicalHamza() {

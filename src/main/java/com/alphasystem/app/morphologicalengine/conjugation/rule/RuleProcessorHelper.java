@@ -63,7 +63,7 @@ public class RuleProcessorHelper {
                 || baseRootWord.getSecondRadicalIndex() < 0
                 || baseRootWord.getThirdRadicalIndex() < 0) {
             throw new IllegalArgumentException(
-                    "One of chapterNumber is negative");
+                    "One of radical is negative");
         }
         SarfTermType sarfTermType = baseRootWord.getSarfTermType();
         if (!isEmpty(validTerms) && !contains(validTerms, sarfTermType)) {

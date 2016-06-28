@@ -23,7 +23,7 @@ public final class ConjugationHeaderBuilder {
 
     public ConjugationHeader createConjugationHeader(RootLetters rootLetters) {
         final ActiveLine activeLine = abbreviatedConjugation.getActiveLine();
-        final RootWord pastTenseRoot = activeLine.getPastTense();
+        final RootWord pastTenseRoot = conjugationRoots.getPastTense().getRoot().getRootWord();
         WordStatus status = new WordStatus(pastTenseRoot);
         RootType rootType = RootType.CONSONANT;
         VerbType verbType = VerbType.CONSONANT;
@@ -47,7 +47,7 @@ public final class ConjugationHeaderBuilder {
                 weakVerbType = status.isThirdRadicalWaw() ? WeakVerbType.THIRD_RADICAL_WEAK_WAW
                         : WeakVerbType.THIRD_RADICAL_WEAK_YA;
             }
-        } else if (status.isDouledLettered()) {
+        } else if (status.isDoubledLettered()) {
             verbType = VerbType.DOUBLE_LETTERED;
         } else if (status.isHamzatted()) {
             if (status.isFirstRadicalHamza()) {
@@ -59,8 +59,8 @@ public final class ConjugationHeaderBuilder {
             }
         }
         final NamedTemplate template = conjugationRoots.template;
-        final RootWord presentTenseRoot = activeLine.getPresentTense();
         ChartMode chartMode = new ChartMode(template, rootType, verbType, weakVerbType);
-        return new ConjugationHeader(conjugationRoots.translation, pastTenseRoot, presentTenseRoot, template.getLabel(), chartMode, rootLetters);
+        return new ConjugationHeader(conjugationRoots.translation, activeLine.getPastTense(), activeLine.getPresentTense(),
+                template.getLabel(), chartMode, rootLetters);
     }
 }
