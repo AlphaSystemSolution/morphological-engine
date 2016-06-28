@@ -48,6 +48,7 @@ public class TransformerTest extends CommonTest {
         addActiveParticiple(FORM_VII_TEMPLATE, KAF, SEEN, RA);
         addActiveParticiple(FORM_VIII_TEMPLATE, QAF, RA, BA);
         addActiveParticiple(FORM_X_TEMPLATE, GHAIN, FA, RA);
+        addPassiveParticiple(FORM_X_TEMPLATE, NOON, QAF, DDAD);
         addVerbalNoun();
     }
 
@@ -60,6 +61,12 @@ public class TransformerTest extends CommonTest {
     private void addActiveParticiple(Form formTemplate, ArabicLetterType firstRadical,
                                      ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
         RootWord[] rootWords = createActiveParticipleRootWords(formTemplate, firstRadical, secondRadical, thirdRadical);
+        addNounTable(formTemplate.name(), rootWords);
+    }
+
+    private void addPassiveParticiple(Form formTemplate, ArabicLetterType firstRadical,
+                                      ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
+        RootWord[] rootWords = createPassiveParticipleRootWords(formTemplate, firstRadical, secondRadical, thirdRadical);
         addNounTable(formTemplate.name(), rootWords);
     }
 
@@ -163,6 +170,35 @@ public class TransformerTest extends CommonTest {
         addRootWords(rootWords, nounConjugation, 3);
 
         rootBase = form.getActiveParticipleFeminine();
+        nounConjugation = getConjugation(rootBase.getSingularBaseWord(), SINGULAR, firstRadical, secondRadical, thirdRadical);
+        addRootWords(rootWords, nounConjugation, 2);
+
+        nounConjugation = getConjugation(rootBase.getDualBaseWord(), DUAL, firstRadical, secondRadical, thirdRadical);
+        addRootWords(rootWords, nounConjugation, 1);
+
+        nounConjugation = getConjugation(rootBase.getPluralBaseWord(), PLURAL, firstRadical, secondRadical, thirdRadical);
+        addRootWords(rootWords, nounConjugation, 0);
+
+        return rootWords;
+    }
+
+    private RootWord[] createPassiveParticipleRootWords(Form form, ArabicLetterType firstRadical,
+                                                        ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
+        RootWord[] rootWords = new RootWord[18];
+
+        NounConjugation nounConjugation;
+
+        NounRootBase rootBase = form.getPassiveParticipleMasculine();
+        nounConjugation = getConjugation(rootBase.getSingularBaseWord(), SINGULAR, firstRadical, secondRadical, thirdRadical);
+        addRootWords(rootWords, nounConjugation, 5);
+
+        nounConjugation = getConjugation(rootBase.getDualBaseWord(), DUAL, firstRadical, secondRadical, thirdRadical);
+        addRootWords(rootWords, nounConjugation, 4);
+
+        nounConjugation = getConjugation(rootBase.getPluralBaseWord(), PLURAL, firstRadical, secondRadical, thirdRadical);
+        addRootWords(rootWords, nounConjugation, 3);
+
+        rootBase = form.getPassiveParticipleFeminine();
         nounConjugation = getConjugation(rootBase.getSingularBaseWord(), SINGULAR, firstRadical, secondRadical, thirdRadical);
         addRootWords(rootWords, nounConjugation, 2);
 

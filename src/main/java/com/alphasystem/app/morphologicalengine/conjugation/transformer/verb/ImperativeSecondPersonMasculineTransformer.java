@@ -1,12 +1,15 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.verb;
 
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
 import static com.alphasystem.arabic.model.DiacriticType.*;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.IMPERATIVE;
 import static com.mysema.util.ArrayUtils.isEmpty;
 
 /**
@@ -46,11 +49,12 @@ class ImperativeSecondPersonMasculineTransformer extends ForbiddingSecondPersonM
     }
 
     static RootWord processImperative(ArabicLetter imperativeLetter, RootWord src) {
-        if (imperativeLetter != null) {
-            ArabicWord result = src.getRootWord().remove(0);
-            if (imperativeLetter != null) {
-                result.preppend(imperativeLetter);
-            }
+        ArabicWord result = src.getRootWord().remove(0);
+        final ArabicLetter firstLetter = result.getFirstLetter();
+        final DiacriticType[] diacritics = firstLetter.getDiacritics();
+        DiacriticType firstLetterDiacritics = isEmpty(diacritics) ? SUKUN : firstLetter.getDiacritics()[0];
+        if (SUKUN.equals(firstLetterDiacritics) && imperativeLetter != null) {
+            result.preppend(imperativeLetter);
         }
         return src;
     }
@@ -64,17 +68,13 @@ class ImperativeSecondPersonMasculineTransformer extends ForbiddingSecondPersonM
     }
 
     @Override
-    protected RootWord doSingular(RootWord rootWord) {
-        return processImperative(imperativeLetter, new RootWord(super.doSingular(rootWord)));
+    protected RootWord processRules(RuleProcessor ruleProcessor, RootWord src, SarfTermType termType) {
+        final RootWord target = super.processRules(ruleProcessor, src, termType);
+        return processImperative(imperativeLetter, target);
     }
 
     @Override
-    protected RootWord doDual(RootWord rootWord) {
-        return processImperative(imperativeLetter, new RootWord(super.doDual(rootWord)));
-    }
-
-    @Override
-    protected RootWord doPlural(RootWord rootWord) {
-        return processImperative(imperativeLetter, new RootWord(super.doPlural(rootWord)));
+    protected RootWord processRules(RuleProcessor ruleProcessor, RootWord src) {
+        return processRules(ruleProcessor, src, IMPERATIVE);
     }
 }

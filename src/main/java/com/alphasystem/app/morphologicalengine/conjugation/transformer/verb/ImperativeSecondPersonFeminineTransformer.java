@@ -1,11 +1,14 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.verb;
 
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
 import static com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.ImperativeSecondPersonMasculineTransformer.getImperativeLetter;
 import static com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.ImperativeSecondPersonMasculineTransformer.processImperative;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.IMPERATIVE;
 
 /**
  * @author sali
@@ -31,17 +34,13 @@ class ImperativeSecondPersonFeminineTransformer extends ForbiddingSecondPersonFe
     }
 
     @Override
-    protected RootWord doSingular(RootWord rootWord) {
-        return processImperative(imperativeLetter, new RootWord(super.doSingular(rootWord)));
+    protected RootWord processRules(RuleProcessor ruleProcessor, RootWord src, SarfTermType termType) {
+        final RootWord target = super.processRules(ruleProcessor, src, termType);
+        return processImperative(imperativeLetter, target);
     }
 
     @Override
-    protected RootWord doDual(RootWord rootWord) {
-        return processImperative(imperativeLetter, new RootWord(super.doDual(rootWord)));
-    }
-
-    @Override
-    protected RootWord doPlural(RootWord rootWord) {
-        return processImperative(imperativeLetter, new RootWord(super.doPlural(rootWord)));
+    protected RootWord processRules(RuleProcessor ruleProcessor, RootWord src) {
+        return processRules(ruleProcessor, src, IMPERATIVE);
     }
 }

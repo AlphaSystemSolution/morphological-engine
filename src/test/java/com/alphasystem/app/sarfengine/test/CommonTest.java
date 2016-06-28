@@ -151,7 +151,6 @@ public class CommonTest implements ArabicLetters, Constants {
         return printArabicText(ARABIC_TEXT_SPAN, src);
     }
 
-
     @AfterMethod
     public void afterMethod(Method method) {
         log(format("<div>End of test %s</div>", method.getName()));
