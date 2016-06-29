@@ -46,7 +46,7 @@ public class Rule7Processor extends AbstractRuleProcessor {
             return baseRootWord;
         }
         SarfTermType sarfTermType = baseRootWord.getSarfTermType();
-        WordStatus wordStatus = new WordStatus(ruleInfo.getRootLetters());
+        final WordStatus wordStatus = ruleInfo.getWordStatus();
         SarfMemberType memberType = baseRootWord.getMemberType();
         boolean perfectVerb = PAST_TENSE.equals(sarfTermType)
                 || PAST_PASSIVE_TENSE.equals(sarfTermType);

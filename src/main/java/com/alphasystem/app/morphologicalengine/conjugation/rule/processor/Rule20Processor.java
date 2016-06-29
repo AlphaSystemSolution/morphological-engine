@@ -38,7 +38,7 @@ public class Rule20Processor extends AbstractRuleProcessor {
         } catch (IllegalArgumentException e) {
             return baseRootWord;
         }
-        WordStatus wordStatus = new WordStatus(ruleInfo.getRootLetters());
+        final WordStatus wordStatus = ruleInfo.getWordStatus();
         if (!wordStatus.isFirstRadicalWaw() && !wordStatus.isSecondRadicalWaw()
                 && !wordStatus.isThirdRadicalWaw()) {
             return baseRootWord;

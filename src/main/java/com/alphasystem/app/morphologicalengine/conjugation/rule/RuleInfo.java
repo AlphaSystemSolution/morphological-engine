@@ -1,6 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.rule;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
+import com.alphasystem.app.morphologicalengine.conjugation.model.WordStatus;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.arabic.model.NamedTemplate;
@@ -11,22 +12,18 @@ import com.alphasystem.arabic.model.NamedTemplate;
 public class RuleInfo {
 
     private final NamedTemplate template;
-    private final RootLetters rootLetters;
+    private final WordStatus wordStatus;
     private DiacriticType diacriticForWeakSecondRadicalWaw;
     private boolean pastTenseHasTransformed;
     private ArabicLetterType hamzahReplacement;
 
     public RuleInfo(NamedTemplate template, RootLetters rootLetters) {
         this.template = template;
-        this.rootLetters = rootLetters;
+        wordStatus = new WordStatus(rootLetters);
     }
 
     public NamedTemplate getTemplate() {
         return template;
-    }
-
-    public RootLetters getRootLetters() {
-        return rootLetters;
     }
 
     public DiacriticType getDiacriticForWeakSecondRadicalWaw() {
@@ -53,4 +50,7 @@ public class RuleInfo {
         this.pastTenseHasTransformed = pastTenseHasTransformed;
     }
 
+    public WordStatus getWordStatus() {
+        return wordStatus;
+    }
 }

@@ -3,7 +3,6 @@
  */
 package com.alphasystem.app.morphologicalengine.conjugation.rule.processor;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.WordStatus;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.AbstractRuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.arabic.model.ArabicLetter;
@@ -39,8 +38,7 @@ public class DoubleLetteredProcessor extends AbstractRuleProcessor {
         } catch (IllegalArgumentException e) {
             return baseRootWord;
         }
-        WordStatus wordStatus = new WordStatus(ruleInfo.getRootLetters());
-        if (!wordStatus.isDoubledLettered()) {
+        if (!ruleInfo.getWordStatus().isDoubledLettered()) {
             return baseRootWord;
         }
 

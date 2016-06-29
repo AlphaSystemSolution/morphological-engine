@@ -36,7 +36,7 @@ public class Rule17Processor extends AbstractRuleProcessor {
         } catch (IllegalArgumentException e) {
             return baseRootWord;
         }
-        WordStatus wordStatus = new WordStatus(ruleInfo.getRootLetters());
+        final WordStatus wordStatus = ruleInfo.getWordStatus();
         if (!wordStatus.isHollow() || !(ruleInfo.isPastTenseHasTransformed())) {
             return baseRootWord;
         }

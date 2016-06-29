@@ -39,7 +39,7 @@ public class HamzatedFirstRadicalProcessor extends AbstractRuleProcessor {
         ArabicWord baseWord = baseRootWord.getBaseWord();
         RootWord rw = new RootWord(baseRootWord);
         rw.setRootWord(baseWord);
-        WordStatus wordStatus = new WordStatus(ruleInfo.getRootLetters());
+        final WordStatus wordStatus = ruleInfo.getWordStatus();
         if (wordStatus.isFirstRadicalHamza()
                 && FORM_I_CATEGORY_A_GROUP_U_TEMPLATE.equals(ruleInfo.getTemplate())) {
             ArabicWord result = new ArabicWord(baseRootWord.getRootWord());

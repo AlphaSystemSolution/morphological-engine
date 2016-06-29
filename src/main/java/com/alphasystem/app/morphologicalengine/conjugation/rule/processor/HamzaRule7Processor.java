@@ -34,7 +34,7 @@ public class HamzaRule7Processor extends AbstractRuleProcessor {
         } catch (IllegalArgumentException e) {
             return baseRootWord;
         }
-        WordStatus status = new WordStatus(ruleInfo.getRootLetters());
+        final WordStatus status = ruleInfo.getWordStatus();
         if (!status.isHamzatted()) {
             return baseRootWord;
         }

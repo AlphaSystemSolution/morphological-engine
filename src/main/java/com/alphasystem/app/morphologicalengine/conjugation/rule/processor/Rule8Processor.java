@@ -48,7 +48,7 @@ public class Rule8Processor extends AbstractRuleProcessor {
         ArabicLetterType firstLetterType = firstLetter.getLetter();
         boolean firstLetterWeak = isWaw(firstLetterType)
                 || (!imperfect && isYa(firstLetterType));
-        WordStatus wordStatus = new WordStatus(ruleInfo.getRootLetters());
+        final WordStatus wordStatus = ruleInfo.getWordStatus();
         int maddaIndex = maddaIndex(result);
         boolean maddaExtra = isMaddaExtra(result, sarfTermType, maddaIndex);
         boolean passiveParticiple = PASSIVE_PARTICIPLE_MASCULINE
