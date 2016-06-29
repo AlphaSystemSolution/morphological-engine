@@ -38,7 +38,7 @@ public class Rule14Processor extends AbstractRuleProcessor {
         } catch (IllegalArgumentException e) {
             return baseRootWord;
         }
-        WordStatus wordStatus = new WordStatus(baseRootWord);
+        WordStatus wordStatus = new WordStatus(ruleInfo.getRootLetters());
         if (!wordStatus.isWeak()) {
             return baseRootWord;
         }

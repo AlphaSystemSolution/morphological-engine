@@ -42,7 +42,7 @@ public class ConjugationBuilder {
         final ConjugationConfiguration conjugationConfiguration = conjugationRoots.conjugationConfiguration;
         RuleProcessor ruleEngine = null;
         if (!conjugationConfiguration.isSkipRuleProcessing()) {
-            ruleEngine = RULE_PROCESSOR_FACTORY.getRuleEngine(new RuleInfo(conjugationRoots.template));
+            ruleEngine = RULE_PROCESSOR_FACTORY.getRuleEngine(new RuleInfo(conjugationRoots.template, rootLetters));
         }
 
         boolean removePassiveLine = conjugationConfiguration.isRemovePassiveLine() ||
@@ -55,7 +55,7 @@ public class ConjugationBuilder {
         final DetailedConjugationBuilder detailedConjugationBuilder = new DetailedConjugationBuilder(conjugationRoots, ruleEngine);
         final DetailedConjugation detailedConjugation = detailedConjugationBuilder.createDetailedConjugation(rootLetters, removePassiveLine);
 
-        final ConjugationHeaderBuilder conjugationHeaderBuilder = new ConjugationHeaderBuilder(conjugationRoots, abbreviatedConjugation);
+        final ConjugationHeaderBuilder conjugationHeaderBuilder = new ConjugationHeaderBuilder(conjugationRoots, ruleEngine);
         final ConjugationHeader conjugationHeader = conjugationHeaderBuilder.createConjugationHeader(rootLetters);
 
         return new MorphologicalChart(conjugationHeader, abbreviatedConjugation, detailedConjugation);

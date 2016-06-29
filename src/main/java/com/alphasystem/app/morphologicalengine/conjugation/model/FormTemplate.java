@@ -25,6 +25,7 @@ import static org.apache.commons.lang3.ArrayUtils.isEmpty;
  */
 @XmlType(name = "FormTemplateType")
 @XmlEnum
+@Deprecated
 public enum FormTemplate implements ArabicLetters {
 
     FORM_I_CATEGORY_A_GROUP_U_TEMPLATE(

@@ -3,22 +3,35 @@
  */
 package com.alphasystem.app.sarfengine.test;
 
+import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationHeaderBuilder;
+import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationRoots;
+import com.alphasystem.app.morphologicalengine.conjugation.model.*;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
+import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicWord;
+import com.alphasystem.arabic.model.RootType;
+import com.alphasystem.arabic.model.VerbType;
+import com.alphasystem.arabic.model.WeakVerbType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import org.testng.annotations.Test;
 
+import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.ArabicWord.fromBuckWalterString;
 import static com.alphasystem.arabic.model.DiacriticType.SUKUN;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_TENSE;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
+import static org.testng.Assert.assertEquals;
 import static org.testng.Reporter.log;
 
 /**
  * @author sali
  */
 public class BuilderTest extends CommonTest {
+
+    private static final GuiceSupport GUICE_SUPPORT = GuiceSupport.getInstance();
 
     private void printLabel(String src) {
         ArabicWord arabicWord = fromBuckWalterString(src);
@@ -77,6 +90,29 @@ public class BuilderTest extends CommonTest {
                 printArabicText(srcRootWord.getRootWord())));
         log(format("<div>Target Root Word: %s</div>",
                 printArabicText(targetRootWord.getRootWord())));
+    }
+
+    @Test
+    public void testWordStatus() {
+        WordStatus wordStatus = new WordStatus(new RootLetters(QAF, WAW, LAM));
+        assertEquals(wordStatus.isHollow(), true);
+        assertEquals(wordStatus.isWeak(), true);
+    }
+
+    @Test
+    public void testConjugationHeader() {
+        final Form form = Form.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
+        RootLetters rootLetters = new RootLetters(QAF, WAW, LAM);
+        final RuleProcessor ruleEngine = GUICE_SUPPORT.getRuleProcessorFactory().getRuleEngine(
+                new RuleInfo(form.getTemplate(), rootLetters));
+        ConjugationRoots conjugationRoots = new ConjugationRoots().template(form.getTemplate()).pastTense(form.getPastTense())
+                .presentTense(form.getPresentTense());
+        ConjugationHeaderBuilder headerBuilder = new ConjugationHeaderBuilder(conjugationRoots, ruleEngine);
+        final ConjugationHeader conjugationHeader = headerBuilder.createConjugationHeader(rootLetters);
+        final ChartMode chartMode = conjugationHeader.getChartMode();
+        assertEquals(chartMode.getRootType(), RootType.WEAK);
+        assertEquals(chartMode.getVerbType(), VerbType.SECOND_RADICAL_WEAK);
+        assertEquals(chartMode.getWeakVerbType(), WeakVerbType.SECOND_RADICAL_WEAK_WAW);
     }
 
 }

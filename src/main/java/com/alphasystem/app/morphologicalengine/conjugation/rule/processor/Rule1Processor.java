@@ -40,7 +40,7 @@ public class Rule1Processor extends AbstractRuleProcessor {
         ArabicWord result = new ArabicWord(baseRootWord.getRootWord());
         DiacriticType diacriticOfImperfectSign = getDiacritic(result
                 .getFirstLetter());
-        WordStatus wordStatus = new WordStatus(baseRootWord);
+        WordStatus wordStatus = new WordStatus(ruleInfo.getRootLetters());
         if (!wordStatus.isFirstRadicalWaw()
                 || !isFatha(diacriticOfImperfectSign)) {
             return baseRootWord;

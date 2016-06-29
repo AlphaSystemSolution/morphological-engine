@@ -34,7 +34,7 @@ public class Rule19Processor extends AbstractRuleProcessor {
         } catch (IllegalArgumentException e) {
             return baseRootWord;
         }
-        WordStatus wordStatus = new WordStatus(baseRootWord);
+        WordStatus wordStatus = new WordStatus(ruleInfo.getRootLetters());
         if (!wordStatus.isDefective()) {
             return baseRootWord;
         }

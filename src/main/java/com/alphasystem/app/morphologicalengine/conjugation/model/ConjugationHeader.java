@@ -114,9 +114,8 @@ public class ConjugationHeader {
             VerbType verbType = chartMode.getVerbType();
             WeakVerbType weakVerbType = chartMode.getWeakVerbType();
             ArabicWord label = verbType.getLabel();
-            typeLabel3 = weakVerbType == null ? label : concatenateWithSpace(
-                    concatenate(label, new ArabicWord(LETTER_COMMA)),
-                    weakVerbType.getLabel());
+            final ArabicWord arabicWord = concatenate(label, new ArabicWord(LETTER_COMMA));
+            typeLabel3 = (weakVerbType == null) ? label : concatenateWithSpace(arabicWord, weakVerbType.getLabel());
         }
     }
 }

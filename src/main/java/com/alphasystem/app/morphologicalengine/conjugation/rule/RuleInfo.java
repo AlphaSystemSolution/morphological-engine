@@ -1,5 +1,6 @@
 package com.alphasystem.app.morphologicalengine.conjugation.rule;
 
+import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.arabic.model.NamedTemplate;
@@ -10,16 +11,22 @@ import com.alphasystem.arabic.model.NamedTemplate;
 public class RuleInfo {
 
     private final NamedTemplate template;
+    private final RootLetters rootLetters;
     private DiacriticType diacriticForWeakSecondRadicalWaw;
     private boolean pastTenseHasTransformed;
     private ArabicLetterType hamzahReplacement;
 
-    public RuleInfo(NamedTemplate template) {
+    public RuleInfo(NamedTemplate template, RootLetters rootLetters) {
         this.template = template;
+        this.rootLetters = rootLetters;
     }
 
     public NamedTemplate getTemplate() {
         return template;
+    }
+
+    public RootLetters getRootLetters() {
+        return rootLetters;
     }
 
     public DiacriticType getDiacriticForWeakSecondRadicalWaw() {
@@ -45,4 +52,5 @@ public class RuleInfo {
     public void setPastTenseHasTransformed(boolean pastTenseHasTransformed) {
         this.pastTenseHasTransformed = pastTenseHasTransformed;
     }
+
 }

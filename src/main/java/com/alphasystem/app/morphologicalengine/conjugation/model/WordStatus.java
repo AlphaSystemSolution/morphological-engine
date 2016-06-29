@@ -3,9 +3,7 @@
  */
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
-import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicLetterType;
-import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 
@@ -37,44 +35,30 @@ public final class WordStatus {
     private boolean doubledLettered;
 
     /**
-     * @param baseRootWord
+     * @param rootLetters
      */
-    public WordStatus(final RootWord baseRootWord) {
-        evaluateStatus(baseRootWord);
+    public WordStatus(final RootLetters rootLetters) {
+        evaluateStatus(rootLetters);
     }
 
-    private void evaluateStatus(final RootWord baseRootWord) {
-        ArabicLetterType firstRadicalLetter = null;
-        ArabicLetter letter = null;
+    private void evaluateStatus(final RootLetters rootLetters) {
+        final ArabicLetterType firstRadical = rootLetters.getFirstRadical();
+        firstRadicalWaw = WAW.equals(firstRadical);
+        firstRadicalYa = YA.equals(firstRadical);
+        firstRadicalHamza = HAMZA.equals(firstRadical);
 
-        letter = baseRootWord.getFirstRadical();
-        if (letter != null) {
-            firstRadicalLetter = letter.getLetter();
-            firstRadicalWaw = firstRadicalLetter.equals(WAW);
-            firstRadicalYa = firstRadicalLetter.equals(YA);
-            firstRadicalHamza = firstRadicalLetter.equals(HAMZA);
-        }
+        final ArabicLetterType secondRadical = rootLetters.getSecondRadical();
+        secondRadicalWaw = WAW.equals(secondRadical);
+        secondRadicalYa = YA.equals(secondRadical);
+        secondRadicalHamza = HAMZA.equals(secondRadical);
 
-        letter = baseRootWord.getSecondRadical();
-        ArabicLetterType secondRadicalLetter = null;
-        if (letter != null) {
-            secondRadicalLetter = letter.getLetter();
-            secondRadicalWaw = secondRadicalLetter.equals(WAW);
-            secondRadicalYa = secondRadicalLetter.equals(YA);
-            secondRadicalHamza = secondRadicalLetter.equals(HAMZA);
-        }
+        final ArabicLetterType thirdRadical = rootLetters.getThirdRadical();
+        thirdRadicalWaw = WAW.equals(thirdRadical);
+        thirdRadicalYa = YA.equals(thirdRadical);
+        thirdRadicalHamza = HAMZA.equals(thirdRadical);
 
-        letter = baseRootWord.getThirdRadical();
-        ArabicLetterType thirdRadicalLetter = null;
-        if (letter != null) {
-            thirdRadicalLetter = letter.getLetter();
-            thirdRadicalWaw = thirdRadicalLetter.equals(WAW);
-            thirdRadicalYa = thirdRadicalLetter.equals(YA);
-            thirdRadicalHamza = thirdRadicalLetter.equals(HAMZA);
-        }
-
-        if (secondRadicalLetter != null) {
-            doubledLettered = secondRadicalLetter.equals(thirdRadicalLetter);
+        if (secondRadical != null) {
+            doubledLettered = secondRadical.equals(thirdRadical);
         }
     }
 

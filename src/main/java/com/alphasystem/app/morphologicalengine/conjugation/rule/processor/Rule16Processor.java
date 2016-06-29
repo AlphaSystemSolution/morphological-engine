@@ -38,7 +38,7 @@ public class Rule16Processor extends AbstractRuleProcessor {
             return baseRootWord;
         }
         SarfTermType sarfTermType = baseRootWord.getSarfTermType();
-        WordStatus wordStatus = new WordStatus(baseRootWord);
+        WordStatus wordStatus = new WordStatus(ruleInfo.getRootLetters());
         if (!wordStatus.isDefective()
                 && !contains(NOUN_BASED_TYPES, sarfTermType)) {
             return baseRootWord;

@@ -39,7 +39,7 @@ public class DoubleLetteredProcessor extends AbstractRuleProcessor {
         } catch (IllegalArgumentException e) {
             return baseRootWord;
         }
-        WordStatus wordStatus = new WordStatus(baseRootWord);
+        WordStatus wordStatus = new WordStatus(ruleInfo.getRootLetters());
         if (!wordStatus.isDoubledLettered()) {
             return baseRootWord;
         }
