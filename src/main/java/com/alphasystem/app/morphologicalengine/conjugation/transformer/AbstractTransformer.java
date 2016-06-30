@@ -1,7 +1,6 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer;
 
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.app.morphologicalengine.util.PatternHelper;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicLetters;
 import com.alphasystem.arabic.model.SarfMemberType;
@@ -25,7 +24,6 @@ public abstract class AbstractTransformer<G> implements Transformer<G>, ArabicLe
         RootWord target = src;
         if (ruleProcessor != null && target != null) {
             target = ruleProcessor.applyRules(target);
-            target = PatternHelper.doApplyPatterns(target);
         }
         return target;
     }

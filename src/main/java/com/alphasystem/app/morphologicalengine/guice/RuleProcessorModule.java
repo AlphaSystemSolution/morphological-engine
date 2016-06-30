@@ -20,6 +20,7 @@ public class RuleProcessorModule extends AbstractModule {
     public static final String HAMZA_RULE_7_PROCESSOR = "HamzaRule7Processor";
     public static final String HAMZATED_FIRST_RADICAL_PROCESSOR = "HamzatedFirstRadicalProcessor";
     public static final String HAMZATED_THIRD_RADICAL_PROCESSOR = "HamzatedThirdRadicalProcessor";
+    public static final String PATTERN_PROCESSOR = "PatternProcessor";
     public static final String PREFIX_PROCESSOR = "PrefixProcessor";
     public static final String RULE_1_PROCESSOR = "Rule1Processor";
     public static final String RULE_7_PROCESSOR = "Rule7Processor";
@@ -47,6 +48,7 @@ public class RuleProcessorModule extends AbstractModule {
                         HamzatedFirstRadicalProcessor.class)
                 .implement(RuleProcessor.class, named(HAMZATED_THIRD_RADICAL_PROCESSOR),
                         HamzatedThirdRadicalProcessor.class)
+                .implement(RuleProcessor.class, named(PATTERN_PROCESSOR), PatternProcessor.class)
                 .implement(RuleProcessor.class, named(PREFIX_PROCESSOR), PrefixProcessor.class)
                 .implement(RuleProcessor.class, named(RULE_1_PROCESSOR), Rule1Processor.class)
                 .implement(RuleProcessor.class, named(RULE_7_PROCESSOR), Rule7Processor.class)

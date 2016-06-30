@@ -13,17 +13,27 @@ public class RuleInfo {
 
     private final NamedTemplate template;
     private final WordStatus wordStatus;
+    private final boolean skipRuleProcessing;
     private DiacriticType diacriticForWeakSecondRadicalWaw;
     private boolean pastTenseHasTransformed;
     private ArabicLetterType hamzahReplacement;
 
     public RuleInfo(NamedTemplate template, RootLetters rootLetters) {
+        this(template, rootLetters, false);
+    }
+
+    public RuleInfo(NamedTemplate template, RootLetters rootLetters, boolean skipRuleProcessing) {
         this.template = template;
         wordStatus = new WordStatus(rootLetters);
+        this.skipRuleProcessing = skipRuleProcessing;
     }
 
     public NamedTemplate getTemplate() {
         return template;
+    }
+
+    public boolean isSkipRuleProcessing() {
+        return skipRuleProcessing;
     }
 
     public DiacriticType getDiacriticForWeakSecondRadicalWaw() {

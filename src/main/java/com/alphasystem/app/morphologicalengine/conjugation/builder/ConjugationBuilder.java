@@ -40,10 +40,8 @@ public class ConjugationBuilder {
         checkFourthRadical(rootLetters);
 
         final ConjugationConfiguration conjugationConfiguration = conjugationRoots.conjugationConfiguration;
-        RuleProcessor ruleEngine = null;
-        if (!conjugationConfiguration.isSkipRuleProcessing()) {
-            ruleEngine = RULE_PROCESSOR_FACTORY.getRuleEngine(new RuleInfo(conjugationRoots.template, rootLetters));
-        }
+        RuleProcessor ruleEngine = RULE_PROCESSOR_FACTORY.getRuleEngine(new RuleInfo(conjugationRoots.template, rootLetters,
+                conjugationConfiguration.isSkipRuleProcessing()));
 
         boolean removePassiveLine = conjugationConfiguration.isRemovePassiveLine() ||
                 (conjugationRoots.pastPassiveTense == null);
