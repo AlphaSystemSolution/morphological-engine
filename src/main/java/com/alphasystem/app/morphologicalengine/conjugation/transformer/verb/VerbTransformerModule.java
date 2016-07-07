@@ -25,8 +25,6 @@ public class VerbTransformerModule extends AbstractModule {
     public static final String FORBIDDING_SECOND_PERSON_FEMININE_TRANSFORMER = "ForbiddingSecondPersonFeminineTransformer";
     public static final String IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER = "ImperativeSecondPersonMasculineTransformer";
     public static final String IMPERATIVE_SECOND_PERSON_FEMININE_TRANSFORMER = "ImperativeSecondPersonFeminineTransformer";
-    public static final String FORM_IV_IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER = "FormIVImperativeSecondPersonMasculineTransformer";
-    public static final String FORM_IV_IMPERATIVE_SECOND_PERSON_FEMININE_TRANSFORMER = "FormIVImperativeSecondPersonFeminineTransformer";
 
     @Override
     protected void configure() {
