@@ -50,6 +50,14 @@ public class VerbTransformerTest {
                 "Imperative for second radical WAW after rule processing is:");
     }
 
+    @Test
+    public void testFormIVImperative() {
+        final Form form = Form.FORM_IV_TEMPLATE;
+        final RootLetters rootLetters = new RootLetters(KHA, BA, RA);
+        testImperative(form, rootLetters, "Imperative for Form IV before rule processing is:",
+                "Imperative for Form IV after rule processing is:");
+    }
+
     private void testImperative(final Form form, RootLetters rootLetters, String beforeMessage, String afterMessage) {
         testImperativeOrForbidding(form, rootLetters, IMPERATIVE, beforeMessage, afterMessage);
     }

@@ -44,8 +44,6 @@ public class VerbTransformerModule extends AbstractModule {
         bind(VerbTransformer.class).annotatedWith(named(FORBIDDING_SECOND_PERSON_FEMININE_TRANSFORMER)).toInstance(new ForbiddingSecondPersonFeminineTransformer());
         bind(VerbTransformer.class).annotatedWith(named(IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER)).toInstance(new ImperativeSecondPersonMasculineTransformer());
         bind(VerbTransformer.class).annotatedWith(named(IMPERATIVE_SECOND_PERSON_FEMININE_TRANSFORMER)).toInstance(new ImperativeSecondPersonFeminineTransformer());
-        bind(VerbTransformer.class).annotatedWith(named(FORM_IV_IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER)).toInstance(new FormIVImperativeSecondPersonMasculineTransformer());
-        bind(VerbTransformer.class).annotatedWith(named(FORM_IV_IMPERATIVE_SECOND_PERSON_FEMININE_TRANSFORMER)).toInstance(new FormIVImperativeSecondPersonFeminineTransformer());
 
         // PAST TENSE
         bindPastTense(FORM_I_PAST_TENSE_V1);
@@ -101,7 +99,7 @@ public class VerbTransformerModule extends AbstractModule {
         bindImperative(FORM_I_IMPERATIVE_V3);
         bindImperative(FORM_II_IMPERATIVE);
         bindImperative(FORM_III_IMPERATIVE);
-        bindImperative2(FORM_IV_IMPERATIVE);
+        bindImperative(FORM_IV_IMPERATIVE);
         bindImperative(FORM_V_IMPERATIVE);
         bindImperative(FORM_VI_IMPERATIVE);
         bindImperative(FORM_VII_IMPERATIVE);
@@ -143,11 +141,6 @@ public class VerbTransformerModule extends AbstractModule {
     private void bindImperative(Verb verb) {
         bind(VerbTransformer.class).annotatedWith(named(verb.getSecondPersonMasculineName())).to(ImperativeSecondPersonMasculineTransformer.class);
         bind(VerbTransformer.class).annotatedWith(named(verb.getSecondPersonFeminineName())).to(ImperativeSecondPersonFeminineTransformer.class);
-    }
-
-    private void bindImperative2(Verb verb) {
-        bind(VerbTransformer.class).annotatedWith(named(verb.getSecondPersonMasculineName())).to(FormIVImperativeSecondPersonMasculineTransformer.class);
-        bind(VerbTransformer.class).annotatedWith(named(verb.getSecondPersonFeminineName())).to(FormIVImperativeSecondPersonFeminineTransformer.class);
     }
 
     private void bindForbidding(Verb verb) {
