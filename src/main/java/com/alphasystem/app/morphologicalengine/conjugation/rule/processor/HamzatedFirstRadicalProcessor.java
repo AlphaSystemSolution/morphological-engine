@@ -35,18 +35,15 @@ public class HamzatedFirstRadicalProcessor extends AbstractRuleProcessor {
             return baseRootWord;
         }
         // By the time we come here "HAMZA" is already transformed, so use
-        // baseword to determine wether we have first radical hamza.
+        // base word to determine whether we have first radical hamza.
         ArabicWord baseWord = baseRootWord.getBaseWord();
         RootWord rw = new RootWord(baseRootWord);
         rw.setRootWord(baseWord);
         final WordStatus wordStatus = ruleInfo.getWordStatus();
-        if (wordStatus.isFirstRadicalHamza()
-                && FORM_I_CATEGORY_A_GROUP_U_TEMPLATE.equals(ruleInfo.getTemplate())) {
+        // Page 159 of Treasure of Arabic Morphology
+        if (wordStatus.isFirstRadicalHamza() && FORM_I_CATEGORY_A_GROUP_U_TEMPLATE.equals(ruleInfo.getTemplate())) {
             ArabicWord result = new ArabicWord(baseRootWord.getRootWord());
             result.replaceLetter(0, REMOVE_MARKER);
-            if (!wordStatus.isSecondRadicalWaw()) {
-                result.replaceLetter(1, REMOVE_MARKER);
-            }
             baseRootWord.setRootWord(result);
         }
         return baseRootWord;
