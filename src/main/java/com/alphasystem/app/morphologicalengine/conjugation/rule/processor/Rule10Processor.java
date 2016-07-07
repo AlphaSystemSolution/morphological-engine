@@ -14,6 +14,7 @@ import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import org.apache.commons.lang3.ArrayUtils;
 
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.checkArgument;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.DiacriticType.SUKUN;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
@@ -33,8 +34,7 @@ public class Rule10Processor extends AbstractRuleProcessor {
     @Override
     public RootWord applyRules(RootWord baseRootWord) {
         try {
-            RuleProcessorHelper.checkArgument(baseRootWord, null, new SarfTermType[]{IMPERATIVE,
-                    FORBIDDING});
+            checkArgument(baseRootWord, null, new SarfTermType[]{IMPERATIVE, FORBIDDING});
         } catch (IllegalArgumentException e) {
             return baseRootWord;
         }
