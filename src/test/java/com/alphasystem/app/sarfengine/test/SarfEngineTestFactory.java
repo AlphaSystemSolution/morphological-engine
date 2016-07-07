@@ -3,6 +3,7 @@
  */
 package com.alphasystem.app.sarfengine.test;
 
+import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerTest;
 import org.testng.annotations.Factory;
 
 /**
@@ -17,6 +18,7 @@ public class SarfEngineTestFactory {
                 new LabelPrinter(),
                 new RuleTester(),
                 new BuilderTest(),
+                new VerbTransformerTest(),
                 new TransformerTest(),
                 new ConjugationTest(),
                 new PatternHelperTest()

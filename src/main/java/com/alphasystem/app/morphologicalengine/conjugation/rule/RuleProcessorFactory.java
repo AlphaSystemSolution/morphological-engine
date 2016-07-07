@@ -31,6 +31,9 @@ public interface RuleProcessorFactory {
     @Named(HAMZATED_THIRD_RADICAL_PROCESSOR)
     RuleProcessor getHamzatedThirdRadicalProcessor(@Assisted RuleInfo ruleInfo);
 
+    @Named(IMPERATIVE_PROCESSOR)
+    RuleProcessor getImperativeProcessor(@Assisted RuleInfo ruleInfo);
+
     @Named(PATTERN_PROCESSOR)
     RuleProcessor getPatternProcessor(@Assisted RuleInfo ruleInfo);
 

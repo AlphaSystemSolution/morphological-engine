@@ -3,10 +3,8 @@ package com.alphasystem.app.morphologicalengine.conjugation.transformer.verb;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicLetterType;
-import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
-import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
 import static com.alphasystem.arabic.model.DiacriticType.*;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.IMPERATIVE;
@@ -48,29 +46,12 @@ class ImperativeSecondPersonMasculineTransformer extends ForbiddingSecondPersonM
         return imperativeLetter;
     }
 
-    static RootWord processImperative(ArabicLetter imperativeLetter, RootWord src) {
-        ArabicWord result = src.getRootWord().remove(0);
-        final ArabicLetter firstLetter = result.getFirstLetter();
-        final DiacriticType[] diacritics = firstLetter.getDiacritics();
-        DiacriticType firstLetterDiacritics = isEmpty(diacritics) ? SUKUN : firstLetter.getDiacritics()[0];
-        if (SUKUN.equals(firstLetterDiacritics) && imperativeLetter != null) {
-            result.preppend(imperativeLetter);
-        }
-        return src;
-    }
-
     @Override
     protected RootWord createRootWord(RootWord rootWord, ArabicLetterType firstRadical, ArabicLetterType secondRadical,
                                       ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
         final RootWord target = super.createRootWord(rootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
         imperativeLetter = getImperativeLetter(imperativeLetter, target);
         return target;
-    }
-
-    @Override
-    protected RootWord processRules(RuleProcessor ruleProcessor, RootWord src, SarfTermType termType) {
-        final RootWord target = super.processRules(ruleProcessor, src, termType);
-        return processImperative(imperativeLetter, target);
     }
 
     @Override

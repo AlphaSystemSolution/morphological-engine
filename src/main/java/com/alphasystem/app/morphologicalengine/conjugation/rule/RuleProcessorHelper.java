@@ -67,8 +67,7 @@ public class RuleProcessorHelper {
         }
         SarfTermType sarfTermType = baseRootWord.getSarfTermType();
         if (!isEmpty(validTerms) && !contains(validTerms, sarfTermType)) {
-            throw new IllegalArgumentException(format(
-                    "Unexpected Sarf Term {%s}", sarfTermType));
+            throw new IllegalArgumentException(format("Unexpected Sarf Term {%s}", sarfTermType));
         }
     }
 

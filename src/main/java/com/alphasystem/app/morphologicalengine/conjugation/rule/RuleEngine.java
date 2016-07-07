@@ -19,6 +19,7 @@ public class RuleEngine extends AbstractRuleProcessor {
     private final RuleProcessor hamzaRule7Processor;
     private final RuleProcessor hamzatedFirstRadicalProcessor;
     private final RuleProcessor hamzatedThirdRadicalProcessor;
+    private final RuleProcessor imperativeProcessor;
     private final RuleProcessor patternProcessor;
     private final RuleProcessor prefixProcessor;
     private final RuleProcessor rule1Processor;
@@ -44,6 +45,7 @@ public class RuleEngine extends AbstractRuleProcessor {
         hamzaRule7Processor = ruleProcessorFactory.getHamzaRule7Processor(ruleInfo);
         hamzatedFirstRadicalProcessor = ruleProcessorFactory.getHamzatedFirstRadicalProcessor(ruleInfo);
         hamzatedThirdRadicalProcessor = ruleProcessorFactory.getHamzatedThirdRadicalProcessor(ruleInfo);
+        imperativeProcessor = ruleProcessorFactory.getImperativeProcessor(ruleInfo);
         patternProcessor = ruleProcessorFactory.getPatternProcessor(ruleInfo);
         prefixProcessor = ruleProcessorFactory.getPrefixProcessor(ruleInfo);
         rule1Processor = ruleProcessorFactory.getRule1Processor(ruleInfo);
@@ -64,7 +66,7 @@ public class RuleEngine extends AbstractRuleProcessor {
     public RootWord applyRules(RootWord rootWord) {
         ((HamzahChairProcessor) hamzahChairProcessor).setHamzahReplacement(ruleInfo.getHamzahReplacement());
         formVIIIProcessor.applyRules(rootWord);
-        if(!ruleInfo.isSkipRuleProcessing()) {
+        if (!ruleInfo.isSkipRuleProcessing()) {
             rule14Processor.applyRules(rootWord);
             rule1Processor.applyRules(rootWord);
             rule7Processor.applyRules(rootWord);
@@ -78,6 +80,7 @@ public class RuleEngine extends AbstractRuleProcessor {
             rule20Processor.applyRules(rootWord);
             rule19Processor.applyRules(rootWord);
         }
+        imperativeProcessor.applyRules(rootWord);
         doubleLetteredProcessor.applyRules(rootWord);
         hamzatedFirstRadicalProcessor.applyRules(rootWord);
         hamzatedThirdRadicalProcessor.applyRules(rootWord);

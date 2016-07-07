@@ -50,11 +50,18 @@ public class ConjugationTest extends CommonTest {
                 new NounRootBase[]{new NounRootBase(VERBAL_NOUN_V1)}, FORM_I_ADVERBS);
         printMorphologicalChart(conjugationBuilder.doConjugation(QAF, WAW, LAM, null));
 
+        conjugationBuilder = getConjugationBuilder(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, "To Eat",
+                new NounRootBase[]{new NounRootBase(VERBAL_NOUN_V1)}, FORM_I_ADVERBS);
+        printMorphologicalChart(conjugationBuilder.doConjugation(HAMZA, KAF, LAM, null));
+
         conjugationBuilder = getConjugationBuilder(FORM_IV_TEMPLATE, "To submit");
         printMorphologicalChart(conjugationBuilder.doConjugation(SEEN, LAM, MEEM, null));
 
         conjugationBuilder = getConjugationBuilder(FORM_IV_TEMPLATE, "To send down");
         printMorphologicalChart(conjugationBuilder.doConjugation(NOON, ZAIN, LAM, null));
+
+        conjugationBuilder = getConjugationBuilder(FORM_IV_TEMPLATE, "To Establish");
+        printMorphologicalChart(conjugationBuilder.doConjugation(QAF, WAW, MEEM, null));
 
         conjugationBuilder = getConjugationBuilder(FORM_IX_TEMPLATE, "To collapse");
         printMorphologicalChart(conjugationBuilder.doConjugation(NOON, QAF, DDAD, null));
