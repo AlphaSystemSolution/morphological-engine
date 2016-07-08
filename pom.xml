@@ -4,7 +4,7 @@
     <groupId>com.alphasystem.arabic</groupId>
     <artifactId>morphological-engine</artifactId>
     <packaging>jar</packaging>
-    <name>Morphological Congugation Engine</name>
+    <name>Morphological Engine</name>
     <parent>
         <artifactId>jar</artifactId>
         <groupId>com.alphasystem.project</groupId>
