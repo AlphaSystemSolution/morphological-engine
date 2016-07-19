@@ -8,11 +8,12 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.Passi
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformer;
-import com.alphasystem.arabic.model.ArabicLetterType;
+import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.NounSupport;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.Verb;
+import com.google.inject.Provider;
 
 import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilder.GUICE_SUPPORT;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
@@ -23,74 +24,58 @@ import static org.apache.commons.lang3.ArrayUtils.isNotEmpty;
  */
 public final class AbbreviatedConjugationBuilder {
 
-    private final ConjugationRoots conjugationRoots;
-    private final RuleProcessor ruleEngine;
+    private ConjugationHeaderBuilder conjugationHeaderBuilder;
 
-    public AbbreviatedConjugationBuilder(ConjugationRoots conjugationRoots, RuleProcessor ruleEngine) {
-        this.conjugationRoots = conjugationRoots;
-        this.ruleEngine = ruleEngine;
+    AbbreviatedConjugationBuilder() {
+        conjugationHeaderBuilder = GuiceSupport.getInstance().getInstance(ConjugationHeaderBuilder.class);
     }
 
-    public AbbreviatedConjugation createAbbreviatedConjugation(ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                                               ArabicLetterType thirdRadical, ArabicLetterType fourthRadical,
-                                                               boolean removePassiveLine) {
-        ActiveLine activeLine = createActiveLine(firstRadical, secondRadical, thirdRadical, fourthRadical);
-        PassiveLine passiveLine = removePassiveLine ? null : createPassiveLine(firstRadical, secondRadical, thirdRadical,
-                fourthRadical);
-        ImperativeAndForbiddingLine imperativeAndForbiddingLine = createImperativeAndForbiddingLine(firstRadical,
-                secondRadical, thirdRadical, fourthRadical);
-        AdverbLine adverbLine = createAdverbLine(firstRadical, secondRadical, thirdRadical, fourthRadical);
-        return new AbbreviatedConjugation(activeLine, passiveLine, imperativeAndForbiddingLine, adverbLine);
+    public AbbreviatedConjugation createAbbreviatedConjugation(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor,
+                                                               RootLetters rootLetters, boolean removePassiveLine) {
+        ActiveLine activeLine = createActiveLine(conjugationRoots, ruleProcessor, rootLetters);
+        PassiveLine passiveLine = removePassiveLine ? null : createPassiveLine(conjugationRoots, ruleProcessor, rootLetters);
+        ImperativeAndForbiddingLine imperativeAndForbiddingLine = createImperativeAndForbiddingLine(conjugationRoots,
+                ruleProcessor, rootLetters);
+        AdverbLine adverbLine = createAdverbLine(conjugationRoots, ruleProcessor, rootLetters);
+        ConjugationHeader conjugationHeader = conjugationHeaderBuilder.createConjugationHeader(conjugationRoots, ruleProcessor, rootLetters);
+        return new AbbreviatedConjugation(conjugationHeader, activeLine, passiveLine, imperativeAndForbiddingLine, adverbLine);
     }
 
-    private ActiveLine createActiveLine(ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                        ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
-        RootWord pastTense = getTenseRootWord(conjugationRoots.pastTense, PAST_TENSE, firstRadical, secondRadical,
-                thirdRadical, fourthRadical);
+    private ActiveLine createActiveLine(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor, RootLetters rootLetters) {
+        RootWord pastTense = getTenseRootWord(conjugationRoots.pastTense, PAST_TENSE, ruleProcessor, rootLetters);
 
-        RootWord presentTense = getTenseRootWord(conjugationRoots.presentTense, PRESENT_TENSE, firstRadical, secondRadical,
-                thirdRadical, fourthRadical);
+        RootWord presentTense = getTenseRootWord(conjugationRoots.presentTense, PRESENT_TENSE, ruleProcessor, rootLetters);
 
         RootWord activeParticipleMasculine = getNounRootWord(conjugationRoots.activeParticipleMasculine, ACTIVE_PARTICIPLE_MASCULINE,
-                firstRadical, secondRadical, thirdRadical, fourthRadical);
-        RootWord[] verbalNouns = getNounRootWords(conjugationRoots.verbalNouns, VERBAL_NOUN, true, firstRadical, secondRadical,
-                thirdRadical, fourthRadical);
+                ruleProcessor, rootLetters);
+        RootWord[] verbalNouns = getNounRootWords(conjugationRoots.verbalNouns, VERBAL_NOUN, true, ruleProcessor, rootLetters);
         return new ActiveLine(pastTense, presentTense, activeParticipleMasculine, verbalNouns);
     }
 
-    private PassiveLine createPassiveLine(ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                          ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
-        RootWord pastPassiveTense = getTenseRootWord(conjugationRoots.pastPassiveTense, PAST_PASSIVE_TENSE, firstRadical,
-                secondRadical, thirdRadical, fourthRadical);
-        RootWord presentPassiveTense = getTenseRootWord(conjugationRoots.presentPassiveTense, PRESENT_PASSIVE_TENSE, firstRadical,
-                secondRadical, thirdRadical, fourthRadical);
+    private PassiveLine createPassiveLine(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor, RootLetters rootLetters) {
+        RootWord pastPassiveTense = getTenseRootWord(conjugationRoots.pastPassiveTense, PAST_PASSIVE_TENSE, ruleProcessor,
+                rootLetters);
+        RootWord presentPassiveTense = getTenseRootWord(conjugationRoots.presentPassiveTense, PRESENT_PASSIVE_TENSE, ruleProcessor,
+                rootLetters);
         RootWord passiveParticipleMasculine = getNounRootWord(conjugationRoots.passiveParticipleMasculine,
-                PASSIVE_PARTICIPLE_MASCULINE, firstRadical, secondRadical, thirdRadical, fourthRadical);
-        RootWord[] verbalNouns = getNounRootWords(conjugationRoots.verbalNouns, VERBAL_NOUN, true, firstRadical, secondRadical,
-                thirdRadical, fourthRadical);
+                PASSIVE_PARTICIPLE_MASCULINE, ruleProcessor, rootLetters);
+        RootWord[] verbalNouns = getNounRootWords(conjugationRoots.verbalNouns, VERBAL_NOUN, true, ruleProcessor, rootLetters);
         return new PassiveLine(pastPassiveTense, presentPassiveTense, passiveParticipleMasculine, verbalNouns);
     }
 
-    private ImperativeAndForbiddingLine createImperativeAndForbiddingLine(ArabicLetterType firstRadical,
-                                                                          ArabicLetterType secondRadical,
-                                                                          ArabicLetterType thirdRadical,
-                                                                          ArabicLetterType fourthRadical) {
-        RootWord imperative = getTenseRootWord(conjugationRoots.imperative, IMPERATIVE, firstRadical, secondRadical,
-                thirdRadical, fourthRadical);
-        RootWord forbidding = getTenseRootWord(conjugationRoots.forbidding, FORBIDDING, firstRadical, secondRadical,
-                thirdRadical, fourthRadical);
+    private ImperativeAndForbiddingLine createImperativeAndForbiddingLine(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor,
+                                                                          RootLetters rootLetters) {
+        RootWord imperative = getTenseRootWord(conjugationRoots.imperative, IMPERATIVE, ruleProcessor, rootLetters);
+        RootWord forbidding = getTenseRootWord(conjugationRoots.forbidding, FORBIDDING, ruleProcessor, rootLetters);
         return new ImperativeAndForbiddingLine(imperative, forbidding);
     }
 
-    private AdverbLine createAdverbLine(ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                        ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
-        return new AdverbLine(getNounRootWords(conjugationRoots.adverbs, NOUN_OF_PLACE_AND_TIME, false, firstRadical,
-                secondRadical, thirdRadical, fourthRadical));
+    private AdverbLine createAdverbLine(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor, RootLetters rootLetters) {
+        return new AdverbLine(getNounRootWords(conjugationRoots.adverbs, NOUN_OF_PLACE_AND_TIME, false, ruleProcessor, rootLetters));
     }
 
-    private RootWord getTenseRootWord(VerbRootBase verbRootBase, SarfTermType termType,
-                                      ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                      ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+    private RootWord getTenseRootWord(VerbRootBase verbRootBase, SarfTermType termType, RuleProcessor ruleProcessor,
+                                      RootLetters rootLetters) {
         if (verbRootBase == null) {
             return null;
         }
@@ -99,39 +84,43 @@ public final class AbbreviatedConjugationBuilder {
         String name = imperativeOrForbidden ? verb.getSecondPersonMasculineName() : verb.getThirdPersonMasculineName();
         final VerbTransformer verbTransformer = GUICE_SUPPORT.getVerbTransformer(name);
         final RootWord rootWord = new RootWord(verb.getRootWord()).withSarfTermType(termType);
-        final ConjugationTuple tuple = verbTransformer.doTransform(ruleEngine, rootWord, firstRadical, secondRadical,
-                thirdRadical, fourthRadical);
+        final ConjugationTuple tuple = verbTransformer.doTransform(ruleProcessor, rootWord, rootLetters.getFirstRadical(),
+                rootLetters.getSecondRadical(), rootLetters.getThirdRadical(), rootLetters.getFourthRadical());
         return tuple.getSingular();
     }
 
     private RootWord getNounRootWord(NounRootBase rootBase, SarfTermType termType, boolean verbalNoun,
-                                     ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                     ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+                                     RuleProcessor ruleProcessor, RootLetters rootLetters) {
         final NounSupport singularBaseWord = rootBase.getSingularBaseWord();
         final NounTransformer transformer = GUICE_SUPPORT.getNounTransformer(singularBaseWord.getSingularRootName());
         final RootWord rootWord = new RootWord(singularBaseWord.getRootWord()).withSarfTermType(termType);
-        final NounConjugation conjugation = transformer.doTransform(ruleEngine, rootWord,
-                firstRadical, secondRadical, thirdRadical, fourthRadical);
+        final NounConjugation conjugation = transformer.doTransform(ruleProcessor, rootWord, rootLetters.getFirstRadical(),
+                rootLetters.getSecondRadical(), rootLetters.getThirdRadical(), rootLetters.getFourthRadical());
         return verbalNoun ? conjugation.getAccusative() : conjugation.getNominative();
     }
 
-    private RootWord getNounRootWord(NounRootBase rootBase, SarfTermType termType, ArabicLetterType firstRadical,
-                                     ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                     ArabicLetterType fourthRadical) {
-        return getNounRootWord(rootBase, termType, false, firstRadical, secondRadical, thirdRadical, fourthRadical);
+    private RootWord getNounRootWord(NounRootBase rootBase, SarfTermType termType, RuleProcessor ruleProcessor,
+                                     RootLetters rootLetters) {
+        return getNounRootWord(rootBase, termType, false, ruleProcessor, rootLetters);
     }
 
     private RootWord[] getNounRootWords(NounRootBase[] rootBases, SarfTermType termType, boolean verbalNoun,
-                                        ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                        ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+                                        RuleProcessor ruleProcessor, RootLetters rootLetters) {
         RootWord[] rootWords = null;
         if (isNotEmpty(rootBases)) {
             rootWords = new RootWord[rootBases.length];
             for (int i = 0; i < rootBases.length; i++) {
-                rootWords[i] = getNounRootWord(rootBases[i], termType, verbalNoun, firstRadical, secondRadical,
-                        thirdRadical, fourthRadical);
+                rootWords[i] = getNounRootWord(rootBases[i], termType, verbalNoun, ruleProcessor, rootLetters);
             }
         }
         return rootWords;
+    }
+
+    static class ProviderImpl implements Provider<AbbreviatedConjugationBuilder>{
+
+        @Override
+        public AbbreviatedConjugationBuilder get() {
+            return new AbbreviatedConjugationBuilder();
+        }
     }
 }

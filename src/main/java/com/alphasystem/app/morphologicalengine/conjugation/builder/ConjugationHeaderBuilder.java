@@ -14,6 +14,7 @@ import com.alphasystem.arabic.model.WeakVerbType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.Verb;
+import com.google.inject.Provider;
 
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PAST_TENSE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_TENSE;
@@ -23,17 +24,13 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sar
  */
 public final class ConjugationHeaderBuilder {
 
-    private final ConjugationRoots conjugationRoots;
-    private final RuleProcessor ruleProcessor;
-
-    public ConjugationHeaderBuilder(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor) {
-        this.conjugationRoots = conjugationRoots;
-        this.ruleProcessor = ruleProcessor;
+    ConjugationHeaderBuilder() {
     }
 
-    public ConjugationHeader createConjugationHeader(RootLetters rootLetters) {
-        final RootWord pastTenseRoot = getRootWord(PAST_TENSE, rootLetters);
-        final RootWord presentTenseRoot = getRootWord(PRESENT_TENSE, rootLetters);
+    public ConjugationHeader createConjugationHeader(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor,
+                                                     RootLetters rootLetters) {
+        final RootWord pastTenseRoot = getRootWord(conjugationRoots, ruleProcessor, PAST_TENSE, rootLetters);
+        final RootWord presentTenseRoot = getRootWord(conjugationRoots, ruleProcessor, PRESENT_TENSE, rootLetters);
 
         WordStatus status = new WordStatus(rootLetters);
         RootType rootType = RootType.CONSONANT;
@@ -75,7 +72,7 @@ public final class ConjugationHeaderBuilder {
                 chartMode, rootLetters);
     }
 
-    private RootWord getRootWord(SarfTermType termType, RootLetters rootLetters) {
+    private RootWord getRootWord(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor, SarfTermType termType, RootLetters rootLetters) {
         final GuiceSupport guiceSupport = GuiceSupport.getInstance();
         final Verb verb = PAST_TENSE.equals(termType) ? conjugationRoots.getPastTense().getRoot() :
                 conjugationRoots.getPresentTense().getRoot();
@@ -84,4 +81,13 @@ public final class ConjugationHeaderBuilder {
                 rootLetters.getFirstRadical(), rootLetters.getSecondRadical(), rootLetters.getThirdRadical(),
                 rootLetters.getFourthRadical()).getSingular();
     }
+
+    static class ProviderImpl implements Provider<ConjugationHeaderBuilder> {
+        @Override
+        public ConjugationHeaderBuilder get() {
+            return new ConjugationHeaderBuilder();
+        }
+    }
+
+
 }

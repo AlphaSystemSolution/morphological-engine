@@ -1,6 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.builder;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
 import com.alphasystem.arabic.model.NamedTemplate;
 
 /**
@@ -76,4 +77,22 @@ public final class ConjugationHelper {
                 .imperative(form.getImperative()).forbidding(form.getForbidding())
                 .verbalNouns(true, form.getVerbalNouns()).adverbs(true, form.getAdverbs());
     }
+
+    public static ConjugationRoots getConjugationRoots(NamedTemplate template, String translation) {
+        return getConjugationRoots(template, translation, null, null);
+    }
+
+    public static ConjugationRoots getConjugationRoots(NamedTemplate template, String translation,
+                                                       NounRootBase[] verbalNouns, NounRootBase[] adverbs) {
+        final ConjugationRoots conjugationRoots = applyTemplate(null, template);
+        conjugationRoots.translation(translation);
+        if (verbalNouns != null) {
+            conjugationRoots.setVerbalNouns(verbalNouns);
+        }
+        if (adverbs != null) {
+            conjugationRoots.setAdverbs(adverbs);
+        }
+        return conjugationRoots;
+    }
+
 }

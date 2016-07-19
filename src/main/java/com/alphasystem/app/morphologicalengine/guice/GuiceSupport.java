@@ -1,5 +1,6 @@
 package com.alphasystem.app.morphologicalengine.guice;
 
+import com.alphasystem.app.morphologicalengine.conjugation.builder.BuilderModule;
 import com.alphasystem.app.morphologicalengine.conjugation.member.ConjugationMemberBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.member.impl.MemberBuilderModule;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
@@ -31,7 +32,7 @@ public final class GuiceSupport {
      */
     private GuiceSupport() {
         injector = Guice.createInjector(new CloseableModule(), new Jsr250Module(), new NounTransformerModule(),
-                new VerbTransformerModule(), new RuleProcessorModule(), new MemberBuilderModule());
+                new VerbTransformerModule(), new RuleProcessorModule(), new MemberBuilderModule(), new BuilderModule());
     }
 
     public static GuiceSupport getInstance() {
@@ -44,6 +45,16 @@ public final class GuiceSupport {
 
     public RuleProcessorFactory getRuleProcessorFactory() {
         return injector.getInstance(RuleProcessorFactory.class);
+    }
+
+    public <T> T getInstance(Class<T> type) {
+        T instance = null;
+        try {
+            instance = injector.getInstance(get(type));
+        } catch (Exception e) {
+            // ignore
+        }
+        return instance;
     }
 
     public <T> T getInstance(Class<T> type, Annotation annotation) {

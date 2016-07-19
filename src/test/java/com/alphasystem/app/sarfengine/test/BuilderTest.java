@@ -107,8 +107,9 @@ public class BuilderTest extends CommonTest {
                 new RuleInfo(form.getTemplate(), rootLetters));
         ConjugationRoots conjugationRoots = new ConjugationRoots().template(form.getTemplate()).pastTense(form.getPastTense())
                 .presentTense(form.getPresentTense());
-        ConjugationHeaderBuilder headerBuilder = new ConjugationHeaderBuilder(conjugationRoots, ruleEngine);
-        final ConjugationHeader conjugationHeader = headerBuilder.createConjugationHeader(rootLetters);
+        ConjugationHeaderBuilder headerBuilder = GUICE_SUPPORT.getInstance(ConjugationHeaderBuilder.class);
+        final ConjugationHeader conjugationHeader = headerBuilder.createConjugationHeader(conjugationRoots, ruleEngine,
+                rootLetters);
         final ChartMode chartMode = conjugationHeader.getChartMode();
         assertEquals(chartMode.getRootType(), RootType.WEAK);
         assertEquals(chartMode.getVerbType(), VerbType.SECOND_RADICAL_WEAK);

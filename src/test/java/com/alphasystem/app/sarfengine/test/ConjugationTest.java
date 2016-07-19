@@ -7,14 +7,15 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.Activ
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.AdverbLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ImperativeAndForbiddingLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.PassiveLine;
+import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.util.AppUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.testng.annotations.Test;
 
+import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationHelper.getConjugationRoots;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.ArabicWord.concatenateWithSpace;
 import static com.alphasystem.arabic.model.ArabicWord.getWord;
@@ -30,59 +31,42 @@ import static java.lang.String.format;
 public class ConjugationTest extends CommonTest {
 
     private static final String SARF_TERM_PATTERN = "3+|%s .%s+| 3+|%s %s";
-    public static final ArabicWord COMMAND_PREFIX = getWord(ALIF, LAM, ALIF_HAMZA_ABOVE, MEEM, RA, ArabicLetterType.SPACE,
+    private static final ArabicWord COMMAND_PREFIX = getWord(ALIF, LAM, ALIF_HAMZA_ABOVE, MEEM, RA, ArabicLetterType.SPACE,
             MEEM, NOON, HA);
     private static final ArabicWord FORBIDDING_PREFIX = getWord(WAW, NOON, HA, YA, ArabicLetterType.SPACE, AIN, NOON, HA);
     private static final ArabicWord ADVERB_PREFIX = getWord(WAW, ALIF, LAM, DTHA, RA, FA, ArabicLetterType.SPACE, MEEM,
             NOON, HA);
-    public static final NounRootBase[] FORM_I_ADVERBS = new NounRootBase[]{
+    private static final NounRootBase[] FORM_I_ADVERBS = new NounRootBase[]{
             new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
             new NounRootBase(NOUN_OF_PLACE_AND_TIME_V2, BROKEN_PLURAL_V12),
             new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)};
 
     @Test
     public void runConjugationBuilder() {
-        ConjugationBuilder conjugationBuilder = getConjugationBuilder(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, "To Help",
+        final ConjugationBuilder conjugationBuilder = GuiceSupport.getInstance().getInstance(ConjugationBuilder.class);
+        ConjugationRoots conjugationRoots = getConjugationRoots(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, "To Help",
                 new NounRootBase[]{new NounRootBase(VERBAL_NOUN_V1)}, FORM_I_ADVERBS);
-        printMorphologicalChart(conjugationBuilder.doConjugation(NOON, SAD, RA, null));
+        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, NOON, SAD, RA, null));
 
-        conjugationBuilder = getConjugationBuilder(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, "To Say",
+        conjugationRoots = getConjugationRoots(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, "To Say",
                 new NounRootBase[]{new NounRootBase(VERBAL_NOUN_V1)}, FORM_I_ADVERBS);
-        printMorphologicalChart(conjugationBuilder.doConjugation(QAF, WAW, LAM, null));
+        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, QAF, WAW, LAM, null));
 
-        conjugationBuilder = getConjugationBuilder(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, "To Eat",
+        conjugationRoots = getConjugationRoots(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, "To Eat",
                 new NounRootBase[]{new NounRootBase(VERBAL_NOUN_V1)}, FORM_I_ADVERBS);
-        printMorphologicalChart(conjugationBuilder.doConjugation(HAMZA, KAF, LAM, null));
+        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, HAMZA, KAF, LAM, null));
 
-        conjugationBuilder = getConjugationBuilder(FORM_IV_TEMPLATE, "To submit");
-        printMorphologicalChart(conjugationBuilder.doConjugation(SEEN, LAM, MEEM, null));
+        conjugationRoots = getConjugationRoots(FORM_IV_TEMPLATE, "To submit");
+        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, SEEN, LAM, MEEM, null));
 
-        conjugationBuilder = getConjugationBuilder(FORM_IV_TEMPLATE, "To send down");
-        printMorphologicalChart(conjugationBuilder.doConjugation(NOON, ZAIN, LAM, null));
+        conjugationRoots = getConjugationRoots(FORM_IV_TEMPLATE, "To send down");
+        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, NOON, ZAIN, LAM, null));
 
-        conjugationBuilder = getConjugationBuilder(FORM_IV_TEMPLATE, "To Establish");
-        printMorphologicalChart(conjugationBuilder.doConjugation(QAF, WAW, MEEM, null));
+        conjugationRoots = getConjugationRoots(FORM_IV_TEMPLATE, "To Establish");
+        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, QAF, WAW, MEEM, null));
 
-        conjugationBuilder = getConjugationBuilder(FORM_IX_TEMPLATE, "To collapse");
-        printMorphologicalChart(conjugationBuilder.doConjugation(NOON, QAF, DDAD, null));
-    }
-
-    private ConjugationBuilder getConjugationBuilder(NamedTemplate template, String translation) {
-        return getConjugationBuilder(template, translation, null, null);
-    }
-
-    private ConjugationBuilder getConjugationBuilder(NamedTemplate template, String translation,
-                                                     NounRootBase[] verbalNouns, NounRootBase[] adverbs) {
-        ConjugationBuilder conjugationBuilder = new ConjugationBuilder();
-        conjugationBuilder.applyTemplate(template);
-        final ConjugationRoots conjugationRoots = conjugationBuilder.getConjugationRoots().translation(translation);
-        if (verbalNouns != null) {
-            conjugationRoots.setVerbalNouns(verbalNouns);
-        }
-        if (adverbs != null) {
-            conjugationRoots.setAdverbs(adverbs);
-        }
-        return conjugationBuilder;
+        conjugationRoots = getConjugationRoots(FORM_IX_TEMPLATE, "To collapse");
+        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, NOON, QAF, DDAD, null));
     }
 
     private void printMorphologicalChart(MorphologicalChart chart) {
@@ -125,13 +109,13 @@ public class ConjugationTest extends CommonTest {
     }
 
     private String addHeaderLabels(ConjugationHeader header) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(ARABIC_NORMAL_STYLE_START).append(header.getTypeLabel1().toHtmlCode()).append("#")
-                .append(AppUtil.NEW_LINE).append(AppUtil.NEW_LINE)
-                .append(ARABIC_NORMAL_STYLE_START).append(header.getTypeLabel2().toHtmlCode()).append("#")
-                .append(AppUtil.NEW_LINE).append(AppUtil.NEW_LINE)
-                .append(ARABIC_NORMAL_STYLE_START).append(header.getTypeLabel3().toHtmlCode()).append("#");
-        return builder.toString();
+        return format("%s%s#%s%s%s%s#%s%s%s%s#", ARABIC_NORMAL_STYLE_START, header.getTypeLabel1().toHtmlCode(), AppUtil.NEW_LINE,
+                AppUtil.NEW_LINE, ARABIC_NORMAL_STYLE_START, header.getTypeLabel2().toHtmlCode(), AppUtil.NEW_LINE,
+                AppUtil.NEW_LINE, ARABIC_NORMAL_STYLE_START, header.getTypeLabel3().toHtmlCode());
+//        return new StringBuilder().append(ARABIC_NORMAL_STYLE_START).append(header.getTypeLabel1().toHtmlCode())
+//                .append("#").append(AppUtil.NEW_LINE).append(AppUtil.NEW_LINE).append(ARABIC_NORMAL_STYLE_START)
+//                .append(header.getTypeLabel2().toHtmlCode()).append("#").append(AppUtil.NEW_LINE).append(AppUtil.NEW_LINE)
+//                .append(ARABIC_NORMAL_STYLE_START).append(header.getTypeLabel3().toHtmlCode()).append("#").toString();
     }
 
 

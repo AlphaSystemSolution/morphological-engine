@@ -15,6 +15,8 @@ import static java.util.Objects.hash;
  */
 public class AbbreviatedConjugation {
 
+    private final ConjugationHeader conjugationHeader;
+
     private final ActiveLine activeLine;
 
     private final PassiveLine passiveLine;
@@ -23,12 +25,17 @@ public class AbbreviatedConjugation {
 
     private final AdverbLine adverbLine;
 
-    public AbbreviatedConjugation(ActiveLine activeLine, PassiveLine passiveLine,
+    public AbbreviatedConjugation(ConjugationHeader conjugationHeader, ActiveLine activeLine, PassiveLine passiveLine,
                                   ImperativeAndForbiddingLine commandLine, AdverbLine adverbLine) {
+        this.conjugationHeader = conjugationHeader;
         this.activeLine = activeLine;
         this.passiveLine = passiveLine;
         this.imperativeAndForbiddingLine = commandLine;
         this.adverbLine = adverbLine;
+    }
+
+    public ConjugationHeader getConjugationHeader() {
+        return conjugationHeader;
     }
 
     public ActiveLine getActiveLine() {

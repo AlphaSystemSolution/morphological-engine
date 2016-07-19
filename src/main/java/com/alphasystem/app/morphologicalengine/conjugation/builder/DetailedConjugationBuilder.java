@@ -5,6 +5,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.member.TenseMemberBui
 import com.alphasystem.app.morphologicalengine.conjugation.model.*;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+import com.google.inject.Provider;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,22 +22,18 @@ import static org.apache.commons.lang3.ArrayUtils.isEmpty;
  */
 public final class DetailedConjugationBuilder {
 
-    private final ConjugationRoots conjugationRoots;
-    private final RuleProcessor ruleEngine;
-
-    public DetailedConjugationBuilder(ConjugationRoots conjugationRoots, RuleProcessor ruleEngine) {
-        this.conjugationRoots = conjugationRoots;
-        this.ruleEngine = ruleEngine;
+    DetailedConjugationBuilder() {
     }
 
-    public DetailedConjugation createDetailedConjugation(RootLetters rootLetters, boolean removePassiveLine) {
-        final VerbDetailedConjugationPair activeTensePair = createActiveTensePair(rootLetters);
-        final NounDetailedConjugationPair activeParticiplePair = createActiveParticiplePair(rootLetters);
-        final NounDetailedConjugationPair[] verbalNounPairs = createVerbalNounPairs(rootLetters);
-        final VerbDetailedConjugationPair passiveTensePair = removePassiveLine ? null : createPassiveTensePair(rootLetters);
-        final NounDetailedConjugationPair passiveParticiplePair = removePassiveLine ? null : createPassiveParticiplePair(rootLetters);
-        final NounDetailedConjugationPair[] adverbPairs = createAdverbPairs(rootLetters);
-        final VerbDetailedConjugationPair imperativeAndForbiddingPair = createImperativeAndForbiddingPair(rootLetters);
+    public DetailedConjugation createDetailedConjugation(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor,
+                                                         RootLetters rootLetters, boolean removePassiveLine) {
+        final VerbDetailedConjugationPair activeTensePair = createActiveTensePair(conjugationRoots, ruleProcessor, rootLetters);
+        final NounDetailedConjugationPair activeParticiplePair = createActiveParticiplePair(conjugationRoots, ruleProcessor, rootLetters);
+        final NounDetailedConjugationPair[] verbalNounPairs = createVerbalNounPairs(conjugationRoots, ruleProcessor, rootLetters);
+        final VerbDetailedConjugationPair passiveTensePair = removePassiveLine ? null : createPassiveTensePair(conjugationRoots, ruleProcessor, rootLetters);
+        final NounDetailedConjugationPair passiveParticiplePair = removePassiveLine ? null : createPassiveParticiplePair(conjugationRoots, ruleProcessor, rootLetters);
+        final NounDetailedConjugationPair[] adverbPairs = createAdverbPairs(conjugationRoots, ruleProcessor, rootLetters);
+        final VerbDetailedConjugationPair imperativeAndForbiddingPair = createImperativeAndForbiddingPair(conjugationRoots, ruleProcessor, rootLetters);
 
         return new DetailedConjugation(activeTensePair, verbalNounPairs, activeParticiplePair, passiveTensePair,
                 passiveParticiplePair, imperativeAndForbiddingPair, adverbPairs);
@@ -44,70 +41,80 @@ public final class DetailedConjugationBuilder {
 
     private VerbDetailedConjugationPair createTensePair(SarfTermType leftTerm, SarfTermType rightTerm,
                                                         VerbRootBase leftBase, VerbRootBase rightBase,
-                                                        RootLetters rootLetters) {
+                                                        RuleProcessor ruleProcessor, RootLetters rootLetters) {
         VerbConjugationGroup rightSideConjugations = null;
         if (rightTerm != null) {
             TenseMemberBuilder rightSideBuilder = GUICE_SUPPORT.getMemberBuilder(TenseMemberBuilder.class, rightTerm);
-            rightSideConjugations = rightSideBuilder.doConjugation(ruleEngine, rightBase, rootLetters);
+            rightSideConjugations = rightSideBuilder.doConjugation(ruleProcessor, rightBase, rootLetters);
         }
 
         VerbConjugationGroup leftSideConjugations = null;
         if (leftTerm != null) {
             TenseMemberBuilder leftSideBuilder = GUICE_SUPPORT.getMemberBuilder(TenseMemberBuilder.class, leftTerm);
-            leftSideConjugations = leftSideBuilder.doConjugation(ruleEngine, leftBase, rootLetters);
+            leftSideConjugations = leftSideBuilder.doConjugation(ruleProcessor, leftBase, rootLetters);
         }
         return new VerbDetailedConjugationPair(leftSideConjugations, rightSideConjugations);
     }
 
-    private VerbDetailedConjugationPair createActiveTensePair(RootLetters rootLetters) {
-        return createTensePair(PRESENT_TENSE, PAST_TENSE, conjugationRoots.presentTense, conjugationRoots.pastTense, rootLetters);
+    private VerbDetailedConjugationPair createActiveTensePair(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor,
+                                                              RootLetters rootLetters) {
+        return createTensePair(PRESENT_TENSE, PAST_TENSE, conjugationRoots.presentTense, conjugationRoots.pastTense,
+                ruleProcessor, rootLetters);
     }
 
     private NounDetailedConjugationPair createParticiplePair(SarfTermType leftTerm, SarfTermType rightTerm,
                                                              NounRootBase leftBase, NounRootBase rightBase,
-                                                             RootLetters rootLetters) {
+                                                             RuleProcessor ruleProcessor, RootLetters rootLetters) {
         NounConjugationGroup leftSideConjugations = null;
         if (leftTerm != null) {
             ParticipleMemberBuilder leftSideBuilder = GUICE_SUPPORT.getMemberBuilder(ParticipleMemberBuilder.class, leftTerm);
-            leftSideConjugations = leftSideBuilder.doConjugation(ruleEngine, leftBase, rootLetters);
+            leftSideConjugations = leftSideBuilder.doConjugation(ruleProcessor, leftBase, rootLetters);
         }
 
         NounConjugationGroup rightSideConjugations = null;
         if (rightTerm != null) {
             ParticipleMemberBuilder rightSideBuilder = GUICE_SUPPORT.getMemberBuilder(ParticipleMemberBuilder.class, rightTerm);
-            rightSideConjugations = rightSideBuilder.doConjugation(ruleEngine, rightBase, rootLetters);
+            rightSideConjugations = rightSideBuilder.doConjugation(ruleProcessor, rightBase, rootLetters);
         }
         return new NounDetailedConjugationPair(leftSideConjugations, rightSideConjugations);
     }
 
-    private NounDetailedConjugationPair createActiveParticiplePair(RootLetters rootLetters) {
+    private NounDetailedConjugationPair createActiveParticiplePair(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor,
+                                                                   RootLetters rootLetters) {
         return createParticiplePair(ACTIVE_PARTICIPLE_FEMININE, ACTIVE_PARTICIPLE_MASCULINE, conjugationRoots.activeParticipleFeminine,
-                conjugationRoots.activeParticipleMasculine, rootLetters);
+                conjugationRoots.activeParticipleMasculine, ruleProcessor, rootLetters);
     }
 
-    private NounDetailedConjugationPair createPassiveParticiplePair(RootLetters rootLetters) {
+    private NounDetailedConjugationPair createPassiveParticiplePair(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor,
+                                                                    RootLetters rootLetters) {
         return createParticiplePair(PASSIVE_PARTICIPLE_FEMININE, PASSIVE_PARTICIPLE_MASCULINE, conjugationRoots.passiveParticipleFeminine,
-                conjugationRoots.passiveParticipleMasculine, rootLetters);
+                conjugationRoots.passiveParticipleMasculine, ruleProcessor, rootLetters);
     }
 
-    private NounDetailedConjugationPair[] createVerbalNounPairs(RootLetters rootLetters) {
-        return createPairs(conjugationRoots.verbalNouns, VERBAL_NOUN, rootLetters);
+    private NounDetailedConjugationPair[] createVerbalNounPairs(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor,
+                                                                RootLetters rootLetters) {
+        return createPairs(conjugationRoots.verbalNouns, VERBAL_NOUN, ruleProcessor, rootLetters);
     }
 
-    private NounDetailedConjugationPair[] createAdverbPairs(RootLetters rootLetters) {
-        return createPairs(conjugationRoots.adverbs, NOUN_OF_PLACE_AND_TIME, rootLetters);
+    private NounDetailedConjugationPair[] createAdverbPairs(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor,
+                                                            RootLetters rootLetters) {
+        return createPairs(conjugationRoots.adverbs, NOUN_OF_PLACE_AND_TIME, ruleProcessor, rootLetters);
     }
 
-    private VerbDetailedConjugationPair createPassiveTensePair(RootLetters rootLetters) {
+    private VerbDetailedConjugationPair createPassiveTensePair(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor,
+                                                               RootLetters rootLetters) {
         return createTensePair(PRESENT_PASSIVE_TENSE, PAST_PASSIVE_TENSE, conjugationRoots.presentPassiveTense,
-                conjugationRoots.pastPassiveTense, rootLetters);
+                conjugationRoots.pastPassiveTense, ruleProcessor, rootLetters);
     }
 
-    private VerbDetailedConjugationPair createImperativeAndForbiddingPair(RootLetters rootLetters) {
-        return createTensePair(FORBIDDING, IMPERATIVE, conjugationRoots.forbidding, conjugationRoots.imperative, rootLetters);
+    private VerbDetailedConjugationPair createImperativeAndForbiddingPair(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor,
+                                                                          RootLetters rootLetters) {
+        return createTensePair(FORBIDDING, IMPERATIVE, conjugationRoots.forbidding, conjugationRoots.imperative, ruleProcessor,
+                rootLetters);
     }
 
-    private NounDetailedConjugationPair[] createPairs(NounRootBase[] pairs, SarfTermType termType, RootLetters rootLetters) {
+    private NounDetailedConjugationPair[] createPairs(NounRootBase[] pairs, SarfTermType termType, RuleProcessor ruleProcessor,
+                                                      RootLetters rootLetters) {
         NounDetailedConjugationPair[] result = new NounDetailedConjugationPair[0];
 
         if (!isEmpty(pairs)) {
@@ -121,7 +128,7 @@ public final class DetailedConjugationBuilder {
             int toIndex = NUM_OF_COLUMNS;
             while (fromIndex < rootBaseList.size()) {
                 final List<NounRootBase> subList = rootBaseList.subList(fromIndex, toIndex);
-                result = add(result, createPair(subList.get(1), subList.get(0), termType, rootLetters));
+                result = add(result, createPair(subList.get(1), subList.get(0), termType, ruleProcessor, rootLetters));
                 fromIndex = toIndex;
                 toIndex += NUM_OF_COLUMNS;
             }
@@ -130,9 +137,17 @@ public final class DetailedConjugationBuilder {
     }
 
     private NounDetailedConjugationPair createPair(NounRootBase leftBase, NounRootBase rightBase, SarfTermType termType,
-                                                   RootLetters rootLetters) {
+                                                   RuleProcessor ruleProcessor, RootLetters rootLetters) {
         SarfTermType leftTerm = (leftBase == null) ? null : termType;
         SarfTermType rightTerm = (rightBase == null) ? null : termType;
-        return createParticiplePair(leftTerm, rightTerm, leftBase, rightBase, rootLetters);
+        return createParticiplePair(leftTerm, rightTerm, leftBase, rightBase, ruleProcessor, rootLetters);
+    }
+
+    static class ProviderImpl implements Provider<DetailedConjugationBuilder>{
+
+        @Override
+        public DetailedConjugationBuilder get() {
+            return new DetailedConjugationBuilder();
+        }
     }
 }

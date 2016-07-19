@@ -1,13 +1,16 @@
 package com.alphasystem.app.morphologicalengine.conjugation.builder;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.*;
+import com.alphasystem.app.morphologicalengine.conjugation.model.AbbreviatedConjugation;
+import com.alphasystem.app.morphologicalengine.conjugation.model.DetailedConjugation;
+import com.alphasystem.app.morphologicalengine.conjugation.model.MorphologicalChart;
+import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicLetterType;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.ConjugationConfiguration;
+import com.google.inject.Provider;
 
 /**
  * @author sali
@@ -18,14 +21,12 @@ public class ConjugationBuilder {
     private static final RuleProcessorFactory RULE_PROCESSOR_FACTORY = GUICE_SUPPORT.getRuleProcessorFactory();
     static final int NUM_OF_COLUMNS = 2;
 
-    private final ConjugationRoots conjugationRoots;
+    private final AbbreviatedConjugationBuilder abbreviatedConjugationBuilder;
+    private final DetailedConjugationBuilder detailedConjugationBuilder;
 
-    public ConjugationBuilder() {
-        conjugationRoots = new ConjugationRoots();
-    }
-
-    public ConjugationRoots getConjugationRoots() {
-        return conjugationRoots;
+    ConjugationBuilder() {
+        abbreviatedConjugationBuilder = GUICE_SUPPORT.getInstance(AbbreviatedConjugationBuilder.class);
+        detailedConjugationBuilder = GUICE_SUPPORT.getInstance(DetailedConjugationBuilder.class);
     }
 
     private static void checkFourthRadical(RootLetters rootLetters) {
@@ -34,8 +35,9 @@ public class ConjugationBuilder {
         }
     }
 
-    public MorphologicalChart doConjugation(ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                            ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+    public MorphologicalChart doConjugation(ConjugationRoots conjugationRoots, ArabicLetterType firstRadical,
+                                            ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                            ArabicLetterType fourthRadical) {
         RootLetters rootLetters = new RootLetters(firstRadical, secondRadical, thirdRadical, fourthRadical);
         checkFourthRadical(rootLetters);
 
@@ -46,27 +48,20 @@ public class ConjugationBuilder {
         boolean removePassiveLine = conjugationConfiguration.isRemovePassiveLine() ||
                 (conjugationRoots.pastPassiveTense == null);
 
-        final AbbreviatedConjugationBuilder abbreviatedConjugationBuilder = new AbbreviatedConjugationBuilder(conjugationRoots, ruleEngine);
         final AbbreviatedConjugation abbreviatedConjugation = abbreviatedConjugationBuilder.createAbbreviatedConjugation(
-                firstRadical, secondRadical, thirdRadical, fourthRadical, removePassiveLine);
+                conjugationRoots, ruleEngine, rootLetters, removePassiveLine);
 
-        final DetailedConjugationBuilder detailedConjugationBuilder = new DetailedConjugationBuilder(conjugationRoots, ruleEngine);
-        final DetailedConjugation detailedConjugation = detailedConjugationBuilder.createDetailedConjugation(rootLetters, removePassiveLine);
+        final DetailedConjugation detailedConjugation = detailedConjugationBuilder.createDetailedConjugation(conjugationRoots,
+                ruleEngine, rootLetters, removePassiveLine);
 
-        final ConjugationHeaderBuilder conjugationHeaderBuilder = new ConjugationHeaderBuilder(conjugationRoots, ruleEngine);
-        final ConjugationHeader conjugationHeader = conjugationHeaderBuilder.createConjugationHeader(rootLetters);
-
-        return new MorphologicalChart(conjugationHeader, abbreviatedConjugation, detailedConjugation);
+        return new MorphologicalChart(abbreviatedConjugation, detailedConjugation);
     }
 
-    public ConjugationBuilder applyTemplate(NamedTemplate template) {
-        ConjugationHelper.applyTemplate(conjugationRoots, template);
-        return this;
-    }
-
-    public ConjugationBuilder applyTemplate(Form form) {
-        ConjugationHelper.applyTemplate(conjugationRoots, form);
-        return this;
+    static class ProviderImpl implements Provider<ConjugationBuilder> {
+        @Override
+        public ConjugationBuilder get() {
+            return new ConjugationBuilder();
+        }
     }
 
 }

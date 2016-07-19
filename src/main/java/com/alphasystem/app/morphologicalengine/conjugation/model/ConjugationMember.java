@@ -5,7 +5,7 @@ import com.alphasystem.arabic.model.SarfMemberType;
 
 import java.io.Serializable;
 
-import static com.alphasystem.util.AppUtil.isGivenType;
+import static com.alphasystem.util.AppUtil.isInstanceOf;
 import static com.alphasystem.util.HashCodeUtil.hash;
 
 /**
@@ -26,7 +26,7 @@ public class ConjugationMember implements Serializable, Comparable<ConjugationMe
     @Override
     public boolean equals(Object obj) {
         boolean result = super.equals(obj);
-        if (isGivenType(ConjugationMember.class, obj)) {
+        if (isInstanceOf(ConjugationMember.class, obj)) {
             ConjugationMember o = (ConjugationMember) obj;
             result = getMemberType().equals(o.getMemberType()) && getConjugation().equals(o.getConjugation());
         }

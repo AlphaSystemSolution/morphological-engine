@@ -15,15 +15,13 @@ public class MorphologicalChart {
     private final ConjugationHeader conjugationHeader;
 
     /**
-     * @param conjugationHeader
      * @param abbreviatedConjugation
      * @param detailedConjugation
      */
-    public MorphologicalChart(ConjugationHeader conjugationHeader, AbbreviatedConjugation abbreviatedConjugation,
-                              DetailedConjugation detailedConjugation) {
-        this.conjugationHeader = conjugationHeader;
+    public MorphologicalChart(AbbreviatedConjugation abbreviatedConjugation, DetailedConjugation detailedConjugation) {
         this.abbreviatedConjugation = abbreviatedConjugation;
         this.detailedConjugation = detailedConjugation;
+        this.conjugationHeader = (abbreviatedConjugation == null) ? null : abbreviatedConjugation.getConjugationHeader();
     }
 
     @Override
