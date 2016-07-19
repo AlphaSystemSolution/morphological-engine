@@ -43,7 +43,7 @@ public class ConjugationTest extends CommonTest {
 
     @Test
     public void runConjugationBuilder() {
-        final ConjugationBuilder conjugationBuilder = GuiceSupport.getInstance().getInstance(ConjugationBuilder.class);
+        final ConjugationBuilder conjugationBuilder = GuiceSupport.getInstance().getConjugationBuilder();
         ConjugationRoots conjugationRoots = getConjugationRoots(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, "To Help",
                 new NounRootBase[]{new NounRootBase(VERBAL_NOUN_V1)}, FORM_I_ADVERBS);
         printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, NOON, SAD, RA, null));

@@ -15,7 +15,7 @@ import com.google.inject.Provider;
 /**
  * @author sali
  */
-public class ConjugationBuilder {
+public final class ConjugationBuilder {
 
     static final GuiceSupport GUICE_SUPPORT = GuiceSupport.getInstance();
     private static final RuleProcessorFactory RULE_PROCESSOR_FACTORY = GUICE_SUPPORT.getRuleProcessorFactory();
@@ -25,8 +25,8 @@ public class ConjugationBuilder {
     private final DetailedConjugationBuilder detailedConjugationBuilder;
 
     ConjugationBuilder() {
-        abbreviatedConjugationBuilder = GUICE_SUPPORT.getInstance(AbbreviatedConjugationBuilder.class);
-        detailedConjugationBuilder = GUICE_SUPPORT.getInstance(DetailedConjugationBuilder.class);
+        abbreviatedConjugationBuilder = GUICE_SUPPORT.getAbbreviatedConjugationBuilder();
+        detailedConjugationBuilder = GUICE_SUPPORT.getDetailedConjugationBuilder();
     }
 
     private static void checkFourthRadical(RootLetters rootLetters) {

@@ -1,6 +1,6 @@
 package com.alphasystem.app.morphologicalengine.guice;
 
-import com.alphasystem.app.morphologicalengine.conjugation.builder.BuilderModule;
+import com.alphasystem.app.morphologicalengine.conjugation.builder.*;
 import com.alphasystem.app.morphologicalengine.conjugation.member.ConjugationMemberBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.member.impl.MemberBuilderModule;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
@@ -47,16 +47,6 @@ public final class GuiceSupport {
         return injector.getInstance(RuleProcessorFactory.class);
     }
 
-    public <T> T getInstance(Class<T> type) {
-        T instance = null;
-        try {
-            instance = injector.getInstance(get(type));
-        } catch (Exception e) {
-            // ignore
-        }
-        return instance;
-    }
-
     public <T> T getInstance(Class<T> type, Annotation annotation) {
         if (annotation == null) {
             return null;
@@ -84,5 +74,21 @@ public final class GuiceSupport {
 
     public VerbTransformer getVerbTransformer(String name) {
         return (name == null) ? null : getInstance(VerbTransformer.class, name);
+    }
+
+    public ConjugationBuilder getConjugationBuilder() {
+        return injector.getInstance(ConjugationBuilder.class);
+    }
+
+    public AbbreviatedConjugationBuilder getAbbreviatedConjugationBuilder() {
+        return injector.getInstance(AbbreviatedConjugationBuilder.class);
+    }
+
+    public DetailedConjugationBuilder getDetailedConjugationBuilder() {
+        return injector.getInstance(DetailedConjugationBuilder.class);
+    }
+
+    public ConjugationHeaderBuilder getConjugationHeaderBuilder() {
+        return injector.getInstance(ConjugationHeaderBuilder.class);
     }
 }
