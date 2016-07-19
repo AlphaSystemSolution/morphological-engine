@@ -22,7 +22,7 @@ import static org.apache.commons.lang3.ArrayUtils.isEmpty;
  */
 public final class DetailedConjugationBuilder {
 
-    DetailedConjugationBuilder() {
+    private DetailedConjugationBuilder() {
     }
 
     public DetailedConjugation createDetailedConjugation(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor,

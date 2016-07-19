@@ -26,7 +26,7 @@ public final class AbbreviatedConjugationBuilder {
 
     private ConjugationHeaderBuilder conjugationHeaderBuilder;
 
-    AbbreviatedConjugationBuilder() {
+    private AbbreviatedConjugationBuilder() {
         conjugationHeaderBuilder = GuiceSupport.getInstance().getConjugationHeaderBuilder();
     }
 

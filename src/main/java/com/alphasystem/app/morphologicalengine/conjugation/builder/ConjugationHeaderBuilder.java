@@ -24,7 +24,7 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sar
  */
 public final class ConjugationHeaderBuilder {
 
-    ConjugationHeaderBuilder() {
+    private ConjugationHeaderBuilder() {
     }
 
     public ConjugationHeader createConjugationHeader(ConjugationRoots conjugationRoots, RuleProcessor ruleProcessor,
