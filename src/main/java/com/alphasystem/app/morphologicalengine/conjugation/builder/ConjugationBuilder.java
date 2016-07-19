@@ -9,6 +9,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicLetterType;
+import com.alphasystem.morphologicalanalysis.morphology.model.ChartConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.ConjugationConfiguration;
 import com.google.inject.Provider;
 
@@ -24,7 +25,7 @@ public final class ConjugationBuilder {
     private final AbbreviatedConjugationBuilder abbreviatedConjugationBuilder;
     private final DetailedConjugationBuilder detailedConjugationBuilder;
 
-    ConjugationBuilder() {
+    private ConjugationBuilder() {
         abbreviatedConjugationBuilder = GUICE_SUPPORT.getAbbreviatedConjugationBuilder();
         detailedConjugationBuilder = GUICE_SUPPORT.getDetailedConjugationBuilder();
     }
@@ -45,14 +46,21 @@ public final class ConjugationBuilder {
         RuleProcessor ruleEngine = RULE_PROCESSOR_FACTORY.getRuleEngine(new RuleInfo(conjugationRoots.template, rootLetters,
                 conjugationConfiguration.isSkipRuleProcessing()));
 
-        boolean removePassiveLine = conjugationConfiguration.isRemovePassiveLine() ||
-                (conjugationRoots.pastPassiveTense == null);
+        boolean removePassiveLine = conjugationConfiguration.isRemovePassiveLine() || (conjugationRoots.pastPassiveTense == null);
 
-        final AbbreviatedConjugation abbreviatedConjugation = abbreviatedConjugationBuilder.createAbbreviatedConjugation(
-                conjugationRoots, ruleEngine, rootLetters, removePassiveLine);
+        final ChartConfiguration chartConfiguration = conjugationRoots.getChartConfiguration();
 
-        final DetailedConjugation detailedConjugation = detailedConjugationBuilder.createDetailedConjugation(conjugationRoots,
-                ruleEngine, rootLetters, removePassiveLine);
+        AbbreviatedConjugation abbreviatedConjugation = null;
+        if (!chartConfiguration.isOmitAbbreviatedConjugation()) {
+            abbreviatedConjugation = abbreviatedConjugationBuilder.createAbbreviatedConjugation(conjugationRoots, ruleEngine,
+                    rootLetters, removePassiveLine);
+        }
+
+        DetailedConjugation detailedConjugation = null;
+        if (!chartConfiguration.isOmitDetailedConjugation()) {
+            detailedConjugation = detailedConjugationBuilder.createDetailedConjugation(conjugationRoots, ruleEngine,
+                    rootLetters, removePassiveLine);
+        }
 
         return new MorphologicalChart(abbreviatedConjugation, detailedConjugation);
     }
