@@ -28,6 +28,11 @@ public class LabelPrinter extends CommonTest {
     }
 
     @Test(dependsOnMethods = {"printArabicLetters"})
+    public void printDiacritics(){
+        addTable2(DiacriticType.values(), "Diacritics", NUM_OF_COLUMNS);
+    }
+
+    @Test(dependsOnMethods = {"printDiacritics"})
     public void printNamedTemplates() {
         addTable(NamedTemplate.values(), "Named Templates", NUM_OF_COLUMNS);
     }
@@ -112,6 +117,68 @@ public class LabelPrinter extends CommonTest {
 
             subList.forEach(m -> {
                 final String text = (m == null) ? " " : format("[arabicNormal]#%s#", m.getLabel().toHtmlCode());
+                builder.append(format("|%s%s", text, NEW_LINE));
+            });
+            builder.append(NEW_LINE);
+
+            subList.forEach(m -> {
+                String text = (m == null) ? " " : format("%s", m.getLabel().toBuckWalter());
+                if("|".equals(text)){
+                    text = format("\\%s", text);
+                }
+                builder.append(format("|%s%s", text, NEW_LINE));
+            });
+            builder.append(NEW_LINE);
+
+            builder.append(format("%s+| ", numOfColumns)).append(NEW_LINE);
+
+            lines.add(builder.toString());
+            fromIndex = toIndex;
+            toIndex += numOfColumns;
+        }
+
+        lines.add(ASCII_DOC_TABLE_DECELERATION);
+    }
+
+    private <M extends Enum<M> & ArabicCharacter> void addTable2(M[] values, String title, int numOfColumns){
+        if (title != null) {
+            lines.add(format(".%s", title));
+        }
+        List<M> list = new ArrayList<>();
+        addAll(list, values);
+        int size = list.size();
+        while (size % numOfColumns != 0) {
+            list.add(null);
+            size = list.size();
+        }
+
+        lines.add(format("[cols=\"%s*^.^\"]", numOfColumns));
+        lines.add(ASCII_DOC_TABLE_DECELERATION);
+
+        int fromIndex = 0;
+        int toIndex = numOfColumns;
+        while (fromIndex < list.size()) {
+            final List<M> subList = list.subList(fromIndex, toIndex);
+            reverse(subList);
+
+            StringBuilder builder = new StringBuilder();
+            subList.forEach(m -> {
+                final String text = (m == null) ? " " : format("[small]#%s#", m.name());
+                builder.append(format("|%s%s", text, NEW_LINE));
+            });
+            builder.append(NEW_LINE);
+
+            subList.forEach(m -> {
+                final String text = (m == null) ? " " : format("[arabicNormal]#%s#", m.getHtmlCode());
+                builder.append(format("|%s%s", text, NEW_LINE));
+            });
+            builder.append(NEW_LINE);
+
+            subList.forEach(m -> {
+                String text = (m == null) ? " " : format("%s", m.getCode());
+                if("|".equals(text)){
+                    text = format("\\%s", text);
+                }
                 builder.append(format("|%s%s", text, NEW_LINE));
             });
             builder.append(NEW_LINE);
