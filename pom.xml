@@ -17,6 +17,11 @@
             <version>${morphological-analysis-model.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.alphasystem.arabic</groupId>
+            <artifactId>arabic-ui-support</artifactId>
+            <version>${arabic-ui-support.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.6.3</version>
@@ -89,6 +94,8 @@
         <maven.test.skip>false</maven.test.skip>
         <guice.version>4.0</guice.version>
         <mycila-guice.version>3.6.ga</mycila-guice.version>
+        <arabic-ui-support.version>${project.version}</arabic-ui-support.version>
+        <fx-support.version>${project.version}</fx-support.version>
         <sarf-xml-model.version>${project.version}</sarf-xml-model.version>
         <morphological-analysis-model.version>${project.version}</morphological-analysis-model.version>
     </properties>
