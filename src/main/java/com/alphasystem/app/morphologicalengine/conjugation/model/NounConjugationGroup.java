@@ -38,4 +38,10 @@ public final class NounConjugationGroup extends ConjugationGroup {
         this.genitive = genitive;
     }
 
+    @Override
+    public boolean isEmpty() {
+        return (nominative == null || nominative.isEmpty()) && (accusative == null || accusative.isEmpty()) &&
+                (genitive == null || genitive.isEmpty());
+    }
+
 }

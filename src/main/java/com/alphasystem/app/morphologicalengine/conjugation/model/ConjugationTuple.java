@@ -13,6 +13,10 @@ public final class ConjugationTuple {
 
     private RootWord plural;
 
+    public ConjugationTuple() {
+        this(null, null, null);
+    }
+
     public ConjugationTuple(RootWord singular, RootWord dual, RootWord plural) {
         setSingular(singular);
         setDual(dual);
@@ -41,5 +45,9 @@ public final class ConjugationTuple {
 
     public void setPlural(RootWord plural) {
         this.plural = plural;
+    }
+
+    public boolean isEmpty() {
+        return (singular == null) && (plural == null);
     }
 }

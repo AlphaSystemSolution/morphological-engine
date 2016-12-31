@@ -16,4 +16,8 @@ public class ConjugationGroup {
     public void setTermType(SarfTermType termType) {
         this.termType = termType;
     }
+
+    public boolean isEmpty(){
+        return false;
+    }
 }

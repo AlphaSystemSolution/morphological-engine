@@ -58,4 +58,12 @@ public final class VerbConjugationGroup extends ConjugationGroup {
         this.firstPerson = firstPerson;
     }
 
+    @Override
+    public boolean isEmpty() {
+        return (masculineSecondPerson == null || masculineThirdPerson.isEmpty()) &&
+                (feminineThirdPerson == null || feminineThirdPerson.isEmpty()) &&
+                (masculineSecondPerson == null || masculineSecondPerson.isEmpty()) &&
+                (feminineSecondPerson == null || feminineSecondPerson.isEmpty()) &&
+                (firstPerson == null || firstPerson.isEmpty());
+    }
 }
