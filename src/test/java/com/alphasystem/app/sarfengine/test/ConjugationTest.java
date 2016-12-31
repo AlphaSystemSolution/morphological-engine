@@ -36,7 +36,7 @@ public class ConjugationTest extends CommonTest {
     private static final ArabicWord FORBIDDING_PREFIX = getWord(WAW, NOON, HA, YA, ArabicLetterType.SPACE, AIN, NOON, HA);
     private static final ArabicWord ADVERB_PREFIX = getWord(WAW, ALIF, LAM, DTHA, RA, FA, ArabicLetterType.SPACE, MEEM,
             NOON, HA);
-    private static final NounRootBase[] FORM_I_ADVERBS = new NounRootBase[]{
+    public static final NounRootBase[] FORM_I_ADVERBS = new NounRootBase[]{
             new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
             new NounRootBase(NOUN_OF_PLACE_AND_TIME_V2, BROKEN_PLURAL_V12),
             new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)};
