@@ -6,7 +6,7 @@ package com.alphasystem.app.morphologicalengine.conjugation.model;
 /**
  * @author sali
  */
-public abstract class DetailedConjugationPair<G> {
+public abstract class DetailedConjugationPair<G extends ConjugationGroup> {
 
     private final G leftSideConjugations;
     private final G rightSideConjugations;
