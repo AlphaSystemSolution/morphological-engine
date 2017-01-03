@@ -21,6 +21,7 @@ import static com.alphasystem.arabic.model.ArabicWord.concatenateWithSpace;
 import static com.alphasystem.arabic.model.ArabicWord.getWord;
 import static com.alphasystem.arabic.model.NamedTemplate.*;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V12;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V13;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.*;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.VERBAL_NOUN_V1;
 import static java.lang.String.format;
@@ -38,7 +39,7 @@ public class ConjugationTest extends CommonTest {
             NOON, HA);
     public static final NounRootBase[] FORM_I_ADVERBS = new NounRootBase[]{
             new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
-            new NounRootBase(NOUN_OF_PLACE_AND_TIME_V2, BROKEN_PLURAL_V12),
+            new NounRootBase(NOUN_OF_PLACE_AND_TIME_V2, BROKEN_PLURAL_V13),
             new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)};
 
     @Test
