@@ -18,13 +18,13 @@ import static com.google.inject.name.Names.named;
 public class NounTransformerModule extends AbstractModule {
 
     public static final String MASCULINE_ENDING_SOUND_TRANSFORMER = "MasculineEndingSoundTransformer";
-    public static final String FEMININE_ENDING_SOUND_TRANSFORMER = "FeminineEndingSoundTransformer";
-    public static final String MASCULINE_DUAL_TRANSFORMER = "MasculineDualTransformer";
-    public static final String FEMININE_DUAL_TRANSFORMER = "FeminineDualTransformer";
-    public static final String MASCULINE_PLURAL_TRANSFORMER = "MasculinePluralTransformer";
-    public static final String FEMININE_PLURAL_TRANSFORMER = "FemininePluralTransformer";
-    public static final String FEMININE_MASCULINE_BASED_PLURAL_TRANSFORMER = "FeminineMasculineBasedPluralTransformer";
-    public static final String PARTLY_FLEXIBLE_NOUN_TRANSFORMER = "PartlyFlexibleNounTransformer";
+    private static final String FEMININE_ENDING_SOUND_TRANSFORMER = "FeminineEndingSoundTransformer";
+    private static final String MASCULINE_DUAL_TRANSFORMER = "MasculineDualTransformer";
+    private static final String FEMININE_DUAL_TRANSFORMER = "FeminineDualTransformer";
+    private static final String MASCULINE_PLURAL_TRANSFORMER = "MasculinePluralTransformer";
+    private static final String FEMININE_PLURAL_TRANSFORMER = "FemininePluralTransformer";
+    private static final String FEMININE_MASCULINE_BASED_PLURAL_TRANSFORMER = "FeminineMasculineBasedPluralTransformer";
+    private static final String PARTLY_FLEXIBLE_NOUN_TRANSFORMER = "PartlyFlexibleNounTransformer";
     public static final String NON_FLEXIBLE_NOUN_TRANSFORMER = "NonFlexibleNounTransformer";
 
     @Override
