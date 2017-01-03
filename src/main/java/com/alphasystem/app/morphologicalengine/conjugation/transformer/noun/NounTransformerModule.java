@@ -6,6 +6,7 @@ import com.alphasystem.morphologicalanalysis.morphology.model.support.NounSuppor
 import com.google.inject.AbstractModule;
 
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V12;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V13;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.Noun.*;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.*;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.*;
@@ -101,6 +102,7 @@ public class NounTransformerModule extends AbstractModule {
         bindFeminineNoun(VERBAL_NOUN_V13);
         bindFeminineNoun(VERBAL_NOUN_V14);
         bindFeminineNoun(VERBAL_NOUN_V15);
+        bindFeminineNoun(VERBAL_NOUN_V27);
         bindMasculineBasedFemininePluralNoun(VERBAL_NOUN_FORM_II);
         bindMasculineBasedFemininePluralNoun(VERBAL_NOUN_FORM_III_V1);
         bindFeminineNoun(VERBAL_NOUN_FORM_III_V2);
@@ -122,6 +124,7 @@ public class NounTransformerModule extends AbstractModule {
 
         // START OF BROKEN PLURAL
         bindBrokenPlural(BROKEN_PLURAL_V12);
+        bindBrokenPlural(BROKEN_PLURAL_V13);
         // END OF BROKEN PLURAL
     }
 
