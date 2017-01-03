@@ -2,7 +2,12 @@ package com.alphasystem.app.morphologicalengine.conjugation.builder;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
+import com.alphasystem.app.morphologicalengine.util.VerbalNounFactory;
 import com.alphasystem.arabic.model.NamedTemplate;
+import com.alphasystem.morphologicalanalysis.morphology.model.ConjugationData;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
+
+import java.util.List;
 
 /**
  * @author sali
@@ -94,5 +99,21 @@ public final class ConjugationHelper {
         }
         return conjugationRoots;
     }
+
+    public static ConjugationRoots getConjugationRoots(ConjugationData conjugationData) {
+        if (conjugationData == null) {
+            return null;
+        }
+        NounRootBase[] verbalNounRoots = null;
+        final List<VerbalNoun> verbalNouns = conjugationData.getVerbalNouns();
+        if (verbalNouns != null && !verbalNouns.isEmpty()) {
+            verbalNounRoots = new NounRootBase[verbalNouns.size()];
+            for (int i = 0; i < verbalNouns.size(); i++) {
+                verbalNounRoots[i] = new NounRootBase(VerbalNounFactory.getByVerbalNoun(verbalNouns.get(i)));
+            }
+        }
+        return getConjugationRoots(conjugationData.getTemplate(), conjugationData.getTranslation(), verbalNounRoots, null);
+    }
+
 
 }
