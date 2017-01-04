@@ -23,8 +23,8 @@ import static org.apache.commons.io.FilenameUtils.getBaseName;
  */
 public class TemplateReader {
 
-    public static final String SARF_SUFFIX = "sarfj";
-    public static final String DOCX_FILE_EXTENSION = "docx";
+    private static final String SARF_SUFFIX = "sarfj";
+    private static final String DOCX_FILE_EXTENSION = "docx";
     public static final String SARF_FILE_DESCRIPTION = format("%s Files", SARF_SUFFIX);
     private static final String EXTENSION_SEPARATOR = ".";
     public static final String SARF_FILE_EXTENSION_ALL = format("*%s%s", EXTENSION_SEPARATOR, SARF_SUFFIX);
@@ -99,7 +99,7 @@ public class TemplateReader {
         ConjugationTemplate template;
         File tempFile;
         try {
-            tempFile = createTempFile(JSON_SUFFIX);
+            tempFile = createTempFile(JSON_FILE_EXTENSION);
             String pathname = file.getAbsolutePath();
             extractFile(pathname, DEFAULT_ZIP_FILE_ENTRY, tempFile);
             template = objectMapper.readValue(tempFile, ConjugationTemplate.class);
@@ -131,7 +131,7 @@ public class TemplateReader {
     public void saveFile(File archiveFile, ConjugationTemplate template) throws ApplicationException {
         File tempFile = null;
         try {
-            tempFile = createTempFile(JSON_SUFFIX);
+            tempFile = createTempFile(JSON_FILE_EXTENSION);
             objectMapper.writeValue(tempFile, template);
             archiveFile(archiveFile, new ZipFileEntry(tempFile, DEFAULT_ZIP_FILE_ENTRY));
         } catch (ApplicationException e) {
