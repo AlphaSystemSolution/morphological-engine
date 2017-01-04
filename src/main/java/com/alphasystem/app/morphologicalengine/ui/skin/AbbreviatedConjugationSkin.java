@@ -194,13 +194,13 @@ public class AbbreviatedConjugationSkin extends SkinBase<AbbreviatedConjugationC
         private ArabicWord concatenateWithAnd(RootWord[] rootWords) {
             ArabicWord arabicWord = null;
             if (!isEmpty(rootWords)) {
-                arabicWord = concatenate(rootWords[0].getLabel());
+                arabicWord = concatenate(rootWords[0].toLabel());
                 for (int i = 1; i < rootWords.length; i++) {
                     RootWord rootWord = rootWords[i];
                     if (rootWord == null) {
                         continue;
                     }
-                    arabicWord = ArabicWord.concatenateWithAnd(arabicWord, rootWord.getLabel());
+                    arabicWord = ArabicWord.concatenateWithAnd(arabicWord, rootWord.toLabel());
                 }
             }
             return arabicWord;

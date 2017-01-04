@@ -89,10 +89,10 @@ public class ConjugationHeader {
     public ArabicWord getTitle() {
         ArabicWord title = WORD_SPACE;
         if (pastTenseRoot != null) {
-            title = concatenateWithSpace(title, pastTenseRoot.getLabel());
+            title = concatenateWithSpace(title, pastTenseRoot.toLabel());
         }
         if (presentTenseRoot != null) {
-            title = concatenateWithSpace(title, presentTenseRoot.getLabel());
+            title = concatenateWithSpace(title, presentTenseRoot.toLabel());
         }
         if (rootLetters != null) {
             ArabicLetterType fourthRadical = rootLetters.getFourthRadical();

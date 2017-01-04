@@ -116,13 +116,13 @@ public class LabelPrinter extends CommonTest {
             builder.append(NEW_LINE);
 
             subList.forEach(m -> {
-                final String text = (m == null) ? " " : format("[arabicNormal]#%s#", m.getLabel().toHtmlCode());
+                final String text = (m == null) ? " " : format("[arabicNormal]#%s#", m.toLabel().toHtmlCode());
                 builder.append(format("|%s%s", text, NEW_LINE));
             });
             builder.append(NEW_LINE);
 
             subList.forEach(m -> {
-                String text = (m == null) ? " " : format("%s", m.getLabel().toBuckWalter());
+                String text = (m == null) ? " " : format("%s", m.toLabel().toBuckWalter());
                 if("|".equals(text)){
                     text = format("\\%s", text);
                 }

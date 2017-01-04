@@ -77,8 +77,8 @@ public class ConjugationTest extends CommonTest {
     }
 
     private void createHeading(ConjugationHeader header) {
-        final ArabicWord arabicWord = concatenateWithSpace(header.getPastTenseRoot().getLabel(),
-                header.getPresentTenseRoot().getLabel());
+        final ArabicWord arabicWord = concatenateWithSpace(header.getPastTenseRoot().toLabel(),
+                header.getPresentTenseRoot().toLabel());
         lines.add(format("== [arabicHeading1]#%s#", arabicWord.toHtmlCode()));
     }
 
@@ -102,9 +102,9 @@ public class ConjugationTest extends CommonTest {
 
     private String addRootLettersAndTranslation(RootLetters rootLetters, String translation) {
         ArabicLetterType fourthRadical = rootLetters.getFourthRadical();
-        ArabicWord fourthRadicalWord = (fourthRadical == null) ? null : fourthRadical.getLabel();
-        final ArabicWord rootLettersWord = concatenateWithSpace(rootLetters.getFirstRadical().getLabel(),
-                rootLetters.getSecondRadical().getLabel(), rootLetters.getThirdRadical().getLabel(), fourthRadicalWord);
+        ArabicWord fourthRadicalWord = (fourthRadical == null) ? null : fourthRadical.toLabel();
+        final ArabicWord rootLettersWord = concatenateWithSpace(rootLetters.getFirstRadical().toLabel(),
+                rootLetters.getSecondRadical().toLabel(), rootLetters.getThirdRadical().toLabel(), fourthRadicalWord);
         String translationValue = (translation == null) ? "" : format("[small]#(%s)#", translation);
         return format("[arabicHeading1]#%s#%s%s%s", rootLettersWord.toHtmlCode(), AppUtil.NEW_LINE, AppUtil.NEW_LINE, translationValue);
     }

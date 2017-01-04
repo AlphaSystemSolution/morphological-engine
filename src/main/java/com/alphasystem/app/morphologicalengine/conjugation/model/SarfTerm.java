@@ -31,7 +31,7 @@ public class SarfTerm {
                     ArabicWord... values) {
         this.sarfTermType = sarfTermType;
         this.label = this.sarfTermType == null ? null : this.sarfTermType
-                .getLabel();
+                .toLabel();
         this.defaultValue = defaultValue;
         this.values = values;
     }

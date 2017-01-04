@@ -75,9 +75,9 @@ public class CommonTest implements ArabicLetters, Constants {
         if (rootWord == null) {
             return columnSpan <= 0 ? "|&nbsp; " : getEmptyRow(columnSpan);
         }
-        ArabicWord arabicWord = rootWord.getLabel();
+        ArabicWord arabicWord = rootWord.toLabel();
         for (int i = 1; i < rootWords.length; i++) {
-            arabicWord = concatenateWithAnd(arabicWord, rootWords[i].getLabel());
+            arabicWord = concatenateWithAnd(arabicWord, rootWords[i].toLabel());
         }
         if (prefix != null) {
             arabicWord = concatenateWithSpace(prefix, arabicWord);
@@ -87,7 +87,7 @@ public class CommonTest implements ArabicLetters, Constants {
     }
 
     public static String getRootWordLabel(RootWord rootWord) {
-        return (rootWord == null) ? "" : format("[arabicNormal]#%s#", rootWord.getLabel().toHtmlCode());
+        return (rootWord == null) ? "" : format("[arabicNormal]#%s#", rootWord.toLabel().toHtmlCode());
     }
 
     public static String getRootWordSarfTermType(RootWord rootWord) {
@@ -104,8 +104,8 @@ public class CommonTest implements ArabicLetters, Constants {
     }
 
     public static String getSarfTermTypeHeader(SarfTermType leftTerm, SarfTermType rightTerm, int numOfRows, String format) {
-        String leftTermCaption = format("[arabicTableCaption]#%s#", (leftTerm == null) ? HTML_SPACE : leftTerm.getLabel().toHtmlCode());
-        String rightTermCaption = format("[arabicTableCaption]#%s#", (rightTerm == null) ? HTML_SPACE : rightTerm.getLabel().toHtmlCode());
+        String leftTermCaption = format("[arabicTableCaption]#%s#", (leftTerm == null) ? HTML_SPACE : leftTerm.toLabel().toHtmlCode());
+        String rightTermCaption = format("[arabicTableCaption]#%s#", (rightTerm == null) ? HTML_SPACE : rightTerm.toLabel().toHtmlCode());
         return format(format, leftTermCaption, numOfRows, rightTermCaption, NEW_LINE);
     }
 

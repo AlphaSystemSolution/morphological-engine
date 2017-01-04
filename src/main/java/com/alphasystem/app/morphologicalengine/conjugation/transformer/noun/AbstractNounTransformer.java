@@ -39,7 +39,7 @@ public abstract class AbstractNounTransformer extends AbstractTransformer<NounCo
                                        ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
                                        ArabicLetterType fourthRadical) {
         RootWord baseWord = createRootWord(rootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
-        final int size = baseWord.getLabel().getLength();
+        final int size = baseWord.toLabel().getLength();
         if (variableIndex >= size) {
             variableIndex = size - 1;
         } else if (variableIndex <= THIRD_RADICAL_INDEX) {
