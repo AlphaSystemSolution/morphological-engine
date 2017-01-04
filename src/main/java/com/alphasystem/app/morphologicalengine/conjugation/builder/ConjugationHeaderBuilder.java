@@ -68,7 +68,7 @@ public final class ConjugationHeaderBuilder {
         }
         final NamedTemplate template = conjugationRoots.template;
         ChartMode chartMode = new ChartMode(template, rootType, verbType, weakVerbType);
-        return new ConjugationHeader(conjugationRoots.translation, pastTenseRoot, presentTenseRoot, template.getLabel(),
+        return new ConjugationHeader(conjugationRoots.translation, pastTenseRoot, presentTenseRoot, template.toLabel(),
                 chartMode, rootLetters);
     }
 
