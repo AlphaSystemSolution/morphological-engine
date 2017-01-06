@@ -1,14 +1,13 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.noun;
 
 import com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural;
-import com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.Noun;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.NounSupport;
 import com.google.inject.AbstractModule;
 
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V12;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V13;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.Noun.*;
-import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.*;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.*;
 import static com.google.inject.name.Names.named;
 
@@ -146,7 +145,7 @@ public class NounTransformerModule extends AbstractModule {
         bind(NounTransformer.class).annotatedWith(named(noun.getPluralRootName())).to(FeminineMasculineBasedPluralTransformer.class);
     }
 
-    private void bindBrokenPluralAdverb(NounOfPlaceAndTime nounOfPlaceAndTime){
+    private void bindBrokenPluralAdverb(Noun nounOfPlaceAndTime){
         bind(NounTransformer.class).annotatedWith(named(nounOfPlaceAndTime.getSingularRootName())).to(MasculineEndingSoundTransformer.class);
         bind(NounTransformer.class).annotatedWith(named(nounOfPlaceAndTime.getDualRootName())).to(MasculineDualTransformer.class);
     }

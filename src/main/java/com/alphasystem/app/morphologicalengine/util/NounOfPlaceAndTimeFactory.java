@@ -4,7 +4,6 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.Noun;
-import com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.HashMap;
@@ -15,9 +14,9 @@ import java.util.Map;
  */
 public final class NounOfPlaceAndTimeFactory {
 
-    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_V1 = new NounRootBase(NounOfPlaceAndTime.NOUN_OF_PLACE_AND_TIME_V1, BrokenPlural.BROKEN_PLURAL_V12);
-    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_V2 = new NounRootBase(NounOfPlaceAndTime.NOUN_OF_PLACE_AND_TIME_V2, BrokenPlural.BROKEN_PLURAL_V13);
-    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_V3 = new NounRootBase(NounOfPlaceAndTime.NOUN_OF_PLACE_AND_TIME_V3);
+    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_V1 = new NounRootBase(Noun.NOUN_OF_PLACE_AND_TIME_V1, BrokenPlural.BROKEN_PLURAL_V12);
+    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_V2 = new NounRootBase(Noun.NOUN_OF_PLACE_AND_TIME_V2, BrokenPlural.BROKEN_PLURAL_V13);
+    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_V3 = new NounRootBase(Noun.NOUN_OF_PLACE_AND_TIME_V3);
     private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_II = new NounRootBase(Noun.FORM_II_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_II_FEMININE_PASSIVE_PARTICIPLE);
     private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_III = new NounRootBase(Noun.FORM_III_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_III_FEMININE_PASSIVE_PARTICIPLE);
     private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_IV = new NounRootBase(Noun.FORM_IV_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_IV_FEMININE_PASSIVE_PARTICIPLE);
