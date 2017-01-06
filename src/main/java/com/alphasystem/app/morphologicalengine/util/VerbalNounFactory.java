@@ -38,7 +38,6 @@ public final class VerbalNounFactory {
     private static final NounRootBase VERBAL_NOUN_FORM_VIII = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_VIII);
     private static final NounRootBase VERBAL_NOUN_FORM_IX = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_IX);
     private static final NounRootBase VERBAL_NOUN_FORM_X = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_X);
-    private static final NounRootBase VERBAL_NOUN_FORM_XI = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_XI);
 
     private static final Map<VerbalNoun, NounRootBase> map = new HashMap<>();
     private static final Map<NamedTemplate, NounRootBase[]> map2 = new HashMap<>();
@@ -70,7 +69,6 @@ public final class VerbalNounFactory {
         map.put(VerbalNoun.VERBAL_NOUN_FORM_VIII, VERBAL_NOUN_FORM_VIII);
         map.put(VerbalNoun.VERBAL_NOUN_FORM_IX, VERBAL_NOUN_FORM_IX);
         map.put(VerbalNoun.VERBAL_NOUN_FORM_X, VERBAL_NOUN_FORM_X);
-        map.put(VerbalNoun.VERBAL_NOUN_FORM_XI, VERBAL_NOUN_FORM_XI);
     }
 
     /**

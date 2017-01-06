@@ -112,7 +112,6 @@ public class NounTransformerModule extends AbstractModule {
         bindMasculineBasedFemininePluralNoun(VERBAL_NOUN_FORM_VIII);
         bindMasculineBasedFemininePluralNoun(VERBAL_NOUN_FORM_IX);
         bindMasculineBasedFemininePluralNoun(VERBAL_NOUN_FORM_X);
-        bindMasculineBasedFemininePluralNoun(VERBAL_NOUN_FORM_XI);
         // END OF VERBAL NOUN
 
         // START OF ADVERB
