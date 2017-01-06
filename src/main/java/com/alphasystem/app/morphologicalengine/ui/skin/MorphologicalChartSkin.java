@@ -34,6 +34,7 @@ public class MorphologicalChartSkin extends SkinBase<MorphologicalChartControl> 
         private SkinView(MorphologicalChartControl control) {
             this.control = control;
             pane.setAlignment(Pos.CENTER);
+            pane.setFillWidth(true);
             pane.setSpacing(12);
             initialize();
             setCenter(pane);

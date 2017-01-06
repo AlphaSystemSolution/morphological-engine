@@ -14,6 +14,10 @@ public class MorphologicalChartControl extends Control {
 
     private final ObjectProperty<MorphologicalChart> morphologicalChart = new SimpleObjectProperty<>(null, "morphologicalChart");
 
+    public MorphologicalChartControl() {
+        setSkin(createDefaultSkin());
+    }
+
     public final MorphologicalChart getMorphologicalChart() {
         return morphologicalChart.get();
     }
