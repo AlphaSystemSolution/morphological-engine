@@ -106,6 +106,7 @@ public class TemplateReader {
         } catch (ApplicationException e) {
             throw e;
         } catch (IOException e) {
+            e.printStackTrace();
             throw new SystemException(e.getMessage(), e);
         }
         return template;
