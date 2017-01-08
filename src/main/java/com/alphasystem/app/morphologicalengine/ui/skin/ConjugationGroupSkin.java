@@ -3,10 +3,12 @@ package com.alphasystem.app.morphologicalengine.ui.skin;
 import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationGroup;
 import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationTuple;
 import com.alphasystem.app.morphologicalengine.ui.ConjugationGroupControl;
+import com.alphasystem.app.morphologicalengine.ui.util.MorphologicalEngineUIPreferences;
 import com.alphasystem.arabic.ui.ArabicLabelView;
 import com.alphasystem.fx.ui.util.UiUtilities;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.util.AppUtil;
+import com.alphasystem.util.GenericPreferences;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -15,8 +17,6 @@ import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-
-import static com.alphasystem.fx.ui.util.FontConstants.ARABIC_FONT_24;
 
 /**
  * @author sali
@@ -33,8 +33,11 @@ abstract class ConjugationGroupSkin<G extends ConjugationGroup, C extends Conjug
     @FXML protected ArabicLabelView row22;
     @FXML protected ArabicLabelView row23;
 
+    private final MorphologicalEngineUIPreferences preferences;
+
     ConjugationGroupSkin(C control) {
         this.control = control;
+        this.preferences = (MorphologicalEngineUIPreferences) GenericPreferences.getInstance();
         try {
             UiUtilities.loadFXML(this, AppUtil.getUrl(String.format("fxml.%s.fxml", control.getClass().getSimpleName())), null);
         } catch (IOException e) {
@@ -54,7 +57,7 @@ abstract class ConjugationGroupSkin<G extends ConjugationGroup, C extends Conjug
         final G group = control.getGroup();
         termLabel.setLabel((group == null) ? null : group.getTermType());
         setupRows(group);
-        setFont(ARABIC_FONT_24);
+        setFont(preferences.getArabicFont());
         Paint disableStroke = control.isEmpty() ? Color.TRANSPARENT : Color.LIGHTGRAY;
         setDisableStroke(disableStroke);
     }

@@ -7,10 +7,12 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.Adver
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ImperativeAndForbiddingLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.PassiveLine;
 import com.alphasystem.app.morphologicalengine.ui.AbbreviatedConjugationControl;
+import com.alphasystem.app.morphologicalengine.ui.util.MorphologicalEngineUIPreferences;
 import com.alphasystem.arabic.model.ArabicSupport;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.ui.ArabicLabelView;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.util.GenericPreferences;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.SkinBase;
@@ -20,7 +22,6 @@ import javafx.scene.layout.GridPane;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.ArabicLetters.WORD_SPACE;
 import static com.alphasystem.arabic.model.ArabicWord.*;
-import static com.alphasystem.fx.ui.util.FontConstants.*;
 import static javafx.geometry.Pos.CENTER_LEFT;
 import static javafx.scene.paint.Color.DODGERBLUE;
 import static javafx.scene.paint.Color.TRANSPARENT;
@@ -44,6 +45,8 @@ public class AbbreviatedConjugationSkin extends SkinBase<AbbreviatedConjugationC
     private static final int WIDTH = TOTAL_WIDTH / NUM_OF_COLUMNS;
     private static final int HEIGHT = 64;
 
+    private final MorphologicalEngineUIPreferences preferences;
+
     /**
      * Constructor for all SkinBase instances.
      *
@@ -51,6 +54,7 @@ public class AbbreviatedConjugationSkin extends SkinBase<AbbreviatedConjugationC
      */
     public AbbreviatedConjugationSkin(AbbreviatedConjugationControl control) {
         super(control);
+        this.preferences = (MorphologicalEngineUIPreferences) GenericPreferences.getInstance();
         getChildren().setAll(new SkinView(control));
     }
 
@@ -114,7 +118,7 @@ public class AbbreviatedConjugationSkin extends SkinBase<AbbreviatedConjugationC
             ArabicLabelView labelView = new ArabicLabelView();
             labelView.setLabel(conjugationHeader.getTitle());
             labelView.setDisabledStroke(TRANSPARENT);
-            labelView.setFont(ARABIC_FONT_48);
+            labelView.setFont(preferences.getArabicHeadingFont());
             labelView.setDisable(true);
             labelView.setStroke(DODGERBLUE);
             labelView.setHeight(HEIGHT);
@@ -124,7 +128,7 @@ public class AbbreviatedConjugationSkin extends SkinBase<AbbreviatedConjugationC
 
         private ArabicLabelView createTranslation(ConjugationHeader conjugationHeader) {
             ArabicLabelView labelView = new ArabicLabelView();
-            labelView.setFont(ENGLISH_FONT_12);
+            labelView.setFont(preferences.getEnglishFont());
             labelView.setWidth(WIDTH * 2);
             labelView.setHeight(HEIGHT * 2);
             labelView.setDisable(true);
@@ -137,7 +141,7 @@ public class AbbreviatedConjugationSkin extends SkinBase<AbbreviatedConjugationC
 
         private ArabicLabelView createConjugationTypeDetails(ConjugationHeader conjugationHeader) {
             ArabicLabelView labelView = new ArabicLabelView();
-            labelView.setFont(ARABIC_FONT_24);
+            labelView.setFont(preferences.getArabicFont());
             ArabicWord label = concatenate(WORD_SPACE, conjugationHeader.getTypeLabel1(),
                     getWord(NEW_LINE), WORD_SPACE, conjugationHeader.getTypeLabel2(), getWord(NEW_LINE), WORD_SPACE,
                     conjugationHeader.getTypeLabel3());
@@ -186,7 +190,7 @@ public class AbbreviatedConjugationSkin extends SkinBase<AbbreviatedConjugationC
             label.setWidth(width);
             label.setHeight(HEIGHT);
             label.setDisable(true);
-            label.setFont(ARABIC_FONT_24);
+            label.setFont(preferences.getArabicFont());
             label.setLabel(word);
             return label;
         }
