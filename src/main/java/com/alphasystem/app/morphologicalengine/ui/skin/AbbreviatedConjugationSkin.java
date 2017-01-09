@@ -54,7 +54,7 @@ public class AbbreviatedConjugationSkin extends SkinBase<AbbreviatedConjugationC
      */
     public AbbreviatedConjugationSkin(AbbreviatedConjugationControl control) {
         super(control);
-        this.preferences = (MorphologicalEnginePreferences) GenericPreferences.getInstance();
+        this.preferences = GenericPreferences.getInstance(MorphologicalEnginePreferences.class);
         getChildren().setAll(new SkinView(control));
     }
 
