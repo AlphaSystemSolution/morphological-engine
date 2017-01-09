@@ -11,6 +11,7 @@ import javafx.scene.text.FontWeight;
 public class MorphologicalEnginePreferences extends UIUserPreferences {
 
     private static final String ARABIC_HEADING_FONT_SIZE = "arabicHeadingFontSize";
+    private static final String NODE_PREFIX = "MorphologicalEngine";
 
     public MorphologicalEnginePreferences(){
         super(MorphologicalEnginePreferences.class);
@@ -18,6 +19,11 @@ public class MorphologicalEnginePreferences extends UIUserPreferences {
 
     protected MorphologicalEnginePreferences(Class<?> c) {
         super(c);
+    }
+
+    @Override
+    protected String nodePrefix() {
+        return NODE_PREFIX;
     }
 
     public long getArabicHeadingFontSize(){
