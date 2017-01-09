@@ -7,7 +7,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.Adver
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ImperativeAndForbiddingLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.PassiveLine;
 import com.alphasystem.app.morphologicalengine.ui.AbbreviatedConjugationControl;
-import com.alphasystem.app.morphologicalengine.ui.util.MorphologicalEngineUIPreferences;
+import com.alphasystem.app.morphologicalengine.ui.util.MorphologicalEnginePreferences;
 import com.alphasystem.arabic.model.ArabicSupport;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.ui.ArabicLabelView;
@@ -45,7 +45,7 @@ public class AbbreviatedConjugationSkin extends SkinBase<AbbreviatedConjugationC
     private static final int WIDTH = TOTAL_WIDTH / NUM_OF_COLUMNS;
     private static final int HEIGHT = 64;
 
-    private final MorphologicalEngineUIPreferences preferences;
+    private final MorphologicalEnginePreferences preferences;
 
     /**
      * Constructor for all SkinBase instances.
@@ -54,7 +54,7 @@ public class AbbreviatedConjugationSkin extends SkinBase<AbbreviatedConjugationC
      */
     public AbbreviatedConjugationSkin(AbbreviatedConjugationControl control) {
         super(control);
-        this.preferences = (MorphologicalEngineUIPreferences) GenericPreferences.getInstance();
+        this.preferences = (MorphologicalEnginePreferences) GenericPreferences.getInstance();
         getChildren().setAll(new SkinView(control));
     }
 

@@ -8,15 +8,15 @@ import javafx.scene.text.FontWeight;
 /**
  * @author sali
  */
-public class MorphologicalEngineUIPreferences extends UIUserPreferences {
+public class MorphologicalEnginePreferences extends UIUserPreferences {
 
     private static final String ARABIC_HEADING_FONT_SIZE = "arabicHeadingFontSize";
 
-    public MorphologicalEngineUIPreferences(){
-        super(MorphologicalEngineUIPreferences.class);
+    public MorphologicalEnginePreferences(){
+        super(MorphologicalEnginePreferences.class);
     }
 
-    protected MorphologicalEngineUIPreferences(Class<?> c) {
+    protected MorphologicalEnginePreferences(Class<?> c) {
         super(c);
     }
 

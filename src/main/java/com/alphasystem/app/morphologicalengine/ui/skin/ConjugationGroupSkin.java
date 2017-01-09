@@ -3,7 +3,7 @@ package com.alphasystem.app.morphologicalengine.ui.skin;
 import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationGroup;
 import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationTuple;
 import com.alphasystem.app.morphologicalengine.ui.ConjugationGroupControl;
-import com.alphasystem.app.morphologicalengine.ui.util.MorphologicalEngineUIPreferences;
+import com.alphasystem.app.morphologicalengine.ui.util.MorphologicalEnginePreferences;
 import com.alphasystem.arabic.ui.ArabicLabelView;
 import com.alphasystem.fx.ui.util.UiUtilities;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
@@ -33,11 +33,11 @@ abstract class ConjugationGroupSkin<G extends ConjugationGroup, C extends Conjug
     @FXML protected ArabicLabelView row22;
     @FXML protected ArabicLabelView row23;
 
-    private final MorphologicalEngineUIPreferences preferences;
+    private final MorphologicalEnginePreferences preferences;
 
     ConjugationGroupSkin(C control) {
         this.control = control;
-        this.preferences = (MorphologicalEngineUIPreferences) GenericPreferences.getInstance();
+        this.preferences = (MorphologicalEnginePreferences) GenericPreferences.getInstance();
         try {
             UiUtilities.loadFXML(this, AppUtil.getUrl(String.format("fxml.%s.fxml", control.getClass().getSimpleName())), null);
         } catch (IOException e) {
