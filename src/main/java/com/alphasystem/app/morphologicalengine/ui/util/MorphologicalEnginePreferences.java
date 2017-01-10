@@ -14,7 +14,7 @@ public class MorphologicalEnginePreferences extends UIUserPreferences {
     private static final String NODE_PREFIX = "MorphologicalEngine";
 
     public MorphologicalEnginePreferences(){
-        super(MorphologicalEnginePreferences.class);
+        this(MorphologicalEnginePreferences.class);
     }
 
     protected MorphologicalEnginePreferences(Class<?> c) {
