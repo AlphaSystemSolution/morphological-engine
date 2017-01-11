@@ -102,6 +102,7 @@ public class NounTransformerModule extends AbstractModule {
         bindFeminineNoun(VERBAL_NOUN_V14);
         bindFeminineNoun(VERBAL_NOUN_V15);
         bindFeminineNoun(VERBAL_NOUN_V27);
+        bindFeminineNoun(VERBAL_NOUN_V28);
         bindMasculineBasedFemininePluralNoun(VERBAL_NOUN_FORM_II);
         bindMasculineBasedFemininePluralNoun(VERBAL_NOUN_FORM_III_V1);
         bindFeminineNoun(VERBAL_NOUN_FORM_III_V2);

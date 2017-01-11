@@ -1,7 +1,6 @@
 package com.alphasystem.app.morphologicalengine.util;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
-import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
 
 import java.util.HashMap;
@@ -28,6 +27,7 @@ public final class VerbalNounFactory {
     private static final NounRootBase VERBAL_NOUN_V14 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V14);
     private static final NounRootBase VERBAL_NOUN_V15 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V15);
     private static final NounRootBase VERBAL_NOUN_V27 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V27);
+    private static final NounRootBase VERBAL_NOUN_V28 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V28);
     private static final NounRootBase VERBAL_NOUN_FORM_II = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_II);
     private static final NounRootBase VERBAL_NOUN_FORM_III_V1 = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_III_V1);
     private static final NounRootBase VERBAL_NOUN_FORM_III_V2 = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_III_V2);
@@ -40,7 +40,6 @@ public final class VerbalNounFactory {
     private static final NounRootBase VERBAL_NOUN_FORM_X = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_X);
 
     private static final Map<VerbalNoun, NounRootBase> map = new HashMap<>();
-    private static final Map<NamedTemplate, NounRootBase[]> map2 = new HashMap<>();
 
     static {
         map.put(VerbalNoun.VERBAL_NOUN_V1, VERBAL_NOUN_V1);
@@ -59,6 +58,7 @@ public final class VerbalNounFactory {
         map.put(VerbalNoun.VERBAL_NOUN_V14, VERBAL_NOUN_V14);
         map.put(VerbalNoun.VERBAL_NOUN_V15, VERBAL_NOUN_V15);
         map.put(VerbalNoun.VERBAL_NOUN_V27, VERBAL_NOUN_V27);
+        map.put(VerbalNoun.VERBAL_NOUN_V28, VERBAL_NOUN_V28);
         map.put(VerbalNoun.VERBAL_NOUN_FORM_II, VERBAL_NOUN_FORM_II);
         map.put(VerbalNoun.VERBAL_NOUN_FORM_III_V1, VERBAL_NOUN_FORM_III_V1);
         map.put(VerbalNoun.VERBAL_NOUN_FORM_III_V2, VERBAL_NOUN_FORM_III_V2);
