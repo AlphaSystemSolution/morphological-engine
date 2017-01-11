@@ -13,7 +13,7 @@ public class MorphologicalEnginePreferences extends UIUserPreferences {
     private static final String ARABIC_HEADING_FONT_SIZE = "arabicHeadingFontSize";
     private static final String NODE_PREFIX = "MorphologicalEngine";
 
-    public MorphologicalEnginePreferences(){
+    public MorphologicalEnginePreferences() {
         this(MorphologicalEnginePreferences.class);
     }
 
@@ -26,15 +26,18 @@ public class MorphologicalEnginePreferences extends UIUserPreferences {
         return NODE_PREFIX;
     }
 
-    public long getArabicHeadingFontSize(){
+    public long getArabicHeadingFontSize() {
         return getFontNode().getLong(ARABIC_HEADING_FONT_SIZE, 30);
     }
 
-    public void setArabicHeadingFontSize(long size){
+    public void setArabicHeadingFontSize(long size) {
+        if (size <= 0) {
+            return;
+        }
         getFontNode().putLong(ARABIC_HEADING_FONT_SIZE, size);
     }
 
-    public Font getArabicHeadingFont(){
+    public Font getArabicHeadingFont() {
         return Font.font(getArabicFontName(), FontWeight.BOLD, FontPosture.REGULAR, getArabicHeadingFontSize());
     }
 }
