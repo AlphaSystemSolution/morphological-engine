@@ -37,7 +37,7 @@ abstract class ConjugationGroupSkin<G extends ConjugationGroup, C extends Conjug
 
     ConjugationGroupSkin(C control) {
         this.control = control;
-        this.preferences = (MorphologicalEnginePreferences) GenericPreferences.getInstance();
+        this.preferences = GenericPreferences.getInstance(MorphologicalEnginePreferences.class);
         try {
             UiUtilities.loadFXML(this, AppUtil.getUrl(String.format("fxml.%s.fxml", control.getClass().getSimpleName())), null);
         } catch (IOException e) {
