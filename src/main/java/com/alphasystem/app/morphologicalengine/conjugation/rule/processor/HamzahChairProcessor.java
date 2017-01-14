@@ -14,11 +14,23 @@ import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
-import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.*;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.getDiacriticIncludingShadda;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isDamma;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isFatha;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isKasra;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isLongAlif;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isSakin;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isYa;
 import static com.alphasystem.app.morphologicalengine.util.PatternHelper.removeMarker;
-import static com.alphasystem.arabic.model.ArabicLetterType.*;
+import static com.alphasystem.arabic.model.ArabicLetterType.ALIF_HAMZA_ABOVE;
+import static com.alphasystem.arabic.model.ArabicLetterType.ALIF_HAMZA_BELOW;
+import static com.alphasystem.arabic.model.ArabicLetterType.HAMZA;
+import static com.alphasystem.arabic.model.ArabicLetterType.YA_HAMZA_ABOVE;
 import static com.alphasystem.arabic.model.ArabicWord.fromBuckWalterString;
-import static com.alphasystem.arabic.model.DiacriticType.*;
+import static com.alphasystem.arabic.model.DiacriticType.DAMMA;
+import static com.alphasystem.arabic.model.DiacriticType.FATHA;
+import static com.alphasystem.arabic.model.DiacriticType.KASRA;
+import static com.alphasystem.arabic.model.DiacriticType.SUKUN;
 
 ;
 

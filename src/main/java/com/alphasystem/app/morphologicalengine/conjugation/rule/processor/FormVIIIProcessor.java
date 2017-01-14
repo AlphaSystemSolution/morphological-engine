@@ -12,12 +12,12 @@ import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermTy
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
-import static com.alphasystem.arabic.model.ArabicLetterType.*;
+import static com.alphasystem.arabic.model.ArabicLetterType.DAL;
+import static com.alphasystem.arabic.model.ArabicLetterType.TA;
+import static com.alphasystem.arabic.model.ArabicLetterType.TTA;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_VIII_TEMPLATE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.FORBIDDING;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.IMPERATIVE;
-
-;
 
 /**
  * @author sali
