@@ -35,7 +35,7 @@ class ForbiddingSecondPersonFeminineTransformer extends PresentTenseSecondPerson
         return new RootWord(super.doPlural(rootWord));
     }
 
-    protected RootWord processRules(RuleProcessor ruleProcessor, RootWord src, SarfTermType termType) {
+    RootWord processRules(RuleProcessor ruleProcessor, RootWord src, SarfTermType termType) {
         RootWord target = new RootWord(src).withSarfTermType(PRESENT_TENSE);
         target = super.processRules(ruleProcessor, target).withSarfTermType(termType);
         return super.processRules(ruleProcessor, target);
