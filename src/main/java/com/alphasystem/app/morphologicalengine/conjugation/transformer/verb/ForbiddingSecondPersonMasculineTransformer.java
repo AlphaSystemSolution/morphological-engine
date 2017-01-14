@@ -1,16 +1,15 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.verb;
 
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
-import static com.alphasystem.arabic.model.DiacriticType.*;
+import static com.alphasystem.arabic.model.DiacriticType.FATHA;
+import static com.alphasystem.arabic.model.DiacriticType.SUKUN;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.FORBIDDING;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_TENSE;
-import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 
 
 /**
@@ -26,10 +25,12 @@ class ForbiddingSecondPersonMasculineTransformer extends PresentTenseSecondPerso
         final RootWord target = super.doSingular(rootWord);
         ArabicWord arabicWord = target.getRootWord();
         int lastLetterIndex = arabicWord.getLength() - 1;
-        ArabicLetter lastLetter = arabicWord.getLetter(lastLetterIndex);
-        DiacriticType[] diacritics = lastLetter.getDiacritics();
-        if ((diacritics != null) && !isEmpty(diacritics)) {
-            diacritics[diacritics.length - 1] = diacritics[0].equals(SHADDA) ? FATHA : SUKUN;
+        DiacriticType[] diacritics;
+        boolean doubledLettered = rootWord.getSecondRadical().getLetter().equals(rootWord.getThirdRadical().getLetter());
+        if (doubledLettered) {
+            diacritics = new DiacriticType[]{FATHA};
+        } else {
+            diacritics = new DiacriticType[]{SUKUN};
         }
         arabicWord.replaceDiacritic(lastLetterIndex, diacritics);
         return target;
@@ -49,7 +50,7 @@ class ForbiddingSecondPersonMasculineTransformer extends PresentTenseSecondPerso
         return target;
     }
 
-    protected RootWord processRules(RuleProcessor ruleProcessor, RootWord src, SarfTermType termType) {
+    RootWord processRules(RuleProcessor ruleProcessor, RootWord src, SarfTermType termType) {
         RootWord target = new RootWord(src).withSarfTermType(PRESENT_TENSE);
         target = super.processRules(ruleProcessor, target).withSarfTermType(termType);
         return super.processRules(ruleProcessor, target);
