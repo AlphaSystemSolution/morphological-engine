@@ -9,10 +9,16 @@ import com.alphasystem.arabic.model.VerbType;
 import com.alphasystem.arabic.model.WeakVerbType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
-import static com.alphasystem.arabic.model.ArabicLetterType.*;
+import static com.alphasystem.arabic.model.ArabicLetterType.LEFT_PARENTHESIS;
+import static com.alphasystem.arabic.model.ArabicLetterType.NOON;
+import static com.alphasystem.arabic.model.ArabicLetterType.RIGHT_PARENTHESIS;
+import static com.alphasystem.arabic.model.ArabicLetterType.WAW;
+import static com.alphasystem.arabic.model.ArabicLetterType.ZAIN;
 import static com.alphasystem.arabic.model.ArabicLetters.LETTER_COMMA;
 import static com.alphasystem.arabic.model.ArabicLetters.WORD_SPACE;
-import static com.alphasystem.arabic.model.ArabicWord.*;
+import static com.alphasystem.arabic.model.ArabicWord.concatenate;
+import static com.alphasystem.arabic.model.ArabicWord.concatenateWithSpace;
+import static com.alphasystem.arabic.model.ArabicWord.getWord;
 
 /**
  * @author sali
@@ -96,12 +102,12 @@ public class ConjugationHeader {
         }
         if (rootLetters != null) {
             ArabicLetterType fourthRadical = rootLetters.getFourthRadical();
-            ArabicWord rl = concatenate(getWord(LEFT_PARENTHESIS), WORD_SPACE, getWord(rootLetters.getFirstRadical()),
-                    WORD_SPACE, getWord(rootLetters.getSecondRadical()), WORD_SPACE, getWord(rootLetters.getThirdRadical()));
+            ArabicWord rl = concatenate(getWord(LEFT_PARENTHESIS), getWord(rootLetters.getFirstRadical()),
+                    getWord(rootLetters.getSecondRadical()), getWord(rootLetters.getThirdRadical()));
             if (fourthRadical != null) {
-                rl = concatenate(WORD_SPACE, getWord(fourthRadical));
+                rl = concatenate(getWord(fourthRadical));
             }
-            rl = concatenate(rl, getWord(RIGHT_PARENTHESIS), WORD_SPACE);
+            rl = concatenate(rl, getWord(RIGHT_PARENTHESIS));
             title = concatenateWithSpace(title, rl);
         }
         return title;
