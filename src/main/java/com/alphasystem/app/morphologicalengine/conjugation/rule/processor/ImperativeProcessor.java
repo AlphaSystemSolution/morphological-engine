@@ -41,7 +41,7 @@ public class ImperativeProcessor extends AbstractRuleProcessor {
         final ArabicLetter firstLetter = arabicWord.getFirstLetter();
         final DiacriticType[] diacritics = firstLetter.getDiacritics();
         DiacriticType firstLetterDiacritics = isEmpty(diacritics) ? SUKUN : firstLetter.getDiacritics()[0];
-        if (SUKUN.equals(firstLetterDiacritics) && imperativeLetter != null) {
+        if ((SHADDA.equals(firstLetterDiacritics) || SUKUN.equals(firstLetterDiacritics)) && imperativeLetter != null) {
             arabicWord.preppend(imperativeLetter);
         }
         return baseRootWord;
