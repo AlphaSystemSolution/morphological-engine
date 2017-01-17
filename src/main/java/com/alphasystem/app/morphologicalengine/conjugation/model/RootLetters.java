@@ -7,6 +7,7 @@ import static com.alphasystem.arabic.model.ArabicLetterType.*;
 /**
  * @author sali
  */
+@Deprecated
 public final class RootLetters {
 
     protected final ArabicLetterType firstRadical;

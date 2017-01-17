@@ -2,9 +2,16 @@ package com.alphasystem.app.morphologicalengine.conjugation.builder;
 
 import com.alphasystem.app.morphologicalengine.conjugation.member.ParticipleMemberBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.member.TenseMemberBuilder;
-import com.alphasystem.app.morphologicalengine.conjugation.model.*;
+import com.alphasystem.app.morphologicalengine.conjugation.model.DetailedConjugation;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugationGroup;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounDetailedConjugationPair;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugationGroup;
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbDetailedConjugationPair;
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.google.inject.Provider;
 
 import java.util.ArrayList;

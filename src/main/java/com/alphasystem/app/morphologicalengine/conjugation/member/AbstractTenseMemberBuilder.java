@@ -1,7 +1,6 @@
 package com.alphasystem.app.morphologicalengine.conjugation.member;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationTuple;
-import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugationGroup;
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
@@ -9,6 +8,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.Verb
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PAST_TENSE;
 

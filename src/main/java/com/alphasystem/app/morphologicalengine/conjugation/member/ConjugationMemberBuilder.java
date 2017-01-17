@@ -3,10 +3,16 @@
  */
 package com.alphasystem.app.morphologicalengine.conjugation.member;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.*;
+import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationGroup;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugationGroup;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
+import com.alphasystem.app.morphologicalengine.conjugation.model.RootBase;
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugationGroup;
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 
 /**
  * Interface to build individual conjugation for each member term.

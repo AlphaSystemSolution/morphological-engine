@@ -10,6 +10,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.Passi
 import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.util.AppUtil;
 import org.apache.commons.lang3.ArrayUtils;
@@ -19,10 +20,14 @@ import static com.alphasystem.app.morphologicalengine.conjugation.builder.Conjug
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.ArabicWord.concatenateWithSpace;
 import static com.alphasystem.arabic.model.ArabicWord.getWord;
-import static com.alphasystem.arabic.model.NamedTemplate.*;
+import static com.alphasystem.arabic.model.NamedTemplate.FORM_IV_TEMPLATE;
+import static com.alphasystem.arabic.model.NamedTemplate.FORM_IX_TEMPLATE;
+import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V12;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V13;
-import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.*;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.NOUN_OF_PLACE_AND_TIME_V1;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.NOUN_OF_PLACE_AND_TIME_V2;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.NOUN_OF_PLACE_AND_TIME_V3;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.VERBAL_NOUN_V1;
 import static java.lang.String.format;
 

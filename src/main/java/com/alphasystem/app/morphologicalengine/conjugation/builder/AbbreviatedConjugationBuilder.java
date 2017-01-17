@@ -13,6 +13,8 @@ import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.NounSupport;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.Verb;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
+
 import com.google.inject.Provider;
 
 import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilder.GUICE_SUPPORT;

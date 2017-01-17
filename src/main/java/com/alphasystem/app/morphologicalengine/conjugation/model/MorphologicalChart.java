@@ -1,9 +1,7 @@
-/**
- *
- */
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
 import com.alphasystem.arabic.model.NamedTemplate;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 
 /**
  * @author sali

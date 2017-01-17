@@ -3,7 +3,6 @@ package com.alphasystem.app.morphologicalengine.conjugation.builder;
 import com.alphasystem.app.morphologicalengine.conjugation.model.AbbreviatedConjugation;
 import com.alphasystem.app.morphologicalengine.conjugation.model.DetailedConjugation;
 import com.alphasystem.app.morphologicalengine.conjugation.model.MorphologicalChart;
-import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
@@ -11,6 +10,7 @@ import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.ChartConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.ConjugationConfiguration;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.google.inject.Provider;
 
 /**

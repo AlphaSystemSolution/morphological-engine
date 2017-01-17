@@ -2,7 +2,6 @@ package com.alphasystem.app.morphologicalengine.conjugation.builder;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.ChartMode;
 import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationHeader;
-import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
 import com.alphasystem.app.morphologicalengine.conjugation.model.WordStatus;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformer;
@@ -14,6 +13,7 @@ import com.alphasystem.arabic.model.WeakVerbType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.Verb;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.google.inject.Provider;
 
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PAST_TENSE;

@@ -8,6 +8,7 @@ import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.VerbType;
 import com.alphasystem.arabic.model.WeakVerbType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.LEFT_PARENTHESIS;
 import static com.alphasystem.arabic.model.ArabicLetterType.NOON;

@@ -1,13 +1,11 @@
-/**
- *
- */
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
 import com.alphasystem.arabic.model.ArabicLetterType;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 
-import static com.alphasystem.arabic.model.ArabicLetterType.*;
-
-;
+import static com.alphasystem.arabic.model.ArabicLetterType.HAMZA;
+import static com.alphasystem.arabic.model.ArabicLetterType.WAW;
+import static com.alphasystem.arabic.model.ArabicLetterType.YA;
 
 /**
  * @author sali

@@ -1,7 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.rule;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.RootLetters;
 import com.alphasystem.app.morphologicalengine.conjugation.model.WordStatus;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.arabic.model.NamedTemplate;
