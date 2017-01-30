@@ -15,6 +15,7 @@ import com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlac
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.Verb;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -130,7 +131,11 @@ public class LabelPrinter extends CommonTest {
 
             StringBuilder builder = new StringBuilder();
             subList.forEach(m -> {
-                final String text = (m == null) ? " " : format("[small]#%s#", m.getCode());
+                String text = (m == null) ? null : String.valueOf(m.getCode());
+                if("|".equals(text)){
+                    text = format("\\%s", text);
+                }
+                text = StringUtils.isBlank(text) || " ".equals(text) ? "&nbsp;" : format("[small]#%s#", text);
                 builder.append(format("|%s%s", text, NEW_LINE));
             });
             builder.append(NEW_LINE);
