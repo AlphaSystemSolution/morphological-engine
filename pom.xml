@@ -3,6 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.alphasystem.arabic</groupId>
     <artifactId>morphological-engine</artifactId>
+    <version>4.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Morphological Conjugation Engine</name>
     <parent>
@@ -11,11 +12,6 @@
         <version>3.0.0-SNAPSHOT</version>
     </parent>
     <dependencies>
-        <dependency>
-            <groupId>com.alphasystem.arabic</groupId>
-            <artifactId>morphological-analysis-model</artifactId>
-            <version>${morphological-analysis-model.version}</version>
-        </dependency>
         <dependency>
             <groupId>com.alphasystem.arabic</groupId>
             <artifactId>arabic-ui-support</artifactId>
@@ -95,8 +91,5 @@
         <guice.version>4.0</guice.version>
         <mycila-guice.version>3.6.ga</mycila-guice.version>
         <arabic-ui-support.version>${project.version}</arabic-ui-support.version>
-        <fx-support.version>${project.version}</fx-support.version>
-        <sarf-xml-model.version>${project.version}</sarf-xml-model.version>
-        <morphological-analysis-model.version>${project.version}</morphological-analysis-model.version>
     </properties>
 </project>
