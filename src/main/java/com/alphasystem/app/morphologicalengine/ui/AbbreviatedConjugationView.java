@@ -11,7 +11,7 @@ import javafx.scene.control.Skin;
 /**
  * @author sali
  */
-public class AbbreviatedConjugationControl extends Control {
+public class AbbreviatedConjugationView extends Control {
 
     private final ObjectProperty<ConjugationHeader> conjugationHeader = new SimpleObjectProperty<>(null, "conjugationHeader");
     private final ObjectProperty<AbbreviatedConjugation> abbreviatedConjugation = new SimpleObjectProperty<>(null, "abbreviatedConjugation");

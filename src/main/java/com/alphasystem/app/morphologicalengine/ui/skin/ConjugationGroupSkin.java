@@ -2,7 +2,7 @@ package com.alphasystem.app.morphologicalengine.ui.skin;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationGroup;
 import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationTuple;
-import com.alphasystem.app.morphologicalengine.ui.ConjugationGroupControl;
+import com.alphasystem.app.morphologicalengine.ui.ConjugationGroupView;
 import com.alphasystem.app.morphologicalengine.ui.util.MorphologicalEnginePreferences;
 import com.alphasystem.arabic.ui.ArabicLabelView;
 import com.alphasystem.fx.ui.util.UiUtilities;
@@ -21,7 +21,7 @@ import java.io.UncheckedIOException;
 /**
  * @author sali
  */
-abstract class ConjugationGroupSkin<G extends ConjugationGroup, C extends ConjugationGroupControl<G>> extends BorderPane {
+abstract class ConjugationGroupSkin<G extends ConjugationGroup, C extends ConjugationGroupView<G>> extends BorderPane {
 
     protected final C control;
 

@@ -6,7 +6,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.Activ
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.AdverbLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ImperativeAndForbiddingLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.PassiveLine;
-import com.alphasystem.app.morphologicalengine.ui.AbbreviatedConjugationControl;
+import com.alphasystem.app.morphologicalengine.ui.AbbreviatedConjugationView;
 import com.alphasystem.app.morphologicalengine.ui.util.MorphologicalEnginePreferences;
 import com.alphasystem.arabic.model.ArabicSupport;
 import com.alphasystem.arabic.model.ArabicWord;
@@ -31,7 +31,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 /**
  * @author sali
  */
-public class AbbreviatedConjugationSkin extends SkinBase<AbbreviatedConjugationControl> {
+public class AbbreviatedConjugationSkin extends SkinBase<AbbreviatedConjugationView> {
 
     private static final ArabicWord PARTICIPLE_PREFIX = getWord(FA, HA, WAW);
     private static final ArabicWord COMMAND_PREFIX = getWord(ALIF, LAM, ALIF_HAMZA_ABOVE, MEEM, RA, SPACE, MEEM, NOON, HA);
@@ -52,7 +52,7 @@ public class AbbreviatedConjugationSkin extends SkinBase<AbbreviatedConjugationC
      *
      * @param control The control for which this Skin should attach to.
      */
-    public AbbreviatedConjugationSkin(AbbreviatedConjugationControl control) {
+    public AbbreviatedConjugationSkin(AbbreviatedConjugationView control) {
         super(control);
         this.preferences = GenericPreferences.getInstance(MorphologicalEnginePreferences.class);
         getChildren().setAll(new SkinView(control));
@@ -60,10 +60,10 @@ public class AbbreviatedConjugationSkin extends SkinBase<AbbreviatedConjugationC
 
     private class SkinView extends BorderPane {
 
-        private final AbbreviatedConjugationControl control;
+        private final AbbreviatedConjugationView control;
         private final GridPane pane = new GridPane();
 
-        private SkinView(AbbreviatedConjugationControl control) {
+        private SkinView(AbbreviatedConjugationView control) {
             this.control = control;
             pane.setAlignment(Pos.BASELINE_CENTER);
             pane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);

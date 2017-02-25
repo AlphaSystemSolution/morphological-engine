@@ -10,11 +10,11 @@ import javafx.scene.control.Skin;
 /**
  * @author sali
  */
-public class MorphologicalChartControl extends Control {
+public class MorphologicalChartView extends Control {
 
     private final ObjectProperty<MorphologicalChart> morphologicalChart = new SimpleObjectProperty<>(null, "morphologicalChart");
 
-    public MorphologicalChartControl() {
+    public MorphologicalChartView() {
         setSkin(createDefaultSkin());
     }
 

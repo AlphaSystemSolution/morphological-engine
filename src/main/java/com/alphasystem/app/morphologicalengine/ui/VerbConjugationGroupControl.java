@@ -9,7 +9,7 @@ import javafx.scene.control.SkinBase;
 /**
  * @author sali
  */
-public class VerbConjugationGroupControl extends ConjugationGroupControl<VerbConjugationGroup> {
+public class VerbConjugationGroupControl extends ConjugationGroupView<VerbConjugationGroup> {
 
     @Override
     public boolean isEmpty() {

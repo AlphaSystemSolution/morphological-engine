@@ -3,9 +3,9 @@ package com.alphasystem.app.morphologicalengine.ui.skin;
 import com.alphasystem.app.morphologicalengine.conjugation.model.AbbreviatedConjugation;
 import com.alphasystem.app.morphologicalengine.conjugation.model.DetailedConjugation;
 import com.alphasystem.app.morphologicalengine.conjugation.model.MorphologicalChart;
-import com.alphasystem.app.morphologicalengine.ui.AbbreviatedConjugationControl;
-import com.alphasystem.app.morphologicalengine.ui.DetailedConjugationControl;
-import com.alphasystem.app.morphologicalengine.ui.MorphologicalChartControl;
+import com.alphasystem.app.morphologicalengine.ui.AbbreviatedConjugationView;
+import com.alphasystem.app.morphologicalengine.ui.DetailedConjugationView;
+import com.alphasystem.app.morphologicalengine.ui.MorphologicalChartView;
 import javafx.geometry.Pos;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.BorderPane;
@@ -14,24 +14,24 @@ import javafx.scene.layout.VBox;
 /**
  * @author sali
  */
-public class MorphologicalChartSkin extends SkinBase<MorphologicalChartControl> {
+public class MorphologicalChartSkin extends SkinBase<MorphologicalChartView> {
 
     /**
      * Constructor for all SkinBase instances.
      *
      * @param control The control for which this Skin should attach to.
      */
-    public MorphologicalChartSkin(MorphologicalChartControl control) {
+    public MorphologicalChartSkin(MorphologicalChartView control) {
         super(control);
         getChildren().setAll(new SkinView(control));
     }
 
     private class SkinView extends BorderPane {
 
-        private final MorphologicalChartControl control;
+        private final MorphologicalChartView control;
         private final VBox pane = new VBox();
 
-        private SkinView(MorphologicalChartControl control) {
+        private SkinView(MorphologicalChartView control) {
             this.control = control;
             pane.setAlignment(Pos.CENTER);
             pane.setFillWidth(true);
@@ -50,7 +50,7 @@ public class MorphologicalChartSkin extends SkinBase<MorphologicalChartControl> 
             if (morphologicalChart != null) {
                 final AbbreviatedConjugation abbreviatedConjugation = morphologicalChart.getAbbreviatedConjugation();
                 if (abbreviatedConjugation != null) {
-                    AbbreviatedConjugationControl control = new AbbreviatedConjugationControl();
+                    AbbreviatedConjugationView control = new AbbreviatedConjugationView();
                     control.setConjugationHeader(morphologicalChart.getHeader());
                     control.setAbbreviatedConjugation(abbreviatedConjugation);
                     pane.getChildren().add(control);
@@ -58,7 +58,7 @@ public class MorphologicalChartSkin extends SkinBase<MorphologicalChartControl> 
 
                 final DetailedConjugation detailedConjugation = morphologicalChart.getDetailedConjugation();
                 if (detailedConjugation != null) {
-                    DetailedConjugationControl control = new DetailedConjugationControl();
+                    DetailedConjugationView control = new DetailedConjugationView();
                     control.setDetailedConjugation(detailedConjugation);
                     pane.getChildren().add(control);
                 }

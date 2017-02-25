@@ -10,7 +10,7 @@ import javafx.scene.control.Skin;
 /**
  * @author sali
  */
-public class DetailedConjugationControl extends Control {
+public class DetailedConjugationView extends Control {
 
     private final ObjectProperty<DetailedConjugation> detailedConjugation = new SimpleObjectProperty<>(null, "detailedConjugation");
 

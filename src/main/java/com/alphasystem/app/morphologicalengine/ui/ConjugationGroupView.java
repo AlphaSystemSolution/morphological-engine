@@ -8,7 +8,7 @@ import javafx.scene.control.Control;
 /**
  * @author sali
  */
-public abstract class ConjugationGroupControl<G extends ConjugationGroup> extends Control {
+public abstract class ConjugationGroupView<G extends ConjugationGroup> extends Control {
 
     private final ObjectProperty<G> group = new SimpleObjectProperty<G>(null, "group", null);
 

@@ -3,7 +3,7 @@ package com.alphasystem.app.morphologicalengine.ui.skin;
 import com.alphasystem.app.morphologicalengine.conjugation.model.DetailedConjugation;
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounDetailedConjugationPair;
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbDetailedConjugationPair;
-import com.alphasystem.app.morphologicalengine.ui.DetailedConjugationControl;
+import com.alphasystem.app.morphologicalengine.ui.DetailedConjugationView;
 import com.alphasystem.app.morphologicalengine.ui.NounDetailedConjugationPairControl;
 import com.alphasystem.app.morphologicalengine.ui.VerbDetailedConjugationPairControl;
 import javafx.geometry.Pos;
@@ -15,24 +15,24 @@ import org.apache.commons.lang3.ArrayUtils;
 /**
  * @author sali
  */
-public class DetailedConjugationSkin extends SkinBase<DetailedConjugationControl> {
+public class DetailedConjugationSkin extends SkinBase<DetailedConjugationView> {
 
     /**
      * Constructor for all SkinBase instances.
      *
      * @param control The control for which this Skin should attach to.
      */
-    public DetailedConjugationSkin(DetailedConjugationControl control) {
+    public DetailedConjugationSkin(DetailedConjugationView control) {
         super(control);
         getChildren().setAll(new SkinView(control));
     }
 
     private class SkinView extends BorderPane {
 
-        private final DetailedConjugationControl control;
+        private final DetailedConjugationView control;
         private final VBox pane = new VBox();
 
-        private SkinView(DetailedConjugationControl control) {
+        private SkinView(DetailedConjugationView control) {
             this.control = control;
             initialize();
             setCenter(pane);
