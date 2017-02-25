@@ -11,13 +11,13 @@ import javafx.scene.control.Control;
 /**
  * @author sali
  */
-public class DetailedConjugationPairControl<G extends ConjugationGroup, P extends DetailedConjugationPair<G>> extends Control {
+public class DetailedConjugationPairView<G extends ConjugationGroup, P extends DetailedConjugationPair<G>> extends Control {
 
     private ObjectProperty<P> pair = new SimpleObjectProperty<P>(null, "pair", null);
     private ReadOnlyObjectWrapper<G> left = new ReadOnlyObjectWrapper<>(null, "left", null);
     private ReadOnlyObjectWrapper<G> right = new ReadOnlyObjectWrapper<>(null, "right", null);
 
-    DetailedConjugationPairControl() {
+    DetailedConjugationPairView() {
         pairProperty().addListener((observable, oldValue, newValue) -> initializeValues(newValue));
     }
 

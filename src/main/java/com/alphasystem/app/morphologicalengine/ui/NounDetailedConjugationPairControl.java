@@ -9,7 +9,7 @@ import javafx.scene.control.SkinBase;
 /**
  * @author sali
  */
-public class NounDetailedConjugationPairControl extends DetailedConjugationPairControl<NounConjugationGroup, NounDetailedConjugationPair> {
+public class NounDetailedConjugationPairControl extends DetailedConjugationPairView<NounConjugationGroup, NounDetailedConjugationPair> {
 
     @Override
     protected Skin<?> createDefaultSkin() {

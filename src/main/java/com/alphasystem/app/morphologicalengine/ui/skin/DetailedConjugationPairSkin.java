@@ -3,7 +3,7 @@ package com.alphasystem.app.morphologicalengine.ui.skin;
 import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationGroup;
 import com.alphasystem.app.morphologicalengine.conjugation.model.DetailedConjugationPair;
 import com.alphasystem.app.morphologicalengine.ui.ConjugationGroupView;
-import com.alphasystem.app.morphologicalengine.ui.DetailedConjugationPairControl;
+import com.alphasystem.app.morphologicalengine.ui.DetailedConjugationPairView;
 import com.alphasystem.fx.ui.util.UiUtilities;
 import com.alphasystem.util.AppUtil;
 import javafx.fxml.FXML;
@@ -16,7 +16,7 @@ import java.io.UncheckedIOException;
  * @author sali
  */
 abstract class DetailedConjugationPairSkin<G extends ConjugationGroup, P extends DetailedConjugationPair<G>,
-        GC extends ConjugationGroupView<G>, C extends DetailedConjugationPairControl<G, P>> extends BorderPane {
+        GC extends ConjugationGroupView<G>, C extends DetailedConjugationPairView<G, P>> extends BorderPane {
 
     protected final C control;
 

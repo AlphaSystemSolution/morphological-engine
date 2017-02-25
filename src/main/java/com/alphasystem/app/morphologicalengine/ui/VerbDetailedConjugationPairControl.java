@@ -9,7 +9,7 @@ import javafx.scene.control.SkinBase;
 /**
  * @author sali
  */
-public class VerbDetailedConjugationPairControl extends DetailedConjugationPairControl<VerbConjugationGroup, VerbDetailedConjugationPair> {
+public class VerbDetailedConjugationPairControl extends DetailedConjugationPairView<VerbConjugationGroup, VerbDetailedConjugationPair> {
 
     @Override
     protected Skin<?> createDefaultSkin() {
