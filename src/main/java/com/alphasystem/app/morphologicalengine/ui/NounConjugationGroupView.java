@@ -9,7 +9,7 @@ import javafx.scene.control.SkinBase;
 /**
  * @author sali
  */
-public class NounConjugationGroupControl extends ConjugationGroupView<NounConjugationGroup> {
+public class NounConjugationGroupView extends ConjugationGroupView<NounConjugationGroup> {
 
     @Override
     public boolean isEmpty() {
@@ -27,14 +27,14 @@ public class NounConjugationGroupControl extends ConjugationGroupView<NounConjug
         return new DefaultSkin(this);
     }
 
-    private class DefaultSkin extends SkinBase<NounConjugationGroupControl> {
+    private class DefaultSkin extends SkinBase<NounConjugationGroupView> {
 
         /**
          * Constructor for all SkinBase instances.
          *
          * @param control The control for which this Skin should attach to.
          */
-        private DefaultSkin(NounConjugationGroupControl control) {
+        private DefaultSkin(NounConjugationGroupView control) {
             super(control);
             getChildren().setAll(new NounConjugationGroupSkin(control));
         }

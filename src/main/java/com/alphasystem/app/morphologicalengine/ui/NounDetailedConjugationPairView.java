@@ -9,21 +9,21 @@ import javafx.scene.control.SkinBase;
 /**
  * @author sali
  */
-public class NounDetailedConjugationPairControl extends DetailedConjugationPairView<NounConjugationGroup, NounDetailedConjugationPair> {
+public class NounDetailedConjugationPairView extends DetailedConjugationPairView<NounConjugationGroup, NounDetailedConjugationPair> {
 
     @Override
     protected Skin<?> createDefaultSkin() {
         return new DefaultSkin(this);
     }
 
-    private class DefaultSkin extends SkinBase<NounDetailedConjugationPairControl>{
+    private class DefaultSkin extends SkinBase<NounDetailedConjugationPairView>{
 
         /**
          * Constructor for all SkinBase instances.
          *
          * @param control The control for which this Skin should attach to.
          */
-        private DefaultSkin(NounDetailedConjugationPairControl control) {
+        private DefaultSkin(NounDetailedConjugationPairView control) {
             super(control);
             getChildren().setAll(new NounDetailedConjugationPairSkin(control));
         }

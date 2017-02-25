@@ -1,7 +1,7 @@
 package com.alphasystem.app.morphologicalengine.ui.skin;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugationGroup;
-import com.alphasystem.app.morphologicalengine.ui.NounConjugationGroupControl;
+import com.alphasystem.app.morphologicalengine.ui.NounConjugationGroupView;
 import com.alphasystem.arabic.ui.ArabicLabelView;
 import javafx.fxml.FXML;
 import javafx.scene.paint.Paint;
@@ -10,13 +10,13 @@ import javafx.scene.text.Font;
 /**
  * @author sali
  */
-public class NounConjugationGroupSkin extends ConjugationGroupSkin<NounConjugationGroup, NounConjugationGroupControl> {
+public class NounConjugationGroupSkin extends ConjugationGroupSkin<NounConjugationGroup, NounConjugationGroupView> {
 
     @FXML protected ArabicLabelView row31;
     @FXML protected ArabicLabelView row32;
     @FXML protected ArabicLabelView row33;
 
-    public NounConjugationGroupSkin(NounConjugationGroupControl control) {
+    public NounConjugationGroupSkin(NounConjugationGroupView control) {
         super(control);
     }
 

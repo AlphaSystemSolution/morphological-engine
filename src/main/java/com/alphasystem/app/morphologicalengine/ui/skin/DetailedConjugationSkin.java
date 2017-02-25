@@ -4,8 +4,8 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.DetailedConjuga
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounDetailedConjugationPair;
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbDetailedConjugationPair;
 import com.alphasystem.app.morphologicalengine.ui.DetailedConjugationView;
-import com.alphasystem.app.morphologicalengine.ui.NounDetailedConjugationPairControl;
-import com.alphasystem.app.morphologicalengine.ui.VerbDetailedConjugationPairControl;
+import com.alphasystem.app.morphologicalengine.ui.NounDetailedConjugationPairView;
+import com.alphasystem.app.morphologicalengine.ui.VerbDetailedConjugationPairView;
 import javafx.geometry.Pos;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.BorderPane;
@@ -63,7 +63,7 @@ public class DetailedConjugationSkin extends SkinBase<DetailedConjugationView> {
             if (pair == null) {
                 return;
             }
-            VerbDetailedConjugationPairControl verbPairControl = new VerbDetailedConjugationPairControl();
+            VerbDetailedConjugationPairView verbPairControl = new VerbDetailedConjugationPairView();
             verbPairControl.setPair(pair);
             pane.getChildren().add(verbPairControl);
         }
@@ -72,7 +72,7 @@ public class DetailedConjugationSkin extends SkinBase<DetailedConjugationView> {
             if (pair == null) {
                 return;
             }
-            NounDetailedConjugationPairControl nounPairControl = new NounDetailedConjugationPairControl();
+            NounDetailedConjugationPairView nounPairControl = new NounDetailedConjugationPairView();
             nounPairControl.setPair(pair);
             pane.getChildren().add(nounPairControl);
         }

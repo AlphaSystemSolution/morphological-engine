@@ -2,16 +2,16 @@ package com.alphasystem.app.morphologicalengine.ui.skin;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugationGroup;
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbDetailedConjugationPair;
-import com.alphasystem.app.morphologicalengine.ui.VerbConjugationGroupControl;
-import com.alphasystem.app.morphologicalengine.ui.VerbDetailedConjugationPairControl;
+import com.alphasystem.app.morphologicalengine.ui.VerbConjugationGroupView;
+import com.alphasystem.app.morphologicalengine.ui.VerbDetailedConjugationPairView;
 
 /**
  * @author sali
  */
 public class VerbDetailedConjugationPairSkin extends DetailedConjugationPairSkin<VerbConjugationGroup, VerbDetailedConjugationPair,
-        VerbConjugationGroupControl, VerbDetailedConjugationPairControl> {
+        VerbConjugationGroupView, VerbDetailedConjugationPairView> {
 
-    public VerbDetailedConjugationPairSkin(VerbDetailedConjugationPairControl control) {
+    public VerbDetailedConjugationPairSkin(VerbDetailedConjugationPairView control) {
         super(control);
     }
 }

@@ -9,14 +9,14 @@ import javafx.scene.control.SkinBase;
 /**
  * @author sali
  */
-public class VerbDetailedConjugationPairControl extends DetailedConjugationPairView<VerbConjugationGroup, VerbDetailedConjugationPair> {
+public class VerbDetailedConjugationPairView extends DetailedConjugationPairView<VerbConjugationGroup, VerbDetailedConjugationPair> {
 
     @Override
     protected Skin<?> createDefaultSkin() {
         return new DefaultSkin(this);
     }
 
-    private class DefaultSkin extends SkinBase<VerbDetailedConjugationPairControl> {
+    private class DefaultSkin extends SkinBase<VerbDetailedConjugationPairView> {
 
 
         /**
@@ -24,7 +24,7 @@ public class VerbDetailedConjugationPairControl extends DetailedConjugationPairV
          *
          * @param control The control for which this Skin should attach to.
          */
-        private DefaultSkin(VerbDetailedConjugationPairControl control) {
+        private DefaultSkin(VerbDetailedConjugationPairView control) {
             super(control);
             getChildren().setAll(new VerbDetailedConjugationPairSkin(control));
         }

@@ -2,7 +2,7 @@ package com.alphasystem.app.morphologicalengine.ui.skin;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationTuple;
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugationGroup;
-import com.alphasystem.app.morphologicalengine.ui.VerbConjugationGroupControl;
+import com.alphasystem.app.morphologicalengine.ui.VerbConjugationGroupView;
 import com.alphasystem.arabic.ui.ArabicLabelView;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import javafx.fxml.FXML;
@@ -13,7 +13,7 @@ import javafx.scene.text.Font;
 /**
  * @author sali
  */
-public class VerbConjugationGroupSkin extends ConjugationGroupSkin<VerbConjugationGroup, VerbConjugationGroupControl> {
+public class VerbConjugationGroupSkin extends ConjugationGroupSkin<VerbConjugationGroup, VerbConjugationGroupView> {
 
     @FXML protected ArabicLabelView row31;
     @FXML protected ArabicLabelView row32;
@@ -24,7 +24,7 @@ public class VerbConjugationGroupSkin extends ConjugationGroupSkin<VerbConjugati
     @FXML protected ArabicLabelView row51;
     @FXML protected ArabicLabelView row52;
 
-    public VerbConjugationGroupSkin(VerbConjugationGroupControl control) {
+    public VerbConjugationGroupSkin(VerbConjugationGroupView control) {
         super(control);
     }
 
