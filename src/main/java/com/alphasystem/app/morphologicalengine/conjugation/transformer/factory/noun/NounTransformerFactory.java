@@ -1,11 +1,14 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun;
 
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugationGroup;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
+import com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.TransformerFactory;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
 
 /**
  * @author sali
  */
-public interface NounTransformerFactory {
+public interface NounTransformerFactory extends TransformerFactory<NounConjugationGroup, NounRootBase> {
 
     /**
      * Returns {@link NounTransformer} for <i>singular</i> conjugation.

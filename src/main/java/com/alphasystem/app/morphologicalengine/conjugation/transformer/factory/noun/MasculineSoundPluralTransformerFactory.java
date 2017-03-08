@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * @author sali
  */
-public class MasculineSoundPluralTransformerFactory implements NounTransformerFactory {
+public class MasculineSoundPluralTransformerFactory extends AbstractNounTransformerFactory {
 
     @Autowired
     @NounTransformerType(NounTransformerType.Type.MASCULINE_ENDING_SOUND_TRANSFORMER)
