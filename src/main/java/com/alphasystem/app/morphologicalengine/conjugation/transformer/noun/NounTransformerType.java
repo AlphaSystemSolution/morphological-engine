@@ -13,11 +13,11 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.TYPE, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Qualifier
-public @interface Transformer {
+public @interface NounTransformerType {
 
-    TransformerType value();
+    Type value();
 
-    enum TransformerType {
+    enum Type {
         MASCULINE_ENDING_SOUND_TRANSFORMER, FEMININE_ENDING_SOUND_TRANSFORMER,
         MASCULINE_DUAL_TRANSFORMER,
         FEMININE_DUAL_TRANSFORMER,
