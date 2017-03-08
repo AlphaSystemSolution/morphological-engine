@@ -1,0 +1,25 @@
+.arabicHeading1, .arabicLabel, .arabicNormal, .arabicTableCaption, .arabicTableCaptionSmall {
+    font-family: "KFGQPC Uthman Taha Naskh";
+}
+
+h2 {
+	text-align: center;
+}
+
+.arabicHeading1 {
+	font-size: 3em;
+}
+
+.arabicNormal {
+    font-size: 2em;
+}
+
+.arabicTableCaptionSmall{
+	font-size: 2em;
+	color: #099BDD
+}
+
+.arabicTableCaption{
+	font-size: 3em;
+	color: #099BDD
+}

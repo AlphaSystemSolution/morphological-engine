@@ -132,7 +132,7 @@ public class LabelPrinter extends CommonTest {
             StringBuilder builder = new StringBuilder();
             subList.forEach(m -> {
                 String text = (m == null) ? null : String.valueOf(m.getCode());
-                if("|".equals(text)){
+                if ("|".equals(text)) {
                     text = format("\\%s", text);
                 }
                 text = StringUtils.isBlank(text) || " ".equals(text) ? "&nbsp;" : format("[small]#%s#", text);
@@ -295,6 +295,6 @@ public class LabelPrinter extends CommonTest {
             return null;
         }
         return format("| %s | %s%s| %s | %s%s", getRootWordSarfTermType(leftSideTerm), getRootWordSarfTermType(rightSideWord), NEW_LINE,
-                getRootWordLabel(leftSideTerm), getRootWordLabel(rightSideWord), NEW_LINE);
+                getRootWord(leftSideTerm), getRootWord(rightSideWord), NEW_LINE);
     }
 }

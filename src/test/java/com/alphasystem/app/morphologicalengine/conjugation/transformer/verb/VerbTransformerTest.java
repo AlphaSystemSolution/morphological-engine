@@ -5,17 +5,25 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
+import com.alphasystem.app.morphologicalengine.conjugation.test.CommonTest;
 import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.Verb;
-import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import org.testng.annotations.Test;
 
-import static com.alphasystem.app.sarfengine.test.CommonTest.printArabicText;
-import static com.alphasystem.arabic.model.ArabicLetterType.*;
-import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
-import static java.lang.String.format;
+import static com.alphasystem.arabic.model.ArabicLetterType.BA;
+import static com.alphasystem.arabic.model.ArabicLetterType.HAMZA;
+import static com.alphasystem.arabic.model.ArabicLetterType.KAF;
+import static com.alphasystem.arabic.model.ArabicLetterType.KHA;
+import static com.alphasystem.arabic.model.ArabicLetterType.LAM;
+import static com.alphasystem.arabic.model.ArabicLetterType.QAF;
+import static com.alphasystem.arabic.model.ArabicLetterType.RA;
+import static com.alphasystem.arabic.model.ArabicLetterType.WAW;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.FORBIDDING;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.IMPERATIVE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_TENSE;
 import static org.testng.Reporter.log;
 
 /**
@@ -75,11 +83,11 @@ public class VerbTransformerTest {
         RootWord rootWord = new RootWord(root.getRootWord(), rootLetters.getFirstRadical(), rootLetters.getSecondRadical(),
                 rootLetters.getThirdRadical()).withSarfTermType(PRESENT_TENSE);
         rootWord = verbTransformer.doSingular(rootWord);
-        log(format("%s %s<br/>", beforeMessage, printArabicText(rootWord.getRootWord())));
+        log(String.format("%s %s<br/>", beforeMessage, CommonTest.printArabicText(rootWord.getRootWord())));
         RuleProcessor ruleEngine = RULE_PROCESSOR_FACTORY.getRuleEngine(new RuleInfo(form.getTemplate(), rootLetters));
         rootWord = ruleEngine.applyRules(rootWord);
         rootWord = ruleEngine.applyRules(rootWord.withSarfTermType(termType));
-        log(format("%s %s<br/>", afterMessage, printArabicText(rootWord.getRootWord())));
+        log(String.format("%s %s<br/>", afterMessage, CommonTest.printArabicText(rootWord.getRootWord())));
     }
 
 }

@@ -1,11 +1,11 @@
-/**
- *
- */
-package com.alphasystem.app.sarfengine.test;
+package com.alphasystem.app.morphologicalengine.conjugation.test;
+
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationTuple;
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugation;
+import com.alphasystem.app.sarfengine.test.Constants;
 import com.alphasystem.arabic.model.ArabicLetters;
+import com.alphasystem.arabic.model.ArabicSupport;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.HiddenNounStatus;
 import com.alphasystem.arabic.model.HiddenPronounStatus;
@@ -15,6 +15,7 @@ import com.alphasystem.util.AppUtil;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.AttributesBuilder;
 import org.asciidoctor.OptionsBuilder;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -30,7 +31,9 @@ import java.util.List;
 
 import static com.alphasystem.arabic.model.ArabicWord.concatenateWithAnd;
 import static com.alphasystem.arabic.model.ArabicWord.concatenateWithSpace;
-import static com.alphasystem.arabic.model.HiddenNounStatus.*;
+import static com.alphasystem.arabic.model.HiddenNounStatus.NOMINATIVE_DUAL;
+import static com.alphasystem.arabic.model.HiddenNounStatus.NOMINATIVE_PLURAL;
+import static com.alphasystem.arabic.model.HiddenNounStatus.NOMINATIVE_SINGULAR;
 import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_FEMININE_SINGULAR;
 import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_MASCULINE_SINGULAR;
 import static com.alphasystem.util.AppUtil.NEW_LINE;
@@ -43,7 +46,7 @@ import static org.testng.Reporter.log;
 /**
  * @author sali
  */
-public class CommonTest implements ArabicLetters, Constants {
+public class CommonTest extends AbstractTestNGSpringContextTests implements ArabicLetters, Constants {
 
     private static final Path DEST_FOLDER = Paths.get(AppUtil.USER_DIR, "build", "test-files");
     private static final Path CSS_FOLDER = Paths.get(DEST_FOLDER.toString(), "css");
@@ -59,8 +62,7 @@ public class CommonTest implements ArabicLetters, Constants {
             }
         }
     }
-
-    protected static Asciidoctor asciidoctor = Asciidoctor.Factory.create();
+    private static Asciidoctor asciidoctor = Asciidoctor.Factory.create();
     protected List<String> lines;
 
     public static String getGenderCaption(HiddenPronounStatus status) {
@@ -102,8 +104,8 @@ public class CommonTest implements ArabicLetters, Constants {
                 format("%s+|[arabicNormal]#%s#", columnSpan, arabicWord.toHtmlCode());
     }
 
-    public static String getRootWordLabel(RootWord rootWord) {
-        return (rootWord == null) ? "" : format("[arabicNormal]#%s#", rootWord.toLabel().toHtmlCode());
+    public static String getLabel(ArabicSupport arabicSupport) {
+        return (arabicSupport == null) ? "" : format("[arabicNormal]#%s#", arabicSupport.toLabel().toHtmlCode());
     }
 
     public static String getRootWordSarfTermType(RootWord rootWord) {
@@ -155,7 +157,7 @@ public class CommonTest implements ArabicLetters, Constants {
         lines.add(builder.toString());
     }
 
-    static String getEmptyRow(int numOfColumns) {
+    protected static String getEmptyRow(int numOfColumns) {
         return format("%s+| ", numOfColumns);
     }
 

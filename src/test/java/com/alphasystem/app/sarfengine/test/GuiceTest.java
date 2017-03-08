@@ -1,14 +1,12 @@
 package com.alphasystem.app.sarfengine.test;
 
+import com.alphasystem.app.morphologicalengine.conjugation.test.CommonTest;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.FemininePluralTransformer;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.MasculineEndingSoundTransformer;
-import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NonFlexibleNounTransformer;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
 import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import org.testng.annotations.Test;
 
-import static com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerModule.MASCULINE_ENDING_SOUND_TRANSFORMER;
-import static com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerModule.NON_FLEXIBLE_NOUN_TRANSFORMER;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.Noun.FORM_I_FEMININE_ACTIVE_PARTICIPLE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.Noun.FORM_I_MASCULINE_ACTIVE_PARTICIPLE;
 import static java.lang.String.format;
@@ -25,8 +23,8 @@ public class GuiceTest extends CommonTest {
 
     @Test
     public void testGetInstance() {
-        testGetInstance(NounTransformer.class, MASCULINE_ENDING_SOUND_TRANSFORMER, MasculineEndingSoundTransformer.class);
-        testGetInstance(NounTransformer.class, NON_FLEXIBLE_NOUN_TRANSFORMER, NonFlexibleNounTransformer.class);
+        // testGetInstance(NounTransformer.class, MASCULINE_ENDING_SOUND_TRANSFORMER, MasculineEndingSoundTransformer.class);
+        // testGetInstance(NounTransformer.class, NON_FLEXIBLE_NOUN_TRANSFORMER, NonFlexibleNounTransformer.class);
         testGetInstance(NounTransformer.class, FORM_I_FEMININE_ACTIVE_PARTICIPLE.getPluralRootName(), FemininePluralTransformer.class);
         testGetInstance(NounTransformer.class, FORM_I_MASCULINE_ACTIVE_PARTICIPLE.getSingularRootName(), MasculineEndingSoundTransformer.class);
 
