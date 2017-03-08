@@ -1,4 +1,4 @@
-package com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.factory;
+package com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 
