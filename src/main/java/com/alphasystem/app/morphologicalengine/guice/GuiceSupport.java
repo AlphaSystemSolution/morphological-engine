@@ -5,7 +5,6 @@ import com.alphasystem.app.morphologicalengine.conjugation.member.ConjugationMem
 import com.alphasystem.app.morphologicalengine.conjugation.member.impl.MemberBuilderModule;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
-import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerModule;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformer;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerModule;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
@@ -31,8 +30,8 @@ public final class GuiceSupport {
      * Do not let anyone instantiate this class
      */
     private GuiceSupport() {
-        injector = Guice.createInjector(new CloseableModule(), new Jsr250Module(), new NounTransformerModule(),
-                new VerbTransformerModule(), new RuleProcessorModule(), new MemberBuilderModule(), new BuilderModule());
+        injector = Guice.createInjector(new CloseableModule(), new Jsr250Module(), new VerbTransformerModule(),
+                new RuleProcessorModule(), new MemberBuilderModule(), new BuilderModule());
     }
 
     public static GuiceSupport getInstance() {
