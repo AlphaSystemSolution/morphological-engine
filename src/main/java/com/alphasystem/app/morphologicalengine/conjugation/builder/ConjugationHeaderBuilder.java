@@ -77,7 +77,7 @@ public final class ConjugationHeaderBuilder {
         final Verb verb = PAST_TENSE.equals(termType) ? conjugationRoots.getPastTense().getRoot() :
                 conjugationRoots.getPresentTense().getRoot();
         final VerbTransformer verbTransformer = guiceSupport.getVerbTransformer(verb.getThirdPersonMasculineName());
-        return verbTransformer.doTransform(ruleProcessor, new RootWord(verb.getRootWord()).withSarfTermType(termType),
+        return verbTransformer.doTransform(ruleProcessor, new RootWord(verb.getRootWord()), termType,
                 rootLetters.getFirstRadical(), rootLetters.getSecondRadical(), rootLetters.getThirdRadical(),
                 rootLetters.getFourthRadical()).getSingular();
     }

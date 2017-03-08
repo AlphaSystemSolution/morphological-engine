@@ -1,6 +1,11 @@
-package com.alphasystem.app.sarfengine.test;
+package com.alphasystem.app.morphologicalengine.conjugation.transformer.test;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.*;
+import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationTuple;
+import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugation;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
+import com.alphasystem.app.morphologicalengine.conjugation.test.CommonTest;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformer;
 import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
@@ -14,14 +19,23 @@ import com.alphasystem.morphologicalanalysis.wordbyword.model.support.NumberType
 import org.testng.annotations.Test;
 
 import static com.alphasystem.app.morphologicalengine.conjugation.model.Form.*;
-import static com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerModule.*;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
-import static com.alphasystem.arabic.model.HiddenNounStatus.*;
-import static com.alphasystem.arabic.model.HiddenPronounStatus.*;
-import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
+import static com.alphasystem.arabic.model.HiddenNounStatus.ACCUSATIVE_SINGULAR;
+import static com.alphasystem.arabic.model.HiddenNounStatus.GENITIVE_SINGULAR;
+import static com.alphasystem.arabic.model.HiddenNounStatus.NOMINATIVE_SINGULAR;
+import static com.alphasystem.arabic.model.HiddenPronounStatus.FIRST_PERSON_SINGULAR;
+import static com.alphasystem.arabic.model.HiddenPronounStatus.SECOND_PERSON_FEMININE_SINGULAR;
+import static com.alphasystem.arabic.model.HiddenPronounStatus.SECOND_PERSON_MASCULINE_SINGULAR;
+import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_FEMININE_SINGULAR;
+import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_MASCULINE_SINGULAR;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PAST_PASSIVE_TENSE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PAST_TENSE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_TENSE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.VERBAL_NOUN_FORM_II;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.VERBAL_NOUN_FORM_IV;
-import static com.alphasystem.morphologicalanalysis.wordbyword.model.support.NumberType.*;
+import static com.alphasystem.morphologicalanalysis.wordbyword.model.support.NumberType.DUAL;
+import static com.alphasystem.morphologicalanalysis.wordbyword.model.support.NumberType.PLURAL;
+import static com.alphasystem.morphologicalanalysis.wordbyword.model.support.NumberType.SINGULAR;
 import static java.lang.String.format;
 
 /**

@@ -1,12 +1,15 @@
 package com.alphasystem.app.morphologicalengine.guice;
 
-import com.alphasystem.app.morphologicalengine.conjugation.builder.*;
+import com.alphasystem.app.morphologicalengine.conjugation.builder.AbbreviatedConjugationBuilder;
+import com.alphasystem.app.morphologicalengine.conjugation.builder.BuilderModule;
+import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilder;
+import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationHeaderBuilder;
+import com.alphasystem.app.morphologicalengine.conjugation.builder.DetailedConjugationBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.member.ConjugationMemberBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.member.impl.MemberBuilderModule;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformer;
-import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerModule;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -30,8 +33,8 @@ public final class GuiceSupport {
      * Do not let anyone instantiate this class
      */
     private GuiceSupport() {
-        injector = Guice.createInjector(new CloseableModule(), new Jsr250Module(), new VerbTransformerModule(),
-                new RuleProcessorModule(), new MemberBuilderModule(), new BuilderModule());
+        injector = Guice.createInjector(new CloseableModule(), new Jsr250Module(), new RuleProcessorModule(),
+                new MemberBuilderModule(), new BuilderModule());
     }
 
     public static GuiceSupport getInstance() {

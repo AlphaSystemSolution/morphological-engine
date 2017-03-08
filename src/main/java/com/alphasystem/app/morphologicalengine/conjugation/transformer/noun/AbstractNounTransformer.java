@@ -5,6 +5,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.AbstractTransformer;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
 import static java.lang.Integer.MAX_VALUE;
 
@@ -35,10 +36,10 @@ public abstract class AbstractNounTransformer extends AbstractTransformer<NounCo
     }
 
     @Override
-    public NounConjugation doTransform(RuleProcessor ruleProcessor, RootWord rootWord, ArabicLetterType firstRadical,
-                                       ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                       ArabicLetterType fourthRadical) {
-        RootWord baseWord = createRootWord(rootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+    public NounConjugation doTransform(RuleProcessor ruleProcessor, RootWord rootWord, SarfTermType sarfTermType,
+                                       ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                       ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+        RootWord baseWord = createRootWord(rootWord, sarfTermType, firstRadical, secondRadical, thirdRadical, fourthRadical);
         final int size = baseWord.toLabel().getLength();
         if (variableIndex >= size) {
             variableIndex = size - 1;

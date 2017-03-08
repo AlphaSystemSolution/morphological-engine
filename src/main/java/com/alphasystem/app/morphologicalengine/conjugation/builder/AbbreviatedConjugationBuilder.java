@@ -86,7 +86,7 @@ public final class AbbreviatedConjugationBuilder {
         String name = imperativeOrForbidden ? verb.getSecondPersonMasculineName() : verb.getThirdPersonMasculineName();
         final VerbTransformer verbTransformer = GUICE_SUPPORT.getVerbTransformer(name);
         final RootWord rootWord = new RootWord(verb.getRootWord()).withSarfTermType(termType);
-        final ConjugationTuple tuple = verbTransformer.doTransform(ruleProcessor, rootWord, rootLetters.getFirstRadical(),
+        final ConjugationTuple tuple = verbTransformer.doTransform(ruleProcessor, rootWord, termType, rootLetters.getFirstRadical(),
                 rootLetters.getSecondRadical(), rootLetters.getThirdRadical(), rootLetters.getFourthRadical());
         return tuple.getSingular();
     }
@@ -96,7 +96,7 @@ public final class AbbreviatedConjugationBuilder {
         final NounSupport singularBaseWord = rootBase.getSingularBaseWord();
         final NounTransformer transformer = GUICE_SUPPORT.getNounTransformer(singularBaseWord.getSingularRootName());
         final RootWord rootWord = new RootWord(singularBaseWord.getRootWord()).withSarfTermType(termType);
-        final NounConjugation conjugation = transformer.doTransform(ruleProcessor, rootWord, rootLetters.getFirstRadical(),
+        final NounConjugation conjugation = transformer.doTransform(ruleProcessor, rootWord, termType, rootLetters.getFirstRadical(),
                 rootLetters.getSecondRadical(), rootLetters.getThirdRadical(), rootLetters.getFourthRadical());
         return verbalNoun ? conjugation.getAccusative() : conjugation.getNominative();
     }
@@ -118,7 +118,7 @@ public final class AbbreviatedConjugationBuilder {
         return rootWords;
     }
 
-    static class ProviderImpl implements Provider<AbbreviatedConjugationBuilder>{
+    static class ProviderImpl implements Provider<AbbreviatedConjugationBuilder> {
 
         @Override
         public AbbreviatedConjugationBuilder get() {

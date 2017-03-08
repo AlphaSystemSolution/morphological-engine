@@ -14,6 +14,7 @@ import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.Noun;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.DataProvider;
@@ -42,8 +43,8 @@ public class NounTransformerTest extends CommonTest {
     @Test(dataProvider = "data")
     public void test(NounTransformer transformer, String title, Noun noun, NamedTemplate template,
                      ArabicLetterType firstRadical, ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
-        final NounConjugation nounConjugation = transform(transformer, template, noun, firstRadical,
-                secondRadical, thirdRadical);
+        final NounConjugation nounConjugation = transform(transformer, template, noun, SarfTermType.ACTIVE_PARTICIPLE_MASCULINE,
+                firstRadical, secondRadical, thirdRadical);
         addTable(nounConjugation, title, new RootWord(noun.getRootWord(), firstRadical, secondRadical, thirdRadical));
     }
 
@@ -62,14 +63,15 @@ public class NounTransformerTest extends CommonTest {
         };
     }
 
-    private NounConjugation transform(final NounTransformer transformer, final NamedTemplate template, Noun noun, final ArabicLetterType firstRadical,
+    private NounConjugation transform(final NounTransformer transformer, final NamedTemplate template, Noun noun,
+                                      SarfTermType sarfTermType, final ArabicLetterType firstRadical,
                                       final ArabicLetterType secondRadical, final ArabicLetterType thirdRadical) {
         final RootLetters rootLetters = new RootLetters(firstRadical, secondRadical, thirdRadical);
 
         RuleInfo ruleInfo = new RuleInfo(template, rootLetters, true);
         final RuleProcessor ruleProcessor = RULE_PROCESSOR_FACTORY.getRuleEngine(ruleInfo);
 
-        return transformer.doTransform(ruleProcessor, noun.getRootWord(), firstRadical, secondRadical, thirdRadical, null);
+        return transformer.doTransform(ruleProcessor, noun.getRootWord(), sarfTermType, firstRadical, secondRadical, thirdRadical, null);
     }
 
     private void addTable(NounConjugation nounConjugation, String title, RootWord rootWord) {

@@ -73,8 +73,8 @@ public abstract class AbstractParticipleMemberBuilder implements ParticipleMembe
                                         ArabicLetterType firstRadical, ArabicLetterType secondRadical,
                                         ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
         if (transformer != null && baseWord != null) {
-            return transformer.doTransform(ruleProcessor, new RootWord(baseWord.getRootWord()).withSarfTermType(getTermType()),
-                    firstRadical, secondRadical, thirdRadical, fourthRadical);
+            return transformer.doTransform(ruleProcessor, new RootWord(baseWord.getRootWord()),
+                    getTermType(), firstRadical, secondRadical, thirdRadical, fourthRadical);
         }
         return null;
     }

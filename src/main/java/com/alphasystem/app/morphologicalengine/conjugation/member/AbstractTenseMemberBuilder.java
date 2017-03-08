@@ -40,7 +40,7 @@ public abstract class AbstractTenseMemberBuilder implements TenseMemberBuilder {
         return getTransformer(rootBase.getRoot().getFirstPersonName());
     }
 
-    private VerbTransformer getTransformer(String name){
+    private VerbTransformer getTransformer(String name) {
         return (name == null) ? null : GUICE_SUPPORT.getVerbTransformer(name);
     }
 
@@ -75,8 +75,8 @@ public abstract class AbstractTenseMemberBuilder implements TenseMemberBuilder {
     private ConjugationTuple doTransform(RuleProcessor ruleProcessor, VerbTransformer transformer, VerbRootBase rootBase, ArabicLetterType firstRadical,
                                          ArabicLetterType secondRadical, ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
         if (transformer != null && rootBase != null) {
-            return transformer.doTransform(ruleProcessor, new RootWord(rootBase.getRoot().getRootWord()).withSarfTermType(getTermType()),
-                    firstRadical, secondRadical, thirdRadical, fourthRadical);
+            return transformer.doTransform(ruleProcessor, new RootWord(rootBase.getRoot().getRootWord()),
+                    getTermType(), firstRadical, secondRadical, thirdRadical, fourthRadical);
         }
         return null;
     }

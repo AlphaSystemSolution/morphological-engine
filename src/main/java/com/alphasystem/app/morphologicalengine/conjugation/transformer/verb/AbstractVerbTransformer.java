@@ -5,6 +5,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.AbstractTransformer;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
 /**
  * @author sali
@@ -12,10 +13,10 @@ import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 public abstract class AbstractVerbTransformer extends AbstractTransformer<ConjugationTuple> implements VerbTransformer {
 
     @Override
-    public ConjugationTuple doTransform(RuleProcessor ruleProcessor, RootWord rootWord, ArabicLetterType firstRadical,
-                                        ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                        ArabicLetterType fourthRadical) {
-        RootWord baseWord = createRootWord(rootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+    public ConjugationTuple doTransform(RuleProcessor ruleProcessor, RootWord rootWord, SarfTermType sarfTermType,
+                                        ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                        ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+        RootWord baseWord = createRootWord(rootWord, sarfTermType, firstRadical, secondRadical, thirdRadical, fourthRadical);
         final RootWord singular = processRules(ruleProcessor, doSingular(baseWord));
         final RootWord dual = processRules(ruleProcessor, doDual(baseWord));
         final RootWord plural = processRules(ruleProcessor, doPlural(baseWord));

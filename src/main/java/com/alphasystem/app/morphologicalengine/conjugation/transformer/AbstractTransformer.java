@@ -5,6 +5,7 @@ import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicLetters;
 import com.alphasystem.arabic.model.SarfMemberType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
 /**
  * @author sali
@@ -15,9 +16,9 @@ public abstract class AbstractTransformer<G> implements Transformer<G>, ArabicLe
         return new RootWord(rootWord).withMemberType(memberType);
     }
 
-    protected RootWord createRootWord(RootWord rootWord, ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                      ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
-        return new RootWord(rootWord, firstRadical, secondRadical, thirdRadical, fourthRadical);
+    protected RootWord createRootWord(RootWord rootWord, SarfTermType sarfTermType, ArabicLetterType firstRadical,
+                                      ArabicLetterType secondRadical, ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+        return new RootWord(rootWord, firstRadical, secondRadical, thirdRadical, fourthRadical).withSarfTermType(sarfTermType);
     }
 
     protected RootWord processRules(RuleProcessor ruleProcessor, RootWord src) {
