@@ -2,7 +2,8 @@ package com.alphasystem.app.morphologicalengine.conjugation.test;
 
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationTuple;
-import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugation;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugationGroup;
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugationGroup;
 import com.alphasystem.app.sarfengine.test.Constants;
 import com.alphasystem.arabic.model.ArabicLetters;
 import com.alphasystem.arabic.model.ArabicSupport;
@@ -135,19 +136,45 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
                 getNumberCaption(NOMINATIVE_SINGULAR), NEW_LINE);
     }
 
-    public static void addRootWords(RootWord[] rootWords, NounConjugation nounConjugation, int initialIndex) {
-        rootWords[initialIndex] = (nounConjugation == null) ? null : nounConjugation.getNominative();
-        rootWords[initialIndex + 6] = (nounConjugation == null) ? null : nounConjugation.getAccusative();
-        rootWords[initialIndex + 12] = (nounConjugation == null) ? null : nounConjugation.getGenitive();
-    }
-
-    public static void addRootWords(RootWord[] rootWords, ConjugationTuple conjugationTuple, int initialIndex) {
+    protected static void addRootWords(RootWord[] rootWords, ConjugationTuple conjugationTuple, int initialIndex) {
         rootWords[initialIndex] = (conjugationTuple == null) ? null : conjugationTuple.getSingular();
         rootWords[initialIndex - 1] = (conjugationTuple == null) ? null : conjugationTuple.getDual();
         rootWords[initialIndex - 2] = (conjugationTuple == null) ? null : conjugationTuple.getPlural();
     }
 
-    public static void addRow(List<String> lines, ArabicWord status, RootWord[] rootWords, int initialIndex) {
+    protected static RootWord[] getRootWords(NounConjugationGroup masculineGroup, NounConjugationGroup feminineGroup){
+        RootWord[] rootWords = new RootWord[18];
+
+        addRootWords(rootWords, masculineGroup.getNominative(), 5);
+        addRootWords(rootWords, masculineGroup.getAccusative(), 11);
+        addRootWords(rootWords, masculineGroup.getGenitive(), 17);
+        addRootWords(rootWords, feminineGroup.getNominative(), 2);
+        addRootWords(rootWords, feminineGroup.getAccusative(), 8);
+        addRootWords(rootWords, feminineGroup.getGenitive(), 14);
+
+        return rootWords;
+    }
+
+    protected static RootWord[] getRootWords(VerbConjugationGroup pastTenseConjugationGroup,
+                                             VerbConjugationGroup presentTenseConjugationGroup) {
+        RootWord[] rootWords = new RootWord[30];
+
+        addRootWords(rootWords, pastTenseConjugationGroup.getMasculineThirdPerson(), 5);
+        addRootWords(rootWords, pastTenseConjugationGroup.getFeminineThirdPerson(), 11);
+        addRootWords(rootWords, pastTenseConjugationGroup.getMasculineSecondPerson(), 17);
+        addRootWords(rootWords, pastTenseConjugationGroup.getFeminineSecondPerson(), 23);
+        addRootWords(rootWords, pastTenseConjugationGroup.getFirstPerson(), 29);
+
+        addRootWords(rootWords, presentTenseConjugationGroup.getMasculineThirdPerson(), 2);
+        addRootWords(rootWords, presentTenseConjugationGroup.getFeminineThirdPerson(), 8);
+        addRootWords(rootWords, presentTenseConjugationGroup.getMasculineSecondPerson(), 14);
+        addRootWords(rootWords, presentTenseConjugationGroup.getFeminineSecondPerson(), 20);
+        addRootWords(rootWords, presentTenseConjugationGroup.getFirstPerson(), 26);
+
+        return new RootWord[0];
+    }
+
+    protected static void addRow(List<String> lines, ArabicWord status, RootWord[] rootWords, int initialIndex) {
         StringBuilder builder = new StringBuilder();
         builder.append(getRootWord(rootWords[initialIndex]));
         for (int i = initialIndex + 1; i < initialIndex + 6; i++) {

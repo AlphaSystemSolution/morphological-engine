@@ -30,15 +30,27 @@ public class NounTransformerTest extends CommonTest {
 
     @Autowired
     @NounTransformerType(NounTransformerType.Type.MASCULINE_ENDING_SOUND_TRANSFORMER)
-    private NounTransformer masculineEndingSoundTransformer;
+    private NounTransformer masculineActiveEndingSoundTransformer;
+
+    @Autowired
+    @NounTransformerType(NounTransformerType.Type.MASCULINE_ENDING_SOUND_TRANSFORMER)
+    private NounTransformer masculinePassiveEndingSoundTransformer;
 
     @Autowired
     @NounTransformerType(NounTransformerType.Type.MASCULINE_DUAL_TRANSFORMER)
-    private NounTransformer masculineDualTransformer;
+    private NounTransformer masculineActiveDualTransformer;
+
+    @Autowired
+    @NounTransformerType(NounTransformerType.Type.MASCULINE_DUAL_TRANSFORMER)
+    private NounTransformer masculinePassiveDualTransformer;
 
     @Autowired
     @NounTransformerType(NounTransformerType.Type.MASCULINE_PLURAL_TRANSFORMER)
-    private NounTransformer masculinePluralTransformer;
+    private NounTransformer masculineActivePluralTransformer;
+
+    @Autowired
+    @NounTransformerType(NounTransformerType.Type.MASCULINE_PLURAL_TRANSFORMER)
+    private NounTransformer masculinePassivePluralTransformer;
 
     @Test(dataProvider = "data")
     public void test(NounTransformer transformer, String title, Noun noun, NamedTemplate template,
@@ -51,13 +63,22 @@ public class NounTransformerTest extends CommonTest {
     @DataProvider(name = "data")
     private Object[][] data() {
         return new Object[][]{
-                {masculineEndingSoundTransformer, "Form I masculine singular", Noun.FORM_I_MASCULINE_ACTIVE_PARTICIPLE,
+                {masculineActiveEndingSoundTransformer, "Form I masculine singular", Noun.FORM_I_MASCULINE_ACTIVE_PARTICIPLE,
                         NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, ArabicLetterType.NOON, ArabicLetterType.SAD,
                         ArabicLetterType.RA},
-                {masculineDualTransformer, "Form I masculine dual", Noun.FORM_I_MASCULINE_ACTIVE_PARTICIPLE,
+                {masculineActiveDualTransformer, "Form I masculine dual", Noun.FORM_I_MASCULINE_ACTIVE_PARTICIPLE,
                         NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, ArabicLetterType.NOON, ArabicLetterType.SAD,
                         ArabicLetterType.RA},
-                {masculinePluralTransformer, "Form I masculine plural", Noun.FORM_I_MASCULINE_ACTIVE_PARTICIPLE,
+                {masculineActivePluralTransformer, "Form I masculine plural", Noun.FORM_I_MASCULINE_ACTIVE_PARTICIPLE,
+                        NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, ArabicLetterType.NOON, ArabicLetterType.SAD,
+                        ArabicLetterType.RA},
+                {masculinePassiveEndingSoundTransformer, "Form I masculine singular", Noun.FORM_I_MASCULINE_PASSIVE_PARTICIPLE,
+                        NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, ArabicLetterType.NOON, ArabicLetterType.SAD,
+                        ArabicLetterType.RA},
+                {masculinePassiveDualTransformer, "Form I masculine dual", Noun.FORM_I_MASCULINE_PASSIVE_PARTICIPLE,
+                        NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, ArabicLetterType.NOON, ArabicLetterType.SAD,
+                        ArabicLetterType.RA},
+                {masculinePassivePluralTransformer, "Form I masculine plural", Noun.FORM_I_MASCULINE_PASSIVE_PARTICIPLE,
                         NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, ArabicLetterType.NOON, ArabicLetterType.SAD,
                         ArabicLetterType.RA}
         };
