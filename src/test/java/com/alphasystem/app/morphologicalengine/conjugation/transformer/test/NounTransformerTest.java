@@ -1,16 +1,14 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.test;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugation;
-import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleEngineConfiguration;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorType;
-import com.alphasystem.app.morphologicalengine.conjugation.rule.processor.RuleProcessorConfiguration;
 import com.alphasystem.app.morphologicalengine.conjugation.test.CommonTest;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
-import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerConfiguration;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerType;
+import com.alphasystem.app.morphologicalengine.spring.MainConfiguration;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
@@ -25,7 +23,7 @@ import org.testng.annotations.Test;
 /**
  * @author sali
  */
-@ContextConfiguration(classes = {RuleProcessorConfiguration.class, RuleEngineConfiguration.class, NounTransformerConfiguration.class})
+@ContextConfiguration(classes = {MainConfiguration.class})
 public class NounTransformerTest extends CommonTest {
 
     @Autowired

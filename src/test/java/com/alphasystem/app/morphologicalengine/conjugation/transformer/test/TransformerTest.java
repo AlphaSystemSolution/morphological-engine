@@ -73,8 +73,6 @@ public class TransformerTest extends CommonTest {
     private static RootWord[] createActiveTenseRootWords(VerbTransformerFactory pastTenseTransformer, VerbTransformerFactory presentTenseTransformer,
                                                          Form form, ArabicLetterType firstRadical, ArabicLetterType secondRadical,
                                                          ArabicLetterType thirdRadical) {
-        RootWord[] rootWords = new RootWord[30];
-
         final RootLetters rootLetters = new RootLetters(firstRadical, secondRadical, thirdRadical);
         final VerbConjugationGroup pastTenseConjugationGroup = pastTenseTransformer.doConjugation(null, PAST_TENSE,
                 form.getPastTense(), rootLetters);

@@ -1,39 +1,33 @@
-package com.alphasystem.app.sarfengine.test;
+package com.alphasystem.app.morphologicalengine.conjugation.test;
 
-import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilder;
-import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationRoots;
 import com.alphasystem.app.morphologicalengine.conjugation.model.*;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ActiveLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.AdverbLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ImperativeAndForbiddingLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.PassiveLine;
-import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
+import com.alphasystem.app.morphologicalengine.spring.MainConfiguration;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.util.AppUtil;
 import org.apache.commons.lang3.ArrayUtils;
-import org.testng.annotations.Test;
+import org.springframework.test.context.ContextConfiguration;
 
-import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationHelper.getConjugationRoots;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.ArabicWord.concatenateWithSpace;
 import static com.alphasystem.arabic.model.ArabicWord.getWord;
-import static com.alphasystem.arabic.model.NamedTemplate.FORM_IV_TEMPLATE;
-import static com.alphasystem.arabic.model.NamedTemplate.FORM_IX_TEMPLATE;
-import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V12;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V13;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.NOUN_OF_PLACE_AND_TIME_V1;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.NOUN_OF_PLACE_AND_TIME_V2;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.NOUN_OF_PLACE_AND_TIME_V3;
-import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.VERBAL_NOUN_V1;
 import static java.lang.String.format;
 
 /**
  * @author sali
  */
+@ContextConfiguration(classes = {MainConfiguration.class})
 public class ConjugationTest extends CommonTest {
 
     private static final String SARF_TERM_PATTERN = "3+|%s .%s+| 3+|%s %s";
@@ -47,7 +41,7 @@ public class ConjugationTest extends CommonTest {
             new NounRootBase(NOUN_OF_PLACE_AND_TIME_V2, BROKEN_PLURAL_V13),
             new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)};
 
-    @Test
+   /* @Test
     public void runConjugationBuilder() {
         final ConjugationBuilder conjugationBuilder = GuiceSupport.getInstance().getConjugationBuilder();
         ConjugationRoots conjugationRoots = getConjugationRoots(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, "To Help",
@@ -73,7 +67,7 @@ public class ConjugationTest extends CommonTest {
 
         conjugationRoots = getConjugationRoots(FORM_IX_TEMPLATE, "To collapse");
         printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, NOON, QAF, DDAD, null));
-    }
+    }*/
 
     private void printMorphologicalChart(MorphologicalChart chart) {
         createHeading(chart.getHeader());

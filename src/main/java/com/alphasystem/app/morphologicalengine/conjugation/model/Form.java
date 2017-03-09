@@ -1,6 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
 import com.alphasystem.arabic.model.NamedTemplate;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -243,5 +244,44 @@ public enum Form {
 
     public NounRootBase[] getAdverbs() {
         return adverbs;
+    }
+
+    public RootBase getValue(SarfTermType sarfTermType) {
+        RootBase rootBase = null;
+        switch (sarfTermType) {
+            case PAST_TENSE:
+                rootBase = getPastTense();
+                break;
+            case PRESENT_TENSE:
+                rootBase = getPresentTense();
+                break;
+            case ACTIVE_PARTICIPLE_MASCULINE:
+                rootBase = getActiveParticipleMasculine();
+                break;
+            case ACTIVE_PARTICIPLE_FEMININE:
+                rootBase = getActiveParticipleFeminine();
+                break;
+            case PAST_PASSIVE_TENSE:
+                rootBase = getPastPassiveTense();
+                break;
+            case PRESENT_PASSIVE_TENSE:
+                rootBase = getPresentPassiveTense();
+                break;
+            case PASSIVE_PARTICIPLE_MASCULINE:
+                rootBase = getPassiveParticipleMasculine();
+                break;
+            case PASSIVE_PARTICIPLE_FEMININE:
+                rootBase = getPassiveParticipleFeminine();
+                break;
+            case IMPERATIVE:
+                rootBase = getImperative();
+                break;
+            case FORBIDDING:
+                rootBase = getForbidding();
+                break;
+            default:
+                break;
+        }
+        return rootBase;
     }
 }

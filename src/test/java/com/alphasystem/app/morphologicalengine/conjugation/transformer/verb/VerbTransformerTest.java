@@ -2,17 +2,20 @@ package com.alphasystem.app.morphologicalengine.conjugation.transformer.verb;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
-import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorType;
 import com.alphasystem.app.morphologicalengine.conjugation.test.CommonTest;
-import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
+import com.alphasystem.app.morphologicalengine.spring.MainConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.Verb;
+import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.Test;
 
+import static com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerType.Type.FORBIDDING_SECOND_PERSON_MASCULINE_TRANSFORMER;
+import static com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerType.Type.IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER;
+import static com.alphasystem.app.morphologicalengine.spring.ApplicationContextProvider.getBean;
 import static com.alphasystem.arabic.model.ArabicLetterType.BA;
 import static com.alphasystem.arabic.model.ArabicLetterType.HAMZA;
 import static com.alphasystem.arabic.model.ArabicLetterType.KAF;
@@ -29,10 +32,8 @@ import static org.testng.Reporter.log;
 /**
  * @author sali
  */
+@ContextConfiguration(classes = {MainConfiguration.class})
 public class VerbTransformerTest {
-
-    private static final GuiceSupport GUICE_SUPPORT = GuiceSupport.getInstance();
-    private static final RuleProcessorFactory RULE_PROCESSOR_FACTORY = GUICE_SUPPORT.getRuleProcessorFactory();
 
     @Test
     public void testForbiddingFirstRadicalHamzah() {
@@ -67,24 +68,34 @@ public class VerbTransformerTest {
     }
 
     private void testImperative(final Form form, RootLetters rootLetters, String beforeMessage, String afterMessage) {
-        testImperativeOrForbidding(form, rootLetters, IMPERATIVE, beforeMessage, afterMessage);
+        final AbstractVerbTransformer verbTransformer = getBean(IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER.name(),
+                AbstractVerbTransformer.class);
+        final RuleProcessor ruleProcessor = getBean(RuleProcessorType.Type.RULE_ENGINE.name(), RuleProcessor.class);
+        System.out.println(String.format("Forbidding: %s:%s, Rule Processor: %s:%S",
+                verbTransformer.getClass().getSimpleName(), verbTransformer,
+                ruleProcessor.getClass().getSimpleName(), ruleProcessor));
+        testImperativeOrForbidding(form, verbTransformer, ruleProcessor, rootLetters, IMPERATIVE, beforeMessage, afterMessage);
     }
 
     private void testForbidding(final Form form, RootLetters rootLetters, String beforeMessage, String afterMessage) {
-        testImperativeOrForbidding(form, rootLetters, FORBIDDING, beforeMessage, afterMessage);
+        final AbstractVerbTransformer verbTransformer = getBean(FORBIDDING_SECOND_PERSON_MASCULINE_TRANSFORMER.name(),
+                AbstractVerbTransformer.class);
+        final RuleProcessor ruleProcessor = getBean(RuleProcessorType.Type.RULE_ENGINE.name(), RuleProcessor.class);
+        System.out.println(String.format("Forbidding: %s:%s, Rule Processor: %s:%S",
+                verbTransformer.getClass().getSimpleName(), verbTransformer,
+                ruleProcessor.getClass().getSimpleName(), ruleProcessor));
+        testImperativeOrForbidding(form, verbTransformer, ruleProcessor, rootLetters, FORBIDDING, beforeMessage, afterMessage);
     }
 
-    private void testImperativeOrForbidding(final Form form, RootLetters rootLetters, SarfTermType termType,
+    private void testImperativeOrForbidding(final Form form, AbstractVerbTransformer verbTransformer, RuleProcessor ruleEngine,
+                                            RootLetters rootLetters, SarfTermType termType,
                                             String beforeMessage, String afterMessage) {
         final VerbRootBase verbRootBase = form.getImperative();
         final Verb root = verbRootBase.getRoot();
-        final AbstractVerbTransformer verbTransformer = (AbstractVerbTransformer) GUICE_SUPPORT.getVerbTransformer(
-                root.getSecondPersonMasculineName());
         RootWord rootWord = new RootWord(root.getRootWord(), rootLetters.getFirstRadical(), rootLetters.getSecondRadical(),
                 rootLetters.getThirdRadical()).withSarfTermType(PRESENT_TENSE);
         rootWord = verbTransformer.doSingular(rootWord);
         log(String.format("%s %s<br/>", beforeMessage, CommonTest.printArabicText(rootWord.getRootWord())));
-        RuleProcessor ruleEngine = RULE_PROCESSOR_FACTORY.getRuleEngine(new RuleInfo(form.getTemplate(), rootLetters));
         rootWord = ruleEngine.applyRules(rootWord);
         rootWord = ruleEngine.applyRules(rootWord.withSarfTermType(termType));
         log(String.format("%s %s<br/>", afterMessage, CommonTest.printArabicText(rootWord.getRootWord())));

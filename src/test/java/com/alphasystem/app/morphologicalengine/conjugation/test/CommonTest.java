@@ -78,7 +78,7 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
         return status == null ? "| " : format("|[arabicTableCaptionSmall]#%s#", status.toHtmlCode());
     }
 
-    private static String getRootWord(RootWord... rootWords) {
+    static String getRootWord(RootWord... rootWords) {
         return getRootWord(0, rootWords);
     }
 
@@ -86,7 +86,7 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
         return getRootWord(columnSpan, null, rootWords);
     }
 
-    private static String getRootWord(int columnSpan, ArabicWord prefix, RootWord... rootWords) {
+    static String getRootWord(int columnSpan, ArabicWord prefix, RootWord... rootWords) {
         if (isEmpty(rootWords)) {
             return columnSpan <= 0 ? "|&nbsp; " : getEmptyRow(columnSpan);
         }
@@ -123,7 +123,7 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
         return getSarfTermTypeHeader(leftTerm, rightTerm, numOfRows, "3+|%s .%s+| 3+|%s .2+| %s");
     }
 
-    private static String getSarfTermTypeHeader(SarfTermType leftTerm, SarfTermType rightTerm, int numOfRows, String format) {
+    static String getSarfTermTypeHeader(SarfTermType leftTerm, SarfTermType rightTerm, int numOfRows, String format) {
         String leftTermCaption = format("[arabicTableCaption]#%s#", (leftTerm == null) ? HTML_SPACE : leftTerm.toLabel().toHtmlCode());
         String rightTermCaption = format("[arabicTableCaption]#%s#", (rightTerm == null) ? HTML_SPACE : rightTerm.toLabel().toHtmlCode());
         return format(format, leftTermCaption, numOfRows, rightTermCaption, NEW_LINE);
@@ -172,7 +172,7 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
         addRootWords(rootWords, presentTenseConjugationGroup.getFeminineSecondPerson(), 20);
         addRootWords(rootWords, presentTenseConjugationGroup.getFirstPerson(), 26);
 
-        return new RootWord[0];
+        return rootWords;
     }
 
     protected static void addRow(List<String> lines, ArabicWord status, RootWord[] rootWords, int initialIndex) {
@@ -185,7 +185,7 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
         lines.add(builder.toString());
     }
 
-    private static String getEmptyRow(int numOfColumns) {
+    static String getEmptyRow(int numOfColumns) {
         return format("%s+| ", numOfColumns);
     }
 

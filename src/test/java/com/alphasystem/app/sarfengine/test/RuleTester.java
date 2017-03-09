@@ -1,39 +1,50 @@
-/**
- *
- */
 package com.alphasystem.app.sarfengine.test;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorConfiguration;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
-import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorType;
 import com.alphasystem.arabic.model.ArabicLetters;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.NamedTemplate;
-import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
-import static com.alphasystem.arabic.model.DiacriticType.*;
+import static com.alphasystem.arabic.model.DiacriticType.DAMMA;
+import static com.alphasystem.arabic.model.DiacriticType.FATHA;
+import static com.alphasystem.arabic.model.DiacriticType.KASRA;
+import static com.alphasystem.arabic.model.DiacriticType.SUKUN;
 import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_MASCULINE_SINGULAR;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_U_TEMPLATE;
-import static com.alphasystem.morphologicalanalysis.morphology.util.TriLiteralTemplateHelper.*;
+import static com.alphasystem.morphologicalanalysis.morphology.util.TriLiteralTemplateHelper.createPastTenseRootWord;
+import static com.alphasystem.morphologicalanalysis.morphology.util.TriLiteralTemplateHelper.createPresentTenseRootWord;
+import static com.alphasystem.morphologicalanalysis.morphology.util.TriLiteralTemplateHelper.createRootWord;
 import static java.lang.String.format;
 import static org.testng.Reporter.log;
 
 /**
  * @author sali
  */
+@ContextConfiguration(classes = {RuleProcessorConfiguration.class})
 public class RuleTester extends Assert implements ArabicLetters {
 
     private static final String ARABIC_TEXT_SPAN = "<span class='arabicText'>%s</span>";
 
-    private RuleProcessorFactory ruleProcessorFactory = GuiceSupport.getInstance().getInjector().
-            getInstance(RuleProcessorFactory.class);
+    @Autowired
+    @RuleProcessorType(RuleProcessorType.Type.RULE_ENGINE)
+    private RuleProcessorFactory ruleEngineFactory;
+
+    @Autowired
+    @RuleProcessorType(RuleProcessorType.Type.HAMZAH_CHAIR_PROCESSOR)
+    private RuleProcessorFactory ruleProcessorFactory;
 
     private void print(String testName, ArabicWord src, ArabicWord result,
                        String msg) {
@@ -80,7 +91,7 @@ public class RuleTester extends Assert implements ArabicLetters {
 
     private void testExecuteRuleForAssimilatedVerbWawPresentTense(RootWord rootWord, RootLetters rootLetters, String msg, boolean fail) {
         ArabicWord src = rootWord.getRootWord();
-        RuleProcessor ruleEngine = ruleProcessorFactory.getRuleEngine(new RuleInfo(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, rootLetters));
+        RuleProcessor ruleEngine = ruleEngineFactory.createRuleProcessor(new RuleInfo(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, rootLetters));
         ArabicWord result = ruleEngine.applyRules(rootWord).getRootWord();
         print("applyRulesForAssimilatedVerbWawPresentTense",
                 rootWord.getRootWord(), result, msg);
@@ -100,7 +111,7 @@ public class RuleTester extends Assert implements ArabicLetters {
         String arabicText = format(ARABIC_TEXT_SPAN, rootWord.getRootWord().toHtmlCode());
         log(format("<div>Initial Word: %s</div>", arabicText));
         RootLetters rootLetters = new RootLetters(HHA, WAW, RA);
-        RuleProcessor ruleEngine = ruleProcessorFactory.getRuleEngine(new RuleInfo(template, rootLetters));
+        RuleProcessor ruleEngine = ruleEngineFactory.createRuleProcessor(new RuleInfo(template, rootLetters));
         RootWord rw = ruleEngine.applyRules(rootWord);
         arabicText = format(ARABIC_TEXT_SPAN, rw.getRootWord().toHtmlCode());
         log(format("<div>After Applying HamzaRule7Processor: %s</div>",
@@ -166,7 +177,7 @@ public class RuleTester extends Assert implements ArabicLetters {
     }
 
     private void testReplaceHamzahWithChair(RootWord baseRootWord, RootLetters rootLetters, String msg) {
-        RuleProcessor processor = ruleProcessorFactory.getHamzahChairProcessor(new RuleInfo(FORM_I_CATEGORY_U_TEMPLATE, rootLetters));
+        RuleProcessor processor = ruleEngineFactory.createRuleProcessor(new RuleInfo(FORM_I_CATEGORY_U_TEMPLATE, rootLetters));
         ArabicWord src = baseRootWord.getRootWord();
         ArabicWord result = processor.applyRules(baseRootWord).getRootWord();
         print("testReplaceHamzahWithChair", src, result, msg);

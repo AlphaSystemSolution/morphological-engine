@@ -15,10 +15,9 @@ public class SarfEngineTestFactory {
     @Factory
     public Object[] createTest() {
         return new Object[]{
-                // new GuiceTest(),
                 new LabelPrinter(),
-                new RuleTester(),
-                // new BuilderTest(),
+                // new RuleTester(),
+               //  new BuilderTest(),
                 new NounTransformerTest(),
                 // new VerbTransformerTest(),
                 new TransformerTest(),
