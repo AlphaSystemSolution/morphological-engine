@@ -1,5 +1,6 @@
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
 /**
@@ -17,7 +18,11 @@ public class ConjugationGroup {
         this.termType = termType;
     }
 
-    public boolean isEmpty(){
+    public RootWord getDefaultValue() {
+        return null;
+    }
+
+    public boolean isEmpty() {
         return false;
     }
 }

@@ -1,5 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+
 /**
  * @author sali
  */
@@ -56,6 +58,11 @@ public final class VerbConjugationGroup extends ConjugationGroup {
 
     public void setFirstPerson(ConjugationTuple firstPerson) {
         this.firstPerson = firstPerson;
+    }
+
+    @Override
+    public RootWord getDefaultValue() {
+        return (masculineThirdPerson == null) ? null : masculineThirdPerson.getSingular();
     }
 
     @Override

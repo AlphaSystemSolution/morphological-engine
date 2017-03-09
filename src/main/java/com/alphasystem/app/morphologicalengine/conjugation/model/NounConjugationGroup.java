@@ -1,5 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+
 /**
  * @author sali
  */
@@ -36,6 +38,11 @@ public final class NounConjugationGroup extends ConjugationGroup {
 
     public void setGenitive(ConjugationTuple genitive) {
         this.genitive = genitive;
+    }
+
+    @Override
+    public RootWord getDefaultValue() {
+        return (nominative == null) ? null : nominative.getSingular();
     }
 
     @Override
