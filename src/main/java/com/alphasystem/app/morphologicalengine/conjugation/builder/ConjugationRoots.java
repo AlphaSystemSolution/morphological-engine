@@ -12,22 +12,22 @@ import org.apache.commons.lang3.ArrayUtils;
  */
 public final class ConjugationRoots {
 
-    NamedTemplate template;
-    ConjugationConfiguration conjugationConfiguration;
-    ChartConfiguration chartConfiguration;
-    String translation;
-    VerbRootBase pastTense;
-    VerbRootBase presentTense;
-    VerbRootBase pastPassiveTense;
-    VerbRootBase presentPassiveTense;
-    NounRootBase activeParticipleMasculine;
-    NounRootBase activeParticipleFeminine;
-    NounRootBase passiveParticipleMasculine;
-    NounRootBase passiveParticipleFeminine;
-    VerbRootBase imperative;
-    VerbRootBase forbidding;
-    NounRootBase[] verbalNouns;
-    NounRootBase[] adverbs;
+    private NamedTemplate template;
+    private ConjugationConfiguration conjugationConfiguration;
+    private ChartConfiguration chartConfiguration;
+    private String translation;
+    private VerbRootBase pastTense;
+    private VerbRootBase presentTense;
+    private VerbRootBase pastPassiveTense;
+    private VerbRootBase presentPassiveTense;
+    private NounRootBase activeParticipleMasculine;
+    private NounRootBase activeParticipleFeminine;
+    private NounRootBase passiveParticipleMasculine;
+    private NounRootBase passiveParticipleFeminine;
+    private VerbRootBase imperative;
+    private VerbRootBase forbidding;
+    private NounRootBase[] verbalNouns;
+    private NounRootBase[] adverbs;
 
     public ConjugationRoots() {
         setChartConfiguration(null);
