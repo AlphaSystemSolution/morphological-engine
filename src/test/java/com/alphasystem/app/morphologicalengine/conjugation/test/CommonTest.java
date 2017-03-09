@@ -66,27 +66,27 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
     private static Asciidoctor asciidoctor = Asciidoctor.Factory.create();
     protected List<String> lines;
 
-    public static String getGenderCaption(HiddenPronounStatus status) {
+    private static String getGenderCaption(HiddenPronounStatus status) {
         return format("[arabicTableCaption]#%s#", status.getGenderLabel().toHtmlCode());
     }
 
-    public static String getNumberCaption(HiddenNounStatus status) {
+    private static String getNumberCaption(HiddenNounStatus status) {
         return format("[arabicTableCaptionSmall]#%s#", status.getNumberLabel().toHtmlCode());
     }
 
-    public static String getStatusCaption(ArabicWord status) {
+    private static String getStatusCaption(ArabicWord status) {
         return status == null ? "| " : format("|[arabicTableCaptionSmall]#%s#", status.toHtmlCode());
     }
 
-    public static String getRootWord(RootWord... rootWords) {
+    private static String getRootWord(RootWord... rootWords) {
         return getRootWord(0, rootWords);
     }
 
-    public static String getRootWord(int columnSpan, RootWord... rootWords) {
+    private static String getRootWord(int columnSpan, RootWord... rootWords) {
         return getRootWord(columnSpan, null, rootWords);
     }
 
-    public static String getRootWord(int columnSpan, ArabicWord prefix, RootWord... rootWords) {
+    private static String getRootWord(int columnSpan, ArabicWord prefix, RootWord... rootWords) {
         if (isEmpty(rootWords)) {
             return columnSpan <= 0 ? "|&nbsp; " : getEmptyRow(columnSpan);
         }
@@ -105,30 +105,31 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
                 format("%s+|[arabicNormal]#%s#", columnSpan, arabicWord.toHtmlCode());
     }
 
-    public static String getLabel(ArabicSupport arabicSupport) {
+    protected static String getLabel(ArabicSupport arabicSupport) {
         return (arabicSupport == null) ? "" : format("[arabicNormal]#%s#", arabicSupport.toLabel().toHtmlCode());
     }
 
-    public static String getRootWordSarfTermType(RootWord rootWord) {
+    @SuppressWarnings({"unused"})
+    private static String getRootWordSarfTermType(RootWord rootWord) {
         SarfTermType sarfTermType = (rootWord == null) ? null : rootWord.getSarfTermType();
         return (sarfTermType == null) ? "" : format("[small]#%s#", sarfTermType.name());
     }
 
-    public static String addGenderHeader() {
+    protected static String addGenderHeader() {
         return format("3+|%s .5+| 3+|%s .2+| %s", getGenderCaption(THIRD_PERSON_FEMININE_SINGULAR), getGenderCaption(THIRD_PERSON_MASCULINE_SINGULAR), NEW_LINE);
     }
 
-    public static String getSarfTermTypeHeader(SarfTermType leftTerm, SarfTermType rightTerm, int numOfRows) {
+    protected static String getSarfTermTypeHeader(SarfTermType leftTerm, SarfTermType rightTerm, int numOfRows) {
         return getSarfTermTypeHeader(leftTerm, rightTerm, numOfRows, "3+|%s .%s+| 3+|%s .2+| %s");
     }
 
-    public static String getSarfTermTypeHeader(SarfTermType leftTerm, SarfTermType rightTerm, int numOfRows, String format) {
+    private static String getSarfTermTypeHeader(SarfTermType leftTerm, SarfTermType rightTerm, int numOfRows, String format) {
         String leftTermCaption = format("[arabicTableCaption]#%s#", (leftTerm == null) ? HTML_SPACE : leftTerm.toLabel().toHtmlCode());
         String rightTermCaption = format("[arabicTableCaption]#%s#", (rightTerm == null) ? HTML_SPACE : rightTerm.toLabel().toHtmlCode());
         return format(format, leftTermCaption, numOfRows, rightTermCaption, NEW_LINE);
     }
 
-    public static String addNumberHeader(boolean emptyLeftSide) {
+    protected static String addNumberHeader(boolean emptyLeftSide) {
         return format("|%s%s|%s%s|%s%s|%s%s|%s%s|%s%s", emptyLeftSide ? HTML_SPACE : getNumberCaption(NOMINATIVE_PLURAL),
                 NEW_LINE, emptyLeftSide ? HTML_SPACE : getNumberCaption(NOMINATIVE_DUAL), NEW_LINE,
                 emptyLeftSide ? HTML_SPACE : getNumberCaption(NOMINATIVE_SINGULAR), NEW_LINE,
@@ -136,7 +137,7 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
                 getNumberCaption(NOMINATIVE_SINGULAR), NEW_LINE);
     }
 
-    protected static void addRootWords(RootWord[] rootWords, ConjugationTuple conjugationTuple, int initialIndex) {
+    private static void addRootWords(RootWord[] rootWords, ConjugationTuple conjugationTuple, int initialIndex) {
         rootWords[initialIndex] = (conjugationTuple == null) ? null : conjugationTuple.getSingular();
         rootWords[initialIndex - 1] = (conjugationTuple == null) ? null : conjugationTuple.getDual();
         rootWords[initialIndex - 2] = (conjugationTuple == null) ? null : conjugationTuple.getPlural();
@@ -184,11 +185,11 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
         lines.add(builder.toString());
     }
 
-    protected static String getEmptyRow(int numOfColumns) {
+    private static String getEmptyRow(int numOfColumns) {
         return format("%s+| ", numOfColumns);
     }
 
-    public static String printArabicText(String format, ArabicWord src) {
+    private static String printArabicText(String format, ArabicWord src) {
         return format(format, src.toHtmlCode());
     }
 
