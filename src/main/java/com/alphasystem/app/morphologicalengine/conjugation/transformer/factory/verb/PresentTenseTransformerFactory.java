@@ -31,7 +31,7 @@ public class PresentTenseTransformerFactory extends AbstractVerbTransformerFacto
 
     @Override
     public VerbTransformer thirdPersonMasculineTransformer() {
-        return thirdPersonFeminineTransformer();
+        return thirdPersonMasculineTransformer;
     }
 
     @Override
