@@ -6,13 +6,18 @@ package com.alphasystem.app.morphologicalengine.conjugation.rule.processor;
 import com.alphasystem.app.morphologicalengine.conjugation.model.WordStatus;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.AbstractRuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
-import com.alphasystem.arabic.model.*;
+import com.alphasystem.arabic.model.ArabicLetter;
+import com.alphasystem.arabic.model.ArabicLetterType;
+import com.alphasystem.arabic.model.ArabicWord;
+import com.alphasystem.arabic.model.DiacriticType;
+import com.alphasystem.arabic.model.SarfMemberType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 
-import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.*;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.checkArgument;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.getDiacritic;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isMutaharik;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isSakin;
 import static com.alphasystem.arabic.model.ArabicLetterType.WAW;
 import static com.alphasystem.arabic.model.ArabicLetterType.YA;
 import static com.alphasystem.arabic.model.DiacriticType.KASRA;
@@ -26,8 +31,7 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sar
  */
 public class Rule14Processor extends AbstractRuleProcessor {
 
-    @AssistedInject
-    public Rule14Processor(@Assisted RuleInfo ruleInfo) {
+    public Rule14Processor(final RuleInfo ruleInfo) {
         super(ruleInfo);
     }
 

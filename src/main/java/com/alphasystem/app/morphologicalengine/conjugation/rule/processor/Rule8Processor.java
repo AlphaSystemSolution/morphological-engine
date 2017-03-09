@@ -12,13 +12,24 @@ import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 
-import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.*;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.checkArgument;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.getDiacritic;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isFatha;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isMaddaExtra;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isMutaharikNoTanween;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isSakin;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isWaw;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isYa;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.maddaIndex;
 import static com.alphasystem.arabic.model.ArabicLetters.LETTER_ALIF;
 import static com.alphasystem.arabic.model.DiacriticType.SUKUN;
-import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.FORBIDDING;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.IMPERATIVE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PASSIVE_PARTICIPLE_FEMININE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PASSIVE_PARTICIPLE_MASCULINE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_PASSIVE_TENSE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_TENSE;
 
 ;
 
@@ -27,8 +38,7 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sar
  */
 public class Rule8Processor extends AbstractRuleProcessor {
 
-    @AssistedInject
-    public Rule8Processor(@Assisted RuleInfo ruleInfo) {
+    public Rule8Processor(final RuleInfo ruleInfo) {
         super(ruleInfo);
     }
 

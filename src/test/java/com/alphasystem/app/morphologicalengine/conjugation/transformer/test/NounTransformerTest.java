@@ -1,14 +1,16 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.test;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugation;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleEngineConfiguration;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorType;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.processor.RuleProcessorConfiguration;
 import com.alphasystem.app.morphologicalengine.conjugation.test.CommonTest;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerConfiguration;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerType;
-import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
@@ -23,10 +25,12 @@ import org.testng.annotations.Test;
 /**
  * @author sali
  */
-@ContextConfiguration(classes = {NounTransformerConfiguration.class})
+@ContextConfiguration(classes = {RuleProcessorConfiguration.class, RuleEngineConfiguration.class, NounTransformerConfiguration.class})
 public class NounTransformerTest extends CommonTest {
 
-    private static final RuleProcessorFactory RULE_PROCESSOR_FACTORY = GuiceSupport.getInstance().getRuleProcessorFactory();
+    @Autowired
+    @RuleProcessorType(RuleProcessorType.Type.RULE_ENGINE)
+    private RuleProcessorFactory ruleProcessorFactory;
 
     @Autowired
     @NounTransformerType(NounTransformerType.Type.MASCULINE_ENDING_SOUND_TRANSFORMER)
@@ -90,7 +94,7 @@ public class NounTransformerTest extends CommonTest {
         final RootLetters rootLetters = new RootLetters(firstRadical, secondRadical, thirdRadical);
 
         RuleInfo ruleInfo = new RuleInfo(template, rootLetters, true);
-        final RuleProcessor ruleProcessor = RULE_PROCESSOR_FACTORY.getRuleEngine(ruleInfo);
+        final RuleProcessor ruleProcessor = ruleProcessorFactory.createRuleProcessor(ruleInfo);
 
         return transformer.doTransform(ruleProcessor, noun.getRootWord(), sarfTermType, firstRadical, secondRadical, thirdRadical, null);
     }

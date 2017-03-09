@@ -10,10 +10,12 @@ import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 
-import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.*;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.checkArgument;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.getDiacritic;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isMutaharik;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isSakin;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.maddaIndex;
 
 ;
 
@@ -22,8 +24,7 @@ import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProce
  */
 public class HamzaRule7Processor extends AbstractRuleProcessor {
 
-    @AssistedInject
-    public HamzaRule7Processor(@Assisted RuleInfo ruleInfo) {
+    public HamzaRule7Processor(final RuleInfo ruleInfo) {
         super(ruleInfo);
     }
 

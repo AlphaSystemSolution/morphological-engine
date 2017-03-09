@@ -10,10 +10,12 @@ import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 
-import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.*;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.HEAVY_LETTERS;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.checkArgument;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.getDiacritic;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isFatha;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isKasra;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_PASSIVE_TENSE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_TENSE;
 import static org.apache.commons.lang3.ArrayUtils.contains;
@@ -25,8 +27,7 @@ import static org.apache.commons.lang3.ArrayUtils.contains;
  */
 public class Rule1Processor extends AbstractRuleProcessor {
 
-    @AssistedInject
-    public Rule1Processor(@Assisted RuleInfo ruleInfo) {
+    public Rule1Processor(final RuleInfo ruleInfo) {
         super(ruleInfo);
     }
 

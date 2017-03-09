@@ -12,14 +12,18 @@ import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.arabic.model.SarfMemberType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 
-import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.*;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.THIRD_PERSON_FEMENINE_PLURAL_AND_SECOND_AND_FIRST_PERSONS_MEMBERS;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.checkArgument;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.getDiacritic;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isFatha;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isKasra;
 import static com.alphasystem.arabic.model.ArabicLetters.YA_WITH_SUKUN;
 import static com.alphasystem.arabic.model.DiacriticType.DAMMA;
 import static com.alphasystem.arabic.model.DiacriticType.KASRA;
-import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.FORBIDDING;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.IMPERATIVE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PAST_PASSIVE_TENSE;
 import static org.apache.commons.lang3.ArrayUtils.contains;
 
 ;
@@ -29,8 +33,7 @@ import static org.apache.commons.lang3.ArrayUtils.contains;
  */
 public class Rule9Processor extends AbstractRuleProcessor {
 
-    @AssistedInject
-    public Rule9Processor(@Assisted RuleInfo ruleInfo) {
+    public Rule9Processor(RuleInfo ruleInfo) {
         super(ruleInfo);
     }
 

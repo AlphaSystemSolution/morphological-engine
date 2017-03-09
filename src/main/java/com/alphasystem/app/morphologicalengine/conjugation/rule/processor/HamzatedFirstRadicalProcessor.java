@@ -8,8 +8,6 @@ import com.alphasystem.app.morphologicalengine.conjugation.rule.AbstractRuleProc
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.checkArgument;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
@@ -22,8 +20,7 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sar
  */
 public class HamzatedFirstRadicalProcessor extends AbstractRuleProcessor {
 
-    @AssistedInject
-    public HamzatedFirstRadicalProcessor(@Assisted RuleInfo ruleInfo) {
+    public HamzatedFirstRadicalProcessor(final RuleInfo ruleInfo) {
         super(ruleInfo);
     }
 

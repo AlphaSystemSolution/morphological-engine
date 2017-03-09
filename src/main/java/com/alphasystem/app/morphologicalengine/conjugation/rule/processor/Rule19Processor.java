@@ -9,10 +9,12 @@ import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 
-import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.*;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.NOUN_BASED_TYPES;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.checkArgument;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isLongAlif;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isWaw;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isYa;
 import static com.alphasystem.arabic.model.ArabicLetterType.HAMZA;
 
 ;
@@ -22,8 +24,7 @@ import static com.alphasystem.arabic.model.ArabicLetterType.HAMZA;
  */
 public class Rule19Processor extends AbstractRuleProcessor {
 
-    @AssistedInject
-    public Rule19Processor(@Assisted RuleInfo ruleInfo) {
+    public Rule19Processor(final RuleInfo ruleInfo) {
         super(ruleInfo);
     }
 

@@ -9,8 +9,6 @@ import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.DAL;
 import static com.alphasystem.arabic.model.ArabicLetterType.TA;
@@ -24,8 +22,7 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sar
  */
 public class FormVIIIProcessor extends AbstractRuleProcessor {
 
-    @AssistedInject
-    public FormVIIIProcessor(@Assisted RuleInfo ruleInfo) {
+    public FormVIIIProcessor(final RuleInfo ruleInfo) {
         super(ruleInfo);
     }
 

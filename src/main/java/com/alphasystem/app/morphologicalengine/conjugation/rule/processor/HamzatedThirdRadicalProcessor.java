@@ -10,12 +10,12 @@ import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.checkArgument;
 import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.maddaIndex;
-import static com.alphasystem.arabic.model.ArabicLetterType.*;
+import static com.alphasystem.arabic.model.ArabicLetterType.HAMZA;
+import static com.alphasystem.arabic.model.ArabicLetterType.WAW;
+import static com.alphasystem.arabic.model.ArabicLetterType.YA;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PASSIVE_PARTICIPLE_FEMININE;
 
 ;
@@ -25,8 +25,7 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sar
  */
 public class HamzatedThirdRadicalProcessor extends AbstractRuleProcessor {
 
-    @AssistedInject
-    public HamzatedThirdRadicalProcessor(@Assisted RuleInfo ruleInfo) {
+    public HamzatedThirdRadicalProcessor(final RuleInfo ruleInfo) {
         super(ruleInfo);
     }
 

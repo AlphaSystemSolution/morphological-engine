@@ -11,8 +11,6 @@ import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.getDiacriticIncludingShadda;
 import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isDamma;
@@ -41,8 +39,7 @@ public class HamzahChairProcessor extends AbstractRuleProcessor {
 
     protected ArabicLetterType hamzahReplacement;
 
-    @AssistedInject
-    public HamzahChairProcessor(@Assisted RuleInfo ruleInfo) {
+    public HamzahChairProcessor(final RuleInfo ruleInfo) {
         super(ruleInfo);
     }
 

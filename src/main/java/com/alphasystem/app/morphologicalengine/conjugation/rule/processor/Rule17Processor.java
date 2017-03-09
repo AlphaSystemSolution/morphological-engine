@@ -8,8 +8,6 @@ import com.alphasystem.app.morphologicalengine.conjugation.rule.AbstractRuleProc
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.checkArgument;
 import static com.alphasystem.arabic.model.ArabicLetterType.HAMZA;
@@ -23,8 +21,7 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sar
  */
 public class Rule17Processor extends AbstractRuleProcessor {
 
-    @AssistedInject
-    public Rule17Processor(@Assisted RuleInfo ruleInfo) {
+    public Rule17Processor(final RuleInfo ruleInfo) {
         super(ruleInfo);
     }
 

@@ -8,11 +8,15 @@ import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 
-import static com.alphasystem.arabic.model.ArabicLetters.*;
-import static com.alphasystem.arabic.model.DiacriticType.*;
+import static com.alphasystem.arabic.model.ArabicLetters.ALIF_HAMZA_ABOVE_WITH_DAMMA;
+import static com.alphasystem.arabic.model.ArabicLetters.ALIF_HAMZA_ABOVE_WITH_FATHA;
+import static com.alphasystem.arabic.model.ArabicLetters.ALIF_HAMZA_BELOW_WITH_KASRA;
+import static com.alphasystem.arabic.model.DiacriticType.DAMMA;
+import static com.alphasystem.arabic.model.DiacriticType.FATHA;
+import static com.alphasystem.arabic.model.DiacriticType.KASRA;
+import static com.alphasystem.arabic.model.DiacriticType.SHADDA;
+import static com.alphasystem.arabic.model.DiacriticType.SUKUN;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_IV_TEMPLATE;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_VII_TEMPLATE;
@@ -24,8 +28,7 @@ import static org.apache.commons.lang3.ArrayUtils.isEmpty;
  */
 public class ImperativeProcessor extends AbstractRuleProcessor {
 
-    @AssistedInject
-    public ImperativeProcessor(@Assisted RuleInfo ruleInfo) {
+    public ImperativeProcessor(final RuleInfo ruleInfo) {
         super(ruleInfo);
     }
 

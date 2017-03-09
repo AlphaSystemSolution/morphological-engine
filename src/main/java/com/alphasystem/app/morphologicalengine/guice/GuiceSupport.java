@@ -33,8 +33,7 @@ public final class GuiceSupport {
      * Do not let anyone instantiate this class
      */
     private GuiceSupport() {
-        injector = Guice.createInjector(new CloseableModule(), new Jsr250Module(), new RuleProcessorModule(),
-                new MemberBuilderModule(), new BuilderModule());
+        injector = Guice.createInjector(new CloseableModule(), new Jsr250Module(), new BuilderModule());
     }
 
     public static GuiceSupport getInstance() {
@@ -43,10 +42,6 @@ public final class GuiceSupport {
 
     public Injector getInjector() {
         return injector;
-    }
-
-    public RuleProcessorFactory getRuleProcessorFactory() {
-        return injector.getInstance(RuleProcessorFactory.class);
     }
 
     public <T> T getInstance(Class<T> type, Annotation annotation) {

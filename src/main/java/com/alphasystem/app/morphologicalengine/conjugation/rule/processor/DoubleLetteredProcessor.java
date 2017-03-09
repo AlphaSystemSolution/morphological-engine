@@ -10,10 +10,11 @@ import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 
-import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.*;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.checkArgument;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.getDiacritic;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isMutaharik;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.maddaIndex;
 import static com.alphasystem.arabic.model.DiacriticType.SUKUN;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.FORBIDDING;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.IMPERATIVE;
@@ -25,8 +26,7 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sar
  */
 public class DoubleLetteredProcessor extends AbstractRuleProcessor {
 
-    @AssistedInject
-    public DoubleLetteredProcessor(@Assisted RuleInfo ruleInfo) {
+    public DoubleLetteredProcessor(final RuleInfo ruleInfo) {
         super(ruleInfo);
     }
 

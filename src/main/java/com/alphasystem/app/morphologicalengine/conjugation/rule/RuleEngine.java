@@ -1,10 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.rule;
 
 import com.alphasystem.app.morphologicalengine.conjugation.rule.processor.HamzahChairProcessor;
-import com.alphasystem.app.morphologicalengine.guice.GuiceSupport;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 
 ;
 
@@ -35,31 +32,49 @@ public class RuleEngine extends AbstractRuleProcessor {
     private final RuleProcessor rule19Processor;
     private final RuleProcessor rule20Processor;
 
-    @AssistedInject
-    public RuleEngine(@Assisted RuleInfo ruleInfo) {
+    public RuleEngine(final RuleInfo ruleInfo, final RuleProcessorFactory doubleLetteredProcessorFactory,
+                      final RuleProcessorFactory formVIIIProcessorFactory,
+                      final RuleProcessorFactory hamzahChairProcessorFactory,
+                      final RuleProcessorFactory hamzaRule7ProcessorFactory,
+                      final RuleProcessorFactory hamzatedFirstRadicalProcessorFactory,
+                      final RuleProcessorFactory hamzatedThirdRadicalProcessorFactory,
+                      final RuleProcessorFactory imperativeProcessorFactory,
+                      final RuleProcessorFactory patternProcessorFactory,
+                      final RuleProcessorFactory prefixProcessorFactory,
+                      final RuleProcessorFactory rule1ProcessorFactory,
+                      final RuleProcessorFactory rule7ProcessorFactory,
+                      final RuleProcessorFactory rule8ProcessorFactory,
+                      final RuleProcessorFactory rule9ProcessorFactory,
+                      final RuleProcessorFactory rule10ProcessorFactory,
+                      final RuleProcessorFactory rule11And12ProcessorFactory,
+                      final RuleProcessorFactory rule13ProcessorFactory,
+                      final RuleProcessorFactory rule14ProcessorFactory,
+                      final RuleProcessorFactory rule15ProcessorFactory,
+                      final RuleProcessorFactory rule17ProcessorFactory,
+                      final RuleProcessorFactory rule19ProcessorFactory,
+                      final RuleProcessorFactory rule20ProcessorFactory) {
         super(ruleInfo);
-        RuleProcessorFactory ruleProcessorFactory = GuiceSupport.getInstance().getRuleProcessorFactory();
-        doubleLetteredProcessor = ruleProcessorFactory.getDoubleLetteredProcessor(ruleInfo);
-        formVIIIProcessor = ruleProcessorFactory.getFormVIIIProcessor(ruleInfo);
-        hamzahChairProcessor = ruleProcessorFactory.getHamzahChairProcessor(ruleInfo);
-        hamzaRule7Processor = ruleProcessorFactory.getHamzaRule7Processor(ruleInfo);
-        hamzatedFirstRadicalProcessor = ruleProcessorFactory.getHamzatedFirstRadicalProcessor(ruleInfo);
-        hamzatedThirdRadicalProcessor = ruleProcessorFactory.getHamzatedThirdRadicalProcessor(ruleInfo);
-        imperativeProcessor = ruleProcessorFactory.getImperativeProcessor(ruleInfo);
-        patternProcessor = ruleProcessorFactory.getPatternProcessor(ruleInfo);
-        prefixProcessor = ruleProcessorFactory.getPrefixProcessor(ruleInfo);
-        rule1Processor = ruleProcessorFactory.getRule1Processor(ruleInfo);
-        rule7Processor = ruleProcessorFactory.getRule7Processor(ruleInfo);
-        rule8Processor = ruleProcessorFactory.getRule8Processor(ruleInfo);
-        rule9Processor = ruleProcessorFactory.getRule9Processor(ruleInfo);
-        rule10Processor = ruleProcessorFactory.getRule10Processor(ruleInfo);
-        rule11And12Processor = ruleProcessorFactory.getRule11And12Processor(ruleInfo);
-        rule13Processor = ruleProcessorFactory.getRule13Processor(ruleInfo);
-        rule14Processor = ruleProcessorFactory.getRule14Processor(ruleInfo);
-        rule16Processor = ruleProcessorFactory.getRule16Processor(ruleInfo);
-        rule17Processor = ruleProcessorFactory.getRule17Processor(ruleInfo);
-        rule19Processor = ruleProcessorFactory.getRule19Processor(ruleInfo);
-        rule20Processor = ruleProcessorFactory.getRule20Processor(ruleInfo);
+        doubleLetteredProcessor = doubleLetteredProcessorFactory.createRuleProcessor(ruleInfo);
+        formVIIIProcessor = formVIIIProcessorFactory.createRuleProcessor(ruleInfo);
+        hamzahChairProcessor = hamzahChairProcessorFactory.createRuleProcessor(ruleInfo);
+        hamzaRule7Processor = hamzaRule7ProcessorFactory.createRuleProcessor(ruleInfo);
+        hamzatedFirstRadicalProcessor = hamzatedFirstRadicalProcessorFactory.createRuleProcessor(ruleInfo);
+        hamzatedThirdRadicalProcessor = hamzatedThirdRadicalProcessorFactory.createRuleProcessor(ruleInfo);
+        imperativeProcessor = imperativeProcessorFactory.createRuleProcessor(ruleInfo);
+        patternProcessor = patternProcessorFactory.createRuleProcessor(ruleInfo);
+        prefixProcessor = prefixProcessorFactory.createRuleProcessor(ruleInfo);
+        rule1Processor = rule1ProcessorFactory.createRuleProcessor(ruleInfo);
+        rule7Processor = rule7ProcessorFactory.createRuleProcessor(ruleInfo);
+        rule8Processor = rule8ProcessorFactory.createRuleProcessor(ruleInfo);
+        rule9Processor = rule9ProcessorFactory.createRuleProcessor(ruleInfo);
+        rule10Processor = rule10ProcessorFactory.createRuleProcessor(ruleInfo);
+        rule11And12Processor = rule11And12ProcessorFactory.createRuleProcessor(ruleInfo);
+        rule13Processor = rule13ProcessorFactory.createRuleProcessor(ruleInfo);
+        rule14Processor = rule14ProcessorFactory.createRuleProcessor(ruleInfo);
+        rule16Processor = rule15ProcessorFactory.createRuleProcessor(ruleInfo);
+        rule17Processor = rule17ProcessorFactory.createRuleProcessor(ruleInfo);
+        rule19Processor = rule19ProcessorFactory.createRuleProcessor(ruleInfo);
+        rule20Processor = rule20ProcessorFactory.createRuleProcessor(ruleInfo);
     }
 
     @Override

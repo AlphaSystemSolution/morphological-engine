@@ -12,8 +12,6 @@ import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.arabic.model.SarfMemberType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 
 import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.*;
 import static com.alphasystem.arabic.model.ArabicLetterType.YA;
@@ -21,8 +19,17 @@ import static com.alphasystem.arabic.model.ArabicLetters.LETTER_ALIF;
 import static com.alphasystem.arabic.model.ArabicLetters.LETTER_ALIF_MAKSURA;
 import static com.alphasystem.arabic.model.DiacriticType.DAMMA;
 import static com.alphasystem.arabic.model.DiacriticType.KASRA;
-import static com.alphasystem.arabic.model.HiddenPronounStatus.*;
-import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
+import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_FEMININE_DUAL;
+import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_FEMININE_SINGULAR;
+import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_MASCULINE_DUAL;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.FORBIDDING;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.IMPERATIVE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.NOUN_OF_PLACE_AND_TIME;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PAST_PASSIVE_TENSE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PAST_TENSE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_PASSIVE_TENSE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_TENSE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.VERBAL_NOUN;
 import static org.apache.commons.lang3.ArrayUtils.contains;
 
 ;
@@ -32,8 +39,7 @@ import static org.apache.commons.lang3.ArrayUtils.contains;
  */
 public class Rule7Processor extends AbstractRuleProcessor {
 
-    @AssistedInject
-    public Rule7Processor(@Assisted RuleInfo ruleInfo) {
+    public Rule7Processor(final RuleInfo ruleInfo) {
         super(ruleInfo);
     }
 

@@ -11,10 +11,12 @@ import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 
-import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.*;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.NOUN_BASED_TYPES;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.VERB_BASED_TYPES;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.checkArgument;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.getDiacritic;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.isDamma;
 import static com.alphasystem.arabic.model.DiacriticType.KASRATAN;
 import static org.apache.commons.lang3.ArrayUtils.contains;
 
@@ -25,8 +27,7 @@ import static org.apache.commons.lang3.ArrayUtils.contains;
  */
 public class Rule16Processor extends AbstractRuleProcessor {
 
-    @AssistedInject
-    public Rule16Processor(@Assisted RuleInfo ruleInfo) {
+    public Rule16Processor(final RuleInfo ruleInfo) {
         super(ruleInfo);
     }
 

@@ -11,7 +11,7 @@ public abstract class AbstractRuleProcessor implements RuleProcessor {
     public static final ArabicLetter REMOVE_MARKER = ArabicLetters.LETTER_FORWARD_SLASH;
     protected final RuleInfo ruleInfo;
 
-    protected AbstractRuleProcessor(RuleInfo ruleInfo) {
+    protected AbstractRuleProcessor(final RuleInfo ruleInfo) {
         this.ruleInfo = ruleInfo;
     }
 

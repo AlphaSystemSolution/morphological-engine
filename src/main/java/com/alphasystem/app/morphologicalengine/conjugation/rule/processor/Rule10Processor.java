@@ -7,17 +7,24 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.WordStatus;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.AbstractRuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper;
-import com.alphasystem.arabic.model.*;
+import com.alphasystem.arabic.model.ArabicLetter;
+import com.alphasystem.arabic.model.ArabicLetterType;
+import com.alphasystem.arabic.model.ArabicWord;
+import com.alphasystem.arabic.model.DiacriticType;
+import com.alphasystem.arabic.model.SarfMemberType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 import org.apache.commons.lang3.ArrayUtils;
 
 import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorHelper.checkArgument;
-import static com.alphasystem.arabic.model.ArabicLetterType.*;
+import static com.alphasystem.arabic.model.ArabicLetterType.ALIF_MAKSURA;
+import static com.alphasystem.arabic.model.ArabicLetterType.WAW;
+import static com.alphasystem.arabic.model.ArabicLetterType.YA;
 import static com.alphasystem.arabic.model.DiacriticType.SUKUN;
-import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.FORBIDDING;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.IMPERATIVE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_PASSIVE_TENSE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_TENSE;
 
 ;
 
@@ -26,8 +33,7 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sar
  */
 public class Rule10Processor extends AbstractRuleProcessor {
 
-    @AssistedInject
-    public Rule10Processor(@Assisted RuleInfo ruleInfo) {
+    public Rule10Processor(final RuleInfo ruleInfo) {
         super(ruleInfo);
     }
 
