@@ -158,8 +158,8 @@ public class ConjugationTest extends CommonTest {
         addParticipleConjugations(detailedConjugation.getActiveParticiplePair());
         addTenseConjugations(detailedConjugation.getPassiveTensePair());
         addParticipleConjugations(detailedConjugation.getPassiveParticiplePair());
-        addPairConjugations(detailedConjugation.getAdverbPairs());
         addTenseConjugations(detailedConjugation.getImperativeAndForbiddingPair(), 3);
+        addPairConjugations(detailedConjugation.getAdverbPairs());
         lines.add(ASCII_DOC_TABLE_DECELERATION);
     }
 
