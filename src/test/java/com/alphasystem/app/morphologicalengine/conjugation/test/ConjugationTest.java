@@ -1,7 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.test;
 
+import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationRoots;
-import com.alphasystem.app.morphologicalengine.conjugation.builder.FormBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.model.*;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ActiveLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.AdverbLine;
@@ -46,7 +46,7 @@ public class ConjugationTest extends CommonTest {
 
     @Test
     public void runConjugationBuilder() {
-        FormBuilder conjugationBuilder = ApplicationContextProvider.getFormBuilder();
+        ConjugationBuilder conjugationBuilder = ApplicationContextProvider.getFormBuilder();
         ConjugationRoots conjugationRoots = getConjugationRoots(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE,
                 "To Help", new NounRootBase[]{getByVerbalNoun(VERBAL_NOUN_V1)}, FORM_I_ADVERBS);
         printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, NOON, SAD, RA, null));

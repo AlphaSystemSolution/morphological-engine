@@ -26,7 +26,7 @@ import static com.alphasystem.app.morphologicalengine.spring.ApplicationContextP
 /**
  * @author sali
  */
-public class AbstractFormBuilder implements FormBuilder {
+public class ConjugationBuilder {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -40,7 +40,6 @@ public class AbstractFormBuilder implements FormBuilder {
         }
     }
 
-    @Override
     public MorphologicalChart doConjugation(ConjugationRoots conjugationRoots, RootLetters rootLetters) {
         checkFourthRadical(rootLetters);
 
@@ -89,7 +88,6 @@ public class AbstractFormBuilder implements FormBuilder {
         return new MorphologicalChart(abbreviatedConjugation, detailedConjugation);
     }
 
-    @Override
     public MorphologicalChart doConjugation(ConjugationRoots conjugationRoots, ArabicLetterType firstRadical,
                                             ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
                                             ArabicLetterType fourthRadical) {

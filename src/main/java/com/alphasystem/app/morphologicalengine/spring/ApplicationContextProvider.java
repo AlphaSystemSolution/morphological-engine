@@ -1,6 +1,6 @@
 package com.alphasystem.app.morphologicalengine.spring;
 
-import com.alphasystem.app.morphologicalengine.conjugation.builder.FormBuilder;
+import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
@@ -32,8 +32,8 @@ public class ApplicationContextProvider implements ApplicationContextAware {
         return applicationContext.getBean(name, type);
     }
 
-    public static FormBuilder getFormBuilder() {
-        return getBean(FormBuilder.class);
+    public static ConjugationBuilder getFormBuilder() {
+        return getBean(ConjugationBuilder.class);
     }
 
     public static VerbTransformerFactory getVerbTransformerFactory(VerbTransformerFactoryType.Type type) {

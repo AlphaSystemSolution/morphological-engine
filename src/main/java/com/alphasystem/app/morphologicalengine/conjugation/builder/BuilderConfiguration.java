@@ -12,7 +12,7 @@ public class BuilderConfiguration {
 
     @Bean
     @Scope("prototype")
-    FormBuilder formBuilder(){
-        return new AbstractFormBuilder();
+    ConjugationBuilder formBuilder(){
+        return new ConjugationBuilder();
     }
 }
