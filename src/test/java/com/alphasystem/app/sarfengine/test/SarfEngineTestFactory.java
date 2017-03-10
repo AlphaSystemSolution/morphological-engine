@@ -5,6 +5,7 @@ package com.alphasystem.app.sarfengine.test;
 
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.test.NounTransformerTest;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.test.TransformerTest;
+import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerTest;
 import org.testng.annotations.Factory;
 
 /**
@@ -19,7 +20,7 @@ public class SarfEngineTestFactory {
                 // new RuleTester(),
                //  new BuilderTest(),
                 new NounTransformerTest(),
-                // new VerbTransformerTest(),
+                new VerbTransformerTest(),
                 new TransformerTest(),
                 // new ConjugationTest(),
                 new PatternHelperTest()

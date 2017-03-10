@@ -2,7 +2,9 @@ package com.alphasystem.app.morphologicalengine.conjugation.transformer.verb;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorType;
 import com.alphasystem.app.morphologicalengine.conjugation.test.CommonTest;
 import com.alphasystem.app.morphologicalengine.spring.MainConfiguration;
@@ -70,20 +72,16 @@ public class VerbTransformerTest {
     private void testImperative(final Form form, RootLetters rootLetters, String beforeMessage, String afterMessage) {
         final AbstractVerbTransformer verbTransformer = getBean(IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER.name(),
                 AbstractVerbTransformer.class);
-        final RuleProcessor ruleProcessor = getBean(RuleProcessorType.Type.RULE_ENGINE.name(), RuleProcessor.class);
-        System.out.println(String.format("Forbidding: %s:%s, Rule Processor: %s:%S",
-                verbTransformer.getClass().getSimpleName(), verbTransformer,
-                ruleProcessor.getClass().getSimpleName(), ruleProcessor));
+        final RuleProcessorFactory ruleProcessorFactory = getBean(RuleProcessorType.Type.RULE_ENGINE.name(), RuleProcessorFactory.class);
+        RuleProcessor ruleProcessor = ruleProcessorFactory.createRuleProcessor(new RuleInfo(form.getTemplate(), rootLetters));
         testImperativeOrForbidding(form, verbTransformer, ruleProcessor, rootLetters, IMPERATIVE, beforeMessage, afterMessage);
     }
 
     private void testForbidding(final Form form, RootLetters rootLetters, String beforeMessage, String afterMessage) {
         final AbstractVerbTransformer verbTransformer = getBean(FORBIDDING_SECOND_PERSON_MASCULINE_TRANSFORMER.name(),
                 AbstractVerbTransformer.class);
-        final RuleProcessor ruleProcessor = getBean(RuleProcessorType.Type.RULE_ENGINE.name(), RuleProcessor.class);
-        System.out.println(String.format("Forbidding: %s:%s, Rule Processor: %s:%S",
-                verbTransformer.getClass().getSimpleName(), verbTransformer,
-                ruleProcessor.getClass().getSimpleName(), ruleProcessor));
+        final RuleProcessorFactory ruleProcessorFactory = getBean(RuleProcessorType.Type.RULE_ENGINE.name(), RuleProcessorFactory.class);
+        RuleProcessor ruleProcessor = ruleProcessorFactory.createRuleProcessor(new RuleInfo(form.getTemplate(), rootLetters));
         testImperativeOrForbidding(form, verbTransformer, ruleProcessor, rootLetters, FORBIDDING, beforeMessage, afterMessage);
     }
 
