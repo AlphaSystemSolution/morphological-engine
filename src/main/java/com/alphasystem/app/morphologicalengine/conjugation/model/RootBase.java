@@ -6,4 +6,6 @@ package com.alphasystem.app.morphologicalengine.conjugation.model;
  * @author sali
  */
 public interface RootBase {
+
+    String getId();
 }
