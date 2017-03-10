@@ -1,20 +1,9 @@
 package com.alphasystem.app.morphologicalengine.conjugation.builder;
 
-import com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun.NounTransformerFactory;
-
 /**
  * @author sali
  */
-public class FormIIBuilder extends AbstractFormBuilder  {
+public class FormIIBuilder extends DefaultFormBuilder  {
 
-    @Override
-    public NounTransformerFactory verbalNounTransformerFactory() {
-        return null;
-    }
-
-    @Override
-    public NounTransformerFactory nounOfPlaceAndTimeTransformerFactory() {
-        return null;
-    }
 
 }
