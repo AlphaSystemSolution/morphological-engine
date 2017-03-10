@@ -18,7 +18,7 @@ public class MasculineBasedFemininePluralTransformerFactory extends AbstractNoun
     private NounTransformer dualTransformer;
 
     @Autowired
-    @NounTransformerType(NounTransformerType.Type.FEMININE_PLURAL_TRANSFORMER)
+    @NounTransformerType(NounTransformerType.Type.FEMININE_MASCULINE_BASED_PLURAL_TRANSFORMER)
     private NounTransformer pluralTransformer;
 
     @Override
