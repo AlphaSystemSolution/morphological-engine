@@ -12,6 +12,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorType;
 import com.alphasystem.arabic.model.ArabicLetterType;
+import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.ChartConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.ConjugationConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.alphasystem.app.morphologicalengine.spring.ApplicationContextProvider.getNounTransformerFactory;
 import static com.alphasystem.app.morphologicalengine.spring.ApplicationContextProvider.getVerbTransformerFactory;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
 
 /**
  * @author sali
@@ -52,22 +54,32 @@ public class ConjugationBuilder {
 
         final ChartConfiguration chartConfiguration = conjugationRoots.getChartConfiguration();
 
-        final VerbConjugationGroup pastActiveTenseGroup = getPastActiveTenseGroup(ruleProcessor, conjugationRoots, rootLetters);
-        final VerbConjugationGroup presentActiveTenseGroup = getPresentActiveTenseGroup(ruleProcessor, conjugationRoots, rootLetters);
-        final NounConjugationGroup masculineActiveParticipleGroup = getMasculineActiveParticipleGroup(ruleProcessor, conjugationRoots, rootLetters);
-        final NounConjugationGroup feminineActiveParticipleGroup = getFeminineActiveParticipleGroup(ruleProcessor, conjugationRoots, rootLetters);
-        final VerbConjugationGroup imperativeGroup = getImperativeGroup(ruleProcessor, conjugationRoots, rootLetters);
-        final VerbConjugationGroup forbiddenGroup = getForbiddenGroup(ruleProcessor, conjugationRoots, rootLetters);
+        final VerbConjugationGroup pastActiveTenseGroup = getVerbConjugationGroup(PAST_TENSE, conjugationRoots.getTemplate(),
+                ruleProcessor, rootLetters, conjugationRoots.getPastTense());
+        final VerbConjugationGroup presentActiveTenseGroup = getVerbConjugationGroup(PRESENT_TENSE, conjugationRoots.getTemplate(),
+                ruleProcessor, rootLetters, conjugationRoots.getPresentTense());
+        final NounConjugationGroup masculineActiveParticipleGroup = getNounConjugationGroup(ACTIVE_PARTICIPLE_MASCULINE,
+                conjugationRoots.getTemplate(), ruleProcessor, rootLetters, conjugationRoots.getActiveParticipleMasculine());
+        final NounConjugationGroup feminineActiveParticipleGroup = getNounConjugationGroup(ACTIVE_PARTICIPLE_FEMININE,
+                conjugationRoots.getTemplate(), ruleProcessor, rootLetters, conjugationRoots.getActiveParticipleFeminine());
+        final VerbConjugationGroup imperativeGroup = getVerbConjugationGroup(IMPERATIVE, conjugationRoots.getTemplate(),
+                ruleProcessor, rootLetters, conjugationRoots.getImperative());
+        final VerbConjugationGroup forbiddenGroup = getVerbConjugationGroup(FORBIDDING, conjugationRoots.getTemplate(),
+                ruleProcessor, rootLetters, conjugationRoots.getForbidding());
 
         VerbConjugationGroup pastPassiveTenseGroup = null;
         VerbConjugationGroup presentPassiveTenseGroup = null;
         NounConjugationGroup masculinePassiveParticipleGroup = null;
         NounConjugationGroup femininePassiveParticipleGroup = null;
         if (!removePassiveLine) {
-            pastPassiveTenseGroup = getPastPassiveTenseGroup(ruleProcessor, conjugationRoots, rootLetters);
-            presentPassiveTenseGroup = getPresentPassiveTenseGroup(ruleProcessor, conjugationRoots, rootLetters);
-            masculinePassiveParticipleGroup = getMasculinePassiveParticipleGroup(ruleProcessor, conjugationRoots, rootLetters);
-            femininePassiveParticipleGroup = getFemininePassiveParticipleGroup(ruleProcessor, conjugationRoots, rootLetters);
+            pastPassiveTenseGroup = getVerbConjugationGroup(PAST_PASSIVE_TENSE, conjugationRoots.getTemplate(),
+                    ruleProcessor, rootLetters, conjugationRoots.getPastPassiveTense());
+            presentPassiveTenseGroup = getVerbConjugationGroup(PRESENT_PASSIVE_TENSE, conjugationRoots.getTemplate(),
+                    ruleProcessor, rootLetters, conjugationRoots.getPresentPassiveTense());
+            masculinePassiveParticipleGroup = getNounConjugationGroup(PASSIVE_PARTICIPLE_MASCULINE,
+                    conjugationRoots.getTemplate(), ruleProcessor, rootLetters, conjugationRoots.getPassiveParticipleMasculine());
+            femininePassiveParticipleGroup = getNounConjugationGroup(PASSIVE_PARTICIPLE_FEMININE, conjugationRoots.getTemplate(),
+                    ruleProcessor, rootLetters, conjugationRoots.getPassiveParticipleFeminine());
         }
 
         AbbreviatedConjugation abbreviatedConjugation = null;
@@ -94,152 +106,34 @@ public class ConjugationBuilder {
         return doConjugation(conjugationRoots, new RootLetters(firstRadical, secondRadical, thirdRadical, fourthRadical));
     }
 
-    private VerbConjugationGroup getPastActiveTenseGroup(RuleProcessor ruleProcessor, ConjugationRoots conjugationRoots,
-                                                         RootLetters rootLetters) {
+    private VerbConjugationGroup getVerbConjugationGroup(SarfTermType sarfTermType, NamedTemplate namedTemplate,
+                                                         RuleProcessor ruleProcessor, RootLetters rootLetters,
+                                                         VerbRootBase verbRootBase) {
         VerbConjugationGroup verbConjugationGroup = null;
-        final SarfTermType sarfTermType = SarfTermType.PAST_TENSE;
-        try {
-            final VerbRootBase verbRootBase = conjugationRoots.getPastTense();
-            verbConjugationGroup = getVerbTransformerFactory(verbRootBase.getType()).doConjugation(ruleProcessor,
-                    sarfTermType, verbRootBase, rootLetters);
-        } catch (Exception e) {
-            logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
-                    sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
+        if (verbRootBase != null) {
+            try {
+                verbConjugationGroup = getVerbTransformerFactory(verbRootBase.getType()).doConjugation(ruleProcessor,
+                        sarfTermType, verbRootBase, rootLetters);
+            } catch (Exception e) {
+                logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
+                        sarfTermType, namedTemplate, rootLetters, System.lineSeparator(), e.getMessage());
+            }
         }
         return verbConjugationGroup;
     }
 
-    private VerbConjugationGroup getPresentActiveTenseGroup(RuleProcessor ruleProcessor, ConjugationRoots conjugationRoots,
-                                                            RootLetters rootLetters) {
-        VerbConjugationGroup verbConjugationGroup = null;
-        final SarfTermType sarfTermType = SarfTermType.PRESENT_TENSE;
-        try {
-            final VerbRootBase verbRootBase = conjugationRoots.getPresentTense();
-            verbConjugationGroup = getVerbTransformerFactory(verbRootBase.getType()).doConjugation(ruleProcessor,
-                    sarfTermType, verbRootBase, rootLetters);
-        } catch (Exception e) {
-            logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
-                    sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
-        }
-        return verbConjugationGroup;
-    }
-
-    private VerbConjugationGroup getPastPassiveTenseGroup(RuleProcessor ruleProcessor, ConjugationRoots conjugationRoots,
-                                                          RootLetters rootLetters) {
-        VerbConjugationGroup verbConjugationGroup = null;
-        final SarfTermType sarfTermType = SarfTermType.PAST_PASSIVE_TENSE;
-        try {
-            final VerbRootBase verbRootBase = conjugationRoots.getPastPassiveTense();
-            verbConjugationGroup = getVerbTransformerFactory(verbRootBase.getType()).doConjugation(ruleProcessor,
-                    sarfTermType, verbRootBase, rootLetters);
-        } catch (Exception e) {
-            logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
-                    sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
-        }
-        return verbConjugationGroup;
-    }
-
-    private VerbConjugationGroup getPresentPassiveTenseGroup(RuleProcessor ruleProcessor, ConjugationRoots conjugationRoots,
-                                                             RootLetters rootLetters) {
-        VerbConjugationGroup verbConjugationGroup = null;
-        final SarfTermType sarfTermType = SarfTermType.PRESENT_PASSIVE_TENSE;
-        try {
-            final VerbRootBase verbRootBase = conjugationRoots.getPresentPassiveTense();
-            verbConjugationGroup = getVerbTransformerFactory(verbRootBase.getType()).doConjugation(ruleProcessor,
-                    sarfTermType, verbRootBase, rootLetters);
-        } catch (Exception e) {
-            logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
-                    sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
-        }
-        return verbConjugationGroup;
-    }
-
-    private VerbConjugationGroup getImperativeGroup(RuleProcessor ruleProcessor, ConjugationRoots conjugationRoots,
-                                                    RootLetters rootLetters) {
-        VerbConjugationGroup verbConjugationGroup = null;
-        final SarfTermType sarfTermType = SarfTermType.IMPERATIVE;
-        try {
-            final VerbRootBase verbRootBase = conjugationRoots.getImperative();
-            verbConjugationGroup = getVerbTransformerFactory(verbRootBase.getType()).doConjugation(ruleProcessor,
-                    sarfTermType, verbRootBase, rootLetters);
-        } catch (Exception e) {
-            logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
-                    sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
-        }
-        return verbConjugationGroup;
-    }
-
-    private VerbConjugationGroup getForbiddenGroup(RuleProcessor ruleProcessor, ConjugationRoots conjugationRoots,
-                                                   RootLetters rootLetters) {
-        VerbConjugationGroup verbConjugationGroup = null;
-        final SarfTermType sarfTermType = SarfTermType.FORBIDDING;
-        try {
-            final VerbRootBase verbRootBase = conjugationRoots.getForbidding();
-            verbConjugationGroup = getVerbTransformerFactory(verbRootBase.getType()).doConjugation(ruleProcessor,
-                    sarfTermType, verbRootBase, rootLetters);
-        } catch (Exception e) {
-            logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
-                    sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
-        }
-        return verbConjugationGroup;
-    }
-
-    private NounConjugationGroup getMasculineActiveParticipleGroup(RuleProcessor ruleProcessor, ConjugationRoots conjugationRoots,
-                                                                   RootLetters rootLetters) {
+    private NounConjugationGroup getNounConjugationGroup(SarfTermType sarfTermType, NamedTemplate namedTemplate,
+                                                         RuleProcessor ruleProcessor, RootLetters rootLetters,
+                                                         NounRootBase nounRootBase) {
         NounConjugationGroup nounConjugationGroup = null;
-        final SarfTermType sarfTermType = SarfTermType.ACTIVE_PARTICIPLE_MASCULINE;
-        try {
-            final NounRootBase nounRootBase = conjugationRoots.getActiveParticipleMasculine();
-            nounConjugationGroup = getNounTransformerFactory(nounRootBase.getType()).doConjugation(ruleProcessor,
-                    sarfTermType, nounRootBase, rootLetters);
-        } catch (Exception e) {
-            logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
-                    sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
-        }
-        return nounConjugationGroup;
-    }
-
-    private NounConjugationGroup getFeminineActiveParticipleGroup(RuleProcessor ruleProcessor, ConjugationRoots conjugationRoots,
-                                                                  RootLetters rootLetters) {
-        NounConjugationGroup nounConjugationGroup = null;
-        final SarfTermType sarfTermType = SarfTermType.ACTIVE_PARTICIPLE_FEMININE;
-        try {
-            final NounRootBase nounRootBase = conjugationRoots.getActiveParticipleFeminine();
-            nounConjugationGroup = getNounTransformerFactory(nounRootBase.getType()).doConjugation(ruleProcessor,
-                    sarfTermType, nounRootBase, rootLetters);
-        } catch (Exception e) {
-            logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
-                    sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
-        }
-        return nounConjugationGroup;
-    }
-
-    private NounConjugationGroup getMasculinePassiveParticipleGroup(RuleProcessor ruleProcessor, ConjugationRoots conjugationRoots,
-                                                                    RootLetters rootLetters) {
-        NounConjugationGroup nounConjugationGroup = null;
-        final SarfTermType sarfTermType = SarfTermType.PASSIVE_PARTICIPLE_MASCULINE;
-        try {
-            final NounRootBase nounRootBase = conjugationRoots.getPassiveParticipleMasculine();
-            nounConjugationGroup = getNounTransformerFactory(nounRootBase.getType()).doConjugation(ruleProcessor,
-                    sarfTermType, nounRootBase, rootLetters);
-        } catch (Exception e) {
-            logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
-                    sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
-        }
-        return nounConjugationGroup;
-    }
-
-    private NounConjugationGroup getFemininePassiveParticipleGroup(RuleProcessor ruleProcessor, ConjugationRoots conjugationRoots,
-                                                                   RootLetters rootLetters) {
-        NounConjugationGroup nounConjugationGroup = null;
-        final SarfTermType sarfTermType = SarfTermType.PASSIVE_PARTICIPLE_FEMININE;
-        try {
-            final NounRootBase nounRootBase = conjugationRoots.getPassiveParticipleFeminine();
-            nounConjugationGroup = getNounTransformerFactory(nounRootBase.getType()).doConjugation(ruleProcessor,
-                    sarfTermType, nounRootBase, rootLetters);
-        } catch (Exception e) {
-            logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
-                    sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
+        if (nounRootBase != null) {
+            try {
+                nounConjugationGroup = getNounTransformerFactory(nounRootBase.getType()).doConjugation(ruleProcessor,
+                        sarfTermType, nounRootBase, rootLetters);
+            } catch (Exception e) {
+                logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
+                        sarfTermType, namedTemplate, rootLetters, System.lineSeparator(), e.getMessage());
+            }
         }
         return nounConjugationGroup;
     }
