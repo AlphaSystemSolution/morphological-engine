@@ -4,15 +4,13 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.AbbreviatedConj
 import com.alphasystem.app.morphologicalengine.conjugation.model.DetailedConjugation;
 import com.alphasystem.app.morphologicalengine.conjugation.model.MorphologicalChart;
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugationGroup;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugationGroup;
-import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleEngineFactory;
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorType;
-import com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun.NounTransformerFactory;
-import com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun.NounTransformerFactoryType;
-import com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.verb.VerbTransformerFactory;
-import com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.verb.VerbTransformerFactoryType;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.ChartConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.ConjugationConfiguration;
@@ -22,111 +20,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static com.alphasystem.app.morphologicalengine.spring.ApplicationContextProvider.getNounTransformerFactory;
+import static com.alphasystem.app.morphologicalengine.spring.ApplicationContextProvider.getVerbTransformerFactory;
+
 /**
  * @author sali
  */
-public abstract class AbstractFormBuilder implements FormBuilder {
+public class AbstractFormBuilder implements FormBuilder {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    @VerbTransformerFactoryType(VerbTransformerFactoryType.Type.PAST_TENSE_TRANSFORMER_FACTORY)
-    private VerbTransformerFactory pastActiveTenseTransformerFactory;
-
-    @Autowired
-    @VerbTransformerFactoryType(VerbTransformerFactoryType.Type.PRESENT_TENSE_TRANSFORMER_FACTORY)
-    private VerbTransformerFactory presentActiveTenseTransformerFactory;
-
-    @Autowired
-    @VerbTransformerFactoryType(VerbTransformerFactoryType.Type.PAST_TENSE_TRANSFORMER_FACTORY)
-    private VerbTransformerFactory pastPassiveTenseTransformerFactory;
-
-    @Autowired
-    @VerbTransformerFactoryType(VerbTransformerFactoryType.Type.PRESENT_TENSE_TRANSFORMER_FACTORY)
-    private VerbTransformerFactory presentPassiveTenseTransformerFactory;
-
-    @Autowired
-    @VerbTransformerFactoryType(VerbTransformerFactoryType.Type.IMPERATIVE_TRANSFORMER_FACTORY)
-    private VerbTransformerFactory imperativeTransformerFactory;
-
-    @Autowired
-    @VerbTransformerFactoryType(VerbTransformerFactoryType.Type.FORBIDDING_TRANSFORMER_FACTORY)
-    private VerbTransformerFactory forbiddingTransformerFactory;
-
-    @Autowired
-    @NounTransformerFactoryType(NounTransformerFactoryType.Type.MASCULINE_SOUND_PLURAL_TRANSFORMER_FACTORY)
-    private NounTransformerFactory masculineActiveParticipleTransformerFactory;
-
-    @Autowired
-    @NounTransformerFactoryType(NounTransformerFactoryType.Type.FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY)
-    private NounTransformerFactory feminineActiveParticipleTransformerFactory;
-
-    @Autowired
-    @NounTransformerFactoryType(NounTransformerFactoryType.Type.MASCULINE_SOUND_PLURAL_TRANSFORMER_FACTORY)
-    private NounTransformerFactory masculinePassiveParticipleTransformerFactory;
-
-    @Autowired
-    @NounTransformerFactoryType(NounTransformerFactoryType.Type.FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY)
-    private NounTransformerFactory femininePassiveParticipleTransformerFactory;
-
-    @Autowired
     @RuleProcessorType(RuleProcessorType.Type.RULE_ENGINE)
-    private RuleEngineFactory ruleEngineFactory;
+    private RuleProcessorFactory ruleEngineFactory;
 
     private static void checkFourthRadical(RootLetters rootLetters) {
         if (rootLetters.hasFourthRadical()) {
             throw new RuntimeException("Fourth radical has not been implemented yet.");
         }
-    }
-
-    @Override
-    public VerbTransformerFactory pastActiveTenseTransformerFactory() {
-        return pastActiveTenseTransformerFactory;
-    }
-
-    @Override
-    public VerbTransformerFactory presentActiveTenseTransformerFactory() {
-        return presentActiveTenseTransformerFactory;
-    }
-
-    @Override
-    public VerbTransformerFactory pastPassiveTenseTransformerFactory() {
-        return pastPassiveTenseTransformerFactory;
-    }
-
-    @Override
-    public VerbTransformerFactory presentPassiveTenseTransformerFactory() {
-        return presentPassiveTenseTransformerFactory;
-    }
-
-    @Override
-    public VerbTransformerFactory imperativeTransformerFactory() {
-        return imperativeTransformerFactory;
-    }
-
-    @Override
-    public VerbTransformerFactory forbiddingTransformerFactory() {
-        return forbiddingTransformerFactory;
-    }
-
-    @Override
-    public NounTransformerFactory masculineActiveParticipleTransformerFactory() {
-        return masculineActiveParticipleTransformerFactory;
-    }
-
-    @Override
-    public NounTransformerFactory feminineActiveParticipleTransformerFactory() {
-        return feminineActiveParticipleTransformerFactory;
-    }
-
-    @Override
-    public NounTransformerFactory masculinePassiveParticipleTransformerFactory() {
-        return masculinePassiveParticipleTransformerFactory;
-    }
-
-    @Override
-    public NounTransformerFactory femininePassiveParticipleTransformerFactory() {
-        return femininePassiveParticipleTransformerFactory;
     }
 
     @Override
@@ -190,8 +101,9 @@ public abstract class AbstractFormBuilder implements FormBuilder {
         VerbConjugationGroup verbConjugationGroup = null;
         final SarfTermType sarfTermType = SarfTermType.PAST_TENSE;
         try {
-            verbConjugationGroup = pastActiveTenseTransformerFactory().doConjugation(ruleProcessor,
-                    sarfTermType, conjugationRoots.getPastTense(), rootLetters);
+            final VerbRootBase verbRootBase = conjugationRoots.getPastTense();
+            verbConjugationGroup = getVerbTransformerFactory(verbRootBase.getType()).doConjugation(ruleProcessor,
+                    sarfTermType, verbRootBase, rootLetters);
         } catch (Exception e) {
             logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
                     sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
@@ -204,8 +116,9 @@ public abstract class AbstractFormBuilder implements FormBuilder {
         VerbConjugationGroup verbConjugationGroup = null;
         final SarfTermType sarfTermType = SarfTermType.PRESENT_TENSE;
         try {
-            verbConjugationGroup = presentActiveTenseTransformerFactory().doConjugation(ruleProcessor,
-                    sarfTermType, conjugationRoots.getPresentTense(), rootLetters);
+            final VerbRootBase verbRootBase = conjugationRoots.getPresentTense();
+            verbConjugationGroup = getVerbTransformerFactory(verbRootBase.getType()).doConjugation(ruleProcessor,
+                    sarfTermType, verbRootBase, rootLetters);
         } catch (Exception e) {
             logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
                     sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
@@ -218,8 +131,9 @@ public abstract class AbstractFormBuilder implements FormBuilder {
         VerbConjugationGroup verbConjugationGroup = null;
         final SarfTermType sarfTermType = SarfTermType.PAST_PASSIVE_TENSE;
         try {
-            verbConjugationGroup = pastPassiveTenseTransformerFactory().doConjugation(ruleProcessor,
-                    sarfTermType, conjugationRoots.getPastPassiveTense(), rootLetters);
+            final VerbRootBase verbRootBase = conjugationRoots.getPastPassiveTense();
+            verbConjugationGroup = getVerbTransformerFactory(verbRootBase.getType()).doConjugation(ruleProcessor,
+                    sarfTermType, verbRootBase, rootLetters);
         } catch (Exception e) {
             logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
                     sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
@@ -232,8 +146,9 @@ public abstract class AbstractFormBuilder implements FormBuilder {
         VerbConjugationGroup verbConjugationGroup = null;
         final SarfTermType sarfTermType = SarfTermType.PRESENT_PASSIVE_TENSE;
         try {
-            verbConjugationGroup = presentPassiveTenseTransformerFactory().doConjugation(ruleProcessor,
-                    sarfTermType, conjugationRoots.getPresentPassiveTense(), rootLetters);
+            final VerbRootBase verbRootBase = conjugationRoots.getPresentPassiveTense();
+            verbConjugationGroup = getVerbTransformerFactory(verbRootBase.getType()).doConjugation(ruleProcessor,
+                    sarfTermType, verbRootBase, rootLetters);
         } catch (Exception e) {
             logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
                     sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
@@ -246,8 +161,9 @@ public abstract class AbstractFormBuilder implements FormBuilder {
         VerbConjugationGroup verbConjugationGroup = null;
         final SarfTermType sarfTermType = SarfTermType.IMPERATIVE;
         try {
-            verbConjugationGroup = imperativeTransformerFactory().doConjugation(ruleProcessor,
-                    sarfTermType, conjugationRoots.getImperative(), rootLetters);
+            final VerbRootBase verbRootBase = conjugationRoots.getImperative();
+            verbConjugationGroup = getVerbTransformerFactory(verbRootBase.getType()).doConjugation(ruleProcessor,
+                    sarfTermType, verbRootBase, rootLetters);
         } catch (Exception e) {
             logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
                     sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
@@ -260,8 +176,9 @@ public abstract class AbstractFormBuilder implements FormBuilder {
         VerbConjugationGroup verbConjugationGroup = null;
         final SarfTermType sarfTermType = SarfTermType.FORBIDDING;
         try {
-            verbConjugationGroup = imperativeTransformerFactory().doConjugation(ruleProcessor,
-                    sarfTermType, conjugationRoots.getForbidding(), rootLetters);
+            final VerbRootBase verbRootBase = conjugationRoots.getForbidding();
+            verbConjugationGroup = getVerbTransformerFactory(verbRootBase.getType()).doConjugation(ruleProcessor,
+                    sarfTermType, verbRootBase, rootLetters);
         } catch (Exception e) {
             logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
                     sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
@@ -274,8 +191,9 @@ public abstract class AbstractFormBuilder implements FormBuilder {
         NounConjugationGroup nounConjugationGroup = null;
         final SarfTermType sarfTermType = SarfTermType.ACTIVE_PARTICIPLE_MASCULINE;
         try {
-            nounConjugationGroup = masculineActiveParticipleTransformerFactory().doConjugation(ruleProcessor,
-                    sarfTermType, conjugationRoots.getActiveParticipleMasculine(), rootLetters);
+            final NounRootBase nounRootBase = conjugationRoots.getActiveParticipleMasculine();
+            nounConjugationGroup = getNounTransformerFactory(nounRootBase.getType()).doConjugation(ruleProcessor,
+                    sarfTermType, nounRootBase, rootLetters);
         } catch (Exception e) {
             logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
                     sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
@@ -288,8 +206,9 @@ public abstract class AbstractFormBuilder implements FormBuilder {
         NounConjugationGroup nounConjugationGroup = null;
         final SarfTermType sarfTermType = SarfTermType.ACTIVE_PARTICIPLE_FEMININE;
         try {
-            nounConjugationGroup = masculineActiveParticipleTransformerFactory().doConjugation(ruleProcessor,
-                    sarfTermType, conjugationRoots.getActiveParticipleFeminine(), rootLetters);
+            final NounRootBase nounRootBase = conjugationRoots.getActiveParticipleFeminine();
+            nounConjugationGroup = getNounTransformerFactory(nounRootBase.getType()).doConjugation(ruleProcessor,
+                    sarfTermType, nounRootBase, rootLetters);
         } catch (Exception e) {
             logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
                     sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
@@ -302,8 +221,9 @@ public abstract class AbstractFormBuilder implements FormBuilder {
         NounConjugationGroup nounConjugationGroup = null;
         final SarfTermType sarfTermType = SarfTermType.PASSIVE_PARTICIPLE_MASCULINE;
         try {
-            nounConjugationGroup = masculineActiveParticipleTransformerFactory().doConjugation(ruleProcessor,
-                    sarfTermType, conjugationRoots.getPassiveParticipleMasculine(), rootLetters);
+            final NounRootBase nounRootBase = conjugationRoots.getPassiveParticipleMasculine();
+            nounConjugationGroup = getNounTransformerFactory(nounRootBase.getType()).doConjugation(ruleProcessor,
+                    sarfTermType, nounRootBase, rootLetters);
         } catch (Exception e) {
             logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
                     sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
@@ -316,8 +236,9 @@ public abstract class AbstractFormBuilder implements FormBuilder {
         NounConjugationGroup nounConjugationGroup = null;
         final SarfTermType sarfTermType = SarfTermType.PASSIVE_PARTICIPLE_FEMININE;
         try {
-            nounConjugationGroup = masculineActiveParticipleTransformerFactory().doConjugation(ruleProcessor,
-                    sarfTermType, conjugationRoots.getPassiveParticipleFeminine(), rootLetters);
+            final NounRootBase nounRootBase = conjugationRoots.getPassiveParticipleFeminine();
+            nounConjugationGroup = getNounTransformerFactory(nounRootBase.getType()).doConjugation(ruleProcessor,
+                    sarfTermType, nounRootBase, rootLetters);
         } catch (Exception e) {
             logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
                     sarfTermType, conjugationRoots.getTemplate(), rootLetters, System.lineSeparator(), e.getMessage());
