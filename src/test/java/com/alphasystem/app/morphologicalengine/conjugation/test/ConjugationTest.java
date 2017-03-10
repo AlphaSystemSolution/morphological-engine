@@ -1,10 +1,13 @@
 package com.alphasystem.app.morphologicalengine.conjugation.test;
 
+import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationRoots;
+import com.alphasystem.app.morphologicalengine.conjugation.builder.FormBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.model.*;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ActiveLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.AdverbLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ImperativeAndForbiddingLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.PassiveLine;
+import com.alphasystem.app.morphologicalengine.spring.ApplicationContextProvider;
 import com.alphasystem.app.morphologicalengine.spring.MainConfiguration;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
@@ -13,15 +16,17 @@ import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermTy
 import com.alphasystem.util.AppUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.test.context.ContextConfiguration;
+import org.testng.annotations.Test;
 
+import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationHelper.getConjugationRoots;
+import static com.alphasystem.app.morphologicalengine.conjugation.model.VerbalNounFactory.getByVerbalNoun;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.ArabicWord.concatenateWithSpace;
 import static com.alphasystem.arabic.model.ArabicWord.getWord;
-import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V12;
-import static com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural.BROKEN_PLURAL_V13;
-import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.NOUN_OF_PLACE_AND_TIME_V1;
-import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.NOUN_OF_PLACE_AND_TIME_V2;
-import static com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime.NOUN_OF_PLACE_AND_TIME_V3;
+import static com.alphasystem.arabic.model.NamedTemplate.FORM_IV_TEMPLATE;
+import static com.alphasystem.arabic.model.NamedTemplate.FORM_IX_TEMPLATE;
+import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.VERBAL_NOUN_V1;
 import static java.lang.String.format;
 
 /**
@@ -36,24 +41,22 @@ public class ConjugationTest extends CommonTest {
     private static final ArabicWord FORBIDDING_PREFIX = getWord(WAW, NOON, HA, YA, ArabicLetterType.SPACE, AIN, NOON, HA);
     private static final ArabicWord ADVERB_PREFIX = getWord(WAW, ALIF, LAM, DTHA, RA, FA, ArabicLetterType.SPACE, MEEM,
             NOON, HA);
-    public static final NounRootBase[] FORM_I_ADVERBS = new NounRootBase[]{
-            new NounRootBase(NOUN_OF_PLACE_AND_TIME_V1, BROKEN_PLURAL_V12),
-            new NounRootBase(NOUN_OF_PLACE_AND_TIME_V2, BROKEN_PLURAL_V13),
-            new NounRootBase(NOUN_OF_PLACE_AND_TIME_V3)};
+    private static final NounRootBase[] FORM_I_ADVERBS = new NounRootBase[]{NounOfPlaceAndTimeFactory.NOUN_OF_PLACE_AND_TIME_V1,
+            NounOfPlaceAndTimeFactory.NOUN_OF_PLACE_AND_TIME_V2, NounOfPlaceAndTimeFactory.NOUN_OF_PLACE_AND_TIME_V3};
 
-   /* @Test
+    @Test
     public void runConjugationBuilder() {
-        final ConjugationBuilder conjugationBuilder = GuiceSupport.getInstance().getConjugationBuilder();
-        ConjugationRoots conjugationRoots = getConjugationRoots(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, "To Help",
-                new NounRootBase[]{new NounRootBase(VERBAL_NOUN_V1)}, FORM_I_ADVERBS);
+        FormBuilder conjugationBuilder = ApplicationContextProvider.getFormBuilder();
+        ConjugationRoots conjugationRoots = getConjugationRoots(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE,
+                "To Help", new NounRootBase[]{getByVerbalNoun(VERBAL_NOUN_V1)}, FORM_I_ADVERBS);
         printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, NOON, SAD, RA, null));
 
         conjugationRoots = getConjugationRoots(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, "To Say",
-                new NounRootBase[]{new NounRootBase(VERBAL_NOUN_V1)}, FORM_I_ADVERBS);
+                new NounRootBase[]{getByVerbalNoun(VERBAL_NOUN_V1)}, FORM_I_ADVERBS);
         printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, QAF, WAW, LAM, null));
 
         conjugationRoots = getConjugationRoots(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, "To Eat",
-                new NounRootBase[]{new NounRootBase(VERBAL_NOUN_V1)}, FORM_I_ADVERBS);
+                new NounRootBase[]{getByVerbalNoun(VERBAL_NOUN_V1)}, FORM_I_ADVERBS);
         printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, HAMZA, KAF, LAM, null));
 
         conjugationRoots = getConjugationRoots(FORM_IV_TEMPLATE, "To submit");
@@ -67,7 +70,7 @@ public class ConjugationTest extends CommonTest {
 
         conjugationRoots = getConjugationRoots(FORM_IX_TEMPLATE, "To collapse");
         printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, NOON, QAF, DDAD, null));
-    }*/
+    }
 
     private void printMorphologicalChart(MorphologicalChart chart) {
         createHeading(chart.getHeader());
@@ -142,7 +145,9 @@ public class ConjugationTest extends CommonTest {
     }
 
     private void addAdverbLine(AdverbLine adverbLine) {
-        lines.add(getRootWord(4, ADVERB_PREFIX, adverbLine.getAdverbs()));
+        if (adverbLine != null) {
+            lines.add(getRootWord(4, ADVERB_PREFIX, adverbLine.getAdverbs()));
+        }
     }
 
     private void createDetailedConjugationChart(DetailedConjugation detailedConjugation) {

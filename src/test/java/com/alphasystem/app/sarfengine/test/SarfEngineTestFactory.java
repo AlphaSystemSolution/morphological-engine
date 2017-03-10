@@ -3,6 +3,7 @@
  */
 package com.alphasystem.app.sarfengine.test;
 
+import com.alphasystem.app.morphologicalengine.conjugation.test.ConjugationTest;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.test.NounTransformerTest;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.test.TransformerTest;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerTest;
@@ -18,11 +19,11 @@ public class SarfEngineTestFactory {
         return new Object[]{
                 new LabelPrinter(),
                 // new RuleTester(),
-               //  new BuilderTest(),
+                //  new BuilderTest(),
                 new NounTransformerTest(),
                 new VerbTransformerTest(),
                 new TransformerTest(),
-                // new ConjugationTest(),
+                new ConjugationTest(),
                 new PatternHelperTest()
         };
     }
