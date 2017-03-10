@@ -1,6 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
 /**
  * @author sali
@@ -42,7 +43,13 @@ public final class NounConjugationGroup extends ConjugationGroup {
 
     @Override
     public RootWord getDefaultValue() {
-        return (nominative == null) ? null : nominative.getSingular();
+        RootWord defaultValue;
+        if(SarfTermType.VERBAL_NOUN.equals(getTermType()))
+            defaultValue = accusative == null ? null : accusative.getSingular();
+        else {
+            defaultValue = (nominative == null) ? null : nominative.getSingular();
+        }
+        return defaultValue;
     }
 
     @Override

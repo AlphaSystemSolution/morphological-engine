@@ -40,7 +40,7 @@ final class ConjugationBuilderHelper {
         final RootWord imperativeRoot = (imperativeGroup == null) ? null : imperativeGroup.getDefaultValue();
         final RootWord forbiddenRoot = (forbiddenGroup == null) ? null : forbiddenGroup.getDefaultValue();
         final RootWord activeParticipleRoot = (masculineActiveParticipleGroup == null) ? null : masculineActiveParticipleGroup.getDefaultValue();
-        final RootWord[] verbalNounDefaultWords = getDefaultWordPairs(verbalNouns, true);
+        final RootWord[] verbalNounDefaultWords = getDefaultWordPairs(verbalNouns);
 
         final ConjugationHeader conjugationHeader = createConjugationHeader(conjugationRoots, rootLetters, pastTenseRoot, presentTenseRoot);
         final ActiveLine activeLine = new ActiveLine(pastTenseRoot, presentTenseRoot, activeParticipleRoot, verbalNounDefaultWords);
@@ -53,7 +53,7 @@ final class ConjugationBuilderHelper {
         }
 
         final ImperativeAndForbiddingLine commandLine = new ImperativeAndForbiddingLine(imperativeRoot, forbiddenRoot);
-        final RootWord[] nounOfPlaceAndTimeDefaultWords = getDefaultWordPairs(nounsOfPlaceAndTime, false);
+        final RootWord[] nounOfPlaceAndTimeDefaultWords = getDefaultWordPairs(nounsOfPlaceAndTime);
         AdverbLine adverbLine = null;
         if (!ArrayUtils.isEmpty(nounOfPlaceAndTimeDefaultWords)) {
             adverbLine = new AdverbLine(nounOfPlaceAndTimeDefaultWords);
@@ -127,13 +127,12 @@ final class ConjugationBuilderHelper {
                 chartMode, rootLetters);
     }
 
-    private static RootWord[] getDefaultWordPairs(NounConjugationGroup[] nounConjugationGroups, boolean verbalNoun) {
+    private static RootWord[] getDefaultWordPairs(NounConjugationGroup[] nounConjugationGroups) {
         if (!ArrayUtils.isEmpty(nounConjugationGroups)) {
             List<RootWord> rootWords = new ArrayList<>();
             for (final NounConjugationGroup nounConjugationGroup : nounConjugationGroups) {
                 if (nounConjugationGroup != null) {
-                    final RootWord rootWord = verbalNoun ? nounConjugationGroup.getAccusative().getSingular() : nounConjugationGroup.getDefaultValue();
-                    rootWords.add(rootWord);
+                    rootWords.add(nounConjugationGroup.getDefaultValue());
                 }
             }
             return rootWords.toArray(new RootWord[rootWords.size()]);

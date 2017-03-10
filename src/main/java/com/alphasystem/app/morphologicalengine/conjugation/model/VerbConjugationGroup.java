@@ -1,6 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
 /**
  * @author sali
@@ -62,7 +63,13 @@ public final class VerbConjugationGroup extends ConjugationGroup {
 
     @Override
     public RootWord getDefaultValue() {
-        return (masculineThirdPerson == null) ? null : masculineThirdPerson.getSingular();
+        RootWord defaultValue;
+        if (SarfTermType.IMPERATIVE.equals(getTermType()) || SarfTermType.FORBIDDING.equals(getTermType())) {
+            defaultValue = (masculineSecondPerson == null) ? null : masculineSecondPerson.getSingular();
+        } else {
+            defaultValue = (masculineThirdPerson == null) ? null : masculineThirdPerson.getSingular();
+        }
+        return defaultValue;
     }
 
     @Override
