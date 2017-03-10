@@ -1,7 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
+import com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun.NounTransformerFactoryType;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.NounSupport;
-import com.alphasystem.util.IdGenerator;
 
 import java.util.Objects;
 
@@ -13,7 +13,7 @@ public final class NounRootBase implements RootBase {
     private final NounSupport singularBaseWord;
     private final NounSupport dualBaseWord;
     private final NounSupport pluralBaseWord;
-    private final String id;
+    private final NounTransformerFactoryType.Type type;
 
     /**
      * Copy constructor.
@@ -23,30 +23,30 @@ public final class NounRootBase implements RootBase {
      */
     public NounRootBase(NounRootBase src) {
         Objects.requireNonNull(src);
-        this.id = IdGenerator.nextId();
+        this.type = src.getType();
         this.singularBaseWord = src.getSingularBaseWord();
         this.dualBaseWord = src.getDualBaseWord();
         this.pluralBaseWord = src.getPluralBaseWord();
     }
 
-    public NounRootBase(NounSupport singularBaseWord) {
-        this(singularBaseWord, singularBaseWord);
+    public NounRootBase(NounTransformerFactoryType.Type type, NounSupport singularBaseWord) {
+        this(type, singularBaseWord, singularBaseWord);
     }
 
-    public NounRootBase(NounSupport singularBaseWord, NounSupport pluralBaseWord) {
-        this(singularBaseWord, singularBaseWord, pluralBaseWord);
+    public NounRootBase(NounTransformerFactoryType.Type type, NounSupport singularBaseWord, NounSupport pluralBaseWord) {
+        this(type, singularBaseWord, singularBaseWord, pluralBaseWord);
     }
 
-    public NounRootBase(NounSupport singularBaseWord, NounSupport dualBaseWord, NounSupport pluralBaseWord) {
-        this.id = IdGenerator.nextId();
+    public NounRootBase(NounTransformerFactoryType.Type type, NounSupport singularBaseWord, NounSupport dualBaseWord,
+                        NounSupport pluralBaseWord) {
+        this.type = type;
         this.singularBaseWord = singularBaseWord;
         this.dualBaseWord = dualBaseWord;
         this.pluralBaseWord = pluralBaseWord;
     }
 
-    @Override
-    public String getId() {
-        return id;
+    public NounTransformerFactoryType.Type getType() {
+        return type;
     }
 
     public NounSupport getSingularBaseWord() {

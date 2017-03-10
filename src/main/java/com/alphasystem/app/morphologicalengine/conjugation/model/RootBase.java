@@ -7,5 +7,4 @@ package com.alphasystem.app.morphologicalengine.conjugation.model;
  */
 public interface RootBase {
 
-    String getId();
 }

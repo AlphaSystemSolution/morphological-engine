@@ -1,6 +1,5 @@
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.BrokenPlural;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.Noun;
@@ -9,22 +8,26 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun.NounTransformerFactoryType.Type.FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY;
+import static com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun.NounTransformerFactoryType.Type.MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY;
+import static com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun.NounTransformerFactoryType.Type.MASCULINE_BASED_PARTLY_FLEXIBLE_PLURAL_TRANSFORMER_FACTORY;
+
 /**
  * @author sali
  */
 public final class NounOfPlaceAndTimeFactory {
 
-    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_V1 = new NounRootBase(Noun.NOUN_OF_PLACE_AND_TIME_V1, BrokenPlural.BROKEN_PLURAL_V12);
-    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_V2 = new NounRootBase(Noun.NOUN_OF_PLACE_AND_TIME_V2, BrokenPlural.BROKEN_PLURAL_V13);
-    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_V3 = new NounRootBase(Noun.NOUN_OF_PLACE_AND_TIME_V3);
-    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_II = new NounRootBase(Noun.FORM_II_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_II_FEMININE_PASSIVE_PARTICIPLE);
-    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_III = new NounRootBase(Noun.FORM_III_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_III_FEMININE_PASSIVE_PARTICIPLE);
-    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_IV = new NounRootBase(Noun.FORM_IV_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_IV_FEMININE_PASSIVE_PARTICIPLE);
-    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_V = new NounRootBase(Noun.FORM_V_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_V_FEMININE_PASSIVE_PARTICIPLE);
-    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_VI = new NounRootBase(Noun.FORM_VI_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_VI_FEMININE_PASSIVE_PARTICIPLE);
-    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_VII = new NounRootBase(Noun.FORM_VII_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_VII_FEMININE_PASSIVE_PARTICIPLE);
-    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_VIII = new NounRootBase(Noun.FORM_VIII_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_VIII_FEMININE_PASSIVE_PARTICIPLE);
-    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_X = new NounRootBase(Noun.FORM_X_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_X_FEMININE_PASSIVE_PARTICIPLE);
+    public static final NounRootBase NOUN_OF_PLACE_AND_TIME_V1 = new NounRootBase(MASCULINE_BASED_PARTLY_FLEXIBLE_PLURAL_TRANSFORMER_FACTORY, Noun.NOUN_OF_PLACE_AND_TIME_V1, BrokenPlural.BROKEN_PLURAL_V12);
+    public static final NounRootBase NOUN_OF_PLACE_AND_TIME_V2 = new NounRootBase(MASCULINE_BASED_PARTLY_FLEXIBLE_PLURAL_TRANSFORMER_FACTORY, Noun.NOUN_OF_PLACE_AND_TIME_V2, BrokenPlural.BROKEN_PLURAL_V13);
+    public static final NounRootBase NOUN_OF_PLACE_AND_TIME_V3 = new NounRootBase(FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY, Noun.NOUN_OF_PLACE_AND_TIME_V3);
+    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_II = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, Noun.FORM_II_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_II_FEMININE_PASSIVE_PARTICIPLE);
+    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_III = new NounRootBase(FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY, Noun.FORM_III_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_III_FEMININE_PASSIVE_PARTICIPLE);
+    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_IV = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, Noun.FORM_IV_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_IV_FEMININE_PASSIVE_PARTICIPLE);
+    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_V = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, Noun.FORM_V_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_V_FEMININE_PASSIVE_PARTICIPLE);
+    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_VI = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, Noun.FORM_VI_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_VI_FEMININE_PASSIVE_PARTICIPLE);
+    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_VII = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, Noun.FORM_VII_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_VII_FEMININE_PASSIVE_PARTICIPLE);
+    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_VIII = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, Noun.FORM_VIII_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_VIII_FEMININE_PASSIVE_PARTICIPLE);
+    private static final NounRootBase NOUN_OF_PLACE_AND_TIME_FORM_X = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, Noun.FORM_X_MASCULINE_PASSIVE_PARTICIPLE, Noun.FORM_X_FEMININE_PASSIVE_PARTICIPLE);
 
     private static final Map<NamedTemplate, NounRootBase[]> map = new HashMap<>();
 

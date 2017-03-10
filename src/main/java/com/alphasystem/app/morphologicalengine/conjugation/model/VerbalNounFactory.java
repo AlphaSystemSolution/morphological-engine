@@ -1,43 +1,45 @@
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun.NounTransformerFactoryType.Type.FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY;
+import static com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun.NounTransformerFactoryType.Type.MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY;
 
 /**
  * @author sali
  */
 public final class VerbalNounFactory {
 
-    private static final NounRootBase VERBAL_NOUN_V1 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V1);
-    private static final NounRootBase VERBAL_NOUN_V2 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V2);
-    private static final NounRootBase VERBAL_NOUN_V3 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V3);
-    private static final NounRootBase VERBAL_NOUN_V4 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V4);
-    private static final NounRootBase VERBAL_NOUN_V5 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V5);
-    private static final NounRootBase VERBAL_NOUN_V6 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V6);
-    private static final NounRootBase VERBAL_NOUN_V7 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V7);
-    private static final NounRootBase VERBAL_NOUN_V8 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V8);
-    private static final NounRootBase VERBAL_NOUN_V9 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V9);
-    private static final NounRootBase VERBAL_NOUN_V10 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V10);
-    private static final NounRootBase VERBAL_NOUN_V11 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V11);
-    private static final NounRootBase VERBAL_NOUN_V12 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V12);
-    private static final NounRootBase VERBAL_NOUN_V13 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V13);
-    private static final NounRootBase VERBAL_NOUN_V14 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V14);
-    private static final NounRootBase VERBAL_NOUN_V15 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V15);
-    private static final NounRootBase VERBAL_NOUN_V27 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V27);
-    private static final NounRootBase VERBAL_NOUN_V28 = new NounRootBase(VerbalNoun.VERBAL_NOUN_V28);
-    private static final NounRootBase VERBAL_NOUN_FORM_II = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_II);
-    private static final NounRootBase VERBAL_NOUN_FORM_III_V1 = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_III_V1);
-    private static final NounRootBase VERBAL_NOUN_FORM_III_V2 = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_III_V2);
-    private static final NounRootBase VERBAL_NOUN_FORM_IV = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_IV);
-    private static final NounRootBase VERBAL_NOUN_FORM_V = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_V);
-    private static final NounRootBase VERBAL_NOUN_FORM_VI = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_VI);
-    private static final NounRootBase VERBAL_NOUN_FORM_VII = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_VII);
-    private static final NounRootBase VERBAL_NOUN_FORM_VIII = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_VIII);
-    private static final NounRootBase VERBAL_NOUN_FORM_IX = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_IX);
-    private static final NounRootBase VERBAL_NOUN_FORM_X = new NounRootBase(VerbalNoun.VERBAL_NOUN_FORM_X);
+    private static final NounRootBase VERBAL_NOUN_V1 = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_V1);
+    private static final NounRootBase VERBAL_NOUN_V2 = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_V2);
+    private static final NounRootBase VERBAL_NOUN_V3 = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_V3);
+    private static final NounRootBase VERBAL_NOUN_V4 = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_V4);
+    private static final NounRootBase VERBAL_NOUN_V5 = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_V5);
+    private static final NounRootBase VERBAL_NOUN_V6 = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_V6);
+    private static final NounRootBase VERBAL_NOUN_V7 = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_V7);
+    private static final NounRootBase VERBAL_NOUN_V8 = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_V8);
+    private static final NounRootBase VERBAL_NOUN_V9 = new NounRootBase(FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_V9);
+    private static final NounRootBase VERBAL_NOUN_V10 = new NounRootBase(FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_V10);
+    private static final NounRootBase VERBAL_NOUN_V11 = new NounRootBase(FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_V11);
+    private static final NounRootBase VERBAL_NOUN_V12 = new NounRootBase(FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_V12);
+    private static final NounRootBase VERBAL_NOUN_V13 = new NounRootBase(FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_V13);
+    private static final NounRootBase VERBAL_NOUN_V14 = new NounRootBase(FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_V14);
+    private static final NounRootBase VERBAL_NOUN_V15 = new NounRootBase(FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_V15);
+    private static final NounRootBase VERBAL_NOUN_V27 = new NounRootBase(FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_V27);
+    private static final NounRootBase VERBAL_NOUN_V28 = new NounRootBase(FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_V28);
+    private static final NounRootBase VERBAL_NOUN_FORM_II = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_FORM_II);
+    private static final NounRootBase VERBAL_NOUN_FORM_III_V1 = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_FORM_III_V1);
+    private static final NounRootBase VERBAL_NOUN_FORM_III_V2 = new NounRootBase(FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_FORM_III_V2);
+    private static final NounRootBase VERBAL_NOUN_FORM_IV = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_FORM_IV);
+    private static final NounRootBase VERBAL_NOUN_FORM_V = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_FORM_V);
+    private static final NounRootBase VERBAL_NOUN_FORM_VI = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_FORM_VI);
+    private static final NounRootBase VERBAL_NOUN_FORM_VII = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_FORM_VII);
+    private static final NounRootBase VERBAL_NOUN_FORM_VIII = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_FORM_VIII);
+    private static final NounRootBase VERBAL_NOUN_FORM_IX = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_FORM_IX);
+    private static final NounRootBase VERBAL_NOUN_FORM_X = new NounRootBase(MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY, VerbalNoun.VERBAL_NOUN_FORM_X);
 
     private static final Map<VerbalNoun, NounRootBase> map = new HashMap<>();
 
