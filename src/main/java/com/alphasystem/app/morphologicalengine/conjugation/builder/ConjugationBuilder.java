@@ -17,10 +17,17 @@ import com.alphasystem.morphologicalanalysis.morphology.model.ChartConfiguration
 import com.alphasystem.morphologicalanalysis.morphology.model.ConjugationConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilderHelper.createAbbreviatedConjugation;
+import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilderHelper.createDetailedConjugation;
 import static com.alphasystem.app.morphologicalengine.spring.ApplicationContextProvider.getNounTransformerFactory;
 import static com.alphasystem.app.morphologicalengine.spring.ApplicationContextProvider.getVerbTransformerFactory;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
@@ -30,6 +37,7 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sar
  */
 public class ConjugationBuilder {
 
+    static final int NUM_OF_COLUMNS = 2;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -66,6 +74,10 @@ public class ConjugationBuilder {
                 ruleProcessor, rootLetters, conjugationRoots.getImperative());
         final VerbConjugationGroup forbiddenGroup = getVerbConjugationGroup(FORBIDDING, conjugationRoots.getTemplate(),
                 ruleProcessor, rootLetters, conjugationRoots.getForbidding());
+        final NounConjugationGroup[] verbalNounConjugationGroups = getNounConjugationGroups(VERBAL_NOUN,
+                conjugationRoots.getTemplate(), ruleProcessor, rootLetters, conjugationRoots.getVerbalNouns());
+        final NounConjugationGroup[] nounOfPlaceAndTimeConjugationGroups = getNounConjugationGroups(NOUN_OF_PLACE_AND_TIME,
+                conjugationRoots.getTemplate(), ruleProcessor, rootLetters, conjugationRoots.getAdverbs());
 
         VerbConjugationGroup pastPassiveTenseGroup = null;
         VerbConjugationGroup presentPassiveTenseGroup = null;
@@ -84,18 +96,19 @@ public class ConjugationBuilder {
 
         AbbreviatedConjugation abbreviatedConjugation = null;
         if (!chartConfiguration.isOmitAbbreviatedConjugation()) {
-            abbreviatedConjugation = ConjugationBuilderHelper.createAbbreviatedConjugation(conjugationRoots, rootLetters,
+            abbreviatedConjugation = createAbbreviatedConjugation(conjugationRoots, rootLetters,
                     removePassiveLine, pastActiveTenseGroup, presentActiveTenseGroup, pastPassiveTenseGroup,
                     presentPassiveTenseGroup, imperativeGroup, forbiddenGroup, masculineActiveParticipleGroup,
-                    masculinePassiveParticipleGroup, null, null);
+                    masculinePassiveParticipleGroup, verbalNounConjugationGroups, nounOfPlaceAndTimeConjugationGroups);
         }
 
         DetailedConjugation detailedConjugation = null;
         if (!chartConfiguration.isOmitDetailedConjugation()) {
-            detailedConjugation = ConjugationBuilderHelper.createDetailedConjugation(pastActiveTenseGroup,
+            detailedConjugation = createDetailedConjugation(pastActiveTenseGroup,
                     presentActiveTenseGroup, pastPassiveTenseGroup, presentPassiveTenseGroup, imperativeGroup,
                     forbiddenGroup, masculineActiveParticipleGroup, feminineActiveParticipleGroup,
-                    masculinePassiveParticipleGroup, femininePassiveParticipleGroup, null, null);
+                    masculinePassiveParticipleGroup, femininePassiveParticipleGroup, verbalNounConjugationGroups,
+                    nounOfPlaceAndTimeConjugationGroups);
         }
         return new MorphologicalChart(abbreviatedConjugation, detailedConjugation);
     }
@@ -137,5 +150,36 @@ public class ConjugationBuilder {
         }
         return nounConjugationGroup;
     }
+
+    private NounConjugationGroup[] getNounConjugationGroups(SarfTermType sarfTermType, NamedTemplate namedTemplate,
+                                                            RuleProcessor ruleProcessor, RootLetters rootLetters,
+                                                            NounRootBase[] nounRootBases) {
+        if (!ArrayUtils.isEmpty(nounRootBases)) {
+            NounConjugationGroup[] nounConjugationGroups = null;
+
+            List<NounRootBase> rootBaseList = new ArrayList<>();
+            Collections.addAll(rootBaseList, nounRootBases);
+            while ((rootBaseList.size() % NUM_OF_COLUMNS) != 0) {
+                rootBaseList.add(null);
+            }
+
+            int fromIndex = 0;
+            int toIndex = NUM_OF_COLUMNS;
+            while (fromIndex < rootBaseList.size()) {
+                final List<NounRootBase> subList = rootBaseList.subList(fromIndex, toIndex);
+                final NounConjugationGroup rightSideGroup = getNounConjugationGroup(sarfTermType, namedTemplate,
+                        ruleProcessor, rootLetters, subList.get(0));
+                final NounConjugationGroup leftSideGroup = getNounConjugationGroup(sarfTermType, namedTemplate,
+                        ruleProcessor, rootLetters, subList.get(1));
+                nounConjugationGroups = ArrayUtils.addAll(nounConjugationGroups, leftSideGroup, rightSideGroup);
+                fromIndex = toIndex;
+                toIndex += NUM_OF_COLUMNS;
+            }
+
+            return nounConjugationGroups;
+        }
+        return null;
+    }
+
 
 }

@@ -1,15 +1,8 @@
 package com.alphasystem.app.morphologicalengine.conjugation.builder;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.AbbreviatedConjugation;
-import com.alphasystem.app.morphologicalengine.conjugation.model.ChartMode;
-import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationHeader;
-import com.alphasystem.app.morphologicalengine.conjugation.model.DetailedConjugation;
-import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugationGroup;
-import com.alphasystem.app.morphologicalengine.conjugation.model.NounDetailedConjugationPair;
-import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugationGroup;
-import com.alphasystem.app.morphologicalengine.conjugation.model.VerbDetailedConjugationPair;
-import com.alphasystem.app.morphologicalengine.conjugation.model.WordStatus;
+import com.alphasystem.app.morphologicalengine.conjugation.model.*;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ActiveLine;
+import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.AdverbLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ImperativeAndForbiddingLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.PassiveLine;
 import com.alphasystem.arabic.model.NamedTemplate;
@@ -18,6 +11,10 @@ import com.alphasystem.arabic.model.VerbType;
 import com.alphasystem.arabic.model.WeakVerbType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author sali
@@ -43,20 +40,25 @@ final class ConjugationBuilderHelper {
         final RootWord imperativeRoot = (imperativeGroup == null) ? null : imperativeGroup.getDefaultValue();
         final RootWord forbiddenRoot = (forbiddenGroup == null) ? null : forbiddenGroup.getDefaultValue();
         final RootWord activeParticipleRoot = (masculineActiveParticipleGroup == null) ? null : masculineActiveParticipleGroup.getDefaultValue();
+        final RootWord[] verbalNounDefaultWords = getDefaultWordPairs(verbalNouns, true);
 
         final ConjugationHeader conjugationHeader = createConjugationHeader(conjugationRoots, rootLetters, pastTenseRoot, presentTenseRoot);
-        final ActiveLine activeLine = new ActiveLine(pastTenseRoot, presentTenseRoot, activeParticipleRoot);
+        final ActiveLine activeLine = new ActiveLine(pastTenseRoot, presentTenseRoot, activeParticipleRoot, verbalNounDefaultWords);
         PassiveLine passiveLine = null;
         if (!removePassiveLine) {
             final RootWord pastPassiveTenseRoot = (pastPassiveTenseGroup == null) ? null : pastPassiveTenseGroup.getDefaultValue();
             final RootWord presentPassiveTenseRoot = (presentPassiveTenseGroup == null) ? null : presentPassiveTenseGroup.getDefaultValue();
             final RootWord passiveParticipleRoot = (masculinePassiveParticipleGroup == null) ? null : masculinePassiveParticipleGroup.getDefaultValue();
-            passiveLine = new PassiveLine(pastPassiveTenseRoot, presentPassiveTenseRoot, passiveParticipleRoot);
+            passiveLine = new PassiveLine(pastPassiveTenseRoot, presentPassiveTenseRoot, passiveParticipleRoot, verbalNounDefaultWords);
         }
 
-        ImperativeAndForbiddingLine commandLine = new ImperativeAndForbiddingLine(imperativeRoot, forbiddenRoot);
-
-        return new AbbreviatedConjugation(conjugationHeader, activeLine, passiveLine, commandLine, null);
+        final ImperativeAndForbiddingLine commandLine = new ImperativeAndForbiddingLine(imperativeRoot, forbiddenRoot);
+        final RootWord[] nounOfPlaceAndTimeDefaultWords = getDefaultWordPairs(nounsOfPlaceAndTime, false);
+        AdverbLine adverbLine = null;
+        if (!ArrayUtils.isEmpty(nounOfPlaceAndTimeDefaultWords)) {
+            adverbLine = new AdverbLine(nounOfPlaceAndTimeDefaultWords);
+        }
+        return new AbbreviatedConjugation(conjugationHeader, activeLine, passiveLine, commandLine, adverbLine);
     }
 
     static DetailedConjugation createDetailedConjugation(VerbConjugationGroup pastActiveTenseGroup,
@@ -76,8 +78,10 @@ final class ConjugationBuilderHelper {
         final VerbDetailedConjugationPair passiveTensePair = createVerbDetailedConjugationPair(presentPassiveTenseGroup, pastPassiveTenseGroup);
         final NounDetailedConjugationPair passiveParticiplePair = createNounDetailedConjugationPair(femininePassiveParticipleGroup, masculinePassiveParticipleGroup);
         final VerbDetailedConjugationPair imperativeAndForbiddingPair = createVerbDetailedConjugationPair(forbiddenGroup, imperativeGroup);
-        return new DetailedConjugation(activeTensePair, null, activeParticiplePair, passiveTensePair, passiveParticiplePair,
-                imperativeAndForbiddingPair, null);
+        final NounDetailedConjugationPair[] verbalNounDetailedConjugationPairs = createNounDetailedConjugationPairs(verbalNouns);
+        final NounDetailedConjugationPair[] nounOfPlaceAndTimeDetailedConjugationPairs = createNounDetailedConjugationPairs(nounsOfPlaceAndTime);
+        return new DetailedConjugation(activeTensePair, verbalNounDetailedConjugationPairs, activeParticiplePair,
+                passiveTensePair, passiveParticiplePair, imperativeAndForbiddingPair, nounOfPlaceAndTimeDetailedConjugationPairs);
     }
 
     private static ConjugationHeader createConjugationHeader(ConjugationRoots conjugationRoots, RootLetters rootLetters,
@@ -123,6 +127,20 @@ final class ConjugationBuilderHelper {
                 chartMode, rootLetters);
     }
 
+    private static RootWord[] getDefaultWordPairs(NounConjugationGroup[] nounConjugationGroups, boolean verbalNoun) {
+        if (!ArrayUtils.isEmpty(nounConjugationGroups)) {
+            List<RootWord> rootWords = new ArrayList<>();
+            for (final NounConjugationGroup nounConjugationGroup : nounConjugationGroups) {
+                if (nounConjugationGroup != null) {
+                    final RootWord rootWord = verbalNoun ? nounConjugationGroup.getAccusative().getSingular() : nounConjugationGroup.getDefaultValue();
+                    rootWords.add(rootWord);
+                }
+            }
+            return rootWords.toArray(new RootWord[rootWords.size()]);
+        }
+        return null;
+    }
+
     private static VerbDetailedConjugationPair createVerbDetailedConjugationPair(VerbConjugationGroup leftSideGroup,
                                                                                  VerbConjugationGroup rightSideGroup) {
         if (leftSideGroup != null || rightSideGroup != null) {
@@ -135,6 +153,24 @@ final class ConjugationBuilderHelper {
                                                                                  NounConjugationGroup rightSideGroup) {
         if (leftSideGroup != null || rightSideGroup != null) {
             return new NounDetailedConjugationPair(leftSideGroup, rightSideGroup);
+        }
+        return null;
+    }
+
+    private static NounDetailedConjugationPair[] createNounDetailedConjugationPairs(NounConjugationGroup[] nounConjugationGroups) {
+        if (!ArrayUtils.isEmpty(nounConjugationGroups)) {
+            List<NounDetailedConjugationPair> pairs = new ArrayList<>();
+
+            int fromIndex = 0;
+            int toIndex = ConjugationBuilder.NUM_OF_COLUMNS;
+            while (fromIndex < nounConjugationGroups.length) {
+                final NounConjugationGroup[] subArray = ArrayUtils.subarray(nounConjugationGroups, fromIndex, toIndex);
+                pairs.add(createNounDetailedConjugationPair(subArray[0], subArray[1]));
+                fromIndex = toIndex;
+                toIndex += ConjugationBuilder.NUM_OF_COLUMNS;
+            }
+
+            return pairs.toArray(new NounDetailedConjugationPair[pairs.size()]);
         }
         return null;
     }
