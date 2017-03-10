@@ -1,4 +1,4 @@
-package com.alphasystem.app.morphologicalengine.util;
+package com.alphasystem.app.morphologicalengine.conjugation.model;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
