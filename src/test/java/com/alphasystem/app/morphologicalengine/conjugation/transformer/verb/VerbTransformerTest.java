@@ -4,8 +4,6 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
-import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorType;
 import com.alphasystem.app.morphologicalengine.conjugation.test.CommonTest;
 import com.alphasystem.app.morphologicalengine.spring.MainConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
@@ -15,9 +13,11 @@ import com.alphasystem.morphologicalanalysis.morphology.model.support.Verb;
 import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.Test;
 
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorType.Type.RULE_ENGINE;
 import static com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerType.Type.FORBIDDING_SECOND_PERSON_MASCULINE_TRANSFORMER;
 import static com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerType.Type.IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER;
-import static com.alphasystem.app.morphologicalengine.spring.ApplicationContextProvider.getBean;
+import static com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory.getRuleProcessor;
+import static com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory.getVerbTransformer;
 import static com.alphasystem.arabic.model.ArabicLetterType.BA;
 import static com.alphasystem.arabic.model.ArabicLetterType.HAMZA;
 import static com.alphasystem.arabic.model.ArabicLetterType.KAF;
@@ -70,18 +70,14 @@ public class VerbTransformerTest {
     }
 
     private void testImperative(final Form form, RootLetters rootLetters, String beforeMessage, String afterMessage) {
-        final AbstractVerbTransformer verbTransformer = getBean(IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER.name(),
-                AbstractVerbTransformer.class);
-        final RuleProcessorFactory ruleProcessorFactory = getBean(RuleProcessorType.Type.RULE_ENGINE.name(), RuleProcessorFactory.class);
-        RuleProcessor ruleProcessor = ruleProcessorFactory.createRuleProcessor(new RuleInfo(form.getTemplate(), rootLetters));
+        final AbstractVerbTransformer verbTransformer = (AbstractVerbTransformer) getVerbTransformer(IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER);
+        RuleProcessor ruleProcessor = getRuleProcessor(RULE_ENGINE, new RuleInfo(form.getTemplate(), rootLetters));
         testImperativeOrForbidding(form, verbTransformer, ruleProcessor, rootLetters, IMPERATIVE, beforeMessage, afterMessage);
     }
 
     private void testForbidding(final Form form, RootLetters rootLetters, String beforeMessage, String afterMessage) {
-        final AbstractVerbTransformer verbTransformer = getBean(FORBIDDING_SECOND_PERSON_MASCULINE_TRANSFORMER.name(),
-                AbstractVerbTransformer.class);
-        final RuleProcessorFactory ruleProcessorFactory = getBean(RuleProcessorType.Type.RULE_ENGINE.name(), RuleProcessorFactory.class);
-        RuleProcessor ruleProcessor = ruleProcessorFactory.createRuleProcessor(new RuleInfo(form.getTemplate(), rootLetters));
+        final AbstractVerbTransformer verbTransformer = (AbstractVerbTransformer) getVerbTransformer(FORBIDDING_SECOND_PERSON_MASCULINE_TRANSFORMER);
+        RuleProcessor ruleProcessor = getRuleProcessor(RULE_ENGINE, new RuleInfo(form.getTemplate(), rootLetters));
         testImperativeOrForbidding(form, verbTransformer, ruleProcessor, rootLetters, FORBIDDING, beforeMessage, afterMessage);
     }
 

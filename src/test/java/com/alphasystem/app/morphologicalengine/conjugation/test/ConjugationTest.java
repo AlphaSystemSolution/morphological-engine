@@ -7,7 +7,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.Activ
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.AdverbLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ImperativeAndForbiddingLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.PassiveLine;
-import com.alphasystem.app.morphologicalengine.spring.ApplicationContextProvider;
+import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory;
 import com.alphasystem.app.morphologicalengine.spring.MainConfiguration;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
@@ -53,7 +53,7 @@ public class ConjugationTest extends CommonTest {
     @BeforeClass
     public void beforeClass(){
         super.beforeClass();
-        conjugationBuilder = ApplicationContextProvider.getFormBuilder();
+        conjugationBuilder = MorphologicalEngineFactory.getFormBuilder();
         Assert.assertNotNull(conjugationBuilder);
     }
 

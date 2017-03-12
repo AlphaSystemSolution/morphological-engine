@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Import;
 public class MainConfiguration {
 
     @Bean
-    ApplicationContextProvider applicationContextProvider() {
-        return new ApplicationContextProvider();
+    MorphologicalEngineFactory applicationContextProvider() {
+        return new MorphologicalEngineFactory();
     }
 }

@@ -26,9 +26,9 @@ import java.util.List;
 import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilderHelper.createAbbreviatedConjugation;
 import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilderHelper.createDetailedConjugation;
 import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorType.Type.RULE_ENGINE;
-import static com.alphasystem.app.morphologicalengine.spring.ApplicationContextProvider.getNounTransformerFactory;
-import static com.alphasystem.app.morphologicalengine.spring.ApplicationContextProvider.getRuleProcessor;
-import static com.alphasystem.app.morphologicalengine.spring.ApplicationContextProvider.getVerbTransformerFactory;
+import static com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory.getNounTransformerFactory;
+import static com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory.getRuleProcessor;
+import static com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory.getVerbTransformerFactory;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
 
 /**
