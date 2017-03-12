@@ -24,11 +24,11 @@ public class MorphologicalEngineFactory implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext;
 
-    private static <T> T getBean(Class<T> type) {
+    public static <T> T getBean(Class<T> type) {
         return applicationContext.getBean(type);
     }
 
-    private static <T> T getBean(String name, Class<T> type) {
+    public static <T> T getBean(String name, Class<T> type) {
         return applicationContext.getBean(name, type);
     }
 
