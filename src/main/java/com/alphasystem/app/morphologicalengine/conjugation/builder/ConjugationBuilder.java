@@ -9,8 +9,6 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugation
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorFactory;
-import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorType;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.ChartConfiguration;
@@ -20,7 +18,6 @@ import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermTy
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +25,9 @@ import java.util.List;
 
 import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilderHelper.createAbbreviatedConjugation;
 import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilderHelper.createDetailedConjugation;
+import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorType.Type.RULE_ENGINE;
 import static com.alphasystem.app.morphologicalengine.spring.ApplicationContextProvider.getNounTransformerFactory;
+import static com.alphasystem.app.morphologicalengine.spring.ApplicationContextProvider.getRuleProcessor;
 import static com.alphasystem.app.morphologicalengine.spring.ApplicationContextProvider.getVerbTransformerFactory;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
 
@@ -39,10 +38,6 @@ public class ConjugationBuilder {
 
     static final int NUM_OF_COLUMNS = 2;
     private Logger logger = LoggerFactory.getLogger(getClass());
-
-    @Autowired
-    @RuleProcessorType(RuleProcessorType.Type.RULE_ENGINE)
-    private RuleProcessorFactory ruleEngineFactory;
 
     private static void checkFourthRadical(RootLetters rootLetters) {
         if (rootLetters.hasFourthRadical()) {
@@ -56,7 +51,7 @@ public class ConjugationBuilder {
         final ConjugationConfiguration conjugationConfiguration = conjugationRoots.getConjugationConfiguration();
         final RuleInfo ruleInfo = new RuleInfo(conjugationRoots.getTemplate(), rootLetters,
                 conjugationConfiguration.isSkipRuleProcessing());
-        final RuleProcessor ruleProcessor = ruleEngineFactory.createRuleProcessor(ruleInfo);
+        final RuleProcessor ruleProcessor =  getRuleProcessor(RULE_ENGINE, ruleInfo);
 
         final boolean removePassiveLine = conjugationConfiguration.isRemovePassiveLine() || (conjugationRoots.getPastPassiveTense() == null);
 
