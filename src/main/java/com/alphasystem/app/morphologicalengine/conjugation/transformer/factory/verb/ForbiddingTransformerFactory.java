@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ForbiddingTransformerFactory extends AbstractVerbTransformerFactory {
 
     @Autowired
-    @VerbTransformerType(VerbTransformerType.Type.IMPERATIVE_SECOND_PERSON_MASCULINE_TRANSFORMER)
+    @VerbTransformerType(VerbTransformerType.Type.FORBIDDING_SECOND_PERSON_MASCULINE_TRANSFORMER)
     private VerbTransformer secondPersonMasculineTransformer;
 
     @Autowired
-    @VerbTransformerType(VerbTransformerType.Type.IMPERATIVE_SECOND_PERSON_FEMININE_TRANSFORMER)
+    @VerbTransformerType(VerbTransformerType.Type.FORBIDDING_SECOND_PERSON_FEMININE_TRANSFORMER)
     private VerbTransformer secondPersonFeminineTransformer;
 
 
