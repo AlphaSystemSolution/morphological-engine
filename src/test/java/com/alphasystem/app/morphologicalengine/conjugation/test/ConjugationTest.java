@@ -11,11 +11,15 @@ import com.alphasystem.app.morphologicalengine.spring.ApplicationContextProvider
 import com.alphasystem.app.morphologicalengine.spring.MainConfiguration;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
+import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.util.AppUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.test.context.ContextConfiguration;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationHelper.getConjugationRoots;
@@ -44,32 +48,37 @@ public class ConjugationTest extends CommonTest {
     private static final NounRootBase[] FORM_I_ADVERBS = new NounRootBase[]{NounOfPlaceAndTimeFactory.NOUN_OF_PLACE_AND_TIME_V1,
             NounOfPlaceAndTimeFactory.NOUN_OF_PLACE_AND_TIME_V2, NounOfPlaceAndTimeFactory.NOUN_OF_PLACE_AND_TIME_V3};
 
-    @Test
-    public void runConjugationBuilder() {
-        ConjugationBuilder conjugationBuilder = ApplicationContextProvider.getFormBuilder();
-        ConjugationRoots conjugationRoots = getConjugationRoots(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE,
-                "To Help", new NounRootBase[]{getByVerbalNoun(VERBAL_NOUN_V1)}, FORM_I_ADVERBS);
-        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, NOON, SAD, RA, null));
+    private ConjugationBuilder conjugationBuilder;
 
-        conjugationRoots = getConjugationRoots(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, "To Say",
-                new NounRootBase[]{getByVerbalNoun(VERBAL_NOUN_V1)}, FORM_I_ADVERBS);
-        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, QAF, WAW, LAM, null));
+    @BeforeClass
+    public void beforeClass(){
+        super.beforeClass();
+        conjugationBuilder = ApplicationContextProvider.getFormBuilder();
+        Assert.assertNotNull(conjugationBuilder);
+    }
 
-        conjugationRoots = getConjugationRoots(FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, "To Eat",
-                new NounRootBase[]{getByVerbalNoun(VERBAL_NOUN_V1)}, FORM_I_ADVERBS);
-        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, HAMZA, KAF, LAM, null));
+    @Test(dataProvider = "data")
+    public void runConjugationBuilder(NamedTemplate namedTemplate, String translation, NounRootBase[] verbalNouns,
+                                      NounRootBase[] nounOfPlaceAndTime, RootLetters rootLetters) {
+        final ConjugationRoots conjugationRoots = getConjugationRoots(namedTemplate, translation, verbalNouns,
+                nounOfPlaceAndTime);
+        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, rootLetters));
+    }
 
-        conjugationRoots = getConjugationRoots(FORM_IV_TEMPLATE, "To submit");
-        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, SEEN, LAM, MEEM, null));
-
-        conjugationRoots = getConjugationRoots(FORM_IV_TEMPLATE, "To send down");
-        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, NOON, ZAIN, LAM, null));
-
-        conjugationRoots = getConjugationRoots(FORM_IV_TEMPLATE, "To Establish");
-        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, QAF, WAW, MEEM, null));
-
-        conjugationRoots = getConjugationRoots(FORM_IX_TEMPLATE, "To collapse");
-        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, NOON, QAF, DDAD, null));
+    @DataProvider(name = "data")
+    private Object[][] conjugationData() {
+        return new Object[][]{
+                {FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, "To Help", new NounRootBase[]{getByVerbalNoun(VERBAL_NOUN_V1)},
+                        FORM_I_ADVERBS, new RootLetters(NOON, SAD, RA)},
+                {FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, "To Say", new NounRootBase[]{getByVerbalNoun(VERBAL_NOUN_V1)},
+                        FORM_I_ADVERBS, new RootLetters(QAF, WAW, LAM)},
+                {FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, "To Eat", new NounRootBase[]{getByVerbalNoun(VERBAL_NOUN_V1)},
+                        FORM_I_ADVERBS, new RootLetters(HAMZA, KAF, LAM)},
+                {FORM_IV_TEMPLATE, "To submit", null, null, new RootLetters(SEEN, LAM, MEEM)},
+                {FORM_IV_TEMPLATE, "To send down", null, null, new RootLetters(NOON, ZAIN, LAM)},
+                {FORM_IV_TEMPLATE, "To Establish", null, null, new RootLetters(QAF, WAW, MEEM)},
+                {FORM_IX_TEMPLATE, "To collapse", null, null, new RootLetters(NOON, QAF, DDAD)}
+        };
     }
 
     private void printMorphologicalChart(MorphologicalChart chart) {
