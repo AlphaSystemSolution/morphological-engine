@@ -8,7 +8,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorTyp
 import com.alphasystem.app.morphologicalengine.conjugation.test.CommonTest;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformerType;
-import com.alphasystem.app.morphologicalengine.spring.MainConfiguration;
+import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineConfiguration;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
@@ -23,7 +23,7 @@ import org.testng.annotations.Test;
 /**
  * @author sali
  */
-@ContextConfiguration(classes = {MainConfiguration.class})
+@ContextConfiguration(classes = {MorphologicalEngineConfiguration.class})
 public class NounTransformerTest extends CommonTest {
 
     @Autowired

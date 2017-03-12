@@ -4,7 +4,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.test;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.WordStatus;
-import com.alphasystem.app.morphologicalengine.spring.MainConfiguration;
+import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineConfiguration;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
@@ -26,7 +26,7 @@ import static org.testng.Reporter.log;
 /**
  * @author sali
  */
-@ContextConfiguration(classes = {MainConfiguration.class})
+@ContextConfiguration(classes = {MorphologicalEngineConfiguration.class})
 public class BuilderTest extends CommonTest {
 
     private void printLabel(String src) {

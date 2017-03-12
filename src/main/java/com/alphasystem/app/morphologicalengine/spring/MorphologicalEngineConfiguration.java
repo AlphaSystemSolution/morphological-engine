@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import({RuleProcessorConfiguration.class, NounTransformerConfiguration.class, NounTransformerFactoryConfiguration.class,
         VerbTransformerConfiguration.class, VerbTransformerFactoryConfiguration.class, BuilderConfiguration.class})
-public class MainConfiguration {
+public class MorphologicalEngineConfiguration {
 
     @Bean
     MorphologicalEngineFactory applicationContextProvider() {

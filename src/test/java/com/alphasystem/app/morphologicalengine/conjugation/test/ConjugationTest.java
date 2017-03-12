@@ -8,7 +8,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.Adver
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ImperativeAndForbiddingLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.PassiveLine;
 import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory;
-import com.alphasystem.app.morphologicalengine.spring.MainConfiguration;
+import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineConfiguration;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.NamedTemplate;
@@ -36,7 +36,7 @@ import static java.lang.String.format;
 /**
  * @author sali
  */
-@ContextConfiguration(classes = {MainConfiguration.class})
+@ContextConfiguration(classes = {MorphologicalEngineConfiguration.class})
 public class ConjugationTest extends CommonTest {
 
     private static final String SARF_TERM_PATTERN = "3+|%s .%s+| 3+|%s %s";

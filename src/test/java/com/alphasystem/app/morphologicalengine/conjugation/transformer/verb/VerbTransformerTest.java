@@ -5,7 +5,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.test.CommonTest;
-import com.alphasystem.app.morphologicalengine.spring.MainConfiguration;
+import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
@@ -34,7 +34,7 @@ import static org.testng.Reporter.log;
 /**
  * @author sali
  */
-@ContextConfiguration(classes = {MainConfiguration.class})
+@ContextConfiguration(classes = {MorphologicalEngineConfiguration.class})
 public class VerbTransformerTest {
 
     @Test

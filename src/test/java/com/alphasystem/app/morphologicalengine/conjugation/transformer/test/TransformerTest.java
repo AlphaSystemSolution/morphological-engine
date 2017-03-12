@@ -10,7 +10,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.n
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.verb.VerbTransformerFactory;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.verb.VerbTransformerFactoryType;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
-import com.alphasystem.app.morphologicalengine.spring.MainConfiguration;
+import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineConfiguration;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
@@ -43,7 +43,7 @@ import static java.lang.String.format;
 /**
  * @author sali
  */
-@ContextConfiguration(classes = {MainConfiguration.class})
+@ContextConfiguration(classes = {MorphologicalEngineConfiguration.class})
 public class TransformerTest extends CommonTest {
 
     @Autowired
