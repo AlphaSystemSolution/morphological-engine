@@ -6,6 +6,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.DiacriticType;
+import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
@@ -38,13 +39,16 @@ public class ImperativeProcessor extends AbstractRuleProcessor {
         if (!IMPERATIVE.equals(sarfTermType)) {
             return baseRootWord;
         }
-        ArabicLetter imperativeLetter = FORM_IV_TEMPLATE.equals(ruleInfo.getTemplate()) ? ALIF_HAMZA_ABOVE_WITH_FATHA :
+        final NamedTemplate template = ruleInfo.getTemplate();
+        ArabicLetter imperativeLetter = FORM_IV_TEMPLATE.equals(template) ? ALIF_HAMZA_ABOVE_WITH_FATHA :
                 getImperativeLetter(baseRootWord);
         final ArabicWord arabicWord = baseRootWord.getRootWord().remove(0);
         final ArabicLetter firstLetter = arabicWord.getFirstLetter();
         final DiacriticType[] diacritics = firstLetter.getDiacritics();
         DiacriticType firstLetterDiacritics = isEmpty(diacritics) ? SUKUN : firstLetter.getDiacritics()[0];
-        if ((SHADDA.equals(firstLetterDiacritics) || SUKUN.equals(firstLetterDiacritics)) && imperativeLetter != null) {
+        boolean prepend = imperativeLetter != null && (FORM_IV_TEMPLATE.equals(template) ||
+                (SHADDA.equals(firstLetterDiacritics) || SUKUN.equals(firstLetterDiacritics)));
+        if (prepend) {
             arabicWord.preppend(imperativeLetter);
         }
         return baseRootWord;
