@@ -53,7 +53,7 @@ public class ConjugationTest extends CommonTest {
     @BeforeClass
     public void beforeClass(){
         super.beforeClass();
-        conjugationBuilder = MorphologicalEngineFactory.getFormBuilder();
+        conjugationBuilder = MorphologicalEngineFactory.getConjugationBuilder();
         Assert.assertNotNull(conjugationBuilder);
     }
 

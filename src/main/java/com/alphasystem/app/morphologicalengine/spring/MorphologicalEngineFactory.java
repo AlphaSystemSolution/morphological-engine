@@ -32,7 +32,7 @@ public class MorphologicalEngineFactory implements ApplicationContextAware {
         return applicationContext.getBean(name, type);
     }
 
-    public static ConjugationBuilder getFormBuilder() {
+    public static ConjugationBuilder getConjugationBuilder() {
         return getBean(ConjugationBuilder.class);
     }
 
