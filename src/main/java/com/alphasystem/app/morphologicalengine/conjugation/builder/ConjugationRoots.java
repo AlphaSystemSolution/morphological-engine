@@ -5,14 +5,18 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.ChartConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.ConjugationConfiguration;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * @author sali
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class ConjugationRoots {
 
     private NamedTemplate template;
+    private RootLetters rootLetters;
     private ConjugationConfiguration conjugationConfiguration;
     private ChartConfiguration chartConfiguration;
     private String translation;
@@ -40,6 +44,14 @@ public final class ConjugationRoots {
 
     public void setTemplate(NamedTemplate template) {
         this.template = template;
+    }
+
+    public RootLetters getRootLetters() {
+        return rootLetters;
+    }
+
+    public void setRootLetters(RootLetters rootLetters) {
+        this.rootLetters = rootLetters;
     }
 
     public ConjugationConfiguration getConjugationConfiguration() {

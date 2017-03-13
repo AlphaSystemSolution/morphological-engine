@@ -9,7 +9,6 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugation
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
-import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.ChartConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.ConjugationConfiguration;
@@ -45,13 +44,14 @@ public class ConjugationBuilder {
         }
     }
 
-    public MorphologicalChart doConjugation(ConjugationRoots conjugationRoots, RootLetters rootLetters) {
+    public MorphologicalChart doConjugation(ConjugationRoots conjugationRoots) {
+        RootLetters rootLetters = conjugationRoots.getRootLetters();
         checkFourthRadical(rootLetters);
 
         final ConjugationConfiguration conjugationConfiguration = conjugationRoots.getConjugationConfiguration();
         final RuleInfo ruleInfo = new RuleInfo(conjugationRoots.getTemplate(), rootLetters,
                 conjugationConfiguration.isSkipRuleProcessing());
-        final RuleProcessor ruleProcessor =  getRuleProcessor(RULE_ENGINE, ruleInfo);
+        final RuleProcessor ruleProcessor = getRuleProcessor(RULE_ENGINE, ruleInfo);
 
         final boolean removePassiveLine = conjugationConfiguration.isRemovePassiveLine() || (conjugationRoots.getPastPassiveTense() == null);
 
@@ -106,12 +106,6 @@ public class ConjugationBuilder {
                     nounOfPlaceAndTimeConjugationGroups);
         }
         return new MorphologicalChart(abbreviatedConjugation, detailedConjugation);
-    }
-
-    public MorphologicalChart doConjugation(ConjugationRoots conjugationRoots, ArabicLetterType firstRadical,
-                                            ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
-                                            ArabicLetterType fourthRadical) {
-        return doConjugation(conjugationRoots, new RootLetters(firstRadical, secondRadical, thirdRadical, fourthRadical));
     }
 
     private VerbConjugationGroup getVerbConjugationGroup(SarfTermType sarfTermType, NamedTemplate namedTemplate,

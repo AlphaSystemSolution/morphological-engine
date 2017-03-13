@@ -6,6 +6,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.VerbalNounFacto
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.ConjugationData;
 import com.alphasystem.morphologicalanalysis.morphology.model.MorphologicalEntry;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
 
 import java.util.ArrayList;
@@ -85,13 +86,14 @@ public final class ConjugationHelper {
                 .verbalNouns(true, form.getVerbalNouns()).adverbs(true, form.getAdverbs());
     }
 
-    public static ConjugationRoots getConjugationRoots(NamedTemplate template, String translation) {
-        return getConjugationRoots(template, translation, null, null);
+    public static ConjugationRoots getConjugationRoots(NamedTemplate template, RootLetters rootLetters, String translation) {
+        return getConjugationRoots(template, rootLetters, translation, null, null);
     }
 
-    public static ConjugationRoots getConjugationRoots(NamedTemplate template, String translation,
+    public static ConjugationRoots getConjugationRoots(NamedTemplate template, RootLetters rootLetters, String translation,
                                                        NounRootBase[] verbalNouns, NounRootBase[] adverbs) {
         final ConjugationRoots conjugationRoots = applyTemplate(null, template);
+        conjugationRoots.setRootLetters(new RootLetters(rootLetters));
         conjugationRoots.translation(translation);
         if (verbalNouns != null) {
             conjugationRoots.setVerbalNouns(verbalNouns);
@@ -114,7 +116,8 @@ public final class ConjugationHelper {
                 verbalNounRoots[i] = new NounRootBase(VerbalNounFactory.getByVerbalNoun(verbalNouns.get(i)));
             }
         }
-        return getConjugationRoots(conjugationData.getTemplate(), conjugationData.getTranslation(), verbalNounRoots, null);
+        return getConjugationRoots(conjugationData.getTemplate(), conjugationData.getRootLetters(),
+                conjugationData.getTranslation(), verbalNounRoots, null);
     }
 
     public static ConjugationRoots getConjugationRoots(MorphologicalEntry morphologicalEntry) {
@@ -129,7 +132,8 @@ public final class ConjugationHelper {
                 verbalNounRoots[i] = new NounRootBase(VerbalNounFactory.getByVerbalNoun(verbalNouns.get(i)));
             }
         }
-        return getConjugationRoots(morphologicalEntry.getForm(), morphologicalEntry.getShortTranslation(), verbalNounRoots, null);
+        return getConjugationRoots(morphologicalEntry.getForm(), morphologicalEntry.getRootLetters(),
+                morphologicalEntry.getShortTranslation(), verbalNounRoots, null);
     }
 
 

@@ -60,9 +60,9 @@ public class ConjugationTest extends CommonTest {
     @Test(dataProvider = "data")
     public void runConjugationBuilder(NamedTemplate namedTemplate, String translation, NounRootBase[] verbalNouns,
                                       NounRootBase[] nounOfPlaceAndTime, RootLetters rootLetters) {
-        final ConjugationRoots conjugationRoots = getConjugationRoots(namedTemplate, translation, verbalNouns,
+        final ConjugationRoots conjugationRoots = getConjugationRoots(namedTemplate, rootLetters, translation, verbalNouns,
                 nounOfPlaceAndTime);
-        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, rootLetters));
+        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots));
     }
 
     @DataProvider(name = "data")
