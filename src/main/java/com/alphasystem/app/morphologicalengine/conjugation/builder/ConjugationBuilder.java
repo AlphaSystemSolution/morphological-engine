@@ -13,6 +13,7 @@ import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.ChartConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.ConjugationConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
+import com.alphasystem.app.morphologicalengine.conjugation.model.OutputFormat;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
@@ -44,7 +45,20 @@ public class ConjugationBuilder {
         }
     }
 
+    /*public List<MorphologicalChart> doConjugations(List<ConjugationRoots> rootsList) {
+        List<MorphologicalChart> morphologicalCharts = new ArrayList<>();
+        rootsList.forEach(conjugationRoots -> morphologicalCharts.add(doConjugation(conjugationRoots)));
+        return morphologicalCharts;
+    }*/
+
     public MorphologicalChart doConjugation(ConjugationRoots conjugationRoots) {
+        return doConjugation(conjugationRoots, OutputFormat.UNICODE);
+    }
+
+    public MorphologicalChart doConjugation(ConjugationRoots conjugationRoots, OutputFormat outputFormat) {
+        // TODO: change the logic to create MorphologicalChart based on OutputFormat
+        outputFormat = outputFormat == null ? OutputFormat.UNICODE : outputFormat;
+
         RootLetters rootLetters = conjugationRoots.getRootLetters();
         checkFourthRadical(rootLetters);
 
@@ -94,7 +108,8 @@ public class ConjugationBuilder {
             abbreviatedConjugation = createAbbreviatedConjugation(conjugationRoots, rootLetters,
                     removePassiveLine, pastActiveTenseGroup, presentActiveTenseGroup, pastPassiveTenseGroup,
                     presentPassiveTenseGroup, imperativeGroup, forbiddenGroup, masculineActiveParticipleGroup,
-                    masculinePassiveParticipleGroup, verbalNounConjugationGroups, nounOfPlaceAndTimeConjugationGroups);
+                    masculinePassiveParticipleGroup, verbalNounConjugationGroups, nounOfPlaceAndTimeConjugationGroups,
+                    outputFormat);
         }
 
         DetailedConjugation detailedConjugation = null;

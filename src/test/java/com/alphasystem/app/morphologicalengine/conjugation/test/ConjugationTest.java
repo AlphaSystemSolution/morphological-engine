@@ -62,7 +62,7 @@ public class ConjugationTest extends CommonTest {
                                       NounRootBase[] nounOfPlaceAndTime, RootLetters rootLetters) {
         final ConjugationRoots conjugationRoots = getConjugationRoots(namedTemplate, rootLetters, translation, verbalNouns,
                 nounOfPlaceAndTime);
-        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots));
+        printMorphologicalChart(conjugationBuilder.doConjugation(conjugationRoots, OutputFormat.HTML));
     }
 
     @DataProvider(name = "data")
@@ -88,9 +88,7 @@ public class ConjugationTest extends CommonTest {
     }
 
     private void createHeading(ConjugationHeader header) {
-        final ArabicWord arabicWord = concatenateWithSpace(header.getPastTenseRoot().toLabel(),
-                header.getPresentTenseRoot().toLabel());
-        lines.add(format("== [arabicHeading1]#%s#", arabicWord.toHtmlCode()));
+        lines.add(format("== [arabicHeading1]#%s#", header.getTitle()));
     }
 
     private void createAbbreviatedConjugationChart(AbbreviatedConjugation abbreviatedConjugation, ConjugationHeader header) {
@@ -121,13 +119,9 @@ public class ConjugationTest extends CommonTest {
     }
 
     private String addHeaderLabels(ConjugationHeader header) {
-        return format("%s%s#%s%s%s%s#%s%s%s%s#", ARABIC_NORMAL_STYLE_START, header.getTypeLabel1().toHtmlCode(), AppUtil.NEW_LINE,
-                AppUtil.NEW_LINE, ARABIC_NORMAL_STYLE_START, header.getTypeLabel2().toHtmlCode(), AppUtil.NEW_LINE,
-                AppUtil.NEW_LINE, ARABIC_NORMAL_STYLE_START, header.getTypeLabel3().toHtmlCode());
-//        return new StringBuilder().append(ARABIC_NORMAL_STYLE_START).append(header.getTypeLabel1().toHtmlCode())
-//                .append("#").append(AppUtil.NEW_LINE).append(AppUtil.NEW_LINE).append(ARABIC_NORMAL_STYLE_START)
-//                .append(header.getTypeLabel2().toHtmlCode()).append("#").append(AppUtil.NEW_LINE).append(AppUtil.NEW_LINE)
-//                .append(ARABIC_NORMAL_STYLE_START).append(header.getTypeLabel3().toHtmlCode()).append("#").toString();
+        return format("%s%s#%s%s%s%s#%s%s%s%s#", ARABIC_NORMAL_STYLE_START, header.getTypeLabel1(), AppUtil.NEW_LINE,
+                AppUtil.NEW_LINE, ARABIC_NORMAL_STYLE_START, header.getTypeLabel2(), AppUtil.NEW_LINE,
+                AppUtil.NEW_LINE, ARABIC_NORMAL_STYLE_START, header.getTypeLabel3());
     }
 
 
