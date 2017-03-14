@@ -18,11 +18,11 @@ public class ConjugationGroup {
         this.termType = termType;
     }
 
-    public RootWord getDefaultValue() {
+    public RootWord defaultValue() {
         return null;
     }
 
-    public boolean isEmpty() {
+    public boolean empty() {
         return false;
     }
 }

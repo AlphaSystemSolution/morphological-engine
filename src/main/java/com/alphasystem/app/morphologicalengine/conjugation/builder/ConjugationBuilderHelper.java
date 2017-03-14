@@ -35,20 +35,20 @@ final class ConjugationBuilderHelper {
                                                                NounConjugationGroup[] verbalNouns,
                                                                NounConjugationGroup[] nounsOfPlaceAndTime) {
 
-        final RootWord pastTenseRoot = (pastActiveTenseGroup == null) ? null : pastActiveTenseGroup.getDefaultValue();
-        final RootWord presentTenseRoot = (presentActiveTenseGroup == null) ? null : presentActiveTenseGroup.getDefaultValue();
-        final RootWord imperativeRoot = (imperativeGroup == null) ? null : imperativeGroup.getDefaultValue();
-        final RootWord forbiddenRoot = (forbiddenGroup == null) ? null : forbiddenGroup.getDefaultValue();
-        final RootWord activeParticipleRoot = (masculineActiveParticipleGroup == null) ? null : masculineActiveParticipleGroup.getDefaultValue();
+        final RootWord pastTenseRoot = (pastActiveTenseGroup == null) ? null : pastActiveTenseGroup.defaultValue();
+        final RootWord presentTenseRoot = (presentActiveTenseGroup == null) ? null : presentActiveTenseGroup.defaultValue();
+        final RootWord imperativeRoot = (imperativeGroup == null) ? null : imperativeGroup.defaultValue();
+        final RootWord forbiddenRoot = (forbiddenGroup == null) ? null : forbiddenGroup.defaultValue();
+        final RootWord activeParticipleRoot = (masculineActiveParticipleGroup == null) ? null : masculineActiveParticipleGroup.defaultValue();
         final RootWord[] verbalNounDefaultWords = getDefaultWordPairs(verbalNouns);
 
         final ConjugationHeader conjugationHeader = createConjugationHeader(conjugationRoots, rootLetters, pastTenseRoot, presentTenseRoot);
         final ActiveLine activeLine = new ActiveLine(pastTenseRoot, presentTenseRoot, activeParticipleRoot, verbalNounDefaultWords);
         PassiveLine passiveLine = null;
         if (!removePassiveLine) {
-            final RootWord pastPassiveTenseRoot = (pastPassiveTenseGroup == null) ? null : pastPassiveTenseGroup.getDefaultValue();
-            final RootWord presentPassiveTenseRoot = (presentPassiveTenseGroup == null) ? null : presentPassiveTenseGroup.getDefaultValue();
-            final RootWord passiveParticipleRoot = (masculinePassiveParticipleGroup == null) ? null : masculinePassiveParticipleGroup.getDefaultValue();
+            final RootWord pastPassiveTenseRoot = (pastPassiveTenseGroup == null) ? null : pastPassiveTenseGroup.defaultValue();
+            final RootWord presentPassiveTenseRoot = (presentPassiveTenseGroup == null) ? null : presentPassiveTenseGroup.defaultValue();
+            final RootWord passiveParticipleRoot = (masculinePassiveParticipleGroup == null) ? null : masculinePassiveParticipleGroup.defaultValue();
             passiveLine = new PassiveLine(pastPassiveTenseRoot, presentPassiveTenseRoot, passiveParticipleRoot, verbalNounDefaultWords);
         }
 
@@ -132,7 +132,7 @@ final class ConjugationBuilderHelper {
             List<RootWord> rootWords = new ArrayList<>();
             for (final NounConjugationGroup nounConjugationGroup : nounConjugationGroups) {
                 if (nounConjugationGroup != null) {
-                    rootWords.add(nounConjugationGroup.getDefaultValue());
+                    rootWords.add(nounConjugationGroup.defaultValue());
                 }
             }
             return rootWords.toArray(new RootWord[rootWords.size()]);

@@ -2,10 +2,12 @@ package com.alphasystem.app.morphologicalengine.conjugation.model;
 
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author sali
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class VerbConjugationGroup extends ConjugationGroup {
 
     private ConjugationTuple masculineThirdPerson;
@@ -62,7 +64,7 @@ public final class VerbConjugationGroup extends ConjugationGroup {
     }
 
     @Override
-    public RootWord getDefaultValue() {
+    public RootWord defaultValue() {
         RootWord defaultValue;
         if (SarfTermType.IMPERATIVE.equals(getTermType()) || SarfTermType.FORBIDDING.equals(getTermType())) {
             defaultValue = (masculineSecondPerson == null) ? null : masculineSecondPerson.getSingular();
@@ -73,7 +75,7 @@ public final class VerbConjugationGroup extends ConjugationGroup {
     }
 
     @Override
-    public boolean isEmpty() {
+    public boolean empty() {
         return (masculineSecondPerson == null || masculineThirdPerson.isEmpty()) &&
                 (feminineThirdPerson == null || feminineThirdPerson.isEmpty()) &&
                 (masculineSecondPerson == null || masculineSecondPerson.isEmpty()) &&

@@ -2,10 +2,12 @@ package com.alphasystem.app.morphologicalengine.conjugation.model;
 
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author sali
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class NounConjugationGroup extends ConjugationGroup {
 
     private ConjugationTuple nominative;
@@ -42,7 +44,7 @@ public final class NounConjugationGroup extends ConjugationGroup {
     }
 
     @Override
-    public RootWord getDefaultValue() {
+    public RootWord defaultValue() {
         RootWord defaultValue;
         if(SarfTermType.VERBAL_NOUN.equals(getTermType()))
             defaultValue = accusative == null ? null : accusative.getSingular();
@@ -53,7 +55,7 @@ public final class NounConjugationGroup extends ConjugationGroup {
     }
 
     @Override
-    public boolean isEmpty() {
+    public boolean empty() {
         return (nominative == null || nominative.isEmpty()) && (accusative == null || accusative.isEmpty()) &&
                 (genitive == null || genitive.isEmpty());
     }
