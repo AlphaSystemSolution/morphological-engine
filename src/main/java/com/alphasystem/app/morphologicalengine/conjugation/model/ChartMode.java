@@ -13,41 +13,53 @@ import com.alphasystem.arabic.model.WeakVerbType;
  */
 public class ChartMode {
 
-    private final NamedTemplate template;
+    private NamedTemplate template;
 
-    private final RootType rootType;
+    private RootType rootType;
 
-    private final VerbType verbType;
+    private VerbType verbType;
 
-    private final WeakVerbType weakVerbType;
+    private WeakVerbType weakVerbType;
 
-    /**
-     * @param template
-     * @param rootType
-     * @param verbType
-     * @param weakVerbType
-     */
-    public ChartMode(NamedTemplate template, RootType rootType,
-                     VerbType verbType, WeakVerbType weakVerbType) {
-        this.template = template;
-        this.rootType = rootType;
-        this.verbType = verbType;
-        this.weakVerbType = weakVerbType;
+    public ChartMode() {
     }
 
-    public RootType getRootType() {
-        return rootType;
+    public ChartMode(NamedTemplate template, RootType rootType, VerbType verbType, WeakVerbType weakVerbType) {
+        setTemplate(template);
+        setRootType(rootType);
+        setVerbType(verbType);
+        setWeakVerbType(weakVerbType);
     }
 
     public NamedTemplate getTemplate() {
         return template;
     }
 
+    public void setTemplate(NamedTemplate template) {
+        this.template = template;
+    }
+
+    public RootType getRootType() {
+        return rootType;
+    }
+
+    public void setRootType(RootType rootType) {
+        this.rootType = rootType;
+    }
+
     public VerbType getVerbType() {
         return verbType;
     }
 
+    public void setVerbType(VerbType verbType) {
+        this.verbType = verbType;
+    }
+
     public WeakVerbType getWeakVerbType() {
         return weakVerbType;
+    }
+
+    public void setWeakVerbType(WeakVerbType weakVerbType) {
+        this.weakVerbType = weakVerbType;
     }
 }
