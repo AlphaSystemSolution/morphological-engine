@@ -7,8 +7,8 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.Activ
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.AdverbLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ImperativeAndForbiddingLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.PassiveLine;
-import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory;
 import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineConfiguration;
+import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.NamedTemplate;
@@ -25,7 +25,6 @@ import org.testng.annotations.Test;
 import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationHelper.getConjugationRoots;
 import static com.alphasystem.app.morphologicalengine.conjugation.model.VerbalNounFactory.getByVerbalNoun;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
-import static com.alphasystem.arabic.model.ArabicWord.concatenateWithSpace;
 import static com.alphasystem.arabic.model.ArabicWord.getWord;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_IV_TEMPLATE;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_IX_TEMPLATE;
@@ -110,12 +109,8 @@ public class ConjugationTest extends CommonTest {
     }
 
     private String addRootLettersAndTranslation(RootLetters rootLetters, String translation) {
-        ArabicLetterType fourthRadical = rootLetters.getFourthRadical();
-        ArabicWord fourthRadicalWord = (fourthRadical == null) ? null : fourthRadical.toLabel();
-        final ArabicWord rootLettersWord = concatenateWithSpace(rootLetters.getFirstRadical().toLabel(),
-                rootLetters.getSecondRadical().toLabel(), rootLetters.getThirdRadical().toLabel(), fourthRadicalWord);
         String translationValue = (translation == null) ? "" : format("[small]#(%s)#", translation);
-        return format("[arabicHeading1]#%s#%s%s%s", rootLettersWord.toHtmlCode(), AppUtil.NEW_LINE, AppUtil.NEW_LINE, translationValue);
+        return format("[arabicHeading1]#%s#%s%s%s", rootLetters.toLabel(), AppUtil.NEW_LINE, AppUtil.NEW_LINE, translationValue);
     }
 
     private String addHeaderLabels(ConjugationHeader header) {
