@@ -116,8 +116,10 @@ public final class ConjugationHelper {
                 verbalNounRoots[i] = new NounRootBase(VerbalNounFactory.getByVerbalNoun(verbalNouns.get(i)));
             }
         }
-        return getConjugationRoots(conjugationData.getTemplate(), conjugationData.getRootLetters(),
-                conjugationData.getTranslation(), verbalNounRoots, null);
+        final ConjugationRoots conjugationRoots = getConjugationRoots(conjugationData.getTemplate(),
+                conjugationData.getRootLetters(), conjugationData.getTranslation(), verbalNounRoots, null);
+        conjugationRoots.setConjugationConfiguration(conjugationData.getConfiguration());
+        return conjugationRoots;
     }
 
     public static ConjugationRoots getConjugationRoots(MorphologicalEntry morphologicalEntry) {
@@ -132,8 +134,10 @@ public final class ConjugationHelper {
                 verbalNounRoots[i] = new NounRootBase(VerbalNounFactory.getByVerbalNoun(verbalNouns.get(i)));
             }
         }
-        return getConjugationRoots(morphologicalEntry.getForm(), morphologicalEntry.getRootLetters(),
-                morphologicalEntry.getShortTranslation(), verbalNounRoots, null);
+        final ConjugationRoots conjugationRoots = getConjugationRoots(morphologicalEntry.getForm(),
+                morphologicalEntry.getRootLetters(), morphologicalEntry.getShortTranslation(), verbalNounRoots, null);
+        conjugationRoots.setConjugationConfiguration(conjugationRoots.getConjugationConfiguration());
+        return conjugationRoots;
     }
 
 
