@@ -7,12 +7,14 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.Activ
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.AdverbLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ImperativeAndForbiddingLine;
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.PassiveLine;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import static java.util.Objects.hash;
 
 /**
  * @author sali
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AbbreviatedConjugation {
 
     private final ConjugationHeader conjugationHeader;

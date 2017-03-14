@@ -9,6 +9,7 @@ import com.alphasystem.arabic.model.VerbType;
 import com.alphasystem.arabic.model.WeakVerbType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.LEFT_PARENTHESIS;
 import static com.alphasystem.arabic.model.ArabicLetterType.NOON;
@@ -24,6 +25,7 @@ import static com.alphasystem.arabic.model.ArabicWord.getWord;
 /**
  * @author sali
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ConjugationHeader {
 
     private static final ArabicWord WEIGHT_LABEL = getWord(WAW, ZAIN, NOON);

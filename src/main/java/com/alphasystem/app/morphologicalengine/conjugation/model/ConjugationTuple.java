@@ -1,10 +1,12 @@
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author sali
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class ConjugationTuple {
 
     private RootWord singular;

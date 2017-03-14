@@ -2,10 +2,12 @@ package com.alphasystem.app.morphologicalengine.conjugation.model;
 
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author sali
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MorphologicalChart {
 
     private final AbbreviatedConjugation abbreviatedConjugation;

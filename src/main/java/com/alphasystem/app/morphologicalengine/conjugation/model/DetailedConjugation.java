@@ -3,9 +3,12 @@
  */
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * @author sali
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DetailedConjugation {
 
     private final VerbDetailedConjugationPair activeTensePair;

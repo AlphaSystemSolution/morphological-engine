@@ -4,12 +4,14 @@
 package com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj;
 
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import static java.util.Objects.hash;
 
 /**
  * @author sali
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ImperativeAndForbiddingLine {
 
     private final RootWord imperative;
