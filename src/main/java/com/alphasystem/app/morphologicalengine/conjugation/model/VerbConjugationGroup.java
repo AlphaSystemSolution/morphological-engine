@@ -76,10 +76,10 @@ public final class VerbConjugationGroup extends ConjugationGroup {
 
     @Override
     public boolean empty() {
-        return (masculineSecondPerson == null || masculineThirdPerson.isEmpty()) &&
-                (feminineThirdPerson == null || feminineThirdPerson.isEmpty()) &&
-                (masculineSecondPerson == null || masculineSecondPerson.isEmpty()) &&
-                (feminineSecondPerson == null || feminineSecondPerson.isEmpty()) &&
-                (firstPerson == null || firstPerson.isEmpty());
+        return (masculineSecondPerson == null || masculineThirdPerson.empty()) &&
+                (feminineThirdPerson == null || feminineThirdPerson.empty()) &&
+                (masculineSecondPerson == null || masculineSecondPerson.empty()) &&
+                (feminineSecondPerson == null || feminineSecondPerson.empty()) &&
+                (firstPerson == null || firstPerson.empty());
     }
 }

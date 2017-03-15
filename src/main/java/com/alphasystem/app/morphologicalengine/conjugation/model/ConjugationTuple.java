@@ -49,7 +49,7 @@ public final class ConjugationTuple {
         this.plural = plural;
     }
 
-    public boolean isEmpty() {
+    public boolean empty() {
         return (singular == null) && (plural == null);
     }
 }

@@ -56,8 +56,8 @@ public final class NounConjugationGroup extends ConjugationGroup {
 
     @Override
     public boolean empty() {
-        return (nominative == null || nominative.isEmpty()) && (accusative == null || accusative.isEmpty()) &&
-                (genitive == null || genitive.isEmpty());
+        return (nominative == null || nominative.empty()) && (accusative == null || accusative.empty()) &&
+                (genitive == null || genitive.empty());
     }
 
 }
