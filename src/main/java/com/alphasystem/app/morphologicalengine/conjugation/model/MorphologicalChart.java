@@ -2,6 +2,8 @@ package com.alphasystem.app.morphologicalengine.conjugation.model;
 
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
+import com.alphasystem.morphologicalengine.model.AbbreviatedConjugation;
+import com.alphasystem.morphologicalengine.model.ConjugationHeader;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**

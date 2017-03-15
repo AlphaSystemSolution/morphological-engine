@@ -3,13 +3,14 @@
  */
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.ActiveLine;
+import com.alphasystem.morphologicalengine.model.abbrvconj.ActiveLine;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.arabic.model.RootType;
 import com.alphasystem.arabic.model.VerbType;
 import com.alphasystem.arabic.model.WeakVerbType;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SortDirection;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SortDirective;
+import com.alphasystem.morphologicalengine.model.AbbreviatedConjugation;
 
 import java.util.Comparator;
 
