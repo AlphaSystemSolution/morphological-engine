@@ -17,43 +17,54 @@ import static java.util.Objects.hash;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AbbreviatedConjugation {
 
-    private final ConjugationHeader conjugationHeader;
+    private ConjugationHeader conjugationHeader;
 
-    private final ActiveLine activeLine;
+    private ActiveLine activeLine;
 
-    private final PassiveLine passiveLine;
+    private PassiveLine passiveLine;
 
-    private final ImperativeAndForbiddingLine imperativeAndForbiddingLine;
+    private ImperativeAndForbiddingLine imperativeAndForbiddingLine;
 
-    private final AdverbLine adverbLine;
-
-    public AbbreviatedConjugation(ConjugationHeader conjugationHeader, ActiveLine activeLine, PassiveLine passiveLine,
-                                  ImperativeAndForbiddingLine commandLine, AdverbLine adverbLine) {
-        this.conjugationHeader = conjugationHeader;
-        this.activeLine = activeLine;
-        this.passiveLine = passiveLine;
-        this.imperativeAndForbiddingLine = commandLine;
-        this.adverbLine = adverbLine;
-    }
+    private AdverbLine adverbLine;
 
     public ConjugationHeader getConjugationHeader() {
         return conjugationHeader;
+    }
+
+    public void setConjugationHeader(ConjugationHeader conjugationHeader) {
+        this.conjugationHeader = conjugationHeader;
     }
 
     public ActiveLine getActiveLine() {
         return activeLine;
     }
 
-    public ImperativeAndForbiddingLine getImperativeAndForbiddingLine() {
-        return imperativeAndForbiddingLine;
+    public void setActiveLine(ActiveLine activeLine) {
+        this.activeLine = activeLine;
     }
 
     public PassiveLine getPassiveLine() {
         return passiveLine;
     }
 
+    public void setPassiveLine(PassiveLine passiveLine) {
+        this.passiveLine = passiveLine;
+    }
+
+    public ImperativeAndForbiddingLine getImperativeAndForbiddingLine() {
+        return imperativeAndForbiddingLine;
+    }
+
+    public void setImperativeAndForbiddingLine(ImperativeAndForbiddingLine imperativeAndForbiddingLine) {
+        this.imperativeAndForbiddingLine = imperativeAndForbiddingLine;
+    }
+
     public AdverbLine getAdverbLine() {
         return adverbLine;
+    }
+
+    public void setAdverbLine(AdverbLine adverbLine) {
+        this.adverbLine = adverbLine;
     }
 
     @Override

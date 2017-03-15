@@ -53,7 +53,7 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
     private static final Path CSS_FOLDER = Paths.get(DEST_FOLDER.toString(), "css");
 
     static {
-        if(Files.notExists(DEST_FOLDER)){
+        if (Files.notExists(DEST_FOLDER)) {
             try {
                 Files.createDirectory(DEST_FOLDER);
                 AppUtil.copyResources(DEST_FOLDER.toFile(), "asciidoctor", "docinfo.html");
@@ -63,6 +63,7 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
             }
         }
     }
+
     private static Asciidoctor asciidoctor = Asciidoctor.Factory.create();
     protected List<String> lines;
 
@@ -86,7 +87,7 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
         return getRootWord(columnSpan, null, rootWords);
     }
 
-    static String getRootWord(int columnSpan, ArabicWord prefix, RootWord... rootWords) {
+    private static String getRootWord(int columnSpan, ArabicWord prefix, RootWord... rootWords) {
         if (isEmpty(rootWords)) {
             return columnSpan <= 0 ? "|&nbsp; " : getEmptyRow(columnSpan);
         }
@@ -103,6 +104,17 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
         }
         return columnSpan <= 0 ? format("|[arabicNormal]#%s#", arabicWord.toHtmlCode()) :
                 format("%s+|[arabicNormal]#%s#", columnSpan, arabicWord.toHtmlCode());
+    }
+
+    static String getColumn(String value) {
+        return getColumn(0, value);
+    }
+
+    static String getColumn(int columnSpan, String value) {
+        if (value == null) {
+            return columnSpan <= 0 ? "|&nbsp; " : getEmptyRow(columnSpan);
+        }
+        return columnSpan <= 0 ? format("|[arabicNormal]#%s#", value) : format("%s+|[arabicNormal]#%s#", columnSpan, value);
     }
 
     protected static String getLabel(ArabicSupport arabicSupport) {
@@ -143,7 +155,7 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
         rootWords[initialIndex - 2] = (conjugationTuple == null) ? null : conjugationTuple.getPlural();
     }
 
-    protected static RootWord[] getRootWords(NounConjugationGroup masculineGroup, NounConjugationGroup feminineGroup){
+    protected static RootWord[] getRootWords(NounConjugationGroup masculineGroup, NounConjugationGroup feminineGroup) {
         RootWord[] rootWords = new RootWord[18];
 
         addRootWords(rootWords, masculineGroup.getNominative(), 5);

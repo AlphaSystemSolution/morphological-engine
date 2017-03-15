@@ -3,7 +3,6 @@
  */
 package com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj;
 
-import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import static java.util.Objects.hash;
@@ -14,21 +13,24 @@ import static java.util.Objects.hash;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ImperativeAndForbiddingLine {
 
-    private final RootWord imperative;
+    private String imperative;
 
-    private final RootWord forbidding;
+    private String forbidding;
 
-    public ImperativeAndForbiddingLine(RootWord imperative, RootWord forbidding) {
-        this.imperative = imperative;
-        this.forbidding = forbidding;
-    }
-
-    public RootWord getImperative() {
+    public String getImperative() {
         return imperative;
     }
 
-    public RootWord getForbidding() {
+    public void setImperative(String imperative) {
+        this.imperative = imperative;
+    }
+
+    public String getForbidding() {
         return forbidding;
+    }
+
+    public void setForbidding(String forbidding) {
+        this.forbidding = forbidding;
     }
 
     @Override

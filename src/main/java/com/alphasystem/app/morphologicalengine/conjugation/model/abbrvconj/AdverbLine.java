@@ -3,7 +3,6 @@
  */
 package com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj;
 
-import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import static java.util.Objects.hash;
@@ -14,18 +13,28 @@ import static java.util.Objects.hash;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AdverbLine {
 
-    private final RootWord[] adverbs;
+    private String[] adverbs;
+    private String adverb;
 
-    public AdverbLine(RootWord... adverbs) {
+    public String[] getAdverbs() {
+        return adverbs;
+    }
+
+    public void setAdverbs(String[] adverbs) {
         this.adverbs = adverbs;
     }
 
-    public RootWord[] getAdverbs() {
-        return adverbs;
+    public String getAdverb() {
+        return adverb;
+    }
+
+    public void setAdverb(String adverb) {
+        this.adverb = adverb;
     }
 
     @Override
     public int hashCode() {
-        return hash(adverbs);
+        return hash((Object[]) adverbs);
     }
+
 }

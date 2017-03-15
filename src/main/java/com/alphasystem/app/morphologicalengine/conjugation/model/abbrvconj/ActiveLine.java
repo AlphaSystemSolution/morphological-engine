@@ -4,7 +4,6 @@
 package com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj;
 
 
-import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import static java.util.Objects.hash;
@@ -15,35 +14,64 @@ import static java.util.Objects.hash;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ActiveLine {
 
-    private final RootWord pastTense;
+    private String pastTense;
 
-    private final RootWord presentTense;
+    private String presentTense;
 
-    private final RootWord[] verbalNouns;
+    private String[] verbalNouns;
 
-    private final RootWord activeParticipleMasculine;
+    private String verbalNoun;
 
-    public ActiveLine(RootWord pastTense, RootWord presentTense, RootWord activeParticipleMasculine, RootWord... verbalNouns) {
-        this.pastTense = pastTense;
-        this.presentTense = presentTense;
-        this.verbalNouns = verbalNouns;
-        this.activeParticipleMasculine = activeParticipleMasculine;
-    }
+    private String activeParticipleMasculine;
 
-    public RootWord getActiveParticipleMasculine() {
-        return activeParticipleMasculine;
-    }
+    private String activeParticipleValue;
 
-    public RootWord[] getVerbalNouns() {
-        return verbalNouns;
-    }
-
-    public RootWord getPastTense() {
+    public String getPastTense() {
         return pastTense;
     }
 
-    public RootWord getPresentTense() {
+    public void setPastTense(String pastTense) {
+        this.pastTense = pastTense;
+    }
+
+    public String getPresentTense() {
         return presentTense;
+    }
+
+    public void setPresentTense(String presentTense) {
+        this.presentTense = presentTense;
+    }
+
+    public String getVerbalNoun() {
+        return verbalNoun;
+    }
+
+    public void setVerbalNoun(String verbalNoun) {
+        this.verbalNoun = verbalNoun;
+    }
+
+    public String[] getVerbalNouns() {
+        return verbalNouns;
+    }
+
+    public void setVerbalNouns(String[] verbalNouns) {
+        this.verbalNouns = verbalNouns;
+    }
+
+    public String getActiveParticipleMasculine() {
+        return activeParticipleMasculine;
+    }
+
+    public void setActiveParticipleMasculine(String activeParticipleMasculine) {
+        this.activeParticipleMasculine = activeParticipleMasculine;
+    }
+
+    public String getActiveParticipleValue() {
+        return activeParticipleValue;
+    }
+
+    public void setActiveParticipleValue(String activeParticipleValue) {
+        this.activeParticipleValue = activeParticipleValue;
     }
 
     @Override

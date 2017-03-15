@@ -20,9 +20,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.alphasystem.arabic.model.ArabicLetterType.NOON;
-import static com.alphasystem.arabic.model.ArabicLetterType.WAW;
-import static com.alphasystem.arabic.model.ArabicLetterType.ZAIN;
+import static com.alphasystem.arabic.model.ArabicLetterType.*;
 import static com.alphasystem.arabic.model.ArabicWord.getWord;
 
 /**
@@ -31,6 +29,12 @@ import static com.alphasystem.arabic.model.ArabicWord.getWord;
 final class ConjugationBuilderHelper {
 
     private static final ArabicWord WEIGHT_LABEL = getWord(WAW, ZAIN, NOON);
+    private static final ArabicWord PARTICIPLE_PREFIX = getWord(FA, HA, WAW);
+    private static final ArabicWord COMMAND_PREFIX = getWord(ALIF, LAM, ALIF_HAMZA_ABOVE, MEEM, RA, ArabicLetterType.SPACE,
+            MEEM, NOON, HA);
+    private static final ArabicWord FORBIDDING_PREFIX = getWord(WAW, NOON, HA, YA, ArabicLetterType.SPACE, AIN, NOON, HA);
+    private static final ArabicWord NOUN_OF_PLACE_AND_TIME_PREFIX = getWord(WAW, ALIF, LAM, DTHA, RA, FA, ArabicLetterType.SPACE, MEEM,
+            NOON, HA);
 
     static AbbreviatedConjugation createAbbreviatedConjugation(ConjugationRoots conjugationRoots,
                                                                RootLetters rootLetters,
@@ -52,26 +56,60 @@ final class ConjugationBuilderHelper {
         final RootWord imperativeRoot = (imperativeGroup == null) ? null : imperativeGroup.defaultValue();
         final RootWord forbiddenRoot = (forbiddenGroup == null) ? null : forbiddenGroup.defaultValue();
         final RootWord activeParticipleRoot = (masculineActiveParticipleGroup == null) ? null : masculineActiveParticipleGroup.defaultValue();
-        final RootWord[] verbalNounDefaultWords = getDefaultWordPairs(verbalNouns);
+        final String[] verbalNounDefaultWords = getDefaultWordPairs(verbalNouns, outputFormat);
+        final String verbalNoun = toDefaultStringValue(null, outputFormat, verbalNounDefaultWords);
 
         final ConjugationHeader conjugationHeader = createConjugationHeader(conjugationRoots, rootLetters, pastTenseRoot,
                 presentTenseRoot, outputFormat);
-        final ActiveLine activeLine = new ActiveLine(pastTenseRoot, presentTenseRoot, activeParticipleRoot, verbalNounDefaultWords);
+        final ActiveLine activeLine = new ActiveLine();
+        activeLine.setPastTense(getStringValue(pastTenseRoot, outputFormat));
+        activeLine.setPresentTense(getStringValue(presentTenseRoot, outputFormat));
+        final String activeParticipleMasculine = getStringValue(activeParticipleRoot, outputFormat);
+        activeLine.setActiveParticipleMasculine(activeParticipleMasculine);
+        activeLine.setActiveParticipleValue(toDefaultStringValue(PARTICIPLE_PREFIX, outputFormat, activeParticipleMasculine));
+        activeLine.setVerbalNouns(verbalNounDefaultWords);
+        activeLine.setVerbalNoun(verbalNoun);
+
         PassiveLine passiveLine = null;
         if (!removePassiveLine) {
             final RootWord pastPassiveTenseRoot = (pastPassiveTenseGroup == null) ? null : pastPassiveTenseGroup.defaultValue();
             final RootWord presentPassiveTenseRoot = (presentPassiveTenseGroup == null) ? null : presentPassiveTenseGroup.defaultValue();
             final RootWord passiveParticipleRoot = (masculinePassiveParticipleGroup == null) ? null : masculinePassiveParticipleGroup.defaultValue();
-            passiveLine = new PassiveLine(pastPassiveTenseRoot, presentPassiveTenseRoot, passiveParticipleRoot, verbalNounDefaultWords);
+            passiveLine = new PassiveLine();
+            passiveLine.setPastPassiveTense(getStringValue(pastPassiveTenseRoot, outputFormat));
+            passiveLine.setPresentPassiveTense(getStringValue(presentPassiveTenseRoot, outputFormat));
+            final String passiveParticipleMasculine = getStringValue(passiveParticipleRoot, outputFormat);
+            passiveLine.setPassiveParticipleMasculine(passiveParticipleMasculine);
+            passiveLine.setPassiveParticipleValue(toDefaultStringValue(PARTICIPLE_PREFIX, outputFormat, passiveParticipleMasculine));
+            passiveLine.setVerbalNouns(verbalNounDefaultWords);
+            passiveLine.setVerbalNoun(verbalNoun);
         }
 
-        final ImperativeAndForbiddingLine commandLine = new ImperativeAndForbiddingLine(imperativeRoot, forbiddenRoot);
-        final RootWord[] nounOfPlaceAndTimeDefaultWords = getDefaultWordPairs(nounsOfPlaceAndTime);
+        final ImperativeAndForbiddingLine commandLine = new ImperativeAndForbiddingLine();
+        if (imperativeRoot != null) {
+            final ArabicWord arabicWord = ArabicWord.concatenateWithSpace(COMMAND_PREFIX, imperativeRoot.toLabel());
+            commandLine.setImperative(getStringValue(arabicWord, outputFormat));
+        }
+        if (forbiddenRoot != null) {
+            final ArabicWord arabicWord = ArabicWord.concatenateWithSpace(FORBIDDING_PREFIX, forbiddenRoot.toLabel());
+            commandLine.setForbidding(getStringValue(arabicWord, outputFormat));
+        }
+
+        final String[] nounOfPlaceAndTimeDefaultWords = getDefaultWordPairs(nounsOfPlaceAndTime, outputFormat);
         AdverbLine adverbLine = null;
         if (!ArrayUtils.isEmpty(nounOfPlaceAndTimeDefaultWords)) {
-            adverbLine = new AdverbLine(nounOfPlaceAndTimeDefaultWords);
+            adverbLine = new AdverbLine();
+            adverbLine.setAdverbs(nounOfPlaceAndTimeDefaultWords);
+            adverbLine.setAdverb(toDefaultStringValue(NOUN_OF_PLACE_AND_TIME_PREFIX, outputFormat, nounOfPlaceAndTimeDefaultWords));
         }
-        return new AbbreviatedConjugation(conjugationHeader, activeLine, passiveLine, commandLine, adverbLine);
+
+        AbbreviatedConjugation abbreviatedConjugation = new AbbreviatedConjugation();
+        abbreviatedConjugation.setConjugationHeader(conjugationHeader);
+        abbreviatedConjugation.setActiveLine(activeLine);
+        abbreviatedConjugation.setPassiveLine(passiveLine);
+        abbreviatedConjugation.setImperativeAndForbiddingLine(commandLine);
+        abbreviatedConjugation.setAdverbLine(adverbLine);
+        return abbreviatedConjugation;
     }
 
     static DetailedConjugation createDetailedConjugation(VerbConjugationGroup pastActiveTenseGroup,
@@ -182,17 +220,32 @@ final class ConjugationBuilderHelper {
         return getStringValue(title, outputFormat);
     }
 
-    private static RootWord[] getDefaultWordPairs(NounConjugationGroup[] nounConjugationGroups) {
+    private static String[] getDefaultWordPairs(NounConjugationGroup[] nounConjugationGroups, OutputFormat outputFormat) {
         if (!ArrayUtils.isEmpty(nounConjugationGroups)) {
-            List<RootWord> rootWords = new ArrayList<>();
+            List<String> rootWords = new ArrayList<>();
             for (final NounConjugationGroup nounConjugationGroup : nounConjugationGroups) {
                 if (nounConjugationGroup != null) {
-                    rootWords.add(nounConjugationGroup.defaultValue());
+                    rootWords.add(getStringValue(nounConjugationGroup.defaultValue(), outputFormat));
                 }
             }
-            return rootWords.toArray(new RootWord[rootWords.size()]);
+            return rootWords.toArray(new String[rootWords.size()]);
         }
         return null;
+    }
+
+    private static String toDefaultStringValue(ArabicWord prefix, OutputFormat outputFormat, String... values) {
+        if (ArrayUtils.isEmpty(values)) {
+            return null;
+        }
+        StringBuilder builder = new StringBuilder();
+        builder.append(values[0]);
+        for (int i = 1; i < values.length; i++) {
+            builder.append(" ").append(getStringValue(ArabicLetterType.WAW, outputFormat)).append(values[i]);
+        }
+        if (prefix != null && builder.length() > 0) {
+            builder.insert(0, String.format("%s ", getStringValue(prefix, outputFormat)));
+        }
+        return builder.toString();
     }
 
     private static VerbDetailedConjugationPair createVerbDetailedConjugationPair(VerbConjugationGroup leftSideGroup,
@@ -230,7 +283,10 @@ final class ConjugationBuilderHelper {
     }
 
     private static String getStringValue(ArabicSupport arabicSupport, OutputFormat outputFormat) {
-        String value = null;
+        if (arabicSupport == null) {
+            return null;
+        }
+        String value;
         final ArabicWord arabicWord = arabicSupport.toLabel();
         switch (outputFormat) {
             case HTML:

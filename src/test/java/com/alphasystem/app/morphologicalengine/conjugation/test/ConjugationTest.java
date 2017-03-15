@@ -9,8 +9,6 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.Imper
 import com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj.PassiveLine;
 import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineConfiguration;
 import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory;
-import com.alphasystem.arabic.model.ArabicLetterType;
-import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
@@ -25,7 +23,6 @@ import org.testng.annotations.Test;
 import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationHelper.getConjugationRoots;
 import static com.alphasystem.app.morphologicalengine.conjugation.model.VerbalNounFactory.getByVerbalNoun;
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
-import static com.alphasystem.arabic.model.ArabicWord.getWord;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_IV_TEMPLATE;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_IX_TEMPLATE;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
@@ -39,11 +36,6 @@ import static java.lang.String.format;
 public class ConjugationTest extends CommonTest {
 
     private static final String SARF_TERM_PATTERN = "3+|%s .%s+| 3+|%s %s";
-    private static final ArabicWord COMMAND_PREFIX = getWord(ALIF, LAM, ALIF_HAMZA_ABOVE, MEEM, RA, ArabicLetterType.SPACE,
-            MEEM, NOON, HA);
-    private static final ArabicWord FORBIDDING_PREFIX = getWord(WAW, NOON, HA, YA, ArabicLetterType.SPACE, AIN, NOON, HA);
-    private static final ArabicWord ADVERB_PREFIX = getWord(WAW, ALIF, LAM, DTHA, RA, FA, ArabicLetterType.SPACE, MEEM,
-            NOON, HA);
     private static final NounRootBase[] FORM_I_ADVERBS = new NounRootBase[]{NounOfPlaceAndTimeFactory.NOUN_OF_PLACE_AND_TIME_V1,
             NounOfPlaceAndTimeFactory.NOUN_OF_PLACE_AND_TIME_V2, NounOfPlaceAndTimeFactory.NOUN_OF_PLACE_AND_TIME_V3};
 
@@ -121,30 +113,30 @@ public class ConjugationTest extends CommonTest {
 
 
     private void addActiveLine(ActiveLine activeLine) {
-        lines.add(getRootWord(activeLine.getActiveParticipleMasculine()));
-        lines.add(getRootWord(activeLine.getVerbalNouns()));
-        lines.add(getRootWord(activeLine.getPresentTense()));
-        lines.add(getRootWord(activeLine.getPastTense()));
+        lines.add(getColumn(activeLine.getActiveParticipleValue()));
+        lines.add(getColumn(activeLine.getVerbalNoun()));
+        lines.add(getColumn(activeLine.getPresentTense()));
+        lines.add(getColumn(activeLine.getPastTense()));
     }
 
     private void addPassiveLine(PassiveLine passiveLine) {
         if (passiveLine == null) {
             return;
         }
-        lines.add(getRootWord(passiveLine.getPassiveParticipleMasculine()));
-        lines.add(getRootWord(passiveLine.getVerbalNouns()));
-        lines.add(getRootWord(passiveLine.getPresentPassiveTense()));
-        lines.add(getRootWord(passiveLine.getPastPassiveTense()));
+        lines.add(getColumn(passiveLine.getPassiveParticipleValue()));
+        lines.add(getColumn(passiveLine.getVerbalNoun()));
+        lines.add(getColumn(passiveLine.getPresentPassiveTense()));
+        lines.add(getColumn(passiveLine.getPastPassiveTense()));
     }
 
     private void addImperativeAndForbiddingLine(ImperativeAndForbiddingLine imperativeAndForbiddingLine) {
-        lines.add(getRootWord(2, FORBIDDING_PREFIX, imperativeAndForbiddingLine.getForbidding()));
-        lines.add(getRootWord(2, COMMAND_PREFIX, imperativeAndForbiddingLine.getImperative()));
+        lines.add(getColumn(2, imperativeAndForbiddingLine.getForbidding()));
+        lines.add(getColumn(2, imperativeAndForbiddingLine.getImperative()));
     }
 
     private void addAdverbLine(AdverbLine adverbLine) {
         if (adverbLine != null) {
-            lines.add(getRootWord(4, ADVERB_PREFIX, adverbLine.getAdverbs()));
+            lines.add(getColumn(4, adverbLine.getAdverb()));
         }
     }
 

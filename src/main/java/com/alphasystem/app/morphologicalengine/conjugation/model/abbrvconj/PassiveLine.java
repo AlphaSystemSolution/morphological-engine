@@ -3,7 +3,6 @@
  */
 package com.alphasystem.app.morphologicalengine.conjugation.model.abbrvconj;
 
-import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import static java.util.Objects.hash;
@@ -14,52 +13,64 @@ import static java.util.Objects.hash;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PassiveLine {
 
-    private RootWord pastPassiveTense;
+    private String pastPassiveTense;
 
-    private RootWord presentPassiveTense;
+    private String presentPassiveTense;
 
-    private RootWord[] verbalNouns;
+    private String[] verbalNouns;
 
-    private RootWord passiveParticipleMasculine;
+    private String verbalNoun;
 
-    public PassiveLine(RootWord pastPassiveTense, RootWord presentPassiveTense, RootWord passiveParticipleMasculine,
-                       RootWord... verbalNouns) {
-        this.pastPassiveTense = pastPassiveTense;
-        this.presentPassiveTense = presentPassiveTense;
-        this.verbalNouns = verbalNouns;
-        this.passiveParticipleMasculine = passiveParticipleMasculine;
-    }
+    private String passiveParticipleMasculine;
 
-    public RootWord getPassiveParticipleMasculine() {
-        return passiveParticipleMasculine;
-    }
+    private String passiveParticipleValue;
 
-    public void setPassiveParticipleMasculine(RootWord passiveParticipleMasculine) {
-        this.passiveParticipleMasculine = passiveParticipleMasculine;
-    }
-
-    public RootWord[] getVerbalNouns() {
-        return verbalNouns;
-    }
-
-    public void setVerbalNouns(RootWord[] verbalNouns) {
-        this.verbalNouns = verbalNouns;
-    }
-
-    public RootWord getPastPassiveTense() {
+    public String getPastPassiveTense() {
         return pastPassiveTense;
     }
 
-    public void setPastPassiveTense(RootWord pastPassiveTense) {
+    public void setPastPassiveTense(String pastPassiveTense) {
         this.pastPassiveTense = pastPassiveTense;
     }
 
-    public RootWord getPresentPassiveTense() {
+    public String getPresentPassiveTense() {
         return presentPassiveTense;
     }
 
-    public void setPresentPassiveTense(RootWord presentPassiveTense) {
+    public void setPresentPassiveTense(String presentPassiveTense) {
         this.presentPassiveTense = presentPassiveTense;
+    }
+
+    public String getVerbalNoun() {
+        return verbalNoun;
+    }
+
+    public void setVerbalNoun(String verbalNoun) {
+        this.verbalNoun = verbalNoun;
+    }
+
+    public String[] getVerbalNouns() {
+        return verbalNouns;
+    }
+
+    public void setVerbalNouns(String[] verbalNouns) {
+        this.verbalNouns = verbalNouns;
+    }
+
+    public String getPassiveParticipleMasculine() {
+        return passiveParticipleMasculine;
+    }
+
+    public void setPassiveParticipleMasculine(String passiveParticipleMasculine) {
+        this.passiveParticipleMasculine = passiveParticipleMasculine;
+    }
+
+    public String getPassiveParticipleValue() {
+        return passiveParticipleValue;
+    }
+
+    public void setPassiveParticipleValue(String passiveParticipleValue) {
+        this.passiveParticipleValue = passiveParticipleValue;
     }
 
     @Override
