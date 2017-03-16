@@ -2,7 +2,6 @@ package com.alphasystem.app.morphologicalengine.conjugation.builder;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 
 /**
  * @author sali
@@ -10,8 +9,7 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 public class BuilderConfiguration {
 
-    @Bean
-    @Scope("prototype")
+    @Bean(destroyMethod = "preDestroy")
     ConjugationBuilder formBuilder(){
         return new ConjugationBuilder();
     }
