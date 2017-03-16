@@ -5,6 +5,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.RootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
 import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;
 
 /**
@@ -22,7 +23,7 @@ public interface TransformerFactory<G extends ConjugationGroup, B extends RootBa
      * @return instance of specific {@link ConjugationGroup}
      * @see com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase
      * @see com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase
-     * @see com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugationGroup
+     * @see NounConjugationGroup
      * @see VerbConjugationGroup
      */
     G doConjugation(RuleProcessor ruleProcessor, SarfTermType sarfTermType, B rootBase, RootLetters rootLetters);

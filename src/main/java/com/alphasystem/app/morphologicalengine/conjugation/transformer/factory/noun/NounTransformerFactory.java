@@ -1,6 +1,6 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugationGroup;
+import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.TransformerFactory;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;

@@ -1,6 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.builder;
 
 import com.alphasystem.app.morphologicalengine.conjugation.model.*;
+import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
 import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;
 import com.alphasystem.morphologicalengine.model.abbrvconj.ActiveLine;
 import com.alphasystem.morphologicalengine.model.abbrvconj.AdverbLine;

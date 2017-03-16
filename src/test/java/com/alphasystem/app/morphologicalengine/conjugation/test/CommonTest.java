@@ -2,7 +2,7 @@ package com.alphasystem.app.morphologicalengine.conjugation.test;
 
 
 import com.alphasystem.morphologicalengine.model.ConjugationTuple;
-import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugationGroup;
+import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
 import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;
 import com.alphasystem.app.sarfengine.test.Constants;
 import com.alphasystem.arabic.model.ArabicLetters;
