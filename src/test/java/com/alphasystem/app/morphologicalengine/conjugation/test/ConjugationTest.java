@@ -74,8 +74,8 @@ public class ConjugationTest extends CommonTest {
     }
 
     private void printMorphologicalChart(MorphologicalChart chart) {
-        createHeading(chart.getHeader());
-        createAbbreviatedConjugationChart(chart.getAbbreviatedConjugation(), chart.getHeader());
+        createHeading(chart.header());
+        createAbbreviatedConjugationChart(chart.getAbbreviatedConjugation(), chart.header());
         createDetailedConjugationChart(chart.getDetailedConjugation());
     }
 
