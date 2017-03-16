@@ -1,8 +1,8 @@
 package com.alphasystem.app.morphologicalengine.conjugation.builder;
 
 import com.alphasystem.morphologicalengine.model.AbbreviatedConjugation;
-import com.alphasystem.app.morphologicalengine.conjugation.model.DetailedConjugation;
-import com.alphasystem.app.morphologicalengine.conjugation.model.MorphologicalChart;
+import com.alphasystem.morphologicalengine.model.DetailedConjugation;
+import com.alphasystem.morphologicalengine.model.MorphologicalChart;
 import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
 import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;

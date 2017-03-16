@@ -3,6 +3,7 @@
  */
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
+import com.alphasystem.morphologicalengine.model.MorphologicalChart;
 import com.alphasystem.morphologicalengine.model.abbrvconj.ActiveLine;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.arabic.model.RootType;
