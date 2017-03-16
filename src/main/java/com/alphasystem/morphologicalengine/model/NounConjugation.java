@@ -1,6 +1,5 @@
 package com.alphasystem.morphologicalengine.model;
 
-import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -9,42 +8,42 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class NounConjugation {
 
-    private RootWord nominative;
+    private String nominative;
 
-    private RootWord accusative;
+    private String accusative;
 
-    private RootWord genitive;
+    private String genitive;
 
     public NounConjugation() {
     }
 
-    public NounConjugation(RootWord nominative, RootWord accusative, RootWord genitive) {
+    public NounConjugation(String nominative, String accusative, String genitive) {
         setNominative(nominative);
         setAccusative(accusative);
         setGenitive(genitive);
     }
 
-    public RootWord getNominative() {
+    public String getNominative() {
         return nominative;
     }
 
-    public void setNominative(RootWord nominative) {
+    public void setNominative(String nominative) {
         this.nominative = nominative;
     }
 
-    public RootWord getAccusative() {
+    public String getAccusative() {
         return accusative;
     }
 
-    public void setAccusative(RootWord accusative) {
+    public void setAccusative(String accusative) {
         this.accusative = accusative;
     }
 
-    public RootWord getGenitive() {
+    public String getGenitive() {
         return genitive;
     }
 
-    public void setGenitive(RootWord genitive) {
+    public void setGenitive(String genitive) {
         this.genitive = genitive;
     }
 }

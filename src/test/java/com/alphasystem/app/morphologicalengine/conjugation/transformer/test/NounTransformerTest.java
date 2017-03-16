@@ -1,5 +1,6 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.test;
 
+import com.alphasystem.app.morphologicalengine.conjugation.model.OutputFormat;
 import com.alphasystem.morphologicalengine.model.NounConjugation;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
@@ -94,11 +95,12 @@ public class NounTransformerTest extends CommonTest {
         RuleInfo ruleInfo = new RuleInfo(template, rootLetters, true);
         final RuleProcessor ruleProcessor = ruleProcessorFactory.createRuleProcessor(ruleInfo);
 
-        return transformer.doTransform(ruleProcessor, noun.getRootWord(), sarfTermType, firstRadical, secondRadical, thirdRadical, null);
+        return transformer.doTransform(ruleProcessor, noun.getRootWord(), sarfTermType, OutputFormat.HTML, firstRadical,
+                secondRadical, thirdRadical, null);
     }
 
     private void addTable(NounConjugation nounConjugation, String title, RootWord rootWord) {
-        lines.add(String.format(".%s &mdash; %s", title, getLabel(rootWord.getRootWord())));
+        lines.add(String.format(".%s &mdash; %s", title, getLabel(rootWord.getRootWord().toHtmlCode())));
         lines.add("");
         lines.add("[cols=\"^.^33,^.^33,^.^34\"]");
         lines.add(ASCII_DOC_TABLE_DECELERATION);

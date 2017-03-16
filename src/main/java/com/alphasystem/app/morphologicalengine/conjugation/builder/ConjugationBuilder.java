@@ -71,35 +71,42 @@ public class ConjugationBuilder {
 
         final ChartConfiguration chartConfiguration = conjugationRoots.getChartConfiguration();
 
-        final VerbConjugationGroup pastActiveTenseGroup = getVerbConjugationGroup(PAST_TENSE, conjugationRoots.getTemplate(),
-                ruleProcessor, rootLetters, conjugationRoots.getPastTense());
-        final VerbConjugationGroup presentActiveTenseGroup = getVerbConjugationGroup(PRESENT_TENSE, conjugationRoots.getTemplate(),
-                ruleProcessor, rootLetters, conjugationRoots.getPresentTense());
+        final VerbConjugationGroup pastActiveTenseGroup = getVerbConjugationGroup(PAST_TENSE, outputFormat,
+                conjugationRoots.getTemplate(), ruleProcessor, rootLetters, conjugationRoots.getPastTense());
+
+        final VerbConjugationGroup presentActiveTenseGroup = getVerbConjugationGroup(PRESENT_TENSE, outputFormat,
+                conjugationRoots.getTemplate(), ruleProcessor, rootLetters, conjugationRoots.getPresentTense());
+
         final NounConjugationGroup masculineActiveParticipleGroup = getNounConjugationGroup(ACTIVE_PARTICIPLE_MASCULINE,
-                conjugationRoots.getTemplate(), ruleProcessor, rootLetters, conjugationRoots.getActiveParticipleMasculine());
+                outputFormat, conjugationRoots.getTemplate(), ruleProcessor, rootLetters, conjugationRoots.getActiveParticipleMasculine());
+
         final NounConjugationGroup feminineActiveParticipleGroup = getNounConjugationGroup(ACTIVE_PARTICIPLE_FEMININE,
-                conjugationRoots.getTemplate(), ruleProcessor, rootLetters, conjugationRoots.getActiveParticipleFeminine());
-        final VerbConjugationGroup imperativeGroup = getVerbConjugationGroup(IMPERATIVE, conjugationRoots.getTemplate(),
+                outputFormat, conjugationRoots.getTemplate(), ruleProcessor, rootLetters, conjugationRoots.getActiveParticipleFeminine());
+
+        final VerbConjugationGroup imperativeGroup = getVerbConjugationGroup(IMPERATIVE, outputFormat, conjugationRoots.getTemplate(),
                 ruleProcessor, rootLetters, conjugationRoots.getImperative());
-        final VerbConjugationGroup forbiddenGroup = getVerbConjugationGroup(FORBIDDING, conjugationRoots.getTemplate(),
+
+        final VerbConjugationGroup forbiddenGroup = getVerbConjugationGroup(FORBIDDING, outputFormat, conjugationRoots.getTemplate(),
                 ruleProcessor, rootLetters, conjugationRoots.getForbidding());
-        final NounConjugationGroup[] verbalNounConjugationGroups = getNounConjugationGroups(VERBAL_NOUN,
+
+        final NounConjugationGroup[] verbalNounConjugationGroups = getNounConjugationGroups(VERBAL_NOUN, outputFormat,
                 conjugationRoots.getTemplate(), ruleProcessor, rootLetters, conjugationRoots.getVerbalNouns());
+
         final NounConjugationGroup[] nounOfPlaceAndTimeConjugationGroups = getNounConjugationGroups(NOUN_OF_PLACE_AND_TIME,
-                conjugationRoots.getTemplate(), ruleProcessor, rootLetters, conjugationRoots.getAdverbs());
+                outputFormat, conjugationRoots.getTemplate(), ruleProcessor, rootLetters, conjugationRoots.getAdverbs());
 
         VerbConjugationGroup pastPassiveTenseGroup = null;
         VerbConjugationGroup presentPassiveTenseGroup = null;
         NounConjugationGroup masculinePassiveParticipleGroup = null;
         NounConjugationGroup femininePassiveParticipleGroup = null;
         if (!removePassiveLine) {
-            pastPassiveTenseGroup = getVerbConjugationGroup(PAST_PASSIVE_TENSE, conjugationRoots.getTemplate(),
+            pastPassiveTenseGroup = getVerbConjugationGroup(PAST_PASSIVE_TENSE, outputFormat, conjugationRoots.getTemplate(),
                     ruleProcessor, rootLetters, conjugationRoots.getPastPassiveTense());
-            presentPassiveTenseGroup = getVerbConjugationGroup(PRESENT_PASSIVE_TENSE, conjugationRoots.getTemplate(),
+            presentPassiveTenseGroup = getVerbConjugationGroup(PRESENT_PASSIVE_TENSE, outputFormat, conjugationRoots.getTemplate(),
                     ruleProcessor, rootLetters, conjugationRoots.getPresentPassiveTense());
-            masculinePassiveParticipleGroup = getNounConjugationGroup(PASSIVE_PARTICIPLE_MASCULINE,
+            masculinePassiveParticipleGroup = getNounConjugationGroup(PASSIVE_PARTICIPLE_MASCULINE, outputFormat,
                     conjugationRoots.getTemplate(), ruleProcessor, rootLetters, conjugationRoots.getPassiveParticipleMasculine());
-            femininePassiveParticipleGroup = getNounConjugationGroup(PASSIVE_PARTICIPLE_FEMININE, conjugationRoots.getTemplate(),
+            femininePassiveParticipleGroup = getNounConjugationGroup(PASSIVE_PARTICIPLE_FEMININE, outputFormat, conjugationRoots.getTemplate(),
                     ruleProcessor, rootLetters, conjugationRoots.getPassiveParticipleFeminine());
         }
 
@@ -123,14 +130,14 @@ public class ConjugationBuilder {
         return new MorphologicalChart(abbreviatedConjugation, detailedConjugation);
     }
 
-    private VerbConjugationGroup getVerbConjugationGroup(SarfTermType sarfTermType, NamedTemplate namedTemplate,
-                                                         RuleProcessor ruleProcessor, RootLetters rootLetters,
-                                                         VerbRootBase verbRootBase) {
+    private VerbConjugationGroup getVerbConjugationGroup(SarfTermType sarfTermType, OutputFormat outputFormat,
+                                                         NamedTemplate namedTemplate, RuleProcessor ruleProcessor,
+                                                         RootLetters rootLetters, VerbRootBase verbRootBase) {
         VerbConjugationGroup verbConjugationGroup = null;
         if (verbRootBase != null) {
             try {
                 verbConjugationGroup = getVerbTransformerFactory(verbRootBase.getType()).doConjugation(ruleProcessor,
-                        sarfTermType, verbRootBase, rootLetters);
+                        sarfTermType, outputFormat, verbRootBase, rootLetters);
             } catch (Exception e) {
                 logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
                         sarfTermType, namedTemplate, rootLetters, System.lineSeparator(), e.getMessage());
@@ -139,14 +146,14 @@ public class ConjugationBuilder {
         return verbConjugationGroup;
     }
 
-    private NounConjugationGroup getNounConjugationGroup(SarfTermType sarfTermType, NamedTemplate namedTemplate,
-                                                         RuleProcessor ruleProcessor, RootLetters rootLetters,
-                                                         NounRootBase nounRootBase) {
+    private NounConjugationGroup getNounConjugationGroup(SarfTermType sarfTermType, OutputFormat outputFormat,
+                                                         NamedTemplate namedTemplate, RuleProcessor ruleProcessor,
+                                                         RootLetters rootLetters, NounRootBase nounRootBase) {
         NounConjugationGroup nounConjugationGroup = null;
         if (nounRootBase != null) {
             try {
                 nounConjugationGroup = getNounTransformerFactory(nounRootBase.getType()).doConjugation(ruleProcessor,
-                        sarfTermType, nounRootBase, rootLetters);
+                        sarfTermType, outputFormat, nounRootBase, rootLetters);
             } catch (Exception e) {
                 logger.warn("Unable to get {} group for template \"{}\", root letters are \"{}\"{}    Error message is: {}",
                         sarfTermType, namedTemplate, rootLetters, System.lineSeparator(), e.getMessage());
@@ -155,9 +162,9 @@ public class ConjugationBuilder {
         return nounConjugationGroup;
     }
 
-    private NounConjugationGroup[] getNounConjugationGroups(SarfTermType sarfTermType, NamedTemplate namedTemplate,
-                                                            RuleProcessor ruleProcessor, RootLetters rootLetters,
-                                                            NounRootBase[] nounRootBases) {
+    private NounConjugationGroup[] getNounConjugationGroups(SarfTermType sarfTermType, OutputFormat outputFormat,
+                                                            NamedTemplate namedTemplate, RuleProcessor ruleProcessor,
+                                                            RootLetters rootLetters, NounRootBase[] nounRootBases) {
         if (!ArrayUtils.isEmpty(nounRootBases)) {
             NounConjugationGroup[] nounConjugationGroups = null;
 
@@ -171,9 +178,9 @@ public class ConjugationBuilder {
             int toIndex = NUM_OF_COLUMNS;
             while (fromIndex < rootBaseList.size()) {
                 final List<NounRootBase> subList = rootBaseList.subList(fromIndex, toIndex);
-                final NounConjugationGroup rightSideGroup = getNounConjugationGroup(sarfTermType, namedTemplate,
+                final NounConjugationGroup rightSideGroup = getNounConjugationGroup(sarfTermType, outputFormat, namedTemplate,
                         ruleProcessor, rootLetters, subList.get(0));
-                final NounConjugationGroup leftSideGroup = getNounConjugationGroup(sarfTermType, namedTemplate,
+                final NounConjugationGroup leftSideGroup = getNounConjugationGroup(sarfTermType, outputFormat, namedTemplate,
                         ruleProcessor, rootLetters, subList.get(1));
                 nounConjugationGroups = ArrayUtils.addAll(nounConjugationGroups, leftSideGroup, rightSideGroup);
                 fromIndex = toIndex;

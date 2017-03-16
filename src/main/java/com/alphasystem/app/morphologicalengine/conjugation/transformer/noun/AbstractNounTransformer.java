@@ -1,11 +1,12 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.noun;
 
-import com.alphasystem.morphologicalengine.model.NounConjugation;
+import com.alphasystem.app.morphologicalengine.conjugation.model.OutputFormat;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.AbstractTransformer;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+import com.alphasystem.morphologicalengine.model.NounConjugation;
 
 import static java.lang.Integer.MAX_VALUE;
 
@@ -37,7 +38,7 @@ public abstract class AbstractNounTransformer extends AbstractTransformer<NounCo
 
     @Override
     public NounConjugation doTransform(RuleProcessor ruleProcessor, RootWord rootWord, SarfTermType sarfTermType,
-                                       ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                       OutputFormat outputFormat, ArabicLetterType firstRadical, ArabicLetterType secondRadical,
                                        ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
         RootWord baseWord = createRootWord(rootWord, sarfTermType, firstRadical, secondRadical, thirdRadical, fourthRadical);
         final int size = baseWord.toLabel().getLength();
@@ -49,7 +50,8 @@ public abstract class AbstractNounTransformer extends AbstractTransformer<NounCo
         final RootWord nominative = processRules(ruleProcessor, doNominative(baseWord));
         final RootWord accusative = processRules(ruleProcessor, doAccusative(baseWord));
         final RootWord genitive = processRules(ruleProcessor, doGenitive(baseWord));
-        return new NounConjugation(nominative, accusative, genitive);
+        return new NounConjugation(toStringValue(nominative, outputFormat), toStringValue(accusative, outputFormat),
+                toStringValue(genitive, outputFormat));
     }
 
     protected abstract RootWord doNominative(RootWord rootWord);

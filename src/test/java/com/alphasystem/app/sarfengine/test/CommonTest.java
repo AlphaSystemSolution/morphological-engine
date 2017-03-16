@@ -133,13 +133,13 @@ public class CommonTest implements ArabicLetters, Constants {
                 getNumberCaption(NOMINATIVE_SINGULAR), NEW_LINE);
     }
 
-    public static void addRootWords(RootWord[] rootWords, NounConjugation nounConjugation, int initialIndex) {
+    public static void addRootWords(String[] rootWords, NounConjugation nounConjugation, int initialIndex) {
         rootWords[initialIndex] = (nounConjugation == null) ? null : nounConjugation.getNominative();
         rootWords[initialIndex + 6] = (nounConjugation == null) ? null : nounConjugation.getAccusative();
         rootWords[initialIndex + 12] = (nounConjugation == null) ? null : nounConjugation.getGenitive();
     }
 
-    public static void addRootWords(RootWord[] rootWords, ConjugationTuple conjugationTuple, int initialIndex) {
+    public static void addRootWords(String[] rootWords, ConjugationTuple conjugationTuple, int initialIndex) {
         rootWords[initialIndex] = (conjugationTuple == null) ? null : conjugationTuple.getSingular();
         rootWords[initialIndex - 1] = (conjugationTuple == null) ? null : conjugationTuple.getDual();
         rootWords[initialIndex - 2] = (conjugationTuple == null) ? null : conjugationTuple.getPlural();

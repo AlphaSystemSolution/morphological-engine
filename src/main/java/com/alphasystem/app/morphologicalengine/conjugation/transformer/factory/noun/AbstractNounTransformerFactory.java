@@ -1,5 +1,6 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun;
 
+import com.alphasystem.app.morphologicalengine.conjugation.model.OutputFormat;
 import com.alphasystem.morphologicalengine.model.ConjugationTuple;
 import com.alphasystem.morphologicalengine.model.NounConjugation;
 import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
@@ -18,7 +19,7 @@ import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermTy
 public abstract class AbstractNounTransformerFactory implements NounTransformerFactory {
 
     @Override
-    public NounConjugationGroup doConjugation(RuleProcessor ruleProcessor, SarfTermType sarfTermType,
+    public NounConjugationGroup doConjugation(RuleProcessor ruleProcessor, SarfTermType sarfTermType, OutputFormat outputFormat,
                                               NounRootBase rootBase, RootLetters rootLetters) {
         final ArabicLetterType firstRadical = rootLetters.getFirstRadical();
         final ArabicLetterType secondRadical = rootLetters.getSecondRadical();
@@ -26,11 +27,11 @@ public abstract class AbstractNounTransformerFactory implements NounTransformerF
         final ArabicLetterType fourthRadical = rootLetters.getFourthRadical();
 
         final NounConjugation singularConjugation = doTransform(ruleProcessor, singularTransformer(), sarfTermType,
-                rootBase.getSingularBaseWord(), firstRadical, secondRadical, thirdRadical, fourthRadical);
+                outputFormat, rootBase.getSingularBaseWord(), firstRadical, secondRadical, thirdRadical, fourthRadical);
         final NounConjugation dualConjugation = doTransform(ruleProcessor, dualTransformer(), sarfTermType,
-                rootBase.getDualBaseWord(), firstRadical, secondRadical, thirdRadical, fourthRadical);
+                outputFormat, rootBase.getDualBaseWord(), firstRadical, secondRadical, thirdRadical, fourthRadical);
         final NounConjugation pluralConjugation = doTransform(ruleProcessor, pluralTransformer(), sarfTermType,
-                rootBase.getPluralBaseWord(), firstRadical, secondRadical, thirdRadical, fourthRadical);
+                outputFormat, rootBase.getPluralBaseWord(), firstRadical, secondRadical, thirdRadical, fourthRadical);
 
         NounConjugationGroup conjugationGroup = new NounConjugationGroup();
 
@@ -46,11 +47,12 @@ public abstract class AbstractNounTransformerFactory implements NounTransformerF
     }
 
     private NounConjugation doTransform(RuleProcessor ruleProcessor, NounTransformer transformer, SarfTermType sarfTermType,
-                                        NounSupport baseWord, ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                        ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
+                                        OutputFormat outputFormat, NounSupport baseWord, ArabicLetterType firstRadical,
+                                        ArabicLetterType secondRadical, ArabicLetterType thirdRadical,
+                                        ArabicLetterType fourthRadical) {
         if (transformer != null && baseWord != null) {
             return transformer.doTransform(ruleProcessor, new RootWord(baseWord.getRootWord()),
-                    sarfTermType, firstRadical, secondRadical, thirdRadical, fourthRadical);
+                    sarfTermType, outputFormat, firstRadical, secondRadical, thirdRadical, fourthRadical);
         }
         return null;
     }

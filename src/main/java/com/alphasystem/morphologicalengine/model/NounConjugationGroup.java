@@ -44,8 +44,8 @@ public final class NounConjugationGroup extends ConjugationGroup {
     }
 
     @Override
-    public RootWord defaultValue() {
-        RootWord defaultValue;
+    public String defaultValue() {
+        String defaultValue;
         if(SarfTermType.VERBAL_NOUN.equals(getTermType()))
             defaultValue = accusative == null ? null : accusative.getSingular();
         else {

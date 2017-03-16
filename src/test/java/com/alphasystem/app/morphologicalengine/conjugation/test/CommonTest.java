@@ -1,17 +1,16 @@
 package com.alphasystem.app.morphologicalengine.conjugation.test;
 
 
-import com.alphasystem.morphologicalengine.model.ConjugationTuple;
-import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
-import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;
 import com.alphasystem.app.sarfengine.test.Constants;
 import com.alphasystem.arabic.model.ArabicLetters;
-import com.alphasystem.arabic.model.ArabicSupport;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.model.HiddenNounStatus;
 import com.alphasystem.arabic.model.HiddenPronounStatus;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+import com.alphasystem.morphologicalengine.model.ConjugationTuple;
+import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
+import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;
 import com.alphasystem.util.AppUtil;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.AttributesBuilder;
@@ -117,8 +116,8 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
         return columnSpan <= 0 ? format("|[arabicNormal]#%s#", value) : format("%s+|[arabicNormal]#%s#", columnSpan, value);
     }
 
-    protected static String getLabel(ArabicSupport arabicSupport) {
-        return (arabicSupport == null) ? "" : format("[arabicNormal]#%s#", arabicSupport.toLabel().toHtmlCode());
+    protected static String getLabel(String label) {
+        return (label == null) ? "" : format("[arabicNormal]#%s#", label);
     }
 
     @SuppressWarnings({"unused"})
@@ -149,14 +148,14 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
                 getNumberCaption(NOMINATIVE_SINGULAR), NEW_LINE);
     }
 
-    private static void addRootWords(RootWord[] rootWords, ConjugationTuple conjugationTuple, int initialIndex) {
+    private static void addRootWords(String[] rootWords, ConjugationTuple conjugationTuple, int initialIndex) {
         rootWords[initialIndex] = (conjugationTuple == null) ? null : conjugationTuple.getSingular();
         rootWords[initialIndex - 1] = (conjugationTuple == null) ? null : conjugationTuple.getDual();
         rootWords[initialIndex - 2] = (conjugationTuple == null) ? null : conjugationTuple.getPlural();
     }
 
-    protected static RootWord[] getRootWords(NounConjugationGroup masculineGroup, NounConjugationGroup feminineGroup) {
-        RootWord[] rootWords = new RootWord[18];
+    protected static String[] getRootWords(NounConjugationGroup masculineGroup, NounConjugationGroup feminineGroup) {
+        String[] rootWords = new String[18];
 
         addRootWords(rootWords, masculineGroup.getNominative(), 5);
         addRootWords(rootWords, masculineGroup.getAccusative(), 11);
@@ -168,9 +167,9 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
         return rootWords;
     }
 
-    protected static RootWord[] getRootWords(VerbConjugationGroup pastTenseConjugationGroup,
+    protected static String[] getRootWords(VerbConjugationGroup pastTenseConjugationGroup,
                                              VerbConjugationGroup presentTenseConjugationGroup) {
-        RootWord[] rootWords = new RootWord[30];
+        String[] rootWords = new String[30];
 
         addRootWords(rootWords, pastTenseConjugationGroup.getMasculineThirdPerson(), 5);
         addRootWords(rootWords, pastTenseConjugationGroup.getFeminineThirdPerson(), 11);
@@ -187,11 +186,11 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
         return rootWords;
     }
 
-    protected static void addRow(List<String> lines, ArabicWord status, RootWord[] rootWords, int initialIndex) {
+    protected static void addRow(List<String> lines, ArabicWord status, String[] rootWords, int initialIndex) {
         StringBuilder builder = new StringBuilder();
-        builder.append(getRootWord(rootWords[initialIndex]));
+        builder.append(getColumn(rootWords[initialIndex]));
         for (int i = initialIndex + 1; i < initialIndex + 6; i++) {
-            builder.append(NEW_LINE).append(getRootWord(rootWords[i]));
+            builder.append(NEW_LINE).append(getColumn(rootWords[i]));
         }
         builder.append(NEW_LINE).append(getStatusCaption(status)).append(NEW_LINE);
         lines.add(builder.toString());

@@ -1,6 +1,5 @@
 package com.alphasystem.morphologicalengine.model;
 
-import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -64,8 +63,8 @@ public final class VerbConjugationGroup extends ConjugationGroup {
     }
 
     @Override
-    public RootWord defaultValue() {
-        RootWord defaultValue;
+    public String defaultValue() {
+        String defaultValue;
         if (SarfTermType.IMPERATIVE.equals(getTermType()) || SarfTermType.FORBIDDING.equals(getTermType())) {
             defaultValue = (masculineSecondPerson == null) ? null : masculineSecondPerson.getSingular();
         } else {

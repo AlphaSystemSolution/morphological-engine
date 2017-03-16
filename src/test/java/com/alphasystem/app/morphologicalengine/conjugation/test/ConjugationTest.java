@@ -250,9 +250,9 @@ public class ConjugationTest extends CommonTest {
         if (conjugationTuple == null) {
             builder.append("|&nbsp; |&nbsp; |&nbsp; ");
         } else {
-            builder.append(getRootWord(conjugationTuple.getPlural())).append(AppUtil.NEW_LINE)
-                    .append(getRootWord(conjugationTuple.getDual())).append(AppUtil.NEW_LINE)
-                    .append(getRootWord(conjugationTuple.getSingular())).append(AppUtil.NEW_LINE);
+            builder.append(getColumn(conjugationTuple.getPlural())).append(AppUtil.NEW_LINE)
+                    .append(getColumn(conjugationTuple.getDual())).append(AppUtil.NEW_LINE)
+                    .append(getColumn(conjugationTuple.getSingular())).append(AppUtil.NEW_LINE);
         }
         return builder.toString();
     }

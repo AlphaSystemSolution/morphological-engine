@@ -1,15 +1,8 @@
 package com.alphasystem.app.morphologicalengine.conjugation.builder;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.*;
-import com.alphasystem.morphologicalengine.model.DetailedConjugation;
-import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
-import com.alphasystem.morphologicalengine.model.NounDetailedConjugationPair;
-import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;
-import com.alphasystem.morphologicalengine.model.VerbDetailedConjugationPair;
-import com.alphasystem.morphologicalengine.model.abbrvconj.ActiveLine;
-import com.alphasystem.morphologicalengine.model.abbrvconj.AdverbLine;
-import com.alphasystem.morphologicalengine.model.abbrvconj.ImperativeAndForbiddingLine;
-import com.alphasystem.morphologicalengine.model.abbrvconj.PassiveLine;
+import com.alphasystem.app.morphologicalengine.conjugation.model.ChartMode;
+import com.alphasystem.app.morphologicalengine.conjugation.model.OutputFormat;
+import com.alphasystem.app.morphologicalengine.conjugation.model.WordStatus;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicLetters;
 import com.alphasystem.arabic.model.ArabicSupport;
@@ -19,9 +12,17 @@ import com.alphasystem.arabic.model.RootType;
 import com.alphasystem.arabic.model.VerbType;
 import com.alphasystem.arabic.model.WeakVerbType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
-import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalengine.model.AbbreviatedConjugation;
 import com.alphasystem.morphologicalengine.model.ConjugationHeader;
+import com.alphasystem.morphologicalengine.model.DetailedConjugation;
+import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
+import com.alphasystem.morphologicalengine.model.NounDetailedConjugationPair;
+import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;
+import com.alphasystem.morphologicalengine.model.VerbDetailedConjugationPair;
+import com.alphasystem.morphologicalengine.model.abbrvconj.ActiveLine;
+import com.alphasystem.morphologicalengine.model.abbrvconj.AdverbLine;
+import com.alphasystem.morphologicalengine.model.abbrvconj.ImperativeAndForbiddingLine;
+import com.alphasystem.morphologicalengine.model.abbrvconj.PassiveLine;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
@@ -58,51 +59,47 @@ final class ConjugationBuilderHelper {
                                                                NounConjugationGroup[] nounsOfPlaceAndTime,
                                                                OutputFormat outputFormat) {
 
-        final RootWord pastTenseRoot = (pastActiveTenseGroup == null) ? null : pastActiveTenseGroup.defaultValue();
-        final RootWord presentTenseRoot = (presentActiveTenseGroup == null) ? null : presentActiveTenseGroup.defaultValue();
-        final RootWord imperativeRoot = (imperativeGroup == null) ? null : imperativeGroup.defaultValue();
-        final RootWord forbiddenRoot = (forbiddenGroup == null) ? null : forbiddenGroup.defaultValue();
-        final RootWord activeParticipleRoot = (masculineActiveParticipleGroup == null) ? null : masculineActiveParticipleGroup.defaultValue();
-        final String[] verbalNounDefaultWords = getDefaultWordPairs(verbalNouns, outputFormat);
+        final String pastTenseRoot = (pastActiveTenseGroup == null) ? null : pastActiveTenseGroup.defaultValue();
+        final String presentTenseRoot = (presentActiveTenseGroup == null) ? null : presentActiveTenseGroup.defaultValue();
+        final String imperativeRoot = (imperativeGroup == null) ? null : imperativeGroup.defaultValue();
+        final String forbiddenRoot = (forbiddenGroup == null) ? null : forbiddenGroup.defaultValue();
+        final String activeParticipleRoot = (masculineActiveParticipleGroup == null) ? null : masculineActiveParticipleGroup.defaultValue();
+        final String[] verbalNounDefaultWords = getDefaultWordPairs(verbalNouns);
         final String verbalNoun = toDefaultStringValue(null, outputFormat, verbalNounDefaultWords);
 
         final ConjugationHeader conjugationHeader = createConjugationHeader(conjugationRoots, rootLetters, pastTenseRoot,
                 presentTenseRoot, outputFormat);
         final ActiveLine activeLine = new ActiveLine();
-        activeLine.setPastTense(getStringValue(pastTenseRoot, outputFormat));
-        activeLine.setPresentTense(getStringValue(presentTenseRoot, outputFormat));
-        final String activeParticipleMasculine = getStringValue(activeParticipleRoot, outputFormat);
-        activeLine.setActiveParticipleMasculine(activeParticipleMasculine);
-        activeLine.setActiveParticipleValue(toDefaultStringValue(PARTICIPLE_PREFIX, outputFormat, activeParticipleMasculine));
+        activeLine.setPastTense(pastTenseRoot);
+        activeLine.setPresentTense(presentTenseRoot);
+        activeLine.setActiveParticipleMasculine(activeParticipleRoot);
+        activeLine.setActiveParticipleValue(toDefaultStringValue(PARTICIPLE_PREFIX, outputFormat, activeParticipleRoot));
         activeLine.setVerbalNouns(verbalNounDefaultWords);
         activeLine.setVerbalNoun(verbalNoun);
 
         PassiveLine passiveLine = null;
         if (!removePassiveLine) {
-            final RootWord pastPassiveTenseRoot = (pastPassiveTenseGroup == null) ? null : pastPassiveTenseGroup.defaultValue();
-            final RootWord presentPassiveTenseRoot = (presentPassiveTenseGroup == null) ? null : presentPassiveTenseGroup.defaultValue();
-            final RootWord passiveParticipleRoot = (masculinePassiveParticipleGroup == null) ? null : masculinePassiveParticipleGroup.defaultValue();
+            final String pastPassiveTenseRoot = (pastPassiveTenseGroup == null) ? null : pastPassiveTenseGroup.defaultValue();
+            final String presentPassiveTenseRoot = (presentPassiveTenseGroup == null) ? null : presentPassiveTenseGroup.defaultValue();
+            final String passiveParticipleRoot = (masculinePassiveParticipleGroup == null) ? null : masculinePassiveParticipleGroup.defaultValue();
             passiveLine = new PassiveLine();
-            passiveLine.setPastPassiveTense(getStringValue(pastPassiveTenseRoot, outputFormat));
-            passiveLine.setPresentPassiveTense(getStringValue(presentPassiveTenseRoot, outputFormat));
-            final String passiveParticipleMasculine = getStringValue(passiveParticipleRoot, outputFormat);
-            passiveLine.setPassiveParticipleMasculine(passiveParticipleMasculine);
-            passiveLine.setPassiveParticipleValue(toDefaultStringValue(PARTICIPLE_PREFIX, outputFormat, passiveParticipleMasculine));
+            passiveLine.setPastPassiveTense(pastPassiveTenseRoot);
+            passiveLine.setPresentPassiveTense(presentPassiveTenseRoot);
+            passiveLine.setPassiveParticipleMasculine(passiveParticipleRoot);
+            passiveLine.setPassiveParticipleValue(toDefaultStringValue(PARTICIPLE_PREFIX, outputFormat, passiveParticipleRoot));
             passiveLine.setVerbalNouns(verbalNounDefaultWords);
             passiveLine.setVerbalNoun(verbalNoun);
         }
 
         final ImperativeAndForbiddingLine commandLine = new ImperativeAndForbiddingLine();
         if (imperativeRoot != null) {
-            final ArabicWord arabicWord = ArabicWord.concatenateWithSpace(COMMAND_PREFIX, imperativeRoot.toLabel());
-            commandLine.setImperative(getStringValue(arabicWord, outputFormat));
+            commandLine.setImperative(toDefaultStringValue(COMMAND_PREFIX, outputFormat, imperativeRoot));
         }
         if (forbiddenRoot != null) {
-            final ArabicWord arabicWord = ArabicWord.concatenateWithSpace(FORBIDDING_PREFIX, forbiddenRoot.toLabel());
-            commandLine.setForbidding(getStringValue(arabicWord, outputFormat));
+            commandLine.setForbidding(toDefaultStringValue(FORBIDDING_PREFIX, outputFormat, forbiddenRoot));
         }
 
-        final String[] nounOfPlaceAndTimeDefaultWords = getDefaultWordPairs(nounsOfPlaceAndTime, outputFormat);
+        final String[] nounOfPlaceAndTimeDefaultWords = getDefaultWordPairs(nounsOfPlaceAndTime);
         AdverbLine adverbLine = null;
         if (!ArrayUtils.isEmpty(nounOfPlaceAndTimeDefaultWords)) {
             adverbLine = new AdverbLine();
@@ -143,7 +140,7 @@ final class ConjugationBuilderHelper {
     }
 
     private static ConjugationHeader createConjugationHeader(ConjugationRoots conjugationRoots, RootLetters rootLetters,
-                                                             RootWord pastTenseRoot, RootWord presentTenseRoot,
+                                                             String pastTenseRoot, String presentTenseRoot,
                                                              OutputFormat outputFormat) {
 
         WordStatus status = new WordStatus(rootLetters);
@@ -187,8 +184,8 @@ final class ConjugationBuilderHelper {
         conjugationHeader.setRootLetters(rootLetters);
         conjugationHeader.setChartMode(chartMode);
         conjugationHeader.setBaseWord(getStringValue(template.toLabel(), outputFormat));
-        conjugationHeader.setPastTenseRoot(getStringValue(pastTenseRoot, outputFormat));
-        conjugationHeader.setPresentTenseRoot(getStringValue(presentTenseRoot, outputFormat));
+        conjugationHeader.setPastTenseRoot(pastTenseRoot);
+        conjugationHeader.setPresentTenseRoot(presentTenseRoot);
         conjugationHeader.setTranslation(conjugationRoots.getTranslation());
         conjugationHeader.setTitle(getHeaderTitle(pastTenseRoot, presentTenseRoot, rootLetters, outputFormat));
         conjugationHeader.setTypeLabel1(getStringValue(template.getType(), outputFormat));
@@ -204,35 +201,30 @@ final class ConjugationBuilderHelper {
         return conjugationHeader;
     }
 
-    private static String getHeaderTitle(RootWord pastTenseRoot, RootWord presentTenseRoot, RootLetters rootLetters,
+    private static String getHeaderTitle(String pastTenseRoot, String presentTenseRoot, RootLetters rootLetters,
                                          OutputFormat outputFormat) {
-        ArabicWord title = ArabicLetters.WORD_SPACE;
+        StringBuilder builder = new StringBuilder();
         if (pastTenseRoot != null) {
-            title = ArabicWord.concatenateWithSpace(title, pastTenseRoot.toLabel());
+            builder.append(pastTenseRoot).append(" ");
         }
         if (presentTenseRoot != null) {
-            title = ArabicWord.concatenateWithSpace(title, presentTenseRoot.toLabel());
+            builder.append(presentTenseRoot);
         }
-        if (rootLetters != null) {
-            ArabicLetterType fourthRadical = rootLetters.getFourthRadical();
-            ArabicWord rl = ArabicWord.concatenate(ArabicWord.getWord(ArabicLetterType.LEFT_PARENTHESIS),
-                    ArabicWord.getWord(rootLetters.getFirstRadical()),
-                    ArabicWord.getWord(rootLetters.getSecondRadical()), ArabicWord.getWord(rootLetters.getThirdRadical()));
-            if (fourthRadical != null) {
-                rl = ArabicWord.concatenate(ArabicWord.getWord(fourthRadical));
-            }
-            rl = ArabicWord.concatenate(rl, ArabicWord.getWord(ArabicLetterType.RIGHT_PARENTHESIS));
-            title = ArabicWord.concatenateWithSpace(title, rl);
+
+        if(rootLetters != null){
+            builder.append(" ").append(getStringValue(ArabicLetterType.LEFT_PARENTHESIS, outputFormat))
+                    .append(getStringValue(rootLetters.toLabel(), outputFormat))
+                    .append(getStringValue(ArabicLetterType.RIGHT_PARENTHESIS, outputFormat));
         }
-        return getStringValue(title, outputFormat);
+        return builder.toString();
     }
 
-    private static String[] getDefaultWordPairs(NounConjugationGroup[] nounConjugationGroups, OutputFormat outputFormat) {
+    private static String[] getDefaultWordPairs(NounConjugationGroup[] nounConjugationGroups) {
         if (!ArrayUtils.isEmpty(nounConjugationGroups)) {
             List<String> rootWords = new ArrayList<>();
             for (final NounConjugationGroup nounConjugationGroup : nounConjugationGroups) {
                 if (nounConjugationGroup != null) {
-                    rootWords.add(getStringValue(nounConjugationGroup.defaultValue(), outputFormat));
+                    rootWords.add(nounConjugationGroup.defaultValue());
                 }
             }
             return rootWords.toArray(new String[rootWords.size()]);

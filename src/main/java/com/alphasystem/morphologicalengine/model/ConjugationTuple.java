@@ -1,6 +1,5 @@
 package com.alphasystem.morphologicalengine.model;
 
-import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -9,43 +8,43 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class ConjugationTuple {
 
-    private RootWord singular;
+    private String singular;
 
-    private RootWord dual;
+    private String dual;
 
-    private RootWord plural;
+    private String plural;
 
     public ConjugationTuple() {
         this(null, null, null);
     }
 
-    public ConjugationTuple(RootWord singular, RootWord dual, RootWord plural) {
+    public ConjugationTuple(String singular, String dual, String plural) {
         setSingular(singular);
         setDual(dual);
         setPlural(plural);
     }
 
-    public RootWord getSingular() {
+    public String getSingular() {
         return singular;
     }
 
-    public void setSingular(RootWord singular) {
+    public void setSingular(String singular) {
         this.singular = singular;
     }
 
-    public RootWord getDual() {
+    public String getDual() {
         return dual;
     }
 
-    public void setDual(RootWord dual) {
+    public void setDual(String dual) {
         this.dual = dual;
     }
 
-    public RootWord getPlural() {
+    public String getPlural() {
         return plural;
     }
 
-    public void setPlural(RootWord plural) {
+    public void setPlural(String plural) {
         this.plural = plural;
     }
 
