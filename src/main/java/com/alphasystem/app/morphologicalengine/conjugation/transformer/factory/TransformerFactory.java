@@ -1,6 +1,6 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.factory;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationGroup;
+import com.alphasystem.morphologicalengine.model.ConjugationGroup;
 import com.alphasystem.app.morphologicalengine.conjugation.model.RootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;

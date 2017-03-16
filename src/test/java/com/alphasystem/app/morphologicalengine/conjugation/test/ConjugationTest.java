@@ -3,6 +3,7 @@ package com.alphasystem.app.morphologicalengine.conjugation.test;
 import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilder;
 import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationRoots;
 import com.alphasystem.app.morphologicalengine.conjugation.model.*;
+import com.alphasystem.morphologicalengine.model.ConjugationGroup;
 import com.alphasystem.morphologicalengine.model.ConjugationTuple;
 import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
 import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;

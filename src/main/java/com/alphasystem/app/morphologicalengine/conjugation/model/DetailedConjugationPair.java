@@ -3,6 +3,8 @@
  */
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
+import com.alphasystem.morphologicalengine.model.ConjugationGroup;
+
 /**
  * @author sali
  */
