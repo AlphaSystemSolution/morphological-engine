@@ -1,7 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun;
 
 import com.alphasystem.morphologicalengine.model.ConjugationTuple;
-import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugation;
+import com.alphasystem.morphologicalengine.model.NounConjugation;
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugationGroup;
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;

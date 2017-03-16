@@ -4,6 +4,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+import com.alphasystem.morphologicalengine.model.NounConjugation;
 
 /**
  * @author sali
@@ -21,7 +22,7 @@ public interface Transformer<G> {
      * @param thirdRadical  third radical of the target word
      * @param fourthRadical fourth radical of the target word, may be null
      * @return conjugation of given <code>rootWord</code> depends on whether the <code>rootWord</code> is noun or verb.
-     * @see com.alphasystem.app.morphologicalengine.conjugation.model.NounConjugation
+     * @see NounConjugation
      */
     G doTransform(RuleProcessor ruleProcessor, RootWord rootWord, SarfTermType sarfTermType, ArabicLetterType firstRadical,
                   ArabicLetterType secondRadical, ArabicLetterType thirdRadical, ArabicLetterType fourthRadical);

@@ -1,7 +1,7 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.verb;
 
 import com.alphasystem.morphologicalengine.model.ConjugationTuple;
-import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugationGroup;
+import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformer;

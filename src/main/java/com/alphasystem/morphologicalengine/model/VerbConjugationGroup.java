@@ -1,8 +1,8 @@
-package com.alphasystem.app.morphologicalengine.conjugation.model;
+package com.alphasystem.morphologicalengine.model;
 
+import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationGroup;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
-import com.alphasystem.morphologicalengine.model.ConjugationTuple;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
