@@ -1,6 +1,5 @@
-package com.alphasystem.app.morphologicalengine.conjugation.model;
+package com.alphasystem.morphologicalengine.model;
 
-import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**

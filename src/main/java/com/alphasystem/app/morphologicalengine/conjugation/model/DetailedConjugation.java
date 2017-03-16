@@ -3,6 +3,8 @@
  */
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
+import com.alphasystem.morphologicalengine.model.NounDetailedConjugationPair;
+import com.alphasystem.morphologicalengine.model.VerbDetailedConjugationPair;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
