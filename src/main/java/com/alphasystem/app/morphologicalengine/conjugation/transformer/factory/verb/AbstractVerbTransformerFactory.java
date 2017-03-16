@@ -1,6 +1,6 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.verb;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationTuple;
+import com.alphasystem.morphologicalengine.model.ConjugationTuple;
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbConjugationGroup;
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;

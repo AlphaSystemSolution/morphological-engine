@@ -1,6 +1,6 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.verb;
 
-import com.alphasystem.app.morphologicalengine.conjugation.model.ConjugationTuple;
+import com.alphasystem.morphologicalengine.model.ConjugationTuple;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.Transformer;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 
