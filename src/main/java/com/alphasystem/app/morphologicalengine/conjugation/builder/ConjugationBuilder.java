@@ -77,52 +77,36 @@ public class ConjugationBuilder {
         final CompletableFuture<VerbDetailedConjugationPair> pastAndPresentActiveTenseGroup =
                 createVerbDetailedConjugationPair(outputFormat, ruleProcessor, rootLetters, PRESENT_TENSE,
                         conjugationRoots.getPresentTense(), PAST_TENSE, conjugationRoots.getPastTense());
-        pastAndPresentActiveTenseGroup.thenApply(verbDetailedConjugationPair ->
+        pastAndPresentActiveTenseGroup.thenApplyAsync(verbDetailedConjugationPair ->
                 applyPastAndPresentActiveTenseGroup(verbDetailedConjugationPair, abbreviatedConjugation,
                         detailedConjugation, conjugationRoots, outputFormat));
-        try {
-            pastAndPresentActiveTenseGroup.get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         final CompletableFuture<NounDetailedConjugationPair> masculineAndFeminineActiveParticiplePair =
                 createNounDetailedConjugationPair(outputFormat, ruleProcessor, rootLetters, ACTIVE_PARTICIPLE_FEMININE,
                         conjugationRoots.getActiveParticipleFeminine(), ACTIVE_PARTICIPLE_MASCULINE,
                         conjugationRoots.getActiveParticipleMasculine());
-        masculineAndFeminineActiveParticiplePair.thenApply(nounDetailedConjugationPair ->
+        masculineAndFeminineActiveParticiplePair.thenApplyAsync(nounDetailedConjugationPair ->
                 applyMasculineAndFeminineActiveParticipleGroup(nounDetailedConjugationPair, abbreviatedConjugation,
                         detailedConjugation, outputFormat));
-        try {
-            masculineAndFeminineActiveParticiplePair.get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         final CompletableFuture<VerbDetailedConjugationPair> imperativeAndForbiddingGroup =
                 createVerbDetailedConjugationPair(outputFormat, ruleProcessor, rootLetters, FORBIDDING,
                         conjugationRoots.getForbidding(), IMPERATIVE, conjugationRoots.getImperative());
-        imperativeAndForbiddingGroup.thenApply(verbDetailedConjugationPair ->
+        imperativeAndForbiddingGroup.thenApplyAsync(verbDetailedConjugationPair ->
                 applyImperativeAndForbiddingGroup(verbDetailedConjugationPair, abbreviatedConjugation,
                         detailedConjugation, outputFormat));
-        try {
-            imperativeAndForbiddingGroup.get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        CompletableFuture[] futures = new CompletableFuture[0];
+        futures = ArrayUtils.addAll(futures, pastAndPresentActiveTenseGroup, masculineAndFeminineActiveParticiplePair, imperativeAndForbiddingGroup);
 
         final CompletableFuture<NounDetailedConjugationPair>[] verbalNounConjugationFutureGroups =
                 getNounConjugationGroups(VERBAL_NOUN, outputFormat, ruleProcessor, rootLetters, conjugationRoots.getVerbalNouns());
         if (!ArrayUtils.isEmpty(verbalNounConjugationFutureGroups)) {
+            futures = ArrayUtils.addAll(futures, verbalNounConjugationFutureGroups);
             for (CompletableFuture<NounDetailedConjugationPair> futureGroup : verbalNounConjugationFutureGroups) {
                 if (futureGroup != null) {
-                    futureGroup.thenApply(nounDetailedConjugationPair ->
+                    futureGroup.thenApplyAsync(nounDetailedConjugationPair ->
                             applyVerbalNounGroup(nounDetailedConjugationPair, abbreviatedConjugation, detailedConjugation, outputFormat));
-                    try {
-                        futureGroup.get();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                 }
             }
         }
@@ -131,16 +115,12 @@ public class ConjugationBuilder {
                 getNounConjugationGroups(NOUN_OF_PLACE_AND_TIME, outputFormat, ruleProcessor, rootLetters,
                         conjugationRoots.getAdverbs());
         if (!ArrayUtils.isEmpty(nounOfPlaceAndTimeConjugationFutureGroups)) {
+            futures = ArrayUtils.addAll(futures, nounOfPlaceAndTimeConjugationFutureGroups);
             for (CompletableFuture<NounDetailedConjugationPair> futureGroup : nounOfPlaceAndTimeConjugationFutureGroups) {
                 if (futureGroup != null) {
-                    futureGroup.thenApply(nounDetailedConjugationPair ->
-                            applyNounOfPlaceAndTimeGroup(nounDetailedConjugationPair, abbreviatedConjugation,
+                    futureGroup.thenApplyAsync(nounDetailedConjugationPair ->
+                           applyNounOfPlaceAndTimeGroup(nounDetailedConjugationPair, abbreviatedConjugation,
                                     detailedConjugation, outputFormat));
-                    try {
-                        futureGroup.get();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                 }
             }
         }
@@ -150,28 +130,25 @@ public class ConjugationBuilder {
                     createVerbDetailedConjugationPair(outputFormat, ruleProcessor, rootLetters, PRESENT_PASSIVE_TENSE,
                             conjugationRoots.getPresentPassiveTense(), PAST_PASSIVE_TENSE,
                             conjugationRoots.getPastPassiveTense());
-            pastAndPresentPassiveTenseGroup.thenApply(verbDetailedConjugationPair ->
+            pastAndPresentPassiveTenseGroup.thenApplyAsync(verbDetailedConjugationPair ->
                     applyPastAndPresentPassiveTenseGroup(verbDetailedConjugationPair, abbreviatedConjugation, detailedConjugation));
-            try {
-                pastAndPresentPassiveTenseGroup.get();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
             final CompletableFuture<NounDetailedConjugationPair> masculineAndFemininePassiveParticipleGroup =
                     createNounDetailedConjugationPair(outputFormat, ruleProcessor, rootLetters,
                             PASSIVE_PARTICIPLE_FEMININE, conjugationRoots.getPassiveParticipleFeminine(),
                             PASSIVE_PARTICIPLE_MASCULINE, conjugationRoots.getPassiveParticipleMasculine());
-            masculineAndFemininePassiveParticipleGroup.thenApply(nounDetailedConjugationPair ->
+            masculineAndFemininePassiveParticipleGroup.thenApplyAsync(nounDetailedConjugationPair ->
                     applyMasculineAndFemininePassiveParticipleGroup(nounDetailedConjugationPair, abbreviatedConjugation,
                             detailedConjugation, outputFormat));
-            try {
-                masculineAndFemininePassiveParticipleGroup.get();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            futures = ArrayUtils.addAll(futures, pastAndPresentPassiveTenseGroup, masculineAndFemininePassiveParticipleGroup);
         }
 
+        final CompletableFuture<Void> future = CompletableFuture.allOf(futures);
+        try {
+            future.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return new MorphologicalChart(abbreviatedConjugation, detailedConjugation);
     }
 
