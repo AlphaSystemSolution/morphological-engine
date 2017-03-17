@@ -3,7 +3,6 @@ package com.alphasystem.app.morphologicalengine.conjugation.builder;
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
 import com.alphasystem.arabic.model.NamedTemplate;
-import com.alphasystem.morphologicalanalysis.morphology.model.ChartConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.ConjugationConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -18,7 +17,6 @@ public final class ConjugationRoots {
     private NamedTemplate template;
     private RootLetters rootLetters;
     private ConjugationConfiguration conjugationConfiguration;
-    private ChartConfiguration chartConfiguration;
     private String translation;
     private VerbRootBase pastTense;
     private VerbRootBase presentTense;
@@ -34,7 +32,6 @@ public final class ConjugationRoots {
     private NounRootBase[] adverbs;
 
     public ConjugationRoots() {
-        setChartConfiguration(null);
         setConjugationConfiguration(null);
     }
 
@@ -56,10 +53,6 @@ public final class ConjugationRoots {
 
     public ConjugationConfiguration getConjugationConfiguration() {
         return conjugationConfiguration;
-    }
-
-    public ChartConfiguration getChartConfiguration() {
-        return chartConfiguration;
     }
 
     public String getTranslation() {
@@ -116,10 +109,6 @@ public final class ConjugationRoots {
 
     public void setConjugationConfiguration(ConjugationConfiguration conjugationConfiguration) {
         this.conjugationConfiguration = (conjugationConfiguration == null) ? new ConjugationConfiguration() : conjugationConfiguration;
-    }
-
-    public void setChartConfiguration(ChartConfiguration chartConfiguration) {
-        this.chartConfiguration = (chartConfiguration == null) ? new ChartConfiguration() : chartConfiguration;
     }
 
     public void setTranslation(String translation) {
@@ -187,11 +176,6 @@ public final class ConjugationRoots {
     public ConjugationRoots conjugationConfiguration(boolean removePassiveLine, boolean skipRuleProcessing) {
         setConjugationConfiguration(new ConjugationConfiguration().removePassiveLine(removePassiveLine)
                 .skipRuleProcessing(skipRuleProcessing));
-        return this;
-    }
-
-    public ConjugationRoots chartConfiguration(ChartConfiguration chartConfiguration) {
-        setChartConfiguration(chartConfiguration);
         return this;
     }
 
