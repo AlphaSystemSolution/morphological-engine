@@ -136,6 +136,12 @@ final class ConjugationBuilderHelper {
             activeLine = new ActiveLine();
             abbreviatedConjugation.setActiveLine(activeLine);
         }
+        PassiveLine passiveLine = abbreviatedConjugation.getPassiveLine();
+        if (passiveLine == null) {
+            passiveLine = new PassiveLine();
+            abbreviatedConjugation.setPassiveLine(passiveLine);
+        }
+
         final NounConjugationGroup leftSideConjugations = nounDetailedConjugationPair.getLeftSideConjugations();
         final NounConjugationGroup rightSideConjugations = nounDetailedConjugationPair.getRightSideConjugations();
         String[] verbalNouns = new String[0];
@@ -145,8 +151,9 @@ final class ConjugationBuilderHelper {
         if (rightSideConjugations != null) {
             verbalNouns = ArrayUtils.addAll(verbalNouns, rightSideConjugations.defaultValue());
         }
-        activeLine.verbalNouns(verbalNouns)
-                .verbalNoun(toDefaultStringValue(null, outputFormat, activeLine.getVerbalNouns()));
+        final String verbalNoun = toDefaultStringValue(null, outputFormat, activeLine.getVerbalNouns());
+        activeLine.verbalNouns(verbalNouns).verbalNoun(verbalNoun);
+        passiveLine.verbalNouns(verbalNouns).verbalNoun(verbalNoun);
 
         detailedConjugation.verbalNounPairs(nounDetailedConjugationPair);
         return null;
