@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BuilderConfiguration {
 
-    @Bean(destroyMethod = "preDestroy")
+    @Bean
     ConjugationBuilder formBuilder(){
         return new ConjugationBuilder();
     }
