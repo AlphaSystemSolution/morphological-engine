@@ -273,7 +273,7 @@ final class ConjugationBuilderHelper {
         StringBuilder builder = new StringBuilder();
         builder.append(values[0]);
         for (int i = 1; i < values.length; i++) {
-            builder.append(" ").append(getStringValue(ArabicLetterType.WAW, outputFormat)).append(values[i]);
+            builder.append(" ").append(getStringValue(ArabicLetterType.WAW, outputFormat)).append(" ").append(values[i]);
         }
         if (prefix != null && builder.length() > 0) {
             builder.insert(0, String.format("%s ", getStringValue(prefix, outputFormat)));
