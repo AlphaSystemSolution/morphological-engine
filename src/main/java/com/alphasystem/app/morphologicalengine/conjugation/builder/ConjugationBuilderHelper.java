@@ -151,8 +151,9 @@ final class ConjugationBuilderHelper {
         if (rightSideConjugations != null) {
             verbalNouns = ArrayUtils.addAll(verbalNouns, rightSideConjugations.defaultValue());
         }
+        activeLine.verbalNouns(verbalNouns);
         final String verbalNoun = toDefaultStringValue(null, outputFormat, activeLine.getVerbalNouns());
-        activeLine.verbalNouns(verbalNouns).verbalNoun(verbalNoun);
+        activeLine.verbalNoun(verbalNoun);
         passiveLine.verbalNouns(verbalNouns).verbalNoun(verbalNoun);
 
         detailedConjugation.verbalNounPairs(nounDetailedConjugationPair);
@@ -284,12 +285,12 @@ final class ConjugationBuilderHelper {
                                                                          VerbConjugationGroup rightSideGroup) {
         SarfTermType leftTerm = (leftSideGroup == null) ? null : leftSideGroup.getTermType();
         SarfTermType rightTerm = (rightSideGroup == null) ? null : rightSideGroup.getTermType();
-        LOGGER.info("<<<<< Start combining VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
+        LOGGER.debug("<<<<< Start combining VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
         VerbDetailedConjugationPair result = null;
         if (leftSideGroup != null || rightSideGroup != null) {
             result = new VerbDetailedConjugationPair(leftSideGroup, rightSideGroup);
         }
-        LOGGER.info("<<<<< Finish combining VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
+        LOGGER.debug("<<<<< Finish combining VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
         return result;
     }
 
@@ -297,12 +298,12 @@ final class ConjugationBuilderHelper {
                                                                          NounConjugationGroup rightSideGroup) {
         SarfTermType leftTerm = (leftSideGroup == null) ? null : leftSideGroup.getTermType();
         SarfTermType rightTerm = (rightSideGroup == null) ? null : rightSideGroup.getTermType();
-        LOGGER.info("<<<<< Start combining VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
+        LOGGER.debug("<<<<< Start combining VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
         NounDetailedConjugationPair result = null;
         if (leftSideGroup != null || rightSideGroup != null) {
             result = new NounDetailedConjugationPair(leftSideGroup, rightSideGroup);
         }
-        LOGGER.info("<<<<< Finish combining VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
+        LOGGER.debug("<<<<< Finish combining VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
         return result;
     }
 

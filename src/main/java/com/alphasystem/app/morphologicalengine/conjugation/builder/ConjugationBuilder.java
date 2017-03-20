@@ -177,7 +177,7 @@ public class ConjugationBuilder {
                                                                                              VerbRootBase leftWord,
                                                                                              SarfTermType rightTerm,
                                                                                              VerbRootBase rightWord) {
-        logger.info("<<<<< Start creating VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
+        logger.debug("<<<<< Start creating VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
         Function<Request<VerbRootBase>, Supplier<VerbConjugationGroup>> verbFunction = verbRootBaseRequest ->
                 () -> getVerbConjugationGroup(verbRootBaseRequest);
 
@@ -192,7 +192,7 @@ public class ConjugationBuilder {
         final CompletableFuture<VerbDetailedConjugationPair> future = future1.thenCombineAsync(future2,
                 (verbConjugationGroup1, verbConjugationGroup2) ->
                         ConjugationBuilderHelper.createVerbDetailedConjugationPair(verbConjugationGroup2, verbConjugationGroup1));
-        logger.info("<<<<< Finish creating VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
+        logger.debug("<<<<< Finish creating VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
         return future;
     }
 
@@ -203,7 +203,7 @@ public class ConjugationBuilder {
                                                                                              NounRootBase leftWord,
                                                                                              SarfTermType rightTerm,
                                                                                              NounRootBase rightWord) {
-        logger.info("<<<<< Start creating NounDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
+        logger.debug("<<<<< Start creating NounDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
         Function<Request<NounRootBase>, Supplier<NounConjugationGroup>> nounFunction = nounRootBaseRequest ->
                 () -> getNounConjugationGroup(nounRootBaseRequest);
 
@@ -218,7 +218,7 @@ public class ConjugationBuilder {
         final CompletableFuture<NounDetailedConjugationPair> result = future1.thenCombineAsync(future2,
                 (nounConjugationGroup1, nounConjugationGroup2) ->
                         ConjugationBuilderHelper.createNounDetailedConjugationPair(nounConjugationGroup2, nounConjugationGroup1));
-        logger.info("<<<<< Finish creating NounDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
+        logger.debug("<<<<< Finish creating NounDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
         return result;
     }
 
