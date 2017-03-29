@@ -1,6 +1,8 @@
 package com.alphasystem.app.morphologicalengine.conjugation.transformer.noun;
 
+import com.alphasystem.arabic.model.ArabicLetter;
 import com.alphasystem.arabic.model.ArabicLetterType;
+import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 
@@ -18,7 +20,15 @@ class FeminineMasculineBasedPluralTransformer extends FemininePluralTransformer 
     @Override
     protected RootWord createRootWord(RootWord rootWord, SarfTermType sarfTermType, ArabicLetterType firstRadical,
                                       ArabicLetterType secondRadical, ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
-        return super.createRootWord(convertToFeminine(rootWord), sarfTermType, firstRadical, secondRadical, thirdRadical, fourthRadical);
+        final ArabicWord arabicWord = rootWord.getRootWord();
+        final ArabicLetter lastLetter = arabicWord.getLastLetter();
+        if (ArabicLetterType.TA_MARBUTA.equals(lastLetter.getLetter())) {
+            // for NounOfPlaceAndTime
+            return super.createRootWord(rootWord, sarfTermType, firstRadical, secondRadical, thirdRadical, fourthRadical);
+        } else {
+            // for VerbalNoun
+            return super.createRootWord(convertToFeminine(rootWord), sarfTermType, firstRadical, secondRadical, thirdRadical, fourthRadical);
+        }
     }
 
 }
