@@ -298,12 +298,12 @@ final class ConjugationBuilderHelper {
                                                                          NounConjugationGroup rightSideGroup) {
         SarfTermType leftTerm = (leftSideGroup == null) ? null : leftSideGroup.getTermType();
         SarfTermType rightTerm = (rightSideGroup == null) ? null : rightSideGroup.getTermType();
-        LOGGER.debug("<<<<< Start combining VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
+        LOGGER.debug("<<<<< Start combining createNounDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
         NounDetailedConjugationPair result = null;
         if (leftSideGroup != null || rightSideGroup != null) {
             result = new NounDetailedConjugationPair(leftSideGroup, rightSideGroup);
         }
-        LOGGER.debug("<<<<< Finish combining VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
+        LOGGER.debug("<<<<< Finish combining createNounDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
         return result;
     }
 
