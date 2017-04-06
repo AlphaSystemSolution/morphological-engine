@@ -55,6 +55,10 @@ public class NounTransformerTest extends CommonTest {
     @NounTransformerType(NounTransformerType.Type.MASCULINE_PLURAL_TRANSFORMER)
     private NounTransformer masculinePassivePluralTransformer;
 
+    @Autowired
+    @NounTransformerType(NounTransformerType.Type.FEMININE_MASCULINE_BASED_PLURAL_TRANSFORMER)
+    private NounTransformer feminineMasculineBasedPluralTransformer;
+
     @Test(dataProvider = "data")
     public void test(NounTransformer transformer, String title, Noun noun, NamedTemplate template,
                      ArabicLetterType firstRadical, ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
@@ -83,7 +87,10 @@ public class NounTransformerTest extends CommonTest {
                         ArabicLetterType.RA},
                 {masculinePassivePluralTransformer, "Form I masculine plural", Noun.FORM_I_MASCULINE_PASSIVE_PARTICIPLE,
                         NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, ArabicLetterType.NOON, ArabicLetterType.SAD,
-                        ArabicLetterType.RA}
+                        ArabicLetterType.RA},
+                {feminineMasculineBasedPluralTransformer, "Form II masculine feminine based masculine plural",
+                        Noun.FORM_II_MASCULINE_PASSIVE_PARTICIPLE, NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE,
+                        ArabicLetterType.NOON, ArabicLetterType.SAD, ArabicLetterType.RA}
         };
     }
 

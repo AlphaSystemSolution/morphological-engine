@@ -21,9 +21,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import static com.alphasystem.arabic.model.ArabicLetterType.LAM;
+import static com.alphasystem.arabic.model.ArabicLetterType.MEEM;
 import static com.alphasystem.arabic.model.ArabicLetterType.NOON;
 import static com.alphasystem.arabic.model.ArabicLetterType.RA;
 import static com.alphasystem.arabic.model.ArabicLetterType.SAD;
+import static com.alphasystem.arabic.model.ArabicLetterType.SEEN;
 import static com.alphasystem.arabic.model.HiddenNounStatus.ACCUSATIVE_SINGULAR;
 import static com.alphasystem.arabic.model.HiddenNounStatus.GENITIVE_SINGULAR;
 import static com.alphasystem.arabic.model.HiddenNounStatus.NOMINATIVE_SINGULAR;
@@ -34,6 +37,7 @@ import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_FEMI
 import static com.alphasystem.arabic.model.HiddenPronounStatus.THIRD_PERSON_MASCULINE_SINGULAR;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.ACTIVE_PARTICIPLE_FEMININE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.ACTIVE_PARTICIPLE_MASCULINE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.NOUN_OF_PLACE_AND_TIME;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PASSIVE_PARTICIPLE_FEMININE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PASSIVE_PARTICIPLE_MASCULINE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PAST_TENSE;
@@ -70,9 +74,13 @@ public class TransformerTest extends CommonTest {
     @NounTransformerFactoryType(NounTransformerFactoryType.Type.FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY)
     private NounTransformerFactory femininePassiveParticipleTransformerFactory;
 
+    @Autowired
+    @NounTransformerFactoryType(NounTransformerFactoryType.Type.MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY)
+    private NounTransformerFactory masculineBasedFemininePluralTransformerFactory;
+
     private static String[] createActiveTenseRootWords(VerbTransformerFactory pastTenseTransformer, VerbTransformerFactory presentTenseTransformer,
-                                                         Form form, ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                                         ArabicLetterType thirdRadical) {
+                                                       Form form, ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                                       ArabicLetterType thirdRadical) {
         final RootLetters rootLetters = new RootLetters(firstRadical, secondRadical, thirdRadical);
         final VerbConjugationGroup pastTenseConjugationGroup = pastTenseTransformer.doConjugation(null, PAST_TENSE,
                 OutputFormat.HTML, form.getPastTense(), rootLetters);
@@ -84,9 +92,9 @@ public class TransformerTest extends CommonTest {
     }
 
     private static String[] createActiveParticipleRootWords(NounTransformerFactory masculineTransformer,
-                                                              NounTransformerFactory feminineTransformer, Form form,
-                                                              ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                                              ArabicLetterType thirdRadical) {
+                                                            NounTransformerFactory feminineTransformer, Form form,
+                                                            ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                                            ArabicLetterType thirdRadical) {
         final RootLetters rootLetters = new RootLetters(firstRadical, secondRadical, thirdRadical);
 
         final NounConjugationGroup masculineGroup = masculineTransformer.doConjugation(null,
@@ -99,9 +107,9 @@ public class TransformerTest extends CommonTest {
     }
 
     private static String[] createPassiveParticipleRootWords(NounTransformerFactory masculineTransformer,
-                                                               NounTransformerFactory feminineTransformer, Form form,
-                                                               ArabicLetterType firstRadical, ArabicLetterType secondRadical,
-                                                               ArabicLetterType thirdRadical) {
+                                                             NounTransformerFactory feminineTransformer, Form form,
+                                                             ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                                             ArabicLetterType thirdRadical) {
         final RootLetters rootLetters = new RootLetters(firstRadical, secondRadical, thirdRadical);
 
         final NounConjugationGroup masculineGroup = masculineTransformer.doConjugation(null,
@@ -111,6 +119,15 @@ public class TransformerTest extends CommonTest {
                 PASSIVE_PARTICIPLE_FEMININE, OutputFormat.HTML, form.getPassiveParticipleFeminine(), rootLetters);
 
         return getRootWords(masculineGroup, feminineGroup);
+    }
+
+    private static String[] createNounOfPlaceAndTimeRootWords(NounTransformerFactory nounTransformerFactory, Form form,
+                                                              ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                                              ArabicLetterType thirdRadical) {
+        final RootLetters rootLetters = new RootLetters(firstRadical, secondRadical, thirdRadical);
+        final NounConjugationGroup nounConjugationGroup = nounTransformerFactory.doConjugation(null,
+                NOUN_OF_PLACE_AND_TIME, OutputFormat.HTML, form.getAdverbs()[0], rootLetters);
+        return getRootWords(nounConjugationGroup, nounConjugationGroup);
     }
 
     @Test(dataProvider = "tense_data")
@@ -134,6 +151,13 @@ public class TransformerTest extends CommonTest {
         addPassiveParticiple(masculineTransformer, feminineTransformer, form, firstRadical, secondRadical, thirdRadical);
     }
 
+    @Test(dataProvider = "noun_of_place_and_time_data", dependsOnMethods = "runPassiveParticipleConjugations")
+    public void runNounOfPlaceAndTime(NounTransformerFactory nounTransformerFactory, Form form,
+                                      ArabicLetterType firstRadical, ArabicLetterType secondRadical,
+                                      ArabicLetterType thirdRadical) {
+        addNounOfPlaceAndTime(nounTransformerFactory, form, firstRadical, secondRadical, thirdRadical);
+    }
+
     @DataProvider(name = "tense_data")
     private Object[][] createTenseData() {
         return new Object[][]{
@@ -152,6 +176,13 @@ public class TransformerTest extends CommonTest {
     private Object[][] createPassiveParticipleData() {
         return new Object[][]{
                 {masculinePassiveParticipleTransformerFactory, femininePassiveParticipleTransformerFactory, Form.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE, NOON, SAD, RA}
+        };
+    }
+
+    @DataProvider(name = "noun_of_place_and_time_data")
+    private Object[][] createNounOfPlaceAndTimeData() {
+        return new Object[][]{
+                {masculineBasedFemininePluralTransformerFactory, Form.FORM_IV_TEMPLATE, SEEN, LAM, MEEM}
         };
     }
 
@@ -202,6 +233,13 @@ public class TransformerTest extends CommonTest {
                                       ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
         String[] rootWords = createPassiveParticipleRootWords(masculineTransformer, feminineTransformer, formTemplate,
                 firstRadical, secondRadical, thirdRadical);
+        addNounTable(formTemplate.name(), rootWords);
+    }
+
+    private void addNounOfPlaceAndTime(NounTransformerFactory nounTransformerFactory, Form formTemplate, ArabicLetterType firstRadical,
+                                       ArabicLetterType secondRadical, ArabicLetterType thirdRadical) {
+        final String[] rootWords = createNounOfPlaceAndTimeRootWords(nounTransformerFactory, formTemplate, firstRadical,
+                secondRadical, thirdRadical);
         addNounTable(formTemplate.name(), rootWords);
     }
 

@@ -43,7 +43,7 @@ public class ConjugationTest extends CommonTest {
     private ConjugationBuilder conjugationBuilder;
 
     @BeforeClass
-    public void beforeClass(){
+    public void beforeClass() {
         super.beforeClass();
         conjugationBuilder = MorphologicalEngineFactory.getConjugationBuilder();
         Assert.assertNotNull(conjugationBuilder);
@@ -80,6 +80,9 @@ public class ConjugationTest extends CommonTest {
     }
 
     private void createHeading(ConjugationHeader header) {
+        if (header == null) {
+            return;
+        }
         lines.add(format("== [arabicHeading1]#%s#", header.getTitle()));
     }
 
@@ -96,6 +99,9 @@ public class ConjugationTest extends CommonTest {
     }
 
     private void addHeader(ConjugationHeader header) {
+        if (header == null) {
+            return;
+        }
         final String rootLettersAndTranslation = addRootLettersAndTranslation(header.getRootLetters(), header.getTranslation());
         final String headerLabels = addHeaderLabels(header);
         lines.add(format("2+|%s 2+>.^|%s", rootLettersAndTranslation, headerLabels));
