@@ -120,7 +120,7 @@ final class ConjugationBuilderHelper {
             passiveLine = new PassiveLine();
             abbreviatedConjugation.setPassiveLine(passiveLine);
         }
-        final String passiveParticipleRoot = nounDetailedConjugationPair.getLeftSideConjugations().defaultValue();
+        final String passiveParticipleRoot = nounDetailedConjugationPair.getRightSideConjugations().defaultValue();
         passiveLine.passiveParticipleMasculine(passiveParticipleRoot)
                 .passiveParticipleValue(toDefaultStringValue(PARTICIPLE_PREFIX, outputFormat, passiveParticipleRoot));
 
