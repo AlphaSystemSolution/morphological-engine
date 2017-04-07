@@ -25,9 +25,6 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilderHelper.applyImperativeAndForbiddingGroup;
 import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilderHelper.applyMasculineAndFeminineActiveParticipleGroup;
@@ -74,81 +71,62 @@ public class ConjugationBuilder {
         AbbreviatedConjugation abbreviatedConjugation = new AbbreviatedConjugation();
         DetailedConjugation detailedConjugation = new DetailedConjugation();
 
-        final CompletableFuture<VerbDetailedConjugationPair> pastAndPresentActiveTenseGroup =
+        final VerbDetailedConjugationPair pastAndPresentActiveTenseGroup =
                 createVerbDetailedConjugationPair(outputFormat, ruleProcessor, rootLetters, PRESENT_TENSE,
                         conjugationRoots.getPresentTense(), PAST_TENSE, conjugationRoots.getPastTense());
-        pastAndPresentActiveTenseGroup.thenApplyAsync(verbDetailedConjugationPair ->
-                applyPastAndPresentActiveTenseGroup(verbDetailedConjugationPair, abbreviatedConjugation,
-                        detailedConjugation, conjugationRoots, outputFormat));
+        applyPastAndPresentActiveTenseGroup(pastAndPresentActiveTenseGroup, abbreviatedConjugation,
+                detailedConjugation, conjugationRoots, outputFormat);
 
-        final CompletableFuture<NounDetailedConjugationPair> masculineAndFeminineActiveParticiplePair =
+        final NounDetailedConjugationPair masculineAndFeminineActiveParticiplePair =
                 createNounDetailedConjugationPair(outputFormat, ruleProcessor, rootLetters, ACTIVE_PARTICIPLE_FEMININE,
                         conjugationRoots.getActiveParticipleFeminine(), ACTIVE_PARTICIPLE_MASCULINE,
                         conjugationRoots.getActiveParticipleMasculine());
-        masculineAndFeminineActiveParticiplePair.thenApplyAsync(nounDetailedConjugationPair ->
-                applyMasculineAndFeminineActiveParticipleGroup(nounDetailedConjugationPair, abbreviatedConjugation,
-                        detailedConjugation, outputFormat));
+        applyMasculineAndFeminineActiveParticipleGroup(masculineAndFeminineActiveParticiplePair, abbreviatedConjugation,
+                detailedConjugation, outputFormat);
 
-        final CompletableFuture<VerbDetailedConjugationPair> imperativeAndForbiddingGroup =
+        final VerbDetailedConjugationPair imperativeAndForbiddingGroup =
                 createVerbDetailedConjugationPair(outputFormat, ruleProcessor, rootLetters, FORBIDDING,
                         conjugationRoots.getForbidding(), IMPERATIVE, conjugationRoots.getImperative());
-        imperativeAndForbiddingGroup.thenApplyAsync(verbDetailedConjugationPair ->
-                applyImperativeAndForbiddingGroup(verbDetailedConjugationPair, abbreviatedConjugation,
-                        detailedConjugation, outputFormat));
+        applyImperativeAndForbiddingGroup(imperativeAndForbiddingGroup, abbreviatedConjugation, detailedConjugation,
+                outputFormat);
 
-        CompletableFuture[] futures = new CompletableFuture[0];
-        futures = ArrayUtils.addAll(futures, pastAndPresentActiveTenseGroup, masculineAndFeminineActiveParticiplePair, imperativeAndForbiddingGroup);
-
-        final CompletableFuture<NounDetailedConjugationPair>[] verbalNounConjugationFutureGroups =
+        final NounDetailedConjugationPair[] verbalNounConjugationFutureGroups =
                 getNounConjugationGroups(VERBAL_NOUN, outputFormat, ruleProcessor, rootLetters, conjugationRoots.getVerbalNouns());
         if (!ArrayUtils.isEmpty(verbalNounConjugationFutureGroups)) {
-            futures = ArrayUtils.addAll(futures, verbalNounConjugationFutureGroups);
-            for (CompletableFuture<NounDetailedConjugationPair> futureGroup : verbalNounConjugationFutureGroups) {
-                if (futureGroup != null) {
-                    futureGroup.thenApplyAsync(nounDetailedConjugationPair ->
-                            applyVerbalNounGroup(nounDetailedConjugationPair, abbreviatedConjugation, detailedConjugation, outputFormat));
+            for (NounDetailedConjugationPair nounDetailedConjugationPair : verbalNounConjugationFutureGroups) {
+                if (nounDetailedConjugationPair != null) {
+                    applyVerbalNounGroup(nounDetailedConjugationPair, abbreviatedConjugation, detailedConjugation, outputFormat);
                 }
             }
         }
 
-        final CompletableFuture<NounDetailedConjugationPair>[] nounOfPlaceAndTimeConjugationFutureGroups =
+        final NounDetailedConjugationPair[] nounOfPlaceAndTimeConjugationFutureGroups =
                 getNounConjugationGroups(NOUN_OF_PLACE_AND_TIME, outputFormat, ruleProcessor, rootLetters,
                         conjugationRoots.getAdverbs());
         if (!ArrayUtils.isEmpty(nounOfPlaceAndTimeConjugationFutureGroups)) {
-            futures = ArrayUtils.addAll(futures, nounOfPlaceAndTimeConjugationFutureGroups);
-            for (CompletableFuture<NounDetailedConjugationPair> futureGroup : nounOfPlaceAndTimeConjugationFutureGroups) {
-                if (futureGroup != null) {
-                    futureGroup.thenApplyAsync(nounDetailedConjugationPair ->
-                           applyNounOfPlaceAndTimeGroup(nounDetailedConjugationPair, abbreviatedConjugation,
-                                    detailedConjugation, outputFormat));
+            for (NounDetailedConjugationPair nounDetailedConjugationPair : nounOfPlaceAndTimeConjugationFutureGroups) {
+                if (nounDetailedConjugationPair != null) {
+                    applyNounOfPlaceAndTimeGroup(nounDetailedConjugationPair, abbreviatedConjugation,
+                            detailedConjugation, outputFormat);
                 }
             }
         }
 
         if (!removePassiveLine) {
-            final CompletableFuture<VerbDetailedConjugationPair> pastAndPresentPassiveTenseGroup =
+            final VerbDetailedConjugationPair pastAndPresentPassiveTenseGroup =
                     createVerbDetailedConjugationPair(outputFormat, ruleProcessor, rootLetters, PRESENT_PASSIVE_TENSE,
                             conjugationRoots.getPresentPassiveTense(), PAST_PASSIVE_TENSE,
                             conjugationRoots.getPastPassiveTense());
-            pastAndPresentPassiveTenseGroup.thenApplyAsync(verbDetailedConjugationPair ->
-                    applyPastAndPresentPassiveTenseGroup(verbDetailedConjugationPair, abbreviatedConjugation, detailedConjugation));
+            applyPastAndPresentPassiveTenseGroup(pastAndPresentPassiveTenseGroup, abbreviatedConjugation, detailedConjugation);
 
-            final CompletableFuture<NounDetailedConjugationPair> masculineAndFemininePassiveParticipleGroup =
+            final NounDetailedConjugationPair masculineAndFemininePassiveParticipleGroup =
                     createNounDetailedConjugationPair(outputFormat, ruleProcessor, rootLetters,
                             PASSIVE_PARTICIPLE_FEMININE, conjugationRoots.getPassiveParticipleFeminine(),
                             PASSIVE_PARTICIPLE_MASCULINE, conjugationRoots.getPassiveParticipleMasculine());
-            masculineAndFemininePassiveParticipleGroup.thenApplyAsync(nounDetailedConjugationPair ->
-                    applyMasculineAndFemininePassiveParticipleGroup(nounDetailedConjugationPair, abbreviatedConjugation,
-                            detailedConjugation, outputFormat));
-            futures = ArrayUtils.addAll(futures, pastAndPresentPassiveTenseGroup, masculineAndFemininePassiveParticipleGroup);
+            applyMasculineAndFemininePassiveParticipleGroup(masculineAndFemininePassiveParticipleGroup, abbreviatedConjugation,
+                    detailedConjugation, outputFormat);
         }
 
-        final CompletableFuture<Void> future = CompletableFuture.allOf(futures);
-        try {
-            future.get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return new MorphologicalChart(abbreviatedConjugation, detailedConjugation);
     }
 
@@ -170,64 +148,57 @@ public class ConjugationBuilder {
                 request.getSarfTermType(), request.getOutputFormat(), rootBase, request.getRootLetters());
     }
 
-    private CompletableFuture<VerbDetailedConjugationPair> createVerbDetailedConjugationPair(OutputFormat outputFormat,
-                                                                                             RuleProcessor ruleProcessor,
-                                                                                             RootLetters rootLetters,
-                                                                                             SarfTermType leftTerm,
-                                                                                             VerbRootBase leftWord,
-                                                                                             SarfTermType rightTerm,
-                                                                                             VerbRootBase rightWord) {
+    private VerbDetailedConjugationPair createVerbDetailedConjugationPair(OutputFormat outputFormat,
+                                                                          RuleProcessor ruleProcessor,
+                                                                          RootLetters rootLetters,
+                                                                          SarfTermType leftTerm,
+                                                                          VerbRootBase leftWord,
+                                                                          SarfTermType rightTerm,
+                                                                          VerbRootBase rightWord) {
         logger.debug("<<<<< Start creating VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
-        Function<Request<VerbRootBase>, Supplier<VerbConjugationGroup>> verbFunction = verbRootBaseRequest ->
-                () -> getVerbConjugationGroup(verbRootBaseRequest);
 
-        final Supplier<VerbConjugationGroup> supplier1 = verbFunction.apply(
-                new Request<>(outputFormat, ruleProcessor, rootLetters, rightTerm, rightWord));
-        final Supplier<VerbConjugationGroup> supplier2 = verbFunction.apply(
-                new Request<>(outputFormat, ruleProcessor, rootLetters, leftTerm, leftWord));
+        final Request<VerbRootBase> rightSideRequest = new Request<>(outputFormat, ruleProcessor, rootLetters, rightTerm, rightWord);
+        final VerbConjugationGroup rightSideGroup = getVerbConjugationGroup(rightSideRequest);
 
-        final CompletableFuture<VerbConjugationGroup> future1 = CompletableFuture.supplyAsync(supplier1);
-        final CompletableFuture<VerbConjugationGroup> future2 = CompletableFuture.supplyAsync(supplier2);
+        final Request<VerbRootBase> leftSideRequest = new Request<>(outputFormat, ruleProcessor, rootLetters, leftTerm, leftWord);
+        final VerbConjugationGroup leftSideGroup = getVerbConjugationGroup(leftSideRequest);
 
-        final CompletableFuture<VerbDetailedConjugationPair> future = future1.thenCombineAsync(future2,
-                (verbConjugationGroup1, verbConjugationGroup2) ->
-                        ConjugationBuilderHelper.createVerbDetailedConjugationPair(verbConjugationGroup2, verbConjugationGroup1));
+        final VerbDetailedConjugationPair conjugationPair = ConjugationBuilderHelper.createVerbDetailedConjugationPair(
+                leftSideGroup, rightSideGroup);
+
         logger.debug("<<<<< Finish creating VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
-        return future;
+        return conjugationPair;
     }
 
-    private CompletableFuture<NounDetailedConjugationPair> createNounDetailedConjugationPair(OutputFormat outputFormat,
-                                                                                             RuleProcessor ruleProcessor,
-                                                                                             RootLetters rootLetters,
-                                                                                             SarfTermType leftTerm,
-                                                                                             NounRootBase leftWord,
-                                                                                             SarfTermType rightTerm,
-                                                                                             NounRootBase rightWord) {
+    private NounDetailedConjugationPair createNounDetailedConjugationPair(OutputFormat outputFormat,
+                                                                          RuleProcessor ruleProcessor,
+                                                                          RootLetters rootLetters,
+                                                                          SarfTermType leftTerm,
+                                                                          NounRootBase leftWord,
+                                                                          SarfTermType rightTerm,
+                                                                          NounRootBase rightWord) {
         logger.debug("<<<<< Start creating NounDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
-        Function<Request<NounRootBase>, Supplier<NounConjugationGroup>> nounFunction = nounRootBaseRequest ->
-                () -> getNounConjugationGroup(nounRootBaseRequest);
 
-        final Supplier<NounConjugationGroup> supplier1 = nounFunction.apply(
-                new Request<>(outputFormat, ruleProcessor, rootLetters, rightTerm, rightWord));
-        final Supplier<NounConjugationGroup> supplier2 = nounFunction.apply(
-                new Request<>(outputFormat, ruleProcessor, rootLetters, leftTerm, leftWord));
+        final Request<NounRootBase> rightSideRequest = new Request<>(outputFormat, ruleProcessor, rootLetters, rightTerm, rightWord);
+        final NounConjugationGroup rightSideGroup = getNounConjugationGroup(rightSideRequest);
 
-        final CompletableFuture<NounConjugationGroup> future1 = CompletableFuture.supplyAsync(supplier1);
-        final CompletableFuture<NounConjugationGroup> future2 = CompletableFuture.supplyAsync(supplier2);
+        final Request<NounRootBase> leftSideRequest = new Request<>(outputFormat, ruleProcessor, rootLetters, leftTerm, leftWord);
+        final NounConjugationGroup leftSideGroup = getNounConjugationGroup(leftSideRequest);
 
-        final CompletableFuture<NounDetailedConjugationPair> result = future1.thenCombineAsync(future2,
-                (nounConjugationGroup1, nounConjugationGroup2) ->
-                        ConjugationBuilderHelper.createNounDetailedConjugationPair(nounConjugationGroup2, nounConjugationGroup1));
+        final NounDetailedConjugationPair conjugationPair = ConjugationBuilderHelper.createNounDetailedConjugationPair(
+                leftSideGroup, rightSideGroup);
+
         logger.debug("<<<<< Finish creating NounDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
-        return result;
+
+        return conjugationPair;
     }
 
     @SuppressWarnings("unchecked")
-    private CompletableFuture<NounDetailedConjugationPair>[] getNounConjugationGroups(SarfTermType sarfTermType, OutputFormat outputFormat,
-                                                                                      RuleProcessor ruleProcessor, RootLetters rootLetters,
-                                                                                      NounRootBase[] nounRootBases) {
+    private NounDetailedConjugationPair[] getNounConjugationGroups(SarfTermType sarfTermType, OutputFormat outputFormat,
+                                                                   RuleProcessor ruleProcessor, RootLetters rootLetters,
+                                                                   NounRootBase[] nounRootBases) {
         if (!ArrayUtils.isEmpty(nounRootBases)) {
-            CompletableFuture<NounDetailedConjugationPair>[] nounConjugationGroups = null;
+            NounDetailedConjugationPair[] nounConjugationGroups = null;
 
             List<NounRootBase> rootBaseList = new ArrayList<>();
             Collections.addAll(rootBaseList, nounRootBases);
@@ -240,7 +211,7 @@ public class ConjugationBuilder {
             while (fromIndex < rootBaseList.size()) {
                 final List<NounRootBase> subList = rootBaseList.subList(fromIndex, toIndex);
 
-                final CompletableFuture<NounDetailedConjugationPair> nounDetailedConjugationPair =
+                final NounDetailedConjugationPair nounDetailedConjugationPair =
                         createNounDetailedConjugationPair(outputFormat, ruleProcessor, rootLetters, sarfTermType, subList.get(1),
                                 sarfTermType, subList.get(0));
 
