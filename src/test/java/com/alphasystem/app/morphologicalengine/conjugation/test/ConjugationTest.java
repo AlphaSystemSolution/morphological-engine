@@ -1,19 +1,5 @@
 package com.alphasystem.app.morphologicalengine.conjugation.test;
 
-import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilder;
-import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationRoots;
-import com.alphasystem.app.morphologicalengine.conjugation.model.*;
-import com.alphasystem.morphologicalengine.model.*;
-import com.alphasystem.morphologicalengine.model.abbrvconj.ActiveLine;
-import com.alphasystem.morphologicalengine.model.abbrvconj.AdverbLine;
-import com.alphasystem.morphologicalengine.model.abbrvconj.ImperativeAndForbiddingLine;
-import com.alphasystem.morphologicalengine.model.abbrvconj.PassiveLine;
-import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineConfiguration;
-import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory;
-import com.alphasystem.arabic.model.NamedTemplate;
-import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
-import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
-import com.alphasystem.util.AppUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.testng.Assert;
@@ -21,9 +7,46 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilder;
+import com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationRoots;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounOfPlaceAndTimeFactory;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
+import com.alphasystem.app.morphologicalengine.conjugation.model.OutputFormat;
+import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineConfiguration;
+import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory;
+import com.alphasystem.arabic.model.NamedTemplate;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+import com.alphasystem.morphologicalengine.model.AbbreviatedConjugation;
+import com.alphasystem.morphologicalengine.model.ConjugationGroup;
+import com.alphasystem.morphologicalengine.model.ConjugationHeader;
+import com.alphasystem.morphologicalengine.model.ConjugationTuple;
+import com.alphasystem.morphologicalengine.model.DetailedConjugation;
+import com.alphasystem.morphologicalengine.model.MorphologicalChart;
+import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
+import com.alphasystem.morphologicalengine.model.NounDetailedConjugationPair;
+import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;
+import com.alphasystem.morphologicalengine.model.VerbDetailedConjugationPair;
+import com.alphasystem.morphologicalengine.model.abbrvconj.ActiveLine;
+import com.alphasystem.morphologicalengine.model.abbrvconj.AdverbLine;
+import com.alphasystem.morphologicalengine.model.abbrvconj.ImperativeAndForbiddingLine;
+import com.alphasystem.morphologicalengine.model.abbrvconj.PassiveLine;
+import com.alphasystem.util.AppUtil;
+
 import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationHelper.getConjugationRoots;
 import static com.alphasystem.app.morphologicalengine.conjugation.model.VerbalNounFactory.getByVerbalNoun;
-import static com.alphasystem.arabic.model.ArabicLetterType.*;
+import static com.alphasystem.arabic.model.ArabicLetterType.DDAD;
+import static com.alphasystem.arabic.model.ArabicLetterType.HAMZA;
+import static com.alphasystem.arabic.model.ArabicLetterType.KAF;
+import static com.alphasystem.arabic.model.ArabicLetterType.LAM;
+import static com.alphasystem.arabic.model.ArabicLetterType.MEEM;
+import static com.alphasystem.arabic.model.ArabicLetterType.NOON;
+import static com.alphasystem.arabic.model.ArabicLetterType.QAF;
+import static com.alphasystem.arabic.model.ArabicLetterType.RA;
+import static com.alphasystem.arabic.model.ArabicLetterType.SAD;
+import static com.alphasystem.arabic.model.ArabicLetterType.SEEN;
+import static com.alphasystem.arabic.model.ArabicLetterType.WAW;
+import static com.alphasystem.arabic.model.ArabicLetterType.ZAIN;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_IV_TEMPLATE;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_IX_TEMPLATE;
 import static com.alphasystem.arabic.model.NamedTemplate.FORM_I_CATEGORY_A_GROUP_U_TEMPLATE;
@@ -34,7 +57,7 @@ import static java.lang.String.format;
  * @author sali
  */
 @ContextConfiguration(classes = {MorphologicalEngineConfiguration.class})
-public class ConjugationTest extends CommonTest {
+public class ConjugationTest extends ConjugationCommon {
 
     private static final String SARF_TERM_PATTERN = "3+|%s .%s+| 3+|%s %s";
     private static final NounRootBase[] FORM_I_ADVERBS = new NounRootBase[]{NounOfPlaceAndTimeFactory.NOUN_OF_PLACE_AND_TIME_V1,
@@ -97,27 +120,6 @@ public class ConjugationTest extends CommonTest {
         lines.add(getEmptyRow(4));
         lines.add(ASCII_DOC_TABLE_DECELERATION);
     }
-
-    private void addHeader(ConjugationHeader header) {
-        if (header == null) {
-            return;
-        }
-        final String rootLettersAndTranslation = addRootLettersAndTranslation(header.getRootLetters(), header.getTranslation());
-        final String headerLabels = addHeaderLabels(header);
-        lines.add(format("2+|%s 2+>.^|%s", rootLettersAndTranslation, headerLabels));
-    }
-
-    private String addRootLettersAndTranslation(RootLetters rootLetters, String translation) {
-        String translationValue = (translation == null) ? "" : format("[small]#(%s)#", translation);
-        return format("[arabicHeading1]#%s#%s%s%s", rootLetters.toLabel(), AppUtil.NEW_LINE, AppUtil.NEW_LINE, translationValue);
-    }
-
-    private String addHeaderLabels(ConjugationHeader header) {
-        return format("%s%s#%s%s%s%s#%s%s%s%s#", ARABIC_NORMAL_STYLE_START, header.getTypeLabel1(), AppUtil.NEW_LINE,
-                AppUtil.NEW_LINE, ARABIC_NORMAL_STYLE_START, header.getTypeLabel2(), AppUtil.NEW_LINE,
-                AppUtil.NEW_LINE, ARABIC_NORMAL_STYLE_START, header.getTypeLabel3());
-    }
-
 
     private void addActiveLine(ActiveLine activeLine) {
         lines.add(getColumn(activeLine.getActiveParticipleValue()));

@@ -3,11 +3,13 @@
  */
 package com.alphasystem.app.sarfengine.test;
 
+import org.testng.annotations.Factory;
+
+import com.alphasystem.app.morphologicalengine.conjugation.test.AbbreviatedConjugationBuilderTest;
 import com.alphasystem.app.morphologicalengine.conjugation.test.ConjugationTest;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.test.NounTransformerTest;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.test.TransformerTest;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformerTest;
-import org.testng.annotations.Factory;
 
 /**
  * @author sali
@@ -23,6 +25,7 @@ public class SarfEngineTestFactory {
                 new NounTransformerTest(),
                 new VerbTransformerTest(),
                 new TransformerTest(),
+                new AbbreviatedConjugationBuilderTest(),
                 new ConjugationTest(),
                 new PatternHelperTest()
         };
