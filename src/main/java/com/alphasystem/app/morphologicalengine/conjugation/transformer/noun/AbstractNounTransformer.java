@@ -4,6 +4,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.OutputFormat;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.AbstractTransformer;
 import com.alphasystem.arabic.model.ArabicLetterType;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.morphologicalengine.model.NounConjugation;
@@ -52,6 +53,13 @@ public abstract class AbstractNounTransformer extends AbstractTransformer<NounCo
         final RootWord genitive = processRules(ruleProcessor, doGenitive(baseWord));
         return new NounConjugation(toStringValue(nominative, outputFormat), toStringValue(accusative, outputFormat),
                 toStringValue(genitive, outputFormat));
+    }
+
+    @Override
+    public NounConjugation doTransform(RuleProcessor ruleProcessor, RootWord rootWord, SarfTermType sarfTermType,
+                                       OutputFormat outputFormat, RootLetters rootLetters) {
+        return doTransform(ruleProcessor, rootWord, sarfTermType, outputFormat, rootLetters.getFirstRadical(),
+                rootLetters.getSecondRadical(), rootLetters.getThirdRadical(), rootLetters.getFourthRadical());
     }
 
     protected abstract RootWord doNominative(RootWord rootWord);
