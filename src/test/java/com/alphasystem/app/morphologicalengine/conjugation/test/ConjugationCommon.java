@@ -62,6 +62,7 @@ public class ConjugationCommon extends CommonTest {
     }
 
     void printAbbreviatedConjugation(AbbreviatedConjugation abbreviatedConjugation) {
+        lines.add(format("== [arabicHeading1]#%s#", abbreviatedConjugation.getConjugationHeader().getTitle()));
         lines.add("[cols=\"^.^25,^.^25,^.^25,^.^25\"]");
         lines.add(ASCII_DOC_TABLE_DECELERATION);
         addHeader(abbreviatedConjugation.getConjugationHeader());

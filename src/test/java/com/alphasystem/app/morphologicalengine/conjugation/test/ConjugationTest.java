@@ -17,9 +17,7 @@ import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
-import com.alphasystem.morphologicalengine.model.AbbreviatedConjugation;
 import com.alphasystem.morphologicalengine.model.ConjugationGroup;
-import com.alphasystem.morphologicalengine.model.ConjugationHeader;
 import com.alphasystem.morphologicalengine.model.ConjugationTuple;
 import com.alphasystem.morphologicalengine.model.DetailedConjugation;
 import com.alphasystem.morphologicalengine.model.MorphologicalChart;
@@ -27,10 +25,6 @@ import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
 import com.alphasystem.morphologicalengine.model.NounDetailedConjugationPair;
 import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;
 import com.alphasystem.morphologicalengine.model.VerbDetailedConjugationPair;
-import com.alphasystem.morphologicalengine.model.abbrvconj.ActiveLine;
-import com.alphasystem.morphologicalengine.model.abbrvconj.AdverbLine;
-import com.alphasystem.morphologicalengine.model.abbrvconj.ImperativeAndForbiddingLine;
-import com.alphasystem.morphologicalengine.model.abbrvconj.PassiveLine;
 import com.alphasystem.util.AppUtil;
 
 import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationHelper.getConjugationRoots;
@@ -97,56 +91,8 @@ public class ConjugationTest extends ConjugationCommon {
     }
 
     private void printMorphologicalChart(MorphologicalChart chart) {
-        createHeading(chart.header());
-        createAbbreviatedConjugationChart(chart.getAbbreviatedConjugation(), chart.header());
+        printAbbreviatedConjugation(chart.getAbbreviatedConjugation());
         createDetailedConjugationChart(chart.getDetailedConjugation());
-    }
-
-    private void createHeading(ConjugationHeader header) {
-        if (header == null) {
-            return;
-        }
-        lines.add(format("== [arabicHeading1]#%s#", header.getTitle()));
-    }
-
-    private void createAbbreviatedConjugationChart(AbbreviatedConjugation abbreviatedConjugation, ConjugationHeader header) {
-        lines.add("[cols=\"^.^25,^.^25,^.^25,^.^25\"]");
-        lines.add(ASCII_DOC_TABLE_DECELERATION);
-        addHeader(header);
-        addActiveLine(abbreviatedConjugation.getActiveLine());
-        addPassiveLine(abbreviatedConjugation.getPassiveLine());
-        addImperativeAndForbiddingLine(abbreviatedConjugation.getImperativeAndForbiddingLine());
-        addAdverbLine(abbreviatedConjugation.getAdverbLine());
-        lines.add(getEmptyRow(4));
-        lines.add(ASCII_DOC_TABLE_DECELERATION);
-    }
-
-    private void addActiveLine(ActiveLine activeLine) {
-        lines.add(getColumn(activeLine.getActiveParticipleValue()));
-        lines.add(getColumn(activeLine.getVerbalNoun()));
-        lines.add(getColumn(activeLine.getPresentTense()));
-        lines.add(getColumn(activeLine.getPastTense()));
-    }
-
-    private void addPassiveLine(PassiveLine passiveLine) {
-        if (passiveLine == null) {
-            return;
-        }
-        lines.add(getColumn(passiveLine.getPassiveParticipleValue()));
-        lines.add(getColumn(passiveLine.getVerbalNoun()));
-        lines.add(getColumn(passiveLine.getPresentPassiveTense()));
-        lines.add(getColumn(passiveLine.getPastPassiveTense()));
-    }
-
-    private void addImperativeAndForbiddingLine(ImperativeAndForbiddingLine imperativeAndForbiddingLine) {
-        lines.add(getColumn(2, imperativeAndForbiddingLine.getForbidding()));
-        lines.add(getColumn(2, imperativeAndForbiddingLine.getImperative()));
-    }
-
-    private void addAdverbLine(AdverbLine adverbLine) {
-        if (adverbLine != null) {
-            lines.add(getColumn(4, adverbLine.getAdverb()));
-        }
     }
 
     private void createDetailedConjugationChart(DetailedConjugation detailedConjugation) {

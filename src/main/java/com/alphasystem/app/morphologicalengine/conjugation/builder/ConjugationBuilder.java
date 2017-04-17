@@ -1,5 +1,14 @@
 package com.alphasystem.app.morphologicalengine.conjugation.builder;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.model.OutputFormat;
 import com.alphasystem.app.morphologicalengine.conjugation.model.RootBase;
@@ -18,26 +27,23 @@ import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
 import com.alphasystem.morphologicalengine.model.NounDetailedConjugationPair;
 import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;
 import com.alphasystem.morphologicalengine.model.VerbDetailedConjugationPair;
-import org.apache.commons.lang3.ArrayUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilderHelper.applyImperativeAndForbiddingGroup;
-import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilderHelper.applyMasculineAndFeminineActiveParticipleGroup;
-import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilderHelper.applyMasculineAndFemininePassiveParticipleGroup;
-import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilderHelper.applyNounOfPlaceAndTimeGroup;
-import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilderHelper.applyPastAndPresentActiveTenseGroup;
-import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilderHelper.applyPastAndPresentPassiveTenseGroup;
-import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilderHelper.applyVerbalNounGroup;
 import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorType.Type.RULE_ENGINE;
 import static com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory.getNounTransformerFactory;
 import static com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory.getRuleProcessor;
 import static com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory.getVerbTransformerFactory;
-import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.*;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.ACTIVE_PARTICIPLE_FEMININE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.ACTIVE_PARTICIPLE_MASCULINE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.FORBIDDING;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.IMPERATIVE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.NOUN_OF_PLACE_AND_TIME;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PASSIVE_PARTICIPLE_FEMININE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PASSIVE_PARTICIPLE_MASCULINE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PAST_PASSIVE_TENSE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PAST_TENSE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_PASSIVE_TENSE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_TENSE;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.VERBAL_NOUN;
 
 /**
  * @author sali
@@ -47,11 +53,19 @@ public class ConjugationBuilder {
     private static final int NUM_OF_COLUMNS = 2;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    private static void checkFourthRadical(RootLetters rootLetters) {
+    static void checkFourthRadical(RootLetters rootLetters) {
         if (rootLetters.hasFourthRadical()) {
             throw new RuntimeException("Fourth radical has not been implemented yet.");
         }
     }
+
+    private final AbbreviatedConjugationBuilder abbreviatedConjugationBuilder;
+
+    @Autowired
+    public ConjugationBuilder(AbbreviatedConjugationBuilder abbreviatedConjugationBuilder) {
+        this.abbreviatedConjugationBuilder = abbreviatedConjugationBuilder;
+    }
+
 
     public MorphologicalChart doConjugation(ConjugationRoots conjugationRoots) {
         return doConjugation(conjugationRoots, OutputFormat.UNICODE);
@@ -68,34 +82,30 @@ public class ConjugationBuilder {
 
         final boolean removePassiveLine = conjugationConfiguration.isRemovePassiveLine() || (conjugationRoots.getPastPassiveTense() == null);
 
-        AbbreviatedConjugation abbreviatedConjugation = new AbbreviatedConjugation();
         DetailedConjugation detailedConjugation = new DetailedConjugation();
 
         final VerbDetailedConjugationPair pastAndPresentActiveTenseGroup =
                 createVerbDetailedConjugationPair(outputFormat, ruleProcessor, rootLetters, PRESENT_TENSE,
                         conjugationRoots.getPresentTense(), PAST_TENSE, conjugationRoots.getPastTense());
-        applyPastAndPresentActiveTenseGroup(pastAndPresentActiveTenseGroup, abbreviatedConjugation,
-                detailedConjugation, conjugationRoots, outputFormat);
+        detailedConjugation.setActiveTensePair(pastAndPresentActiveTenseGroup);
 
         final NounDetailedConjugationPair masculineAndFeminineActiveParticiplePair =
                 createNounDetailedConjugationPair(outputFormat, ruleProcessor, rootLetters, ACTIVE_PARTICIPLE_FEMININE,
                         conjugationRoots.getActiveParticipleFeminine(), ACTIVE_PARTICIPLE_MASCULINE,
                         conjugationRoots.getActiveParticipleMasculine());
-        applyMasculineAndFeminineActiveParticipleGroup(masculineAndFeminineActiveParticiplePair, abbreviatedConjugation,
-                detailedConjugation, outputFormat);
+        detailedConjugation.setActiveParticiplePair(masculineAndFeminineActiveParticiplePair);
 
         final VerbDetailedConjugationPair imperativeAndForbiddingGroup =
                 createVerbDetailedConjugationPair(outputFormat, ruleProcessor, rootLetters, FORBIDDING,
                         conjugationRoots.getForbidding(), IMPERATIVE, conjugationRoots.getImperative());
-        applyImperativeAndForbiddingGroup(imperativeAndForbiddingGroup, abbreviatedConjugation, detailedConjugation,
-                outputFormat);
+        detailedConjugation.setImperativeAndForbiddingPair(imperativeAndForbiddingGroup);
 
         final NounDetailedConjugationPair[] verbalNounConjugationFutureGroups =
                 getNounConjugationGroups(VERBAL_NOUN, outputFormat, ruleProcessor, rootLetters, conjugationRoots.getVerbalNouns());
         if (!ArrayUtils.isEmpty(verbalNounConjugationFutureGroups)) {
             for (NounDetailedConjugationPair nounDetailedConjugationPair : verbalNounConjugationFutureGroups) {
                 if (nounDetailedConjugationPair != null) {
-                    applyVerbalNounGroup(nounDetailedConjugationPair, abbreviatedConjugation, detailedConjugation, outputFormat);
+                    detailedConjugation.verbalNounPairs(nounDetailedConjugationPair);
                 }
             }
         }
@@ -106,8 +116,7 @@ public class ConjugationBuilder {
         if (!ArrayUtils.isEmpty(nounOfPlaceAndTimeConjugationFutureGroups)) {
             for (NounDetailedConjugationPair nounDetailedConjugationPair : nounOfPlaceAndTimeConjugationFutureGroups) {
                 if (nounDetailedConjugationPair != null) {
-                    applyNounOfPlaceAndTimeGroup(nounDetailedConjugationPair, abbreviatedConjugation,
-                            detailedConjugation, outputFormat);
+                    detailedConjugation.adverbPairs(nounDetailedConjugationPair);
                 }
             }
         }
@@ -117,16 +126,17 @@ public class ConjugationBuilder {
                     createVerbDetailedConjugationPair(outputFormat, ruleProcessor, rootLetters, PRESENT_PASSIVE_TENSE,
                             conjugationRoots.getPresentPassiveTense(), PAST_PASSIVE_TENSE,
                             conjugationRoots.getPastPassiveTense());
-            applyPastAndPresentPassiveTenseGroup(pastAndPresentPassiveTenseGroup, abbreviatedConjugation, detailedConjugation);
+            detailedConjugation.setPassiveTensePair(pastAndPresentPassiveTenseGroup);
 
             final NounDetailedConjugationPair masculineAndFemininePassiveParticipleGroup =
                     createNounDetailedConjugationPair(outputFormat, ruleProcessor, rootLetters,
                             PASSIVE_PARTICIPLE_FEMININE, conjugationRoots.getPassiveParticipleFeminine(),
                             PASSIVE_PARTICIPLE_MASCULINE, conjugationRoots.getPassiveParticipleMasculine());
-            applyMasculineAndFemininePassiveParticipleGroup(masculineAndFemininePassiveParticipleGroup, abbreviatedConjugation,
-                    detailedConjugation, outputFormat);
+            detailedConjugation.setPassiveParticiplePair(masculineAndFemininePassiveParticipleGroup);
         }
 
+        AbbreviatedConjugation abbreviatedConjugation = abbreviatedConjugationBuilder.doAbbreviatedConjugation(
+                conjugationRoots, outputFormat);
         return new MorphologicalChart(abbreviatedConjugation, detailedConjugation);
     }
 

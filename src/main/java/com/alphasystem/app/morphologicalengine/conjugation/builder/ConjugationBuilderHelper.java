@@ -26,18 +26,12 @@ import com.alphasystem.arabic.model.WeakVerbType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
-import com.alphasystem.morphologicalengine.model.AbbreviatedConjugation;
 import com.alphasystem.morphologicalengine.model.ConjugationHeader;
-import com.alphasystem.morphologicalengine.model.DetailedConjugation;
 import com.alphasystem.morphologicalengine.model.NounConjugation;
 import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
 import com.alphasystem.morphologicalengine.model.NounDetailedConjugationPair;
 import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;
 import com.alphasystem.morphologicalengine.model.VerbDetailedConjugationPair;
-import com.alphasystem.morphologicalengine.model.abbrvconj.ActiveLine;
-import com.alphasystem.morphologicalengine.model.abbrvconj.AdverbLine;
-import com.alphasystem.morphologicalengine.model.abbrvconj.ImperativeAndForbiddingLine;
-import com.alphasystem.morphologicalengine.model.abbrvconj.PassiveLine;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.AIN;
 import static com.alphasystem.arabic.model.ArabicLetterType.ALIF;
@@ -68,145 +62,6 @@ final class ConjugationBuilderHelper {
     private static final ArabicWord FORBIDDING_PREFIX = getWord(WAW, NOON, HA, YA, ArabicLetterType.SPACE, AIN, NOON, HA);
     private static final ArabicWord NOUN_OF_PLACE_AND_TIME_PREFIX = getWord(WAW, ALIF, LAM, DTHA, RA, FA, ArabicLetterType.SPACE, MEEM,
             NOON, HA);
-
-    static Void applyPastAndPresentActiveTenseGroup(VerbDetailedConjugationPair verbDetailedConjugationPair,
-                                                    AbbreviatedConjugation abbreviatedConjugation,
-                                                    DetailedConjugation detailedConjugation,
-                                                    ConjugationRoots conjugationRoots, OutputFormat outputFormat) {
-        ActiveLine activeLine = abbreviatedConjugation.getActiveLine();
-        if (activeLine == null) {
-            activeLine = new ActiveLine();
-            abbreviatedConjugation.setActiveLine(activeLine);
-        }
-        final String pastTenseRoot = verbDetailedConjugationPair.getRightSideConjugations().defaultValue();
-        final String presentTenseRoot = verbDetailedConjugationPair.getLeftSideConjugations().defaultValue();
-        activeLine.pastTense(pastTenseRoot).presentTense(presentTenseRoot);
-        abbreviatedConjugation.setConjugationHeader(createConjugationHeader(conjugationRoots, pastTenseRoot,
-                presentTenseRoot, outputFormat));
-
-        detailedConjugation.setActiveTensePair(verbDetailedConjugationPair);
-        return null;
-    }
-
-    static Void applyMasculineAndFeminineActiveParticipleGroup(NounDetailedConjugationPair nounDetailedConjugationPair,
-                                                               AbbreviatedConjugation abbreviatedConjugation,
-                                                               DetailedConjugation detailedConjugation,
-                                                               OutputFormat outputFormat) {
-        ActiveLine activeLine = abbreviatedConjugation.getActiveLine();
-        if (activeLine == null) {
-            activeLine = new ActiveLine();
-            abbreviatedConjugation.setActiveLine(activeLine);
-        }
-        final String activeParticipleRoot = nounDetailedConjugationPair.getRightSideConjugations().defaultValue();
-        final String activeParticipleValue = toDefaultStringValue(PARTICIPLE_PREFIX, outputFormat, activeParticipleRoot);
-        activeLine.activeParticipleMasculine(activeParticipleRoot).activeParticipleValue(activeParticipleValue);
-
-        detailedConjugation.setActiveParticiplePair(nounDetailedConjugationPair);
-        return null;
-    }
-
-    static Void applyImperativeAndForbiddingGroup(VerbDetailedConjugationPair verbDetailedConjugationPair,
-                                                  AbbreviatedConjugation abbreviatedConjugation,
-                                                  DetailedConjugation detailedConjugation,
-                                                  OutputFormat outputFormat) {
-        final String imperative = verbDetailedConjugationPair.getRightSideConjugations().defaultValue();
-        final String forbidding = verbDetailedConjugationPair.getLeftSideConjugations().defaultValue();
-        final ImperativeAndForbiddingLine imperativeAndForbiddingLine = new ImperativeAndForbiddingLine()
-                .imperative(imperative).forbidding(forbidding)
-                .imperativeWithPrefix(toDefaultStringValue(COMMAND_PREFIX, outputFormat, imperative))
-                .forbiddingWithPrefix(toDefaultStringValue(FORBIDDING_PREFIX, outputFormat, forbidding));
-        abbreviatedConjugation.setImperativeAndForbiddingLine(imperativeAndForbiddingLine);
-        detailedConjugation.setImperativeAndForbiddingPair(verbDetailedConjugationPair);
-        return null;
-    }
-
-    static Void applyPastAndPresentPassiveTenseGroup(VerbDetailedConjugationPair verbDetailedConjugationPair,
-                                                     AbbreviatedConjugation abbreviatedConjugation,
-                                                     DetailedConjugation detailedConjugation) {
-        PassiveLine passiveLine = abbreviatedConjugation.getPassiveLine();
-        if (passiveLine == null) {
-            passiveLine = new PassiveLine();
-            abbreviatedConjugation.setPassiveLine(passiveLine);
-        }
-        passiveLine.pastPassiveTense(verbDetailedConjugationPair.getRightSideConjugations().defaultValue())
-                .presentPassiveTense(verbDetailedConjugationPair.getLeftSideConjugations().defaultValue());
-        detailedConjugation.setPassiveTensePair(verbDetailedConjugationPair);
-        return null;
-    }
-
-    static Void applyMasculineAndFemininePassiveParticipleGroup(NounDetailedConjugationPair nounDetailedConjugationPair,
-                                                                AbbreviatedConjugation abbreviatedConjugation,
-                                                                DetailedConjugation detailedConjugation,
-                                                                OutputFormat outputFormat) {
-        PassiveLine passiveLine = abbreviatedConjugation.getPassiveLine();
-        if (passiveLine == null) {
-            passiveLine = new PassiveLine();
-            abbreviatedConjugation.setPassiveLine(passiveLine);
-        }
-        final String passiveParticipleRoot = nounDetailedConjugationPair.getRightSideConjugations().defaultValue();
-        passiveLine.passiveParticipleMasculine(passiveParticipleRoot)
-                .passiveParticipleValue(toDefaultStringValue(PARTICIPLE_PREFIX, outputFormat, passiveParticipleRoot));
-
-        detailedConjugation.setPassiveParticiplePair(nounDetailedConjugationPair);
-        return null;
-    }
-
-    static Void applyVerbalNounGroup(NounDetailedConjugationPair nounDetailedConjugationPair,
-                                     AbbreviatedConjugation abbreviatedConjugation,
-                                     DetailedConjugation detailedConjugation, OutputFormat outputFormat) {
-        ActiveLine activeLine = abbreviatedConjugation.getActiveLine();
-        if (activeLine == null) {
-            activeLine = new ActiveLine();
-            abbreviatedConjugation.setActiveLine(activeLine);
-        }
-        PassiveLine passiveLine = abbreviatedConjugation.getPassiveLine();
-        if (passiveLine == null) {
-            passiveLine = new PassiveLine();
-            abbreviatedConjugation.setPassiveLine(passiveLine);
-        }
-
-        final NounConjugationGroup leftSideConjugations = nounDetailedConjugationPair.getLeftSideConjugations();
-        final NounConjugationGroup rightSideConjugations = nounDetailedConjugationPair.getRightSideConjugations();
-        String[] verbalNouns = new String[0];
-        if (leftSideConjugations != null) {
-            verbalNouns = ArrayUtils.addAll(verbalNouns, leftSideConjugations.defaultValue());
-        }
-        if (rightSideConjugations != null) {
-            verbalNouns = ArrayUtils.addAll(verbalNouns, rightSideConjugations.defaultValue());
-        }
-        activeLine.verbalNouns(verbalNouns);
-        final String verbalNoun = toDefaultStringValue(null, outputFormat, activeLine.getVerbalNouns());
-        activeLine.verbalNoun(verbalNoun);
-        passiveLine.verbalNouns(verbalNouns).verbalNoun(verbalNoun);
-
-        detailedConjugation.verbalNounPairs(nounDetailedConjugationPair);
-        return null;
-    }
-
-    static Void applyNounOfPlaceAndTimeGroup(NounDetailedConjugationPair nounDetailedConjugationPair,
-                                             AbbreviatedConjugation abbreviatedConjugation,
-                                             DetailedConjugation detailedConjugation, OutputFormat outputFormat) {
-
-        AdverbLine adverbLine = abbreviatedConjugation.getAdverbLine();
-        if (adverbLine == null) {
-            adverbLine = new AdverbLine();
-            abbreviatedConjugation.setAdverbLine(adverbLine);
-        }
-        final NounConjugationGroup leftSideConjugations = nounDetailedConjugationPair.getLeftSideConjugations();
-        final NounConjugationGroup rightSideConjugations = nounDetailedConjugationPair.getRightSideConjugations();
-        String[] adverbs = new String[0];
-        if (leftSideConjugations != null) {
-            adverbs = ArrayUtils.addAll(adverbs, leftSideConjugations.defaultValue());
-        }
-        if (rightSideConjugations != null) {
-            adverbs = ArrayUtils.addAll(adverbs, rightSideConjugations.defaultValue());
-        }
-        adverbLine.adverbs(adverbs).adverb(toDefaultStringValue(NOUN_OF_PLACE_AND_TIME_PREFIX, outputFormat,
-                adverbLine.getAdverbs()));
-
-        detailedConjugation.adverbPairs(nounDetailedConjugationPair);
-        return null;
-    }
 
     static ConjugationHeader createConjugationHeader(ConjugationRoots conjugationRoots, String pastTenseRoot,
                                                      String presentTenseRoot,
