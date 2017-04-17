@@ -13,4 +13,9 @@ public class BuilderConfiguration {
     ConjugationBuilder formBuilder(){
         return new ConjugationBuilder();
     }
+
+    @Bean
+    AbbreviatedConjugationBuilder abbreviatedConjugationBuilder(){
+        return new AbbreviatedConjugationBuilder();
+    }
 }

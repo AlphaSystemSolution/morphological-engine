@@ -1,8 +1,20 @@
 package com.alphasystem.app.morphologicalengine.conjugation.builder;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alphasystem.app.morphologicalengine.conjugation.model.ChartMode;
+import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.model.OutputFormat;
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.model.WordStatus;
+import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
+import com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun.NounTransformerFactory;
+import com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.verb.VerbTransformerFactory;
+import com.alphasystem.app.morphologicalengine.conjugation.transformer.noun.NounTransformer;
+import com.alphasystem.app.morphologicalengine.conjugation.transformer.verb.VerbTransformer;
+import com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicLetters;
 import com.alphasystem.arabic.model.ArabicSupport;
@@ -12,10 +24,12 @@ import com.alphasystem.arabic.model.RootType;
 import com.alphasystem.arabic.model.VerbType;
 import com.alphasystem.arabic.model.WeakVerbType;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.morphologicalengine.model.AbbreviatedConjugation;
 import com.alphasystem.morphologicalengine.model.ConjugationHeader;
 import com.alphasystem.morphologicalengine.model.DetailedConjugation;
+import com.alphasystem.morphologicalengine.model.NounConjugation;
 import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
 import com.alphasystem.morphologicalengine.model.NounDetailedConjugationPair;
 import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;
@@ -24,11 +38,20 @@ import com.alphasystem.morphologicalengine.model.abbrvconj.ActiveLine;
 import com.alphasystem.morphologicalengine.model.abbrvconj.AdverbLine;
 import com.alphasystem.morphologicalengine.model.abbrvconj.ImperativeAndForbiddingLine;
 import com.alphasystem.morphologicalengine.model.abbrvconj.PassiveLine;
-import org.apache.commons.lang3.ArrayUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import static com.alphasystem.arabic.model.ArabicLetterType.*;
+import static com.alphasystem.arabic.model.ArabicLetterType.AIN;
+import static com.alphasystem.arabic.model.ArabicLetterType.ALIF;
+import static com.alphasystem.arabic.model.ArabicLetterType.ALIF_HAMZA_ABOVE;
+import static com.alphasystem.arabic.model.ArabicLetterType.DTHA;
+import static com.alphasystem.arabic.model.ArabicLetterType.FA;
+import static com.alphasystem.arabic.model.ArabicLetterType.HA;
+import static com.alphasystem.arabic.model.ArabicLetterType.LAM;
+import static com.alphasystem.arabic.model.ArabicLetterType.MEEM;
+import static com.alphasystem.arabic.model.ArabicLetterType.NOON;
+import static com.alphasystem.arabic.model.ArabicLetterType.RA;
+import static com.alphasystem.arabic.model.ArabicLetterType.WAW;
+import static com.alphasystem.arabic.model.ArabicLetterType.YA;
+import static com.alphasystem.arabic.model.ArabicLetterType.ZAIN;
 import static com.alphasystem.arabic.model.ArabicWord.getWord;
 
 /**
@@ -185,9 +208,9 @@ final class ConjugationBuilderHelper {
         return null;
     }
 
-    private static ConjugationHeader createConjugationHeader(ConjugationRoots conjugationRoots, String pastTenseRoot,
-                                                             String presentTenseRoot,
-                                                             OutputFormat outputFormat) {
+    static ConjugationHeader createConjugationHeader(ConjugationRoots conjugationRoots, String pastTenseRoot,
+                                                     String presentTenseRoot,
+                                                     OutputFormat outputFormat) {
 
         RootLetters rootLetters = conjugationRoots.getRootLetters();
         WordStatus status = new WordStatus(rootLetters);
@@ -305,6 +328,27 @@ final class ConjugationBuilderHelper {
         }
         LOGGER.debug("<<<<< Finish combining createNounDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
         return result;
+    }
+
+    static String createDefaultVerb(SarfTermType sarfTermType, VerbRootBase verbRootBase, RuleProcessor ruleProcessor,
+                                    RootLetters rootLetters, OutputFormat outputFormat) {
+        final VerbTransformerFactory factory = MorphologicalEngineFactory.getVerbTransformerFactory(verbRootBase.getType());
+        final boolean imperativeOrForbidding = SarfTermType.IMPERATIVE.equals(sarfTermType) ||
+                SarfTermType.FORBIDDING.equals(sarfTermType);
+        final VerbTransformer verbTransformer = imperativeOrForbidding ? factory.secondPersonMasculineTransformer() :
+                factory.thirdPersonMasculineTransformer();
+        return verbTransformer.doTransform(ruleProcessor, verbRootBase.getRoot().getRootWord(), sarfTermType,
+                outputFormat, rootLetters).getSingular();
+    }
+
+    static String createDefaultNoun(SarfTermType sarfTermType, NounRootBase nounRootBase, RuleProcessor ruleProcessor,
+                                    RootLetters rootLetters, OutputFormat outputFormat) {
+        final NounTransformerFactory factory = MorphologicalEngineFactory.getNounTransformerFactory(nounRootBase.getType());
+        final NounTransformer nounTransformer = factory.singularTransformer();
+        final RootWord rootWord = nounRootBase.getSingularBaseWord().getRootWord();
+        final NounConjugation nounConjugation = nounTransformer.doTransform(ruleProcessor, rootWord, sarfTermType,
+                outputFormat, rootLetters);
+        return SarfTermType.VERBAL_NOUN.equals(sarfTermType) ? nounConjugation.getAccusative() : nounConjugation.getNominative();
     }
 
     private static String getStringValue(ArabicSupport arabicSupport, OutputFormat outputFormat) {
