@@ -102,7 +102,7 @@ public class AbbreviatedConjugationBuilder {
                 rootLetters, outputFormat));
 
         abbreviatedConjugation.adverbs(createMultiValues(NOUN_OF_PLACE_AND_TIME, ruleProcessor,
-                conjugationRoots.getVerbalNouns(), rootLetters, outputFormat));
+                conjugationRoots.getAdverbs(), rootLetters, outputFormat));
 
 
         return abbreviatedConjugation;
