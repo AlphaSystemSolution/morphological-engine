@@ -1,9 +1,11 @@
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
-import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
-
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
 
 import static com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun.NounTransformerFactoryType.Type.FEMININE_SOUND_PLURAL_TRANSFORMER_FACTORY;
 import static com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun.NounTransformerFactoryType.Type.MASCULINE_BASED_FEMININE_PLURAL_TRANSFORMER_FACTORY;
@@ -88,6 +90,12 @@ public final class VerbalNounFactory {
      */
     public static NounRootBase getByVerbalNoun(VerbalNoun verbalNoun) {
         return new NounRootBase(map.get(verbalNoun));
+    }
+
+    public static NounRootBase[] getByVerbalNouns(List<VerbalNoun> verbalNouns) {
+        List<NounRootBase> nounRootBases = new ArrayList<>();
+        verbalNouns.forEach(verbalNoun -> nounRootBases.add(getByVerbalNoun(verbalNoun)));
+        return nounRootBases.toArray(new NounRootBase[nounRootBases.size()]);
     }
 
 }
