@@ -10,12 +10,17 @@ import org.springframework.context.annotation.Configuration;
 public class BuilderConfiguration {
 
     @Bean
-    ConjugationBuilder formBuilder(){
-        return new ConjugationBuilder(abbreviatedConjugationBuilder());
+    ConjugationBuilder formBuilder() {
+        return new ConjugationBuilder(abbreviatedConjugationBuilder(), detailedConjugationBuilder());
     }
 
     @Bean
-    AbbreviatedConjugationBuilder abbreviatedConjugationBuilder(){
+    AbbreviatedConjugationBuilder abbreviatedConjugationBuilder() {
         return new AbbreviatedConjugationBuilder();
+    }
+
+    @Bean
+    DetailedConjugationBuilder detailedConjugationBuilder() {
+        return new DetailedConjugationBuilder();
     }
 }

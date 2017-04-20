@@ -1,8 +1,5 @@
 package com.alphasystem.app.morphologicalengine.conjugation.builder;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.alphasystem.app.morphologicalengine.conjugation.model.ChartMode;
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.model.OutputFormat;
@@ -28,9 +25,7 @@ import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermTy
 import com.alphasystem.morphologicalengine.model.ConjugationHeader;
 import com.alphasystem.morphologicalengine.model.NounConjugation;
 import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
-import com.alphasystem.morphologicalengine.model.NounDetailedConjugationPair;
 import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;
-import com.alphasystem.morphologicalengine.model.VerbDetailedConjugationPair;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.NOON;
 import static com.alphasystem.arabic.model.ArabicLetterType.WAW;
@@ -42,7 +37,7 @@ import static com.alphasystem.arabic.model.ArabicWord.getWord;
  */
 final class ConjugationBuilderHelper {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConjugationBuilder.class);
+    // private static final Logger LOGGER = LoggerFactory.getLogger(ConjugationBuilder.class);
 
     private static final ArabicWord WEIGHT_LABEL = getWord(WAW, ZAIN, NOON);
 
@@ -127,32 +122,6 @@ final class ConjugationBuilderHelper {
         return builder.toString();
     }
 
-    static VerbDetailedConjugationPair createVerbDetailedConjugationPair(VerbConjugationGroup leftSideGroup,
-                                                                         VerbConjugationGroup rightSideGroup) {
-        SarfTermType leftTerm = (leftSideGroup == null) ? null : leftSideGroup.getTermType();
-        SarfTermType rightTerm = (rightSideGroup == null) ? null : rightSideGroup.getTermType();
-        LOGGER.debug("<<<<< Start combining VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
-        VerbDetailedConjugationPair result = null;
-        if (leftSideGroup != null || rightSideGroup != null) {
-            result = new VerbDetailedConjugationPair(leftSideGroup, rightSideGroup);
-        }
-        LOGGER.debug("<<<<< Finish combining VerbDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
-        return result;
-    }
-
-    static NounDetailedConjugationPair createNounDetailedConjugationPair(NounConjugationGroup leftSideGroup,
-                                                                         NounConjugationGroup rightSideGroup) {
-        SarfTermType leftTerm = (leftSideGroup == null) ? null : leftSideGroup.getTermType();
-        SarfTermType rightTerm = (rightSideGroup == null) ? null : rightSideGroup.getTermType();
-        LOGGER.debug("<<<<< Start combining createNounDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
-        NounDetailedConjugationPair result = null;
-        if (leftSideGroup != null || rightSideGroup != null) {
-            result = new NounDetailedConjugationPair(leftSideGroup, rightSideGroup);
-        }
-        LOGGER.debug("<<<<< Finish combining createNounDetailedConjugationPair for terms {} and {} >>>>>", leftTerm, rightTerm);
-        return result;
-    }
-
     static String createDefaultVerb(SarfTermType sarfTermType, VerbRootBase verbRootBase, RuleProcessor ruleProcessor,
                                     RootLetters rootLetters, OutputFormat outputFormat) {
         final VerbTransformerFactory factory = MorphologicalEngineFactory.getVerbTransformerFactory(verbRootBase.getType());
@@ -172,6 +141,18 @@ final class ConjugationBuilderHelper {
         final NounConjugation nounConjugation = nounTransformer.doTransform(ruleProcessor, rootWord, sarfTermType,
                 outputFormat, rootLetters);
         return SarfTermType.VERBAL_NOUN.equals(sarfTermType) ? nounConjugation.getAccusative() : nounConjugation.getNominative();
+    }
+
+    static VerbConjugationGroup createVerbConjugationGroup(SarfTermType sarfTermType, VerbRootBase verbRootBase, RuleProcessor ruleProcessor,
+                                                           RootLetters rootLetters, OutputFormat outputFormat) {
+        final VerbTransformerFactory factory = MorphologicalEngineFactory.getVerbTransformerFactory(verbRootBase.getType());
+        return factory.doConjugation(ruleProcessor, sarfTermType, outputFormat, verbRootBase, rootLetters);
+    }
+
+    static NounConjugationGroup createNounConjugationGroup(SarfTermType sarfTermType, NounRootBase nounRootBase, RuleProcessor ruleProcessor,
+                                                           RootLetters rootLetters, OutputFormat outputFormat) {
+        final NounTransformerFactory factory = MorphologicalEngineFactory.getNounTransformerFactory(nounRootBase.getType());
+        return factory.doConjugation(ruleProcessor, sarfTermType, outputFormat, nounRootBase, rootLetters);
     }
 
     private static String getStringValue(ArabicSupport arabicSupport, OutputFormat outputFormat) {
