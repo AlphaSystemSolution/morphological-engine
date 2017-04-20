@@ -5,9 +5,14 @@ import org.apache.commons.lang3.ArrayUtils;
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
+import com.alphasystem.morphologicalanalysis.wordbyword.model.support.NounStatus;
+import com.alphasystem.morphologicalanalysis.wordbyword.model.support.NumberType;
 import com.alphasystem.morphologicalengine.model.AbbreviatedConjugation;
 import com.alphasystem.morphologicalengine.model.ConjugationHeader;
-import com.alphasystem.util.AppUtil;
+import com.alphasystem.morphologicalengine.model.ConjugationTuple;
+import com.alphasystem.morphologicalengine.model.DetailedConjugation;
+import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
+import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.AIN;
 import static com.alphasystem.arabic.model.ArabicLetterType.ALIF;
@@ -22,6 +27,7 @@ import static com.alphasystem.arabic.model.ArabicLetterType.RA;
 import static com.alphasystem.arabic.model.ArabicLetterType.WAW;
 import static com.alphasystem.arabic.model.ArabicLetterType.YA;
 import static com.alphasystem.arabic.model.ArabicWord.getWord;
+import static com.alphasystem.util.AppUtil.NEW_LINE;
 import static java.lang.String.format;
 
 /**
@@ -78,7 +84,50 @@ public class ConjugationCommon extends CommonTest {
         lines.add(ASCII_DOC_TABLE_DECELERATION);
     }
 
-    void addHeader(ConjugationHeader header) {
+    void printDetailedConjugation(DetailedConjugation detailedConjugation) {
+        lines.add("[cols=\"^.^17,^.^16,^.^16,^.^2,^.^17,^.^16,^.^16\"]");
+        lines.add(ASCII_DOC_TABLE_DECELERATION);
+        printVerbConjugation(detailedConjugation.getPresentTense(), detailedConjugation.getPastTense());
+        printNounConjugation(detailedConjugation.getActiveParticipleFeminine(), detailedConjugation.getActiveParticipleMasculine());
+        printMultiNounConjugation(detailedConjugation.getVerbalNouns());
+        if (detailedConjugation.hasPassiveLine()) {
+            printVerbConjugation(detailedConjugation.getPresentPassiveTense(), detailedConjugation.getPastPassiveTense());
+            printNounConjugation(detailedConjugation.getPassiveParticipleFeminine(), detailedConjugation.getPassiveParticipleMasculine());
+        }
+        printVerbConjugation(detailedConjugation.getForbidding(), detailedConjugation.getImperative(), 6);
+        printMultiNounConjugation(detailedConjugation.getAdverbs());
+        lines.add(ASCII_DOC_TABLE_DECELERATION);
+    }
+
+    void printNounConjugation(NounConjugationGroup nounConjugationGroup) {
+        lines.add("[cols=\"^.^24,^.^24,^.^24,^.^28\"]");
+        lines.add(ASCII_DOC_TABLE_DECELERATION);
+
+        lines.add(getColumn(4, ARABIC_TABLE_CAPTION_STYLE_NAME, nounConjugationGroup.getTermType().toLabel().toHtmlCode()));
+
+        lines.add(getColumn(ARABIC_TABLE_CAPTION_STYLE_NAME, NumberType.PLURAL.toLabel().toHtmlCode()));
+        lines.add(getColumn(ARABIC_TABLE_CAPTION_STYLE_NAME, NumberType.DUAL.toLabel().toHtmlCode()));
+        lines.add(getColumn(ARABIC_TABLE_CAPTION_STYLE_NAME, NumberType.SINGULAR.toLabel().toHtmlCode()));
+        lines.add(getColumn(ARABIC_TABLE_CAPTION_STYLE_NAME, null));
+        lines.add("");
+
+        addTuple(nounConjugationGroup.getNominative(), NounStatus.NOMINATIVE.toLabel().toHtmlCode());
+        addTuple(nounConjugationGroup.getAccusative(), NounStatus.ACCUSATIVE.toLabel().toHtmlCode());
+        addTuple(nounConjugationGroup.getGenitive(), NounStatus.GENITIVE.toLabel().toHtmlCode());
+
+        lines.add(ASCII_DOC_TABLE_DECELERATION);
+        lines.add("");
+    }
+
+    private void addTuple(ConjugationTuple conjugationTuple, String type) {
+        lines.add(getColumn(conjugationTuple.getPlural()));
+        lines.add(getColumn(conjugationTuple.getDual()));
+        lines.add(getColumn(conjugationTuple.getSingular()));
+        lines.add(getColumn(ARABIC_TABLE_CAPTION_STYLE_NAME, type));
+        lines.add("");
+    }
+
+    private void addHeader(ConjugationHeader header) {
         if (header == null) {
             return;
         }
@@ -89,13 +138,13 @@ public class ConjugationCommon extends CommonTest {
 
     private String addRootLettersAndTranslation(RootLetters rootLetters, String translation) {
         String translationValue = (translation == null) ? "" : format("[small]#(%s)#", translation);
-        return format("[arabicHeading1]#%s#%s%s%s", rootLetters.toLabel().toHtmlCode(), AppUtil.NEW_LINE, AppUtil.NEW_LINE, translationValue);
+        return format("[arabicHeading1]#%s#%s%s%s", rootLetters.toLabel().toHtmlCode(), NEW_LINE, NEW_LINE, translationValue);
     }
 
     private String addHeaderLabels(ConjugationHeader header) {
-        return format("%s%s#%s%s%s%s#%s%s%s%s#", ARABIC_NORMAL_STYLE_START, header.getTypeLabel1(), AppUtil.NEW_LINE,
-                AppUtil.NEW_LINE, ARABIC_NORMAL_STYLE_START, header.getTypeLabel2(), AppUtil.NEW_LINE,
-                AppUtil.NEW_LINE, ARABIC_NORMAL_STYLE_START, header.getTypeLabel3());
+        return ARABIC_NORMAL_STYLE_START + header.getTypeLabel1() + STYLE_END + NEW_LINE + NEW_LINE
+                + ARABIC_NORMAL_STYLE_START + header.getTypeLabel2() + STYLE_END + NEW_LINE + NEW_LINE
+                + ARABIC_NORMAL_STYLE_START + header.getTypeLabel3() + STYLE_END + NEW_LINE + NEW_LINE;
     }
 
     private void addActiveLine(String pastTense, String presentTense, String activeParticiple, String[] verbalNouns) {
@@ -123,6 +172,106 @@ public class ConjugationCommon extends CommonTest {
             return;
         }
         lines.add(getValue(NOUN_OF_PLACE_AND_TIME_PREFIX.toHtmlCode(), 4, adverbs));
+    }
+
+    private void printVerbConjugation(VerbConjugationGroup lsc, VerbConjugationGroup rsc, int numOfRows) {
+        lines.add(getSarfTermTypeHeader(lsc, rsc, numOfRows));
+
+        ConjugationTuple leftTuple = lsc.getMasculineThirdPerson();
+        ConjugationTuple rightTuple = rsc.getMasculineThirdPerson();
+        if (leftTuple != null && rightTuple != null) {
+            lines.add(getRowData(leftTuple, rightTuple));
+        }
+
+        leftTuple = lsc.getFeminineThirdPerson();
+        rightTuple = rsc.getFeminineThirdPerson();
+        if (leftTuple != null && rightTuple != null) {
+            lines.add(getRowData(leftTuple, rightTuple));
+        }
+
+        leftTuple = lsc.getMasculineSecondPerson();
+        rightTuple = rsc.getMasculineSecondPerson();
+        if (leftTuple != null && rightTuple != null) {
+            lines.add(getRowData(leftTuple, rightTuple));
+        }
+
+        leftTuple = lsc.getFeminineSecondPerson();
+        rightTuple = rsc.getFeminineSecondPerson();
+        if (leftTuple != null && rightTuple != null) {
+            lines.add(getRowData(leftTuple, rightTuple));
+        }
+
+        leftTuple = lsc.getFirstPerson();
+        rightTuple = rsc.getFirstPerson();
+        if (leftTuple != null && rightTuple != null) {
+            lines.add(getRowData(leftTuple, rightTuple));
+        }
+
+        lines.add(getEmptyRow(7));
+        lines.add(NEW_LINE);
+    }
+
+    private void printVerbConjugation(VerbConjugationGroup lsc, VerbConjugationGroup rsc) {
+        printVerbConjugation(lsc, rsc, 6);
+    }
+
+    private void printNounConjugation(NounConjugationGroup lsc, NounConjugationGroup rsc) {
+        lines.add(getSarfTermTypeHeader(lsc, rsc, 4));
+
+        ConjugationTuple leftSide = (lsc == null) ? null : lsc.getNominative();
+        ConjugationTuple rightSide = (rsc == null) ? null : rsc.getNominative();
+        lines.add(getRowData(leftSide, rightSide));
+
+        leftSide = (lsc == null) ? null : lsc.getAccusative();
+        rightSide = (rsc == null) ? null : rsc.getAccusative();
+        lines.add(getRowData(leftSide, rightSide));
+
+        leftSide = (lsc == null) ? null : lsc.getGenitive();
+        rightSide = (rsc == null) ? null : rsc.getGenitive();
+        lines.add(getRowData(leftSide, rightSide));
+
+        lines.add(getEmptyRow(7));
+        lines.add(NEW_LINE);
+    }
+
+    private void printMultiNounConjugation(NounConjugationGroup[] groups) {
+        if (ArrayUtils.isEmpty(groups)) {
+            return;
+        }
+        while (groups.length % 2 != 0) {
+            groups = ArrayUtils.add(groups, null);
+        }
+        System.out.println(">>>>>>>>>>>>>>>>>>>> " + groups.length);
+        int index = 0;
+        while (true) {
+            System.out.println("|||||||||||||||| " + index);
+            final NounConjugationGroup rsc = groups[index++];
+            final NounConjugationGroup lsc = groups[index++];
+            if (lsc == null && rsc == null) {
+                continue;
+            }
+            printNounConjugation(lsc, rsc);
+            System.out.println("????????????????? " + index + " : " + lsc + " : " + rsc);
+            if (index >= groups.length) {
+                break;
+            }
+        }
+    }
+
+    private String getRowData(final ConjugationTuple leftSide, final ConjugationTuple rightSide) {
+        return format("%s%s", getColumnData(leftSide), getColumnData(rightSide));
+    }
+
+    private String getColumnData(final ConjugationTuple conjugationTuple) {
+        StringBuilder builder = new StringBuilder();
+        if (conjugationTuple == null) {
+            builder.append("|&nbsp; |&nbsp; |&nbsp; ");
+        } else {
+            builder.append(getColumn(conjugationTuple.getPlural())).append(NEW_LINE)
+                    .append(getColumn(conjugationTuple.getDual())).append(NEW_LINE)
+                    .append(getColumn(conjugationTuple.getSingular())).append(NEW_LINE);
+        }
+        return builder.toString();
     }
 
 }

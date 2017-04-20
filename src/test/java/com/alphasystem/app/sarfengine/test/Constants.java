@@ -1,12 +1,10 @@
 package com.alphasystem.app.sarfengine.test;
 
-import static com.alphasystem.util.AppUtil.NEW_LINE;
-import static java.lang.String.format;
-
 public interface Constants {
 
     String PSV = "|";
-    String ASCII_DOC_TABLE_DECELERATION = format("|===%s", NEW_LINE);
+    String ASCII_DOC_TABLE_DECELERATION = "|===";
+    String ARABIC_TABLE_CAPTION_STYLE_NAME = "arabicTableCaption";
     String ARABIC_NORMAL_STYLE_START = "[arabicNormal]#";
     String ARABIC_CAPTION_STYLE_START = "[arabicTableCaption]#";
     String STYLE_END = "#";

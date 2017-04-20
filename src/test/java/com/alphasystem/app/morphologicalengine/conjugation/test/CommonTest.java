@@ -1,17 +1,14 @@
 package com.alphasystem.app.morphologicalengine.conjugation.test;
 
 
-import com.alphasystem.app.sarfengine.test.Constants;
-import com.alphasystem.arabic.model.ArabicLetters;
-import com.alphasystem.arabic.model.ArabicWord;
-import com.alphasystem.arabic.model.HiddenNounStatus;
-import com.alphasystem.arabic.model.HiddenPronounStatus;
-import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
-import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
-import com.alphasystem.morphologicalengine.model.ConjugationTuple;
-import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
-import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;
-import com.alphasystem.util.AppUtil;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.AttributesBuilder;
 import org.asciidoctor.OptionsBuilder;
@@ -21,13 +18,18 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import com.alphasystem.app.sarfengine.test.Constants;
+import com.alphasystem.arabic.model.ArabicLetters;
+import com.alphasystem.arabic.model.ArabicWord;
+import com.alphasystem.arabic.model.HiddenNounStatus;
+import com.alphasystem.arabic.model.HiddenPronounStatus;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootWord;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
+import com.alphasystem.morphologicalengine.model.ConjugationGroup;
+import com.alphasystem.morphologicalengine.model.ConjugationTuple;
+import com.alphasystem.morphologicalengine.model.NounConjugationGroup;
+import com.alphasystem.morphologicalengine.model.VerbConjugationGroup;
+import com.alphasystem.util.AppUtil;
 
 import static com.alphasystem.arabic.model.ArabicWord.concatenateWithAnd;
 import static com.alphasystem.arabic.model.ArabicWord.concatenateWithSpace;
@@ -50,6 +52,7 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
 
     private static final Path DEST_FOLDER = Paths.get(AppUtil.USER_DIR, "build", "test-files");
     private static final Path CSS_FOLDER = Paths.get(DEST_FOLDER.toString(), "css");
+    private static final String SARF_TERM_PATTERN = "3+|%s .%s+| 3+|%s %s";
 
     static {
         if (Files.notExists(DEST_FOLDER)) {
@@ -106,18 +109,26 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
     }
 
     static String getColumn(String value) {
-        return getColumn(0, value);
+        return getColumn("arabicNormal", value);
+    }
+
+    static String getColumn(String style, String value) {
+        return getColumn(0, style, value);
     }
 
     static String getColumn(int columnSpan, String value) {
+        return getColumn(columnSpan, "arabicNormal", value);
+    }
+
+    static String getColumn(int columnSpan, String style, String value) {
         if (value == null) {
             return columnSpan <= 0 ? "|&nbsp; " : getEmptyRow(columnSpan);
         }
-        return columnSpan <= 0 ? format("|[arabicNormal]#%s#", value) : format("%s+|[arabicNormal]#%s#", columnSpan, value);
+        return columnSpan <= 0 ? format("|[%s]#%s#", style, value) : format("%s+|[%s]#%s#", columnSpan, style, value);
     }
 
     protected static String getLabel(String label) {
-        return (label == null) ? "" : format("[arabicNormal]#%s#", label);
+        return (label == null) ? HTML_SPACE : format("[arabicNormal]#%s#", label);
     }
 
     @SuppressWarnings({"unused"})
@@ -134,10 +145,16 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
         return getSarfTermTypeHeader(leftTerm, rightTerm, numOfRows, "3+|%s .%s+| 3+|%s .2+| %s");
     }
 
-    static String getSarfTermTypeHeader(SarfTermType leftTerm, SarfTermType rightTerm, int numOfRows, String format) {
+    private static String getSarfTermTypeHeader(SarfTermType leftTerm, SarfTermType rightTerm, int numOfRows, String format) {
         String leftTermCaption = format("[arabicTableCaption]#%s#", (leftTerm == null) ? HTML_SPACE : leftTerm.toLabel().toHtmlCode());
         String rightTermCaption = format("[arabicTableCaption]#%s#", (rightTerm == null) ? HTML_SPACE : rightTerm.toLabel().toHtmlCode());
         return format(format, leftTermCaption, numOfRows, rightTermCaption, NEW_LINE);
+    }
+
+    String getSarfTermTypeHeader(ConjugationGroup lsc, ConjugationGroup rsc, int numOfRows) {
+        SarfTermType leftSideTerm = (lsc == null) ? null : lsc.getTermType();
+        SarfTermType rightSideTerm = (rsc == null) ? null : rsc.getTermType();
+        return getSarfTermTypeHeader(leftSideTerm, rightSideTerm, numOfRows, SARF_TERM_PATTERN);
     }
 
     protected static String addNumberHeader(boolean emptyLeftSide) {
@@ -168,7 +185,7 @@ public class CommonTest extends AbstractTestNGSpringContextTests implements Arab
     }
 
     protected static String[] getRootWords(VerbConjugationGroup pastTenseConjugationGroup,
-                                             VerbConjugationGroup presentTenseConjugationGroup) {
+                                           VerbConjugationGroup presentTenseConjugationGroup) {
         String[] rootWords = new String[30];
 
         addRootWords(rootWords, pastTenseConjugationGroup.getMasculineThirdPerson(), 5);
