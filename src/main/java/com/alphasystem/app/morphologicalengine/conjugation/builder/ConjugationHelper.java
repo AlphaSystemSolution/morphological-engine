@@ -1,16 +1,22 @@
 package com.alphasystem.app.morphologicalengine.conjugation.builder;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.alphasystem.app.morphologicalengine.conjugation.model.Form;
 import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
+import com.alphasystem.app.morphologicalengine.conjugation.model.VerbRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.model.VerbalNounFactory;
 import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.ConjugationData;
 import com.alphasystem.morphologicalanalysis.morphology.model.MorphologicalEntry;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
+import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author sali
@@ -111,10 +117,7 @@ public final class ConjugationHelper {
         NounRootBase[] verbalNounRoots = null;
         final List<VerbalNoun> verbalNouns = conjugationData.getVerbalNouns();
         if (verbalNouns != null && !verbalNouns.isEmpty()) {
-            verbalNounRoots = new NounRootBase[verbalNouns.size()];
-            for (int i = 0; i < verbalNouns.size(); i++) {
-                verbalNounRoots[i] = new NounRootBase(VerbalNounFactory.getByVerbalNoun(verbalNouns.get(i)));
-            }
+            verbalNounRoots = VerbalNounFactory.getByVerbalNouns(verbalNouns);
         }
         final ConjugationRoots conjugationRoots = getConjugationRoots(conjugationData.getTemplate(),
                 conjugationData.getRootLetters(), conjugationData.getTranslation(), verbalNounRoots, null);
@@ -138,6 +141,70 @@ public final class ConjugationHelper {
                 morphologicalEntry.getRootLetters(), morphologicalEntry.getShortTranslation(), verbalNounRoots, null);
         conjugationRoots.setConjugationConfiguration(conjugationRoots.getConjugationConfiguration());
         return conjugationRoots;
+    }
+
+    public static VerbRootBase[] getVerbRootBases(SarfTermType sarfTermType, Form form) {
+        List<VerbRootBase> roots = new ArrayList<>();
+
+        switch (sarfTermType) {
+            case PAST_TENSE:
+                roots.add(form.getPastTense());
+                break;
+            case PRESENT_TENSE:
+                roots.add(form.getPresentTense());
+                break;
+            case PAST_PASSIVE_TENSE:
+                roots.add(form.getPastPassiveTense());
+                break;
+            case PRESENT_PASSIVE_TENSE:
+                roots.add(form.getPresentPassiveTense());
+                break;
+            case IMPERATIVE:
+                roots.add(form.getImperative());
+                break;
+            case FORBIDDING:
+                roots.add(form.getForbidding());
+                break;
+        }
+
+        return roots.toArray(new VerbRootBase[roots.size()]);
+    }
+
+    public static NounRootBase[] getNounRootBase(SarfTermType sarfTermType, Form form, VerbalNoun[] patterns) {
+        List<NounRootBase> roots = new ArrayList<>();
+        switch (sarfTermType) {
+            case VERBAL_NOUN:
+                NounRootBase[] verbalNouns;
+                if (!ArrayUtils.isEmpty(patterns)) {
+                    verbalNouns = VerbalNounFactory.getByVerbalNouns(Arrays.asList(patterns));
+                } else {
+                    verbalNouns = form.getVerbalNouns();
+                }
+                if (!ArrayUtils.isEmpty(verbalNouns)) {
+                    Collections.addAll(roots, verbalNouns);
+                }
+                break;
+            case ACTIVE_PARTICIPLE_MASCULINE:
+                roots.add(form.getActiveParticipleMasculine());
+                break;
+            case ACTIVE_PARTICIPLE_FEMININE:
+                roots.add(form.getActiveParticipleFeminine());
+                break;
+            case PASSIVE_PARTICIPLE_MASCULINE:
+                roots.add(form.getPassiveParticipleMasculine());
+                break;
+            case PASSIVE_PARTICIPLE_FEMININE:
+                roots.add(form.getPassiveParticipleFeminine());
+                break;
+            case NOUN_OF_PLACE_AND_TIME:
+                final NounRootBase[] adverbs = form.getAdverbs();
+                if (!ArrayUtils.isEmpty(adverbs)) {
+                    Collections.addAll(roots, adverbs);
+                }
+                break;
+        }
+
+        return roots.toArray(new NounRootBase[roots.size()]);
     }
 
 
