@@ -73,10 +73,10 @@ public class ConjugationCommon extends CommonTest {
         lines.add(ASCII_DOC_TABLE_DECELERATION);
         addHeader(abbreviatedConjugation.getConjugationHeader());
         addActiveLine(abbreviatedConjugation.getPastTense(), abbreviatedConjugation.getPresentTense(),
-                abbreviatedConjugation.getActiveParticiple(), abbreviatedConjugation.getVerbalNouns());
+                abbreviatedConjugation.getActiveParticipleMasculine(), abbreviatedConjugation.getVerbalNouns());
         if (abbreviatedConjugation.hasPassiveLine()) {
             addPassiveLine(abbreviatedConjugation.getPastPassiveTense(), abbreviatedConjugation.getPresentPassiveTense(),
-                    abbreviatedConjugation.getPassiveParticiple(), abbreviatedConjugation.getVerbalNouns());
+                    abbreviatedConjugation.getPassiveParticipleMasculine(), abbreviatedConjugation.getVerbalNouns());
         }
         addImperativeAndForbiddingLine(abbreviatedConjugation.getImperative(), abbreviatedConjugation.getForbidding());
         addAdverbLine(abbreviatedConjugation.getAdverbs());
