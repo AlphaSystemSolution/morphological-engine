@@ -21,10 +21,12 @@ import static com.alphasystem.app.morphologicalengine.conjugation.builder.Conjug
 import static com.alphasystem.app.morphologicalengine.conjugation.builder.ConjugationBuilderHelper.createDefaultVerb;
 import static com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessorType.Type.RULE_ENGINE;
 import static com.alphasystem.app.morphologicalengine.spring.MorphologicalEngineFactory.getRuleProcessor;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.ACTIVE_PARTICIPLE_FEMININE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.ACTIVE_PARTICIPLE_MASCULINE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.FORBIDDING;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.IMPERATIVE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.NOUN_OF_PLACE_AND_TIME;
+import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PASSIVE_PARTICIPLE_FEMININE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PASSIVE_PARTICIPLE_MASCULINE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PAST_PASSIVE_TENSE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PAST_TENSE;
@@ -71,10 +73,15 @@ public class AbbreviatedConjugationBuilder {
         abbreviatedConjugation.setConjugationHeader(ConjugationBuilderHelper.createConjugationHeader(conjugationRoots,
                 pastTense, presentTense, outputFormat));
 
-        // active participle
+        // active participle masculine
         String defaultValue = createDefaultNoun(ACTIVE_PARTICIPLE_MASCULINE, conjugationRoots.getActiveParticipleMasculine(),
                 ruleProcessor, rootLetters, outputFormat);
-        abbreviatedConjugation.activeParticiple(defaultValue);
+        abbreviatedConjugation.activeParticipleMasculine(defaultValue);
+
+        // active participle feminine
+        defaultValue = createDefaultNoun(ACTIVE_PARTICIPLE_FEMININE, conjugationRoots.getActiveParticipleFeminine(),
+                ruleProcessor, rootLetters, outputFormat);
+        abbreviatedConjugation.activeParticipleFeminine(defaultValue);
 
         // imperative
         defaultValue = createDefaultVerb(IMPERATIVE, conjugationRoots.getImperative(), ruleProcessor, rootLetters, outputFormat);
@@ -95,10 +102,15 @@ public class AbbreviatedConjugationBuilder {
                     rootLetters, outputFormat);
             abbreviatedConjugation.presentPassiveTense(defaultValue);
 
-            // passive participle
+            // passive participle masculine
             defaultValue = createDefaultNoun(PASSIVE_PARTICIPLE_MASCULINE, conjugationRoots.getPassiveParticipleMasculine(),
                     ruleProcessor, rootLetters, outputFormat);
-            abbreviatedConjugation.passiveParticiple(defaultValue);
+            abbreviatedConjugation.passiveParticipleMasculine(defaultValue);
+
+            // passive participle masculine
+            defaultValue = createDefaultNoun(PASSIVE_PARTICIPLE_FEMININE, conjugationRoots.getPassiveParticipleFeminine(),
+                    ruleProcessor, rootLetters, outputFormat);
+            abbreviatedConjugation.passiveParticipleFeminine(defaultValue);
         }
 
         // verbal nouns
