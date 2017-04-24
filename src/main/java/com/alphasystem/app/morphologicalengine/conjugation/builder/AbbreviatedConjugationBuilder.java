@@ -10,6 +10,7 @@ import com.alphasystem.app.morphologicalengine.conjugation.model.NounRootBase;
 import com.alphasystem.app.morphologicalengine.conjugation.model.OutputFormat;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleInfo;
 import com.alphasystem.app.morphologicalengine.conjugation.rule.RuleProcessor;
+import com.alphasystem.arabic.model.NamedTemplate;
 import com.alphasystem.morphologicalanalysis.morphology.model.ConjugationConfiguration;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType;
@@ -30,6 +31,7 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Sar
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_PASSIVE_TENSE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.PRESENT_TENSE;
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.SarfTermType.VERBAL_NOUN;
+import static java.lang.String.format;
 
 /**
  * @author sali
@@ -46,7 +48,8 @@ public class AbbreviatedConjugationBuilder {
         checkFourthRadical(rootLetters);
 
         final ConjugationConfiguration conjugationConfiguration = conjugationRoots.getConjugationConfiguration();
-        final RuleInfo ruleInfo = new RuleInfo(conjugationRoots.getTemplate(), rootLetters,
+        final NamedTemplate template = conjugationRoots.getTemplate();
+        final RuleInfo ruleInfo = new RuleInfo(template, rootLetters,
                 conjugationConfiguration.isSkipRuleProcessing());
         final RuleProcessor ruleProcessor = getRuleProcessor(RULE_ENGINE, ruleInfo);
 
@@ -54,6 +57,7 @@ public class AbbreviatedConjugationBuilder {
                 (conjugationRoots.getPastPassiveTense() == null);
 
         final AbbreviatedConjugation abbreviatedConjugation = new AbbreviatedConjugation();
+        abbreviatedConjugation.setId(format("%s_%s", template.name(), rootLetters.getName()));
 
         // past tense
         String pastTense = createDefaultVerb(PAST_TENSE, conjugationRoots.getPastTense(), ruleProcessor, rootLetters, outputFormat);
