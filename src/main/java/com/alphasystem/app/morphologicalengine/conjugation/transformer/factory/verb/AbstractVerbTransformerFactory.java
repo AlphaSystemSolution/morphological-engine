@@ -26,7 +26,7 @@ public abstract class AbstractVerbTransformerFactory implements VerbTransformerF
         final ArabicLetterType fourthRadical = rootLetters.getFourthRadical();
 
         VerbConjugationGroup conjugationGroup = new VerbConjugationGroup();
-
+        conjugationGroup.setId(rootBase.getId());
         conjugationGroup.setMasculineThirdPerson(doTransform(ruleProcessor, thirdPersonMasculineTransformer(), sarfTermType,
                 outputFormat, rootBase, firstRadical, secondRadical, thirdRadical, fourthRadical));
         conjugationGroup.setFeminineThirdPerson(doTransform(ruleProcessor, thirdPersonFeminineTransformer(), sarfTermType,

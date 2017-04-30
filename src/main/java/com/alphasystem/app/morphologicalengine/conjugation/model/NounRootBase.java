@@ -1,15 +1,17 @@
 package com.alphasystem.app.morphologicalengine.conjugation.model;
 
+import java.util.Objects;
+
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.noun.NounTransformerFactoryType;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.NounSupport;
-
-import java.util.Objects;
+import com.alphasystem.util.IdGenerator;
 
 /**
  * @author sali
  */
 public final class NounRootBase implements RootBase {
 
+    private final String id;
     private final NounSupport singularBaseWord;
     private final NounSupport dualBaseWord;
     private final NounSupport pluralBaseWord;
@@ -23,6 +25,7 @@ public final class NounRootBase implements RootBase {
      */
     public NounRootBase(NounRootBase src) {
         Objects.requireNonNull(src);
+        this.id = IdGenerator.nextId();
         this.type = src.getType();
         this.singularBaseWord = src.getSingularBaseWord();
         this.dualBaseWord = src.getDualBaseWord();
@@ -39,10 +42,15 @@ public final class NounRootBase implements RootBase {
 
     public NounRootBase(NounTransformerFactoryType.Type type, NounSupport singularBaseWord, NounSupport dualBaseWord,
                         NounSupport pluralBaseWord) {
+        this.id = IdGenerator.nextId();
         this.type = type;
         this.singularBaseWord = singularBaseWord;
         this.dualBaseWord = dualBaseWord;
         this.pluralBaseWord = pluralBaseWord;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public NounTransformerFactoryType.Type getType() {

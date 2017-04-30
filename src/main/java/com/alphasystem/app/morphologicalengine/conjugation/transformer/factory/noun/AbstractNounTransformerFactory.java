@@ -34,7 +34,7 @@ public abstract class AbstractNounTransformerFactory implements NounTransformerF
                 outputFormat, rootBase.getPluralBaseWord(), firstRadical, secondRadical, thirdRadical, fourthRadical);
 
         NounConjugationGroup conjugationGroup = new NounConjugationGroup();
-
+        conjugationGroup.setId(rootBase.getId());
         conjugationGroup.setNominative(new ConjugationTuple(singularConjugation.getNominative(),
                 dualConjugation.getNominative(), pluralConjugation.getNominative()));
         conjugationGroup.setAccusative(new ConjugationTuple(singularConjugation.getAccusative(),

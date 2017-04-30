@@ -2,6 +2,7 @@ package com.alphasystem.app.morphologicalengine.conjugation.model;
 
 import com.alphasystem.app.morphologicalengine.conjugation.transformer.factory.verb.VerbTransformerFactoryType;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.Verb;
+import com.alphasystem.util.IdGenerator;
 
 /**
  * @author sali
@@ -9,11 +10,17 @@ import com.alphasystem.morphologicalanalysis.morphology.model.support.Verb;
 public final class VerbRootBase implements RootBase {
 
     private final Verb root;
+    private final String id;
     private final VerbTransformerFactoryType.Type type;
 
     public VerbRootBase(VerbTransformerFactoryType.Type type, Verb root) {
+        this.id = IdGenerator.nextId();
         this.type = type;
         this.root = root;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public VerbTransformerFactoryType.Type getType() {
