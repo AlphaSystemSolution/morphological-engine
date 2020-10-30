@@ -80,7 +80,7 @@ public class DetailedConjugationBuilder {
             detailedConjugation.setPastPassiveTense(createVerbConjugationGroup(PAST_PASSIVE_TENSE,
                     conjugationRoots.getPastPassiveTense(), ruleProcessor, rootLetters, outputFormat));
             detailedConjugation.setPresentPassiveTense(createVerbConjugationGroup(PRESENT_PASSIVE_TENSE,
-                    conjugationRoots.getPastPassiveTense(), ruleProcessor, rootLetters, outputFormat));
+                    conjugationRoots.getPresentPassiveTense(), ruleProcessor, rootLetters, outputFormat));
             detailedConjugation.setPassiveParticipleMasculine(createNounConjugationGroup(PASSIVE_PARTICIPLE_MASCULINE,
                     conjugationRoots.getPassiveParticipleMasculine(), ruleProcessor, rootLetters, outputFormat));
             detailedConjugation.setPassiveParticipleFeminine(createNounConjugationGroup(PASSIVE_PARTICIPLE_FEMININE,
