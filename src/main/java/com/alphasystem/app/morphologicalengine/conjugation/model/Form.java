@@ -94,8 +94,8 @@ public enum Form {
             VerbRootBaseFactory.FORM_V_PAST_TENSE, VerbRootBaseFactory.FORM_V_PRESENT_TENSE,
             VerbRootBaseFactory.FORM_V_PAST_PASSIVE_TENSE, VerbRootBaseFactory.FORM_V_PRESENT_PASSIVE_TENSE,
             VerbRootBaseFactory.FORM_V_IMPERATIVE, VerbRootBaseFactory.FORM_V_FORBIDDING,
-            NounRootBaseFactory.FORM_V_MASCULINE_ACTIVE_PARTICIPLE,  NounRootBaseFactory.FORM_V_FEMININE_ACTIVE_PARTICIPLE,
-            NounRootBaseFactory.FORM_V_MASCULINE_PASSIVE_PARTICIPLE,  NounRootBaseFactory.FORM_V_FEMININE_PASSIVE_PARTICIPLE,
+            NounRootBaseFactory.FORM_V_MASCULINE_ACTIVE_PARTICIPLE, NounRootBaseFactory.FORM_V_FEMININE_ACTIVE_PARTICIPLE,
+            NounRootBaseFactory.FORM_V_MASCULINE_PASSIVE_PARTICIPLE, NounRootBaseFactory.FORM_V_FEMININE_PASSIVE_PARTICIPLE,
             new NounRootBase[]{getByVerbalNoun(VERBAL_NOUN_FORM_V)},
             getByNamedTemplate(NamedTemplate.FORM_V_TEMPLATE)),
 
