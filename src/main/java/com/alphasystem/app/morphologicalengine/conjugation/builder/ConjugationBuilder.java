@@ -35,18 +35,20 @@ public class ConjugationBuilder {
     }
 
 
-    public MorphologicalChart doConjugation(ConjugationRoots conjugationRoots) {
-        return doConjugation(conjugationRoots, OutputFormat.UNICODE);
+    public MorphologicalChart doConjugation(final String id, ConjugationRoots conjugationRoots) {
+        return doConjugation(id, conjugationRoots, OutputFormat.UNICODE);
     }
 
-    public MorphologicalChart doConjugation(ConjugationRoots conjugationRoots, final OutputFormat outputFormat) {
+    public MorphologicalChart doConjugation(final String id,
+                                            ConjugationRoots conjugationRoots,
+                                            final OutputFormat outputFormat) {
         RootLetters rootLetters = conjugationRoots.getRootLetters();
         checkFourthRadical(rootLetters);
 
         AbbreviatedConjugation abbreviatedConjugation = abbreviatedConjugationBuilder.doAbbreviatedConjugation(
                 conjugationRoots, outputFormat);
         DetailedConjugation detailedConjugation = detailedConjugationBuilder.doDetailedConjugation(conjugationRoots, outputFormat);
-        return new MorphologicalChart(abbreviatedConjugation, detailedConjugation);
+        return new MorphologicalChart(id, abbreviatedConjugation, detailedConjugation);
     }
 
 }
